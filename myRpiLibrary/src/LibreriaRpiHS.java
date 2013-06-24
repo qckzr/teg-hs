@@ -9,10 +9,13 @@
  */
 public class LibreriaRpiHS {
 
-    private final static int PORT = 1337;
+    private final static int PUERTO = 1337;
+    private HiloDeEscucha hiloDeEscucha;
 
 
     public LibreriaRpiHS() {
+        hiloDeEscucha = new HiloDeEscucha(PUERTO);
+        hiloDeEscucha.start();
     }
 
     public void enviarMensaje(){

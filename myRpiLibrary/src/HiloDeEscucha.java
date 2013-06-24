@@ -23,7 +23,7 @@ public class HiloDeEscucha extends Thread {
     private Boolean control = Boolean.TRUE;
     private ServerSocket serverSocket;
 
-    private HiloDeEscucha(int puerto){
+    public HiloDeEscucha(int puerto){
         try {
             serverSocket = new ServerSocket(puerto);
         } catch (IOException ex) {
