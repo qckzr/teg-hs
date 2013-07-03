@@ -1,3 +1,10 @@
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -9,18 +16,20 @@
  */
 public class Mensaje {
 
-    private String ipDestino;
-    private String ipOrigen;
-    private String texto;
+    
+    private String mensaje;
     private String fecha;
     private String hora;
 
-    public Mensaje(String ipDestino, String ipOrigen, String texto, String fecha, String hora) {
-        this.ipDestino = ipDestino;
-        this.ipOrigen = ipOrigen;
-        this.texto = texto;
-        this.fecha = fecha;
-        this.hora = hora;
+    public Mensaje(String ipOrigen,String mensaje) {
+
+        Date d = new Date();
+        DateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat hora = new SimpleDateFormat("HH:mm:ss");
+        this.fecha = fecha.format(d).toString();
+        this.hora = hora.format(d).toString();
+        this.mensaje = mensaje;
+   
     }
 
     public String getFecha() {
@@ -39,29 +48,16 @@ public class Mensaje {
         this.hora = hora;
     }
 
-    public String getIpDestino() {
-        return ipDestino;
+    public String getMensaje() {
+        return mensaje;
     }
 
-    public void setIpDestino(String ipDestino) {
-        this.ipDestino = ipDestino;
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
 
-    public String getIpOrigen() {
-        return ipOrigen;
-    }
-
-    public void setIpOrigen(String ipOrigen) {
-        this.ipOrigen = ipOrigen;
-    }
-
-    public String getTexto() {
-        return texto;
-    }
-
-    public void setTexto(String texto) {
-        this.texto = texto;
-    }
+  
+   
 
 
 
