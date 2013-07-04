@@ -1,9 +1,10 @@
+package Libreria;
 
+
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 
 /*
  * To change this template, choose Tools | Templates
@@ -14,12 +15,13 @@ import java.util.Iterator;
  *
  * @author Hector
  */
-public class Mensaje {
+public class Mensaje implements Serializable{
 
     
     private String mensaje;
     private String fecha;
     private String hora;
+    private String ipOrigen;
 
     public Mensaje(String ipOrigen,String mensaje) {
 
@@ -29,6 +31,7 @@ public class Mensaje {
         this.fecha = fecha.format(d).toString();
         this.hora = hora.format(d).toString();
         this.mensaje = mensaje;
+        this.ipOrigen = ipOrigen;
    
     }
 
@@ -54,6 +57,19 @@ public class Mensaje {
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
+    }
+
+    public String getIpOrigen() {
+        return ipOrigen;
+    }
+
+    public void setIpOrigen(String ipOrigen) {
+        this.ipOrigen = ipOrigen;
+    }
+            
+    @Override
+    public String toString(){
+        return fecha+" "+hora+"  "+ipOrigen+": "+mensaje;
     }
 
   
