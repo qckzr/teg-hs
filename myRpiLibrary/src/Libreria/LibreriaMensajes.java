@@ -44,6 +44,22 @@ public final  class LibreriaMensajes {
         }
         
     }
+    
+    public LibreriaMensajes(boolean escuchar,int puerto){
+        
+        
+        if (escuchar==true)
+            inicializarEscucha(puerto);
+        
+        ipDestino = new ArrayList<String>();
+        mensajesRecibidos = new ArrayList<Mensaje>();
+        try {
+            this.ipOrigen = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
     public EscucharMensajes getHiloDeEscucha() {
         return hiloDeEscucha;
@@ -77,10 +93,18 @@ public final  class LibreriaMensajes {
         this.mensajesRecibidos = mensajesRecibidos;
     }
     
+    public static int getPuerto(){
+        return PUERTO;
+    }
+    
     
     
     public void inicializarEscucha(){
             hiloDeEscucha = new EscucharMensajes(this,PUERTO);
+            hiloDeEscucha.start();      
+    }
+    public void inicializarEscucha(int puerto){
+            hiloDeEscucha = new EscucharMensajes(this,puerto);
             hiloDeEscucha.start();      
     }
 
@@ -115,6 +139,28 @@ public final  class LibreriaMensajes {
                 try {
                     
                     Socket socket = new Socket(ipDestino, PUERTO);
+                    ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                    oos.writeObject(m);
+                    socket.close();
+                   
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                } catch (IOException ex) {
+                    Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                }
+            
+            return true;
+
+    }
+    
+     public boolean enviarMensaje(String mensaje, String ipDestino,int puerto){
+
+            Mensaje m = new Mensaje(ipOrigen,mensaje);
+                try {
+                    
+                    Socket socket = new Socket(ipDestino, puerto);
                     ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                     oos.writeObject(m);
                     socket.close();
