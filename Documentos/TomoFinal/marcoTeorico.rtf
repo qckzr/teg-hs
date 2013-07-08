@@ -1,5 +1,185 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf390
-{\fonttbl}
+{\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\ftech\fcharset77 Symbol;\f2\froman\fcharset0 TimesNewRomanPSMT;
+\f3\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}}
 \margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qj
+
+\f0\b\fs24 \cf0 Sistemas Distribuidos:
+\b0  \
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qc
+\cf0 \
+\pard\pardeftab720\li720\fi720\ri720\sl360\slmult1\qj
+\cf0 Los sistemas distribuidos se pueden definir como \'93Aquel sistema en el que los componentes localizados en computadores conectados en red, comunican y coordinan sus acciones \'fanicamente mediante el paso de mensajes\'94 [1].  La principal raz\'f3n para la construcci\'f3n de sistemas distribuidos es compartir recursos, un recurso puede estar dirigido a hardware: Discos duros, impresoras, entre otros o a software pudiendo incluir elementos como base de datos, archivos o programas [1].\
+\
+ Otra definici\'f3n sobre sistema distribuidos es: \'91Una colecci\'f3n de computadoras independientes que dan al usuario la impresi\'f3n de constituir un \'fanico sistema coherente\'94 [2]. De estas dos definiciones se puede resaltar dos t\'e9rminos importantes: computadoras y red. Es requisito fundamental poseer m\'e1s de una computadora y una conexi\'f3n entre ellas que determinen una relaci\'f3n de intercambios de mensajes, balanceo de carga o compartimiento de recursos. Por ello, una definici\'f3n b\'e1sica es: Sistema de c\'f3mputo conectado en una red de alta velocidad [3].\
+\
+Un sistema distribuido est\'e1 constituido por dos elementos principales: La red y los nodos, la red es por donde viaja la informaci\'f3n, es el canal de comunicaci\'f3n que permite enviar los mensajes desde un computador a otro.  Un nodo es un punto de conexi\'f3n en una red, es cualquier elemento que posea una direcci\'f3n \'fanica de red como IP o MAC. En los sistemas distribuidos, un nodo puede ser un computador o un servidor.\
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qc
+\cf0 \
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qj
+\cf0 Las principales ventajas de los sistemas distribuidos son [3]:\
+\
+\pard\pardeftab720\li1080\fi-360\ri720\sl360\slmult1\qj
+\ls1\ilvl0
+\f1 \cf0 \'a5	
+\f0 Tienen una proporci\'f3n precio / desempe\'f1o mucho mayor a la de un sistema centralizado.\
+\ls1\ilvl0
+\f1 \'a5	
+\f0 Varias computadoras trabajan de manera conjunta con un mismo prop\'f3sito.\
+\ls1\ilvl0
+\f1 \'a5	
+\f0 Poseen una mayor confiabilidad, si falla una m\'e1quina el sistema puede seguir funcionando a pesar de tener una perdida, a diferencia de un sistema centralizado, d\'f3nde si falla la m\'e1quina se pierde la operatividad del sistema por completo.\
+\ls1\ilvl0
+\f1 \'a5	
+\f0 El crecimiento por incremento es m\'e1s satisfactorio, ya que al tener un sistema distribuido s\'f3lo se debe agregar nuevos nodos (procesadores) que cuando se tiene un sistema centralizado y se requiera agregar otra computadora, debido a que en esta \'faltima las aplicaciones deber\'edan reconfigurarse o reprogramarse.\
+\ls1\ilvl0
+\f1 \'a5	
+\f0 Permite balancear carga dividiendo las peticiones de los usuarios realizadas hacia el sistema logrando distribuirla en varios computadores  con la finalidad de no saturar los recursos de hardware de cada m\'e1quina.\
+\pard\pardeftab720\li1080\ri720\sl360\slmult1\qj
+\cf0 \
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qj
+\cf0 Entre las desventajas de los sistemas distribuidos se obtiene [3]:\
+\
+\pard\pardeftab720\li1080\fi-360\ri720\sl360\slmult1\qj
+\ls2\ilvl0
+\f1 \cf0 \'a5	
+\f0 Aplicaciones distribuidas: La complejidad de  desarrollar aplicaciones distribuidas es mayor a las centralizadas, debido a que deben funcionar en todos los nodos del sistema,  algunos lenguajes de programaci\'f3n son m\'e1s eficientes que otros.\
+\ls2\ilvl0
+\f1 \'a5	
+\f0 La red de comunicaci\'f3n entre los nodos del sistema se puede saturar de mucha informaci\'f3n y puede generar p\'e9rdidas de datos. Si la red falla en un nodo, este queda aislado de la comunicaci\'f3n con el sistema distribuido.\
+\ls2\ilvl0
+\f1 \'a5	
+\f0 La seguridad es desventaja en algunos casos, debido a que pueden surgir escenarios  donde los datos puedan ser vistos por otras personas sin necesidad de requerir permisos o autorizaci\'f3n espec\'edfica.\
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qj
+\cf0 \
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qj
+
+\b \cf0 Sockets \
+\
+\pard\pardeftab720\li720\fi720\ri720\sl360\slmult1\qj
+
+\b0 \cf0 Una definici\'f3n de sockets es  \'93Un punto de un enlace bidireccional entre dos aplicaciones que se encuentra en ejecuci\'f3n dentro de una red\'94 [4]. El punto o 
+\i endpoint
+\i0   es una combinaci\'f3n de direcci\'f3n IP y puerto, cada conexi\'f3n TCP est\'e1 \'fanicamente identificada por ambos elementos, de ah\'ed se puede tener m\'faltiples conexiones entre el host y el servidor.\
+El servidor ejecuta una aplicaci\'f3n en un puerto espec\'edfico y se queda en estado de escucha, esperando por las peticiones de los clientes. Al conocer la direcci\'f3n IP y el puerto por donde se encuentra escuchando el servidor, el cliente puede realizar las peticiones para conectarse; Se requiere que el cliente se identifique ante el servidor y para ello el sistema asigna un puerto de salida para lograr la comunicaci\'f3n [4].\
+\pard\pardeftab720\ri720\sl360\slmult1\qj
+\cf0 \
+\
+\
+\
+\pard\pardeftab720\ri720\sl360\slmult1\qj
+
+\f2 \cf0 \
+\pard\pardeftab720\ri720
+\cf0 \
+\pard\pardeftab720\ri720\sl360\slmult1\qj
+
+\f0 \cf0 \
+\
+\
+\
+\
+\
+\pard\pardeftab720\li720\fi720\ri720\sl360\slmult1\qj
+\cf0 \
+Si el servidor acepta la conexi\'f3n, este obtiene la direcci\'f3n y puerto del cliente y redirige el socket local a otro puerto para poder seguir escuchando por nuevas peticiones.\
+\pard\pardeftab720\ri720\sl360\slmult1\qj
+\cf0 \
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qj
+
+\f2 \cf0 \
+\pard\pardeftab720\ri720
+\cf0 \
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qj
+
+\f0 \cf0  \
+\
+\
+\
+\pard\pardeftab720\li720\fi720\ri720\sl360\slmult1\qj
+\cf0 \
+\
+\
+En el cliente, si la conexi\'f3n es aceptada, se crea el socket entre ambas partes y se puede empezar a intercambiar informaci\'f3n a trav\'e9s del canal [4].\
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qj
+\cf0 \
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qj
+
+\b \cf0 Raspberry Pi\
+\
+\pard\pardeftab720\li720\fi720\ri720\sl360\slmult1\qj
+
+\b0 \cf0 Es una computadora del tama\'f1o de un tarjeta de cr\'e9dito que permite ejecutar las tareas b\'e1sicas como navegar por internet, procesar documentos de textos, hojas de c\'e1lculos, juegos, programar, entre otros. El Raspberry Pi fue creado con la intenci\'f3n de ense\'f1ar a los ni\'f1os a programar, tiene un costo de 35 $ por lo que lo hace la computadora m\'e1s barata que se puede conseguir en el mercado permiti\'e9ndole a pa\'edses en v\'edas de desarrollo adquirir una computadora accesible a personas con bajos recursos. Existen dos modelos: A y B, el modelo B posee un procesador ARMv6 de 700 MHz, 512mb de memoria RAM, dos puertos USB 2.0, puerto Ethernet, entrada para audio, rca video y HDMI. No contienen disco duro, por lo que el sistema operativo es almacenado dentro de una memoria SD [5].  \
+\
+Entre los sistemas operativos disponibles para los Raspberries Pi se encuentra una variante de Debian llamada Raspbian que se encuentra compilado para trabajar con procesadores la versi\'f3n 6 del ARM contenido en el Raspberry Pi [6]. Otros sistemas operativos Linux que pueden utilizar son: ArchLinux y Fedora. Como lenguajes de programaci\'f3n tiene soporte principalmente para Python el cual es el recomendado por la fundaci\'f3n Raspberry para la educaci\'f3n, Perl, C y Java.\
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qj
+\cf0 \
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qj
+
+\f2 \cf0 \
+\pard\pardeftab720\ri720
+\cf0 \
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qj
+
+\f0 \cf0 \
+\
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qc
+\cf0 \
+\
+\
+\
+\
+\
+\
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qc
+
+\b\fs28 \cf0 \
+\
+\pard\pardeftab720\ri720\sl360\slmult1\qj
+
+\fs24 \cf0 \
+Agente
+\b0  \
+\pard\pardeftab720\fi720\ri720\sl360\slmult1\qj
+\cf0 Un agente es un software que realiza acciones continuas y autom\'e1ticas dentro de una computadora, se ejecutan en 
+\i background
+\i0 , por lo que  el usuario puede realizar su trabajo sin notar la presencia del agente [7]. Pueden realizar tareas dependiendo de su objetivo: recolectar informaci\'f3n, monitorear una aplicaci\'f3n o proceso, enviar datos hacia otro computador o agentes, entre otros.  \
+\pard\pardeftab720\ri720\sl360\slmult1\qj
+\cf0 \
+\pard\pardeftab720\fi720\ri720\sl360\slmult1\qj
+\cf0 La idea de desarrollar agentes es generar un software que funcione como un \'91robot\'92 que permita realizar tareas dentro del sistema sin la interrupci\'f3n del usuario. Entre los atributos que definen a un agente se tienen [8]:\
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qj
+\cf0 \
+\pard\pardeftab720\li720\fi-360\ri720\sl360\slmult1\qj
+\ls3\ilvl0
+\f1 \cf0 \'a5	
+\f0 Reactividad: El agente posee la capacidad de actuar de forma selectiva\
+\ls3\ilvl0
+\f1 \'a5	
+\f0 Autonom\'eda: Debido a que se inicia por s\'ed mismo y posee un prop\'f3sito.\
+\ls3\ilvl0
+\f1 \'a5	
+\f0 Comportamiento Colaborativo: Puede actuar con otros agentes para completar una meta en com\'fan.\
+\ls3\ilvl0
+\f1 \'a5	
+\f3 Capacidad inferencial: Puede actuar sobre tareas utilizando conocimiento previo de los objetivos generales y los m\'e9todos preferidos para lograr flexibilidad.
+\f0 \
+\ls3\ilvl0
+\f1 \'a5	
+\f3 Continuidad temporal: Persistencia de su estado durante largo periodos de tiempo.
+\f0 \
+\ls3\ilvl0
+\f1 \'a5	
+\f3 Movilidad: La capacidad de migrarlo de manera auto dirigida de un host a otro.
+\f0  \
+\pard\pardeftab720\li720\ri720\sl360\slmult1\qc
+\cf0 \
+\pard\pardeftab720\ri720\sl360\slmult1\qj
+\cf0 \
 }
