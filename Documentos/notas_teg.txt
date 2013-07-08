@@ -1,0 +1,21 @@
+El puerto de escucha para los mensajes de la librería el mismo para todos.!
+
+
+Users Histories:
+Independientes
+Negociables
+Valorables
+Estimables
+Cortas
+Deben poder ser probadas
+
+
+
+
+Colocar la tabla de instrucciones
+
+Pensar como hacer el deploy de las aplicaciones
+Cada aplicacion debera saber a quien mandarle los mensajes (El nodo de ciclo de vida debe indicarle a cada nodo que se ha agregado un nuevo nodo a cada aplicacion, 
+mediante la librería!)
+
+Varias instancias de la librer’a para saber a quien se le env’a que cosa? :)
