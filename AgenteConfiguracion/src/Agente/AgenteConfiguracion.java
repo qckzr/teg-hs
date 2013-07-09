@@ -5,9 +5,6 @@
 package Agente;
 
 import Libreria.LibreriaMensajes;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.Socket;
 
 /**
  *

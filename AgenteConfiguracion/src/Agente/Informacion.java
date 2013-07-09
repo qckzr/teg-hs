@@ -4,14 +4,9 @@
  */
 package Agente;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import Libreria.LibreriaMensajes;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 /**
  *
@@ -85,7 +80,7 @@ public class Informacion {
             int i=0; float total=0;
             while ((line = input.readLine()) != null) {
                 if (i>1)
-                    if (Float.valueOf(line)>0 && Float.valueOf(line)<80)
+                    if (Float.valueOf(line)>0)
                         total = total + Float.valueOf(line);
                 
                 i++;
@@ -138,7 +133,7 @@ public class Informacion {
                 i++;
             }
              input.close();
-             return puertos;
+             return "Puertos abiertos: \n"+puertos;
         } catch (Exception err) {
             err.printStackTrace();
         } 

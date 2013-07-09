@@ -7,9 +7,11 @@ package Agente;
 import Libreria.LibreriaMensajes;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.media.j3d.SoundException;
 
 /**
  *
@@ -17,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class Monitoreo extends Thread{
     
-    private boolean control;
+    private boolean control=true;
     private static int TIEMPO_SLEEP = 3000;
     private Informacion informacion;
     private LibreriaMensajes libreria;
@@ -64,22 +66,25 @@ public class Monitoreo extends Thread{
         
         while (control){
             try {
-                String informacionSO = informacion.usoCpu()+"\n"+
+                String informacionSO = "INFORMACION DE SO: \n"+informacion.usoCpu()+"\n"+
                         informacion.procesosActivos()+"\n"+informacion.
-                        memoriaDisponible();
-                libreria.enviarMensaje(informacionSO);
-                String informacionRedes = informacion.direccionIp("eth0")+"\n"+
-                        informacion.puertosDiponibles()+"\n";
-                libreria.enviarMensaje(informacionRedes);
+                        memoriaDisponible()+"\n----------------";
+                System.out.println(informacionSO);
+//                libreria.enviarMensaje(informacionSO);
+                String informacionRedes = "INFORMACION DE RED: \n"+informacion.direccionIp("eth0")+"\n"+
+                        informacion.puertosDiponibles()+"----------------";
+                System.out.println(informacionRedes);
+//                libreria.enviarMensaje(informacionRedes);
                 String informacionApp = "";
                 if (comprobarAplicacionActiva()==true){
-                    informacionApp = informacion.
+                    informacionApp = "INFORMACION DE APLICACION: \n"+informacion.
                     aplicacionActiva("localhost")+"\n"+
-                    informacion.numeroNodo("localhost")+"\n";
-                    libreria.enviarMensaje(informacionApp);
+                    informacion.numeroNodo("localhost")+"\n----------------";
+                    System.out.println(informacionApp);
+       //             libreria.enviarMensaje(informacionApp);
                 }
                     
-                this.sleep(TIEMPO_SLEEP);
+                Monitoreo.sleep(TIEMPO_SLEEP);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Monitoreo.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -93,12 +98,17 @@ public class Monitoreo extends Thread{
         try {
             Socket s = new Socket("localhost",libreria.getPuerto());
             s.close();
-            return true;
+        
         } catch (UnknownHostException ex) {
             return false;
-        } catch (IOException ex) {
-            return  false;
+        } catch (SocketException ex){
+            return false;
         }
+          catch (IOException ex) {
+            return  false;
+        } 
+        return true;
+        
     }
     
 }

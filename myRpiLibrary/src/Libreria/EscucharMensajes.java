@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,13 +65,18 @@ public class EscucharMensajes extends Thread {
             
             try {
                 Socket s = serverSocket.accept();
-                ObjectInputStream o = new ObjectInputStream(s.getInputStream()) ;
-                Mensaje mensaje = (Mensaje) o.readObject();
-                lib.agregarMensajeRecibido(mensaje);
-                s.close();
+                 
+                    ObjectInputStream o = new ObjectInputStream(s.getInputStream()) ;
+                    Mensaje mensaje = (Mensaje) o.readObject();
+                    lib.agregarMensajeRecibido(mensaje);
+                    s.close();
+                 
+                
                 
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(EscucharMensajes.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SocketException ex){
+                System.out.println("Se está reseteando...!");
             } catch (IOException ex) {
                 Logger.getLogger(EscucharMensajes.class.getName()).log(Level.SEVERE, null, ex);
             }
