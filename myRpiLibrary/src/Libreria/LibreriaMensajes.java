@@ -1,6 +1,7 @@
 package Libreria;
 
 
+import agente.InformacionAgente;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
@@ -28,15 +29,16 @@ public final  class LibreriaMensajes {
     private ArrayList<String> ipDestino;
     private String ipOrigen;
     private ArrayList<Mensaje> mensajesRecibidos;
+    private ArrayList<InformacionAgente> mensajesAgente;
 
 
-    public LibreriaMensajes(boolean escuchar){
+    public LibreriaMensajes(){
         
-        if (escuchar==true)
-            inicializarEscucha();
         
+        inicializarEscucha();
         ipDestino = new ArrayList<String>();
         mensajesRecibidos = new ArrayList<Mensaje>();
+        mensajesAgente = new ArrayList<InformacionAgente>();
         try {
             this.ipOrigen = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException ex) {
@@ -45,14 +47,13 @@ public final  class LibreriaMensajes {
         
     }
     
-    public LibreriaMensajes(boolean escuchar,int puerto){
+    public LibreriaMensajes(int puerto){
         
         
-        if (escuchar==true)
-            inicializarEscucha(puerto);
-        
+        inicializarEscucha(puerto);
         ipDestino = new ArrayList<String>();
         mensajesRecibidos = new ArrayList<Mensaje>();
+        mensajesAgente = new ArrayList<InformacionAgente>();
         try {
             this.ipOrigen = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException ex) {
@@ -96,6 +97,16 @@ public final  class LibreriaMensajes {
     public static int getPuerto(){
         return PUERTO;
     }
+
+    public ArrayList<InformacionAgente> getMensajesAgente() {
+        return mensajesAgente;
+    }
+
+    public void setMensajesAgente(ArrayList<InformacionAgente> mensajesAgente) {
+        this.mensajesAgente = mensajesAgente;
+    }
+    
+    
     
     
     
@@ -176,6 +187,56 @@ public final  class LibreriaMensajes {
             return true;
 
     }
+     
+      public boolean enviarMensaje(InformacionAgente informacion){
+
+            
+            Iterator iterator = ipDestino.iterator();
+            while (iterator.hasNext()){
+                try {
+                    
+                    Socket socket = new Socket(iterator.next().toString(), PUERTO);
+                    ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                    oos.writeObject(informacion);
+                    socket.close();
+                   
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                } catch (IOException ex) {
+                    Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                }
+            }
+            return true;
+
+    }
+     
+     
+    public boolean enviarMensaje(InformacionAgente informacionAgente, String ipDestino){
+
+            
+                try {
+                    
+                    Socket socket = new Socket(ipDestino,PUERTO);
+                    ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                    oos.writeObject(informacionAgente);
+                    socket.close();
+                   
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                } catch (IOException ex) {
+                    Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                }
+            
+            return true;
+
+    }
+    
+    
+     
 
     public boolean agregarMensajeRecibido(Mensaje mensaje){
         
@@ -188,6 +249,25 @@ public final  class LibreriaMensajes {
             }
             else{
                 mensajesRecibidos.add(mensaje);
+                return true;
+            }
+        
+        else
+            return false;
+    
+    }
+    
+    public boolean agregarMensajeRecibido(InformacionAgente informacionAgente){
+        
+        if (mensajesAgente.size()<=MENSAJES_MAXIMOS)
+            
+            if (mensajesAgente.size()==MENSAJES_MAXIMOS){
+                mensajesAgente.remove(0);
+                mensajesAgente.add(informacionAgente);
+                return true;
+            }
+            else{
+                mensajesAgente.add(informacionAgente);
                 return true;
             }
         
@@ -220,6 +300,12 @@ public final  class LibreriaMensajes {
         
         if (mensajesRecibidos.size()>0)
             return (mensajesRecibidos.get(mensajesRecibidos.size()-1));
+        else return null;
+    }
+      public InformacionAgente ultimoMensajeAgente(){
+        
+        if (mensajesAgente.size()>0)
+            return (mensajesAgente.get(mensajesAgente.size()-1));
         else return null;
     }
     

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Agente;
+package AgenteConfiguracion;
 
 import Libreria.LibreriaMensajes;
 
@@ -21,8 +21,8 @@ public class AgenteConfiguracion {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        lib = new LibreriaMensajes(true,2000);
-        lib.agregarIpDestino("");//ip del servidor central.
+        lib = new LibreriaMensajes(2000);
+        lib.agregarIpDestino("9.177.12.61");//ip del servidor central.
         Monitoreo monitoreo = new Monitoreo(lib);
         monitoreo.start();
         

@@ -1,6 +1,7 @@
 package Libreria;
 
 
+import agente.InformacionAgente;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
@@ -64,12 +65,15 @@ public class EscucharMensajes extends Thread {
         while (control){
             
             try {
-                Socket s = serverSocket.accept();
-                 
-                    ObjectInputStream o = new ObjectInputStream(s.getInputStream()) ;
-                    Mensaje mensaje = (Mensaje) o.readObject();
-                    lib.agregarMensajeRecibido(mensaje);
-                    s.close();
+                
+                Socket s = serverSocket.accept(); 
+                ObjectInputStream o = new ObjectInputStream(s.getInputStream()) ;
+                Object object = o.readObject();
+                if (object instanceof Mensaje)
+                    lib.agregarMensajeRecibido((Mensaje) object);
+                else if (object instanceof InformacionAgente)
+                    lib.agregarMensajeRecibido((InformacionAgente)object);
+                s.close();
                  
                 
                 
