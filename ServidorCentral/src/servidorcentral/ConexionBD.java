@@ -10,4 +10,11 @@ package servidorcentral;
  */
 public class ConexionBD {
     
+    private String usuario;
+    private String password;
+    private String puerto;
+    
+    
+    
+    
 }
