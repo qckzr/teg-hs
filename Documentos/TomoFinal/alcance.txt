@@ -1,0 +1,80 @@
+
+Las aplicaciones educativas sobre sistemas distribuidos se basarán en el contenido programático de la cátedra Sistemas Distribuidos de la Escuela de Ingeniería Informática de la UCAB, cada aplicación estará asociada a un tópico y permiten consolidar los conocimientos de acuerdo a escenarios definidos. Un escenario es un posible resultado que se puede obtener por un evento generado por el usuario. La siguiente tabla indica los tópicos que fueron seleccionados para desarrollarse como aplicaciones:
+
+Tema
+Aplicaciones
+Introducción a los Sistemas Distribuidos
+Características de los Sistemas Distribuidos
+Desafíos de los Sistemas Distribuidos
+Arquitecturas:
+Cliente / Servidor
+Punto a Punto (P2P)
+Comunicación en Sistemas Distribuidos
+Sockets
+RMI
+Comunicación en grupo
+Sincronización en ambientes distribuidos
+Relojes lógicos:
+Algoritmo de Lamport
+Relojes físicos:
+Algoritmo de Cristian
+Algoritmo de Berkeley
+Algoritmo con promedio (distribuido)
+Exclusión mutua:
+Algoritmo Centralizado
+Algoritmo Distribuido (Ricart  y Agrawala)
+Algoritmos de selección:
+Grandulón
+Anillo
+Replicación
+
+Tipos de Fallas
+Fallas Bizantinas
+Sistemas de archivos distribuidos
+
+Arquitectura Cliente Servidor:  
+Modelo de acceso remoto
+      Modelo de carga y descarga
+Sistemas de archivos basados en Clúster
+Servicios de nombre
+Domain Name System (DNS)
+Lightweight Directory Access Protocol (LDAP)
+Objetos Distribuidos
+Remote Method Invocation (RMI)
+Enterprise JavaBeans (EJB)
+Servicios Web
+Simple Object Access Protocol (SOAP) (Servidor / Cliente)
+Representational State Transfer (REST) (Servidor / Cliente)
+Tabla 1: Aplicaciones Sistemas Distribuidos, Elaborado por: Héctor Sam
+
+Las aplicaciones se desarrollarán utilizando Java como lenguaje de programación, contarán con patrones de diseño para garantizar las buenas prácticas del desarrollo de software, pruebas unitarias que validen que el comportamiento de cada método es correcto y estándares de codificación para permitir que cualquier desarrollador pueda comprender el código sin problemas. Adicionalmente, poseen parámetros de configuración que son obtenidos desde una base de datos.
+
+Los nodos se simularán utilizando Raspberries Pi, consisten en pequeñas computadoras que ejecutan el sistema operativo Linux y poseen la máquina virtual de Java. Se encontrarán conectadas a una red local para permitir la comunicación entre ellas y los elementos que conforman la infraestructura tecnológica. 
+
+La comunicación entre el usuario y las aplicaciones de sistemas distribuidos se realizará a través de un servidor central, quien será el encargado de enviar y  recibir datos por parte de los nodos. Los ejecutables de cada aplicación se encontrarán alojados en un repositorio local dentro del servidor, permitiendo enviar las aplicaciones a cada nodo con sus respectivos parámetros en el momento que el usuario lo indique desde el módulo de ciclo de vida. 
+
+El agente de configuración consiste en una aplicación java que se encontrará alojada en todos los nodos Raspberries. Al encender el nodo, el agente se iniciará automáticamente y recopilará información del sistema operativo como por ejemplo: configuración de red, procesos en ejecución, memoria disponible, entre otros. Adicionalmente, indicará la aplicación activa que se estará ejecutando (Nombre de la aplicación, estado actual, número de nodo, información propia de la aplicación). El agente tendrá configurado la dirección de red donde se encuentra en ejecución el servidor central para el envío de la información recopilada.
+
+El servicio de recepción será el encargado de procesar la información enviada por los agentes de configuración y por las aplicaciones de los nodos para posteriormente ser visualizada por los usuarios. El servicio será ejecutado en el servidor central, este recibe los mensajes enviados a través de la librería de recepción de mensajes y los redirige al módulo de monitoreo para que el usuario pueda observar la información correspondiente. 
+
+La librería para el registro de los mensajes de entrada y salida se desarrollará en Java. Tendrá atributos configurables dónde se indicará la dirección ip del remitente y de los destinatarios, el mensaje a enviar, fecha y hora del mensaje, entre otros. Se encontrará en todos los componentes de la infraestructura. 
+
+Se creará una base de datos que almacene la información de los tópicos como por ejemplo: definiciones, puntos a tratar, imágenes, preguntas, entre otros. Permitirá almacenar los parámetros de configuración necesarios para ejecutar cada aplicación en los nodos (dirección ip, puertos, parámetros propios de las aplicaciones). Guardará las rutas del repositorio local (path) donde se encontrarán ubicados  los ejecutables de las aplicaciones.
+
+Los scripts de sistema operativo (Shell scripts) se encontrarán almacenados  dentro del servidor central, permiten que el usuario pueda controlar las aplicaciones en cualquier momento desde el módulo de ciclo de vida. Cada script posee instrucciones de la acción a realizar (ejecutar la aplicación, detener un nodo particular, detener todos los nodos, entre otros). Mediante el protocolo ssh se accede a los nodos para realizar la acción deseada. 
+
+El módulo de administración de ciclo de vida le permite al usuario desplegar  y controlar las aplicaciones sobre sistemas distribuidos en los nodos Raspberry Pi. Mediante un conjunto de botones se mostrarán los eventos disponibles para la aplicación actual (ejecutar, detener un nodo particular, detener todos los nodos, entre otros). El usuario selecciona un evento específico y el módulo envía un mensaje a través de la librería al servidor central para localizar el script correspondiente para su ejecución.
+
+El módulo de monitoreo permite que el usuario pueda observar  los eventos que ocurran en las aplicaciones distribuidas, los mensajes enviados entre cada nodo y su estado actual. Mediante la librería de mensajes se recibirá la información enviada por los nodos y por los agentes de configuración al servicio de recepción, este último reenvía la información al módulo de monitoreo separándola en dos tipos: información de los nodos (mensajes entre ellos), información del ambiente distribuido (cantidad de nodos, estado, aplicación activa, entre otros).
+
+El módulo de gestión permitirá  que se puedan agregar nuevos tópicos a la infraestructura con su debida aplicación, existirán formularios que permitan introducir la información del tópico que se está creando, adicionalmente se  tiene la opción de subir los ejecutables de las nuevas aplicaciones y un formulario de parámetros de configuración que posteriormente será guardado en la base de datos. Se requiere un registro previo del usuario para poder utilizar el módulo de gestión. Cuando un usuario almacene una aplicación dentro del repositorio local, tendrá la opción de colocar la cantidad de parámetros necesarios a través de un formulario dinámico. Donde cada uno tendrá la siguiente sintaxis: Parámetro1 = Valor1, Parámetro2 = Valor2.
+
+El módulo de gestión permite generar preguntas acerca de un tópico, cada pregunta se encuentra relacionada con los conceptos teóricos o las aplicaciones educativas. Poseen el esquema de selección simple, donde se muestran varias opciones y solo una es la respuesta correcta. Existirán un conjunto de preguntas por cada tópico almacenadas en la base de datos y se podrán generar aleatoriamente, permitiendo que se puedan crear diferentes modelos de pruebas para un mismo tópico. Se creará un archivo en formato PDF por cada modelo para ser descargado por los usuarios de la infraestructura. El módulo permite realizar las operaciones de agregar, modificar o eliminar preguntas a la base de datos.  
+
+Los módulos desarrollados se integrarán mediante una aplicación web compuesta por una interfaz gráfica amigable, intuitiva y de fácil uso para todos los usuarios. Al acceder  a la aplicación web, el usuario observa una lista con todos los temas de la materia y los tópicos asociados. Cuando se selecciona un tópico se muestra una descripción sobre el objetivo del mismo, las aplicaciones disponibles y la opción de generar preguntas. El usuario al hacer clic sobre la aplicación del tópico es redirigido a otra página donde se visualiza una pequeña introducción de la aplicación, las instrucciones de despliegue, los posibles escenarios que pueden surgir al generarse un evento, los módulos de administración de ciclo de vida y de monitoreo. 
+
+Las aplicaciones sobre sistemas distribuidos tendrán asociadas unos escenarios de acuerdo a los eventos generados por el usuario. Cuando se finalice la ejecución de la aplicación, el usuario compara el resultado  obtenido con los escenarios predefinidos para comprobar que se haya cumplido con el objetivo del tópico.
+
+La documentación se encuentra relacionada con cada componente desarrollado, se realizará un manual de uso de la infraestructura que puedan orientar al usuario al utilizar los Raspberries Pi, de igual forma se crearán documentos de creación que indiquen como se realizó cada uno de los componentes, incluyendo diagramas de diseño (historias de usuario, entidad relación, de clases, entre otros). Por último, se creará una guía de configuración que permita instalar y configurar toda la infraestructura para su posterior funcionamiento, indicando los requerimientos de hardware, versiones del software, pasos para configurar el ambiente y como asociar aplicaciones realizadas por otros usuarios.
+
+La siguiente ilustración muestra la arquitectura de la infraestructura planteada, donde se obtienen cuatro componentes: Una aplicación web a la que accede el usuario de la infraestructura, un servidor central, un servidor de base de datos y cuatro Raspberries Pi que funcionarán como nodos del sistema distribuido:

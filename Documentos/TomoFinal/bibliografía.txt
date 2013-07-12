@@ -1,0 +1,18 @@
+Sistemas Distribuidos:
+1.	Coulouris, G. (2012). Distribited Systems: Concepts and Design (5ta ed.).
+2.	Tanenbaum, A., & Van Steen, M. (2008). Sistemas Distribuidos: Principios y Paradigmas. 
+3.	Tanenbaum, A. (1995). Sistemas Operativos Distribuidos. 
+Sockets:
+4.	Oracle. (2013). What is a socket? Obtenido de http://docs.oracle.com/javase/tutorial/networking/sockets/definition.html
+
+Raspberry Pi:
+
+5.	The Raspberry Pi Foundation. (2013). Raspberry Pi. Obtenido de http://www.raspberrypi.org/
+6.	Raspbian. (n.d.). Raspbian. Obtenido de http://www.raspbian.org/
+
+Agente:
+7.	Zwass, V. (2013). Encyclopædia Britannica: Agent (Computer Science). Obtenido de http://www.britannica.com/EBchecked/topic/705121/agent
+8.	Bradshaw, J. M. (1997). Software Agent: An introduction to software agents. Obtenido de http://agents.umbc.edu/introduction/01-Bradshaw.pdf
+Programación Extrema:
+9.	Jeffries, R. E. (1999 - 2013). XProgramming: An agile software development resource. Obtenido de http://xprogramming.com/
+10.	Wells, D. (2009). Extreme Programming: A gentle introduction. Obtenido de http://www.extremeprogramming.org/
