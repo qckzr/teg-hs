@@ -6,21 +6,27 @@ package servidorcentral;
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
 import agente.InformacionAgente;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author hector
  */
-public class GestionarInfraestructura {
+public class GestionarInfraestructura extends Thread{
     
     private ConexionBD bd;
     private LibreriaMensajes libreria;
     private String ipModuloMonitoreo;
-    private String pathScripts;
-    private String pathEjecutables;
+    private String pathScripts = "scripts/";
+    private String pathEjecutables = "ejecutables/";
+    private String ipBaseDeDatos;
 
-    public GestionarInfraestructura(LibreriaMensajes libreria) {
+    public GestionarInfraestructura(LibreriaMensajes libreria, String usuarioBd, String passwordBd, String puerto, String ipBaseDeDatos) {
         this.libreria = libreria;
+        bd = new ConexionBD(usuarioBd,passwordBd,puerto, ipBaseDeDatos);
+        this.ipBaseDeDatos = ipBaseDeDatos;
     }
 
     public ConexionBD getBd() {
@@ -46,6 +52,30 @@ public class GestionarInfraestructura {
     public void setLibreria(LibreriaMensajes libreria) {
         this.libreria = libreria;
     }
+
+    public String getPathEjecutables() {
+        return pathEjecutables;
+    }
+
+    public void setPathEjecutables(String pathEjecutables) {
+        this.pathEjecutables = pathEjecutables;
+    }
+
+    public String getPathScripts() {
+        return pathScripts;
+    }
+
+    public void setPathScripts(String pathScripts) {
+        this.pathScripts = pathScripts;
+    }
+
+    public String getIpBaseDeDatos() {
+        return ipBaseDeDatos;
+    }
+
+    public void setIpBaseDeDatos(String ipBaseDeDatos) {
+        this.ipBaseDeDatos = ipBaseDeDatos;
+    }
     
     
     
@@ -53,7 +83,29 @@ public class GestionarInfraestructura {
     
     
     public boolean insertarEnBd(InformacionAgente informacion){
-        return true;
+        try {
+            String aplicacionActiva = "NULL";
+            String estadoAplicacion = "'DESACTIVA'";
+            if (informacion.getAplicacionActiva().length()!=0){
+                aplicacionActiva = "'"+informacion.getAplicacionActiva()+"'";
+                estadoAplicacion = "'ACTIVA'";
+            }
+            
+            String idNodo = bd.consultarRegistro("Select id from nodo where ip ="+informacion.getDireccionIp()).getString(1);
+            String query = "Insert into MENSAJES_AGENTE "
+                    + "(ID,ID_PROCESO,CANTIDAD_PROCESOS,MEMORIA_DISPONIBLE,USO_CPU,"
+                    + "PUERTOS_DISPONIBLES,ID_NODO,NOMBRE_APLICACION,ESTADO_APLICACION) "
+                    + "VALUES (S_MENSAJES_AGENTE.NEXTVAL,"+informacion.getIdProceso()+","
+                    + ""+informacion.getProcesosActivos()+","+informacion.getMemoriaDisponible()+","
+                    + ""+informacion.getUsoCpu()+",'"+informacion.getPuertosDisponibles()+"',"
+                    + ""+idNodo+","+aplicacionActiva+","+estadoAplicacion+"";
+            if (bd.ejecutarQuery(query)==true)
+                return true;
+            else return false;
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionarInfraestructura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return  false;
     }
     
     public boolean insertarEnBd(Mensaje mensaje){
@@ -68,7 +120,7 @@ public class GestionarInfraestructura {
         return true;
     }
     
-    public boolean ejecutarAplicacion(String nombreAplicacion, String ipNodo){
+    public boolean ejecutarAplicacion(String nombreAplicacion,String nombreEjecutable, String ipNodo){
         return true;
     }
     

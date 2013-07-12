@@ -42,21 +42,21 @@ public class JavaApplication1 {
     //         while (i.hasNext())
     //             System.out.println(i.next().toString());
 
-//           LibreriaMensajes lib = new LibreriaMensajes();
-//           while (true){
-//               if (lib.ultimoMensajeAgente()!=null){
-//               System.out.println(lib.ultimoMensajeAgente().getUsoCpu());
-//               System.out.println(lib.ultimoMensajeAgente().getProcesosActivos());
-//               System.out.println(lib.ultimoMensajeAgente().getMemoriaDisponible());
-//               System.out.println(lib.ultimoMensajeAgente().getDireccionIp());
-//               System.out.println(lib.ultimoMensajeAgente().getPuertosDisponibles());
-//               }
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(JavaApplication1.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//           }
+           LibreriaMensajes lib = new LibreriaMensajes();
+           while (true){
+               if (lib.ultimoMensajeAgente()!=null){
+               System.out.println(lib.ultimoMensajeAgente().getUsoCpu());
+               System.out.println(lib.ultimoMensajeAgente().getProcesosActivos());
+               System.out.println(lib.ultimoMensajeAgente().getMemoriaDisponible());
+               System.out.println(lib.ultimoMensajeAgente().getDireccionIp());
+               System.out.println(lib.ultimoMensajeAgente().getPuertosDisponibles());
+               }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(JavaApplication1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           }
         
 //        while (true){
 //         String line, id = null;
