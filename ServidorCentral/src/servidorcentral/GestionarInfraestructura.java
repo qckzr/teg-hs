@@ -124,7 +124,8 @@ public class GestionarInfraestructura extends Thread{
         return true;
     }
     
-    public String buscarParametros(String nombreAplicacion){
+    public String buscarParametros(String nombreAplicacion, String nombreEjecutable){
+        
         return "";        
     }
     
@@ -137,7 +138,11 @@ public class GestionarInfraestructura extends Thread{
     }
     
     public boolean enviarMensajeNodo(String mensaje,String ipNodo){
-        return false;
+        
+        if (libreria.enviarMensaje(mensaje, ipNodo)==true)
+            return  true;
+        else
+            return false;
         
     }
     
