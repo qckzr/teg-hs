@@ -5,6 +5,7 @@
 package AgenteConfiguracion;
 
 import Libreria.LibreriaMensajes;
+import agente.InformacionAgente;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,7 +14,6 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import agente.InformacionAgente;
 
 /**
  *
@@ -24,6 +24,7 @@ public class Monitoreo extends Thread{
     private boolean control=true;
     private static int TIEMPO_SLEEP = 5000;
     private LibreriaMensajes libreria;
+    private String intefaz;
     
 
     public Monitoreo(LibreriaMensajes libreria) {   
@@ -51,6 +52,16 @@ public class Monitoreo extends Thread{
     public void setLibreria(LibreriaMensajes libreria) {
         this.libreria = libreria;
     }
+
+    public String getIntefaz() {
+        return intefaz;
+    }
+
+    public void setIntefaz(String intefaz) {
+        this.intefaz = intefaz;
+    }
+    
+    
     
     @Override
     public void run(){
@@ -76,7 +87,7 @@ public class Monitoreo extends Thread{
         informacion.setUsoCpu(usoCpu());
         informacion.setProcesosActivos(procesosActivos());
         informacion.setMemoriaDisponible(memoriaDisponible());
-        informacion.setDireccionIp(direccionIp("eth0"));
+        informacion.setDireccionIp(direccionIp(intefaz));
         informacion.setPuertosDisponibles(puertosDiponibles());
         informacion.setIdProceso(idProceso());
         if (comprobarAplicacionActiva()==true){

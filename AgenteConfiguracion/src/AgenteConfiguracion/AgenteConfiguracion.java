@@ -21,9 +21,10 @@ public class AgenteConfiguracion {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        lib = new LibreriaMensajes(2000);
-        lib.agregarIpDestino("192.168.1.106");//ip del servidor central.
+        lib = new LibreriaMensajes(Integer.valueOf(args[0]));
+        lib.agregarIpDestino(args[1]);//ip del servidor central.
         Monitoreo monitoreo = new Monitoreo(lib);
+        monitoreo.setIntefaz(args[2]);
         monitoreo.start();
         
     }

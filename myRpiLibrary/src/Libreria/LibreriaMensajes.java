@@ -315,6 +315,18 @@ public final  class LibreriaMensajes {
             return mensajesRecibidos.get(index);
         else return null;
     }
+    
+    public boolean eliminarMensaje(Mensaje m){
+        if (mensajesRecibidos.remove(m)==true)
+            return true;
+        else return false;
+    }
+    
+    public boolean eliminarMensaje(InformacionAgente informacionAgente){
+        if (mensajesAgente.remove(informacionAgente)==true)
+            return true;
+        else return false;
+    }
 
 
 }

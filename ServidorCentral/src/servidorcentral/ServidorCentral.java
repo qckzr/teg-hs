@@ -25,19 +25,20 @@ public class ServidorCentral {
        
             // TODO code application logic here
             
-         //   libreria = new LibreriaMensajes();
-       //     GestionarInfraestructura gestion = new GestionarInfraestructura(libreria);
-            ConexionBD con = new ConexionBD("hector", "passw0rd","1521","9.177.12.54");
-            ResultSet rs =con.consultarRegistro("select * from test");
+            libreria = new LibreriaMensajes();
+            GestionarInfraestructura gestion = new GestionarInfraestructura(libreria,"hector","passw0rd","1521","9.177.12.54" );
+            gestion.start();
+         //   ConexionBD con = new ConexionBD("hector", "passw0rd","1521","9.177.12.54");
+         //   ResultSet rs =con.consultarRegistro("select * from test");
            
-            try {
-              
-                System.out.println(
-            rs.getInt(1));
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(ServidorCentral.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            try {
+//              
+//                System.out.println(
+//            rs.getInt(1));
+//                
+//            } catch (SQLException ex) {
+//                Logger.getLogger(ServidorCentral.class.getName()).log(Level.SEVERE, null, ex);
+//            }
             
         
     }
