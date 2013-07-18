@@ -2,8 +2,24 @@ Librería:
 
 El desarrollo de los componentes de la infraestructura se inicia en primer lugar con la librería de mensajes. Se crearon las historias de usuarios pertenecientes a la librería para obtener los requerimientos principales: Envío y recepción de mensajes simples. Se crearon las clases EscucharMensajes que permite abrir un puerto específico para la espera de mensajes por parte de los otros componentes de la infraestructura, esta clase permite almacenarlos en una lista simplemente enlazada para posteriormente consultarla en un momento determinado. Adicionalmente se creó la clase Mensaje permitiendo encapsular los mensajes enviados entre los componentes mediante atributos: Ip origen, fecha, hora, texto que permiten obtener una información más específica de los mensajes enviados.
 
-La librería posee una clase denominada InformacionAgente que permite recolectar un mensaje proveniente de los agentes de configuración, cada objeto perteneciente a esta clase posee los atributos pertenecientes a la informacion del sistema operativo (Uso del cpu, cantidad de procesos, memoria disponible) de redes (ip del dispositivo, puertos disponibles) y de la aplicación (nombre de la aplicación, numero de nodo). Al recibir un mensaje por parte de la librería se  compara que tipo de objeto se recibió: un objeto tipo Mensaje o uno tipo InformacionAgente, cada objeto es almacenado en una lista con una capacidad máxima de 5 objetos. Al superar esa cantidad, se eliminar el objeto más antiguo de la lista.
+La librería posee una clase denominada InformacionAgente que permite recolectar un mensaje proveniente de los agentes de configuración, cada objeto perteneciente a esta clase posee los atributos pertenecientes a la información del sistema operativo (Uso del cpu, cantidad de procesos, memoria disponible) de redes (ip del dispositivo, puertos disponibles) y de la aplicación (nombre de la aplicación, numero de nodo). Al recibir un mensaje por parte de la librería se  compara que tipo de objeto se recibió: un objeto tipo Mensaje o uno tipo InformacionAgente, cada objeto es almacenado en una lista con una capacidad máxima de 5 objetos. Al superar esa cantidad, se eliminar el objeto más antiguo de la lista.
 
-Agente de Configuracion:
+Agente de Configuración:
 
-El agente de configuración se desarrolló mediante...
+El agente de configuración se desarrolló mediante una aplicación en java que se ejecuta al iniciar el raspberry pi. Se indica el puerto de escucha de los mensajes, ip del servidor central e interfaz de red activa del raspberry pi antes de iniciar el agente. Al iniciarse, se abre un puerto distinto al puerto de escucha de la librería de mensajes  debido a que el puerto por defecto estará ocupado por la aplicación actual de sistemas distribuido. Se Monitorea información del Sistema operativo: 
+- Cantidad de procesos: Utilizando el comando ps -e se logra obtener el número de procesos  en el sistema operativo, se totaliza la cantidad y se retornar el número total.
+- Memoria disponible: La cantidad de memoria disponible en el sistema se obtiene mediante el comando free -m se obtiene el valor en Megabytes (MB) y se retorna mediante una función.
+- Uso del cpu: Se obtiene mediante el comando ps -eo pcpu que muestra la cantidad de procesador que está utilizando cada proceso en el sistema operativo, se totaliza la cantidad para cada proceso y se retorna un valor al finalizar.
+
+Información de red:
+-Dirección Ip: La dirección ip del raspberry es obtenida a través del comando ifconfig que muestra todas las interfaces de red disponibles en el sistema. Al iniciar el agente se indica la interfaz de red de donde se obtendrá la dirección ip: eth0, wlan1, entre otros.
+
+-Puertos disponibles: Los puertos disponibles se obtienen utilizando el comando nmap, este realiza un "scan" de todos los puertos abiertos en un host determinado. El resultado es obtenido en una lista con el  numero de puerto y su protocolo.
+
+Informacion de la aplicación:
+
+-Aplicación activa: El agente al iniciarse chequea si puede enviar mensajes al puerto predeterminado de mensajes. Si no es posible realizar la conexión entonces no realiza ninguna petición, caso contrario envía un mensaje a la aplicación preguntando por el nombre de ella. La aplicación responde al mensaje del agente y le envía su nombre.
+
+-Número de nodo: El agente adicionalmente envía un mensaje preguntando por el número de nodo de la aplicación que se está ejecutando en el raspberry. La aplicación responde al agente enviando un número de acuerdo al nodo activo para esa aplicación.
+
+El agente de configuración al recolectar cada información construye un objeto de tipo InformacionAgente que contiene atributos relacionados a cada tipo de información: uso cpu, memoria disponible, puertos, ip, entre otros. Al finalizar de construir el objeto con la información recolectada se envía al servidor central el objeto para ser redirigido al módulo de monitoreo y almacenar la información en base de datos.

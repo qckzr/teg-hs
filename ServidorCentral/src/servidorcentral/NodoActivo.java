@@ -16,6 +16,7 @@ public class NodoActivo {
    private String nombreEjecutable;
    private String fecha;
    private String hora;
+   private String usuario;
 
     public String getIdProceso() {
         return idProceso;
@@ -64,6 +65,16 @@ public class NodoActivo {
     public void setId(String id) {
         this.id = id;
     }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+    
+    
     
     
     

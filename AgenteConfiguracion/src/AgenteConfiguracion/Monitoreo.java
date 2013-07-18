@@ -140,8 +140,8 @@ public class Monitoreo extends Thread{
             BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
             int i=0;
             while ((line = input.readLine()) != null) {
-                if (i==1){
-                    String memoria = line.substring(36,41);
+                if (i==2){
+                    String memoria = line.substring(37,40);
                     return memoria;
                 }
                 i++;

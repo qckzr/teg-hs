@@ -119,7 +119,19 @@ public class GestionarInfraestructura extends Thread{
     }
     
     public boolean insertarEnBd(Mensaje mensaje){
-        return true;
+        try {
+            NodoActivo nodo = buscarNodo(mensaje.getIpOrigen());
+            String idEjecutable = bd.consultarRegistro("SELECT ID FROM EJECUTABLES WHERE NOMBRE ='"+nodo.getNombreEjecutable()+"'").getString(0);
+            if (bd.ejecutarQuery("INSERT INTO MENSAJE_ENTRE_NODOS (ID,FECHA,HORA,"
+                    + "MENSAJE,IP_DESTINO,ID_NODO,ID_EJECUTABLE,ID_PROCESO) VALUES"
+                    + "(S_MENSAJES_ENTRE_NODOS.NEXTVAL,TO_DATE('"+mensaje.getFecha()+"',"
+                    + "'dd/mm/yyyy'),TO_DATE('"+mensaje.getHora()+"','hh24:MI:ss')"
+                    + ","+nodo.getId()+","+idEjecutable+","+nodo.getIdProceso()+" )"))
+                return true;           
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionarInfraestructura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return false;
     }
     
     public boolean reenviarMensaje(InformacionAgente informacion){
@@ -137,7 +149,7 @@ public class GestionarInfraestructura extends Thread{
             Process p = Runtime.getRuntime().exec(pathScripts+"ejecutar.sh "
                     + pathEjecutables+nombreEjecutable+" "+ipNodo+" "
                     + ""+usuarioNodo.getString(0)+" "+parametros+"   ");
-            agregarNodoActivo(ipNodo,nombreEjecutable);
+            agregarNodoActivo(ipNodo,nombreEjecutable,usuarioNodo.getString(0));
             
             return true;
         } catch (IOException | SQLException ex) {
@@ -171,6 +183,18 @@ public class GestionarInfraestructura extends Thread{
     }
     
     public boolean eliminarTodasAplicaciones(){
+        Iterator iterator = nodos.iterator();
+        String parametros = "";
+        while (iterator.hasNext()){
+            NodoActivo nodo = (NodoActivo) iterator.next();
+            parametros = parametros + nodo.getUsuario() + " " + nodo.getIp() + " " + nodo.getIdProceso() + " ";
+        }
+        try {
+            Process p = Runtime.getRuntime().exec(pathScripts+"eliminarTodosNodos.sh "+parametros);
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(GestionarInfraestructura.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return false;
     }
     
@@ -234,15 +258,14 @@ public class GestionarInfraestructura extends Thread{
                         ejecutarAplicacion(ejecutable, ipNodo);
                         break;
                     case "eliminar":
-                        //eliminarAplicacion(ipNodo, ipNodo)
+                        eliminarAplicacion(ipNodo,buscarNodo(ipNodo).getIdProceso());
                         break;
                     case "mensajeNodo":
                         enviarMensajeNodo(ejecutable, ipNodo);
                         break;
                 }
             }
-           
-            
+
         }
         else if (texto.contains("-")){
            agregarIdProceso(mensaje.getIpOrigen(),texto.substring(
@@ -256,7 +279,7 @@ public class GestionarInfraestructura extends Thread{
     }
     
     
-    public void agregarNodoActivo(String ip, String ejecutable){
+    public void agregarNodoActivo(String ip, String ejecutable,String usuario){
         NodoActivo nodo = new NodoActivo();
         nodo.setIp(ip);
         nodo.setNombreEjecutable(ejecutable);
@@ -307,6 +330,19 @@ public class GestionarInfraestructura extends Thread{
             }
         }
         return false;
+    }
+    
+    
+    public NodoActivo buscarNodo(String ipNodo){
+        Iterator iterator = nodos.iterator();
+        while (iterator.hasNext()){
+            NodoActivo nodo = (NodoActivo)iterator.next();
+            if (nodo.getIp().contentEquals(ipNodo))
+                return nodo;
+        }
+        return null;
+            
+        
     }
     
     

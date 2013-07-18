@@ -41,22 +41,40 @@ public class JavaApplication1 {
     //         Iterator i = b.getMensajesRecibidos().iterator();
     //         while (i.hasNext())
     //             System.out.println(i.next().toString());
-
-//           LibreriaMensajes lib = new LibreriaMensajes();
-//           while (true){
-//               if (lib.ultimoMensajeAgente()!=null){
-//               System.out.println(lib.ultimoMensajeAgente().getUsoCpu());
-//               System.out.println(lib.ultimoMensajeAgente().getProcesosActivos());
-//               System.out.println(lib.ultimoMensajeAgente().getMemoriaDisponible());
-//               System.out.println(lib.ultimoMensajeAgente().getDireccionIp());
-//               System.out.println(lib.ultimoMensajeAgente().getPuertosDisponibles());
-//               }
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(JavaApplication1.class.getName()).log(Level.SEVERE, null, ex);
+// try {
+//            String line;
+//            Process p = Runtime.getRuntime().exec("free -m");
+//            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+//            int i=0;
+//            while ((line = input.readLine()) != null) {
+//                if (i==2){
+//                    String memoria = line.substring(37,40);
+//                    System.out.println(memoria);
+//                       System.out.println(line);
+//                }
+//                i++;
 //            }
-    //      }
+//            input.close();
+//        } catch (Exception err) {
+//            err.printStackTrace();
+//        }
+        
+        
+           LibreriaMensajes lib = new LibreriaMensajes();
+           while (true){
+               if (lib.ultimoMensajeAgente()!=null){
+               System.out.println(lib.ultimoMensajeAgente().getUsoCpu());
+               System.out.println(lib.ultimoMensajeAgente().getProcesosActivos());
+               System.out.println(lib.ultimoMensajeAgente().getMemoriaDisponible());
+               System.out.println(lib.ultimoMensajeAgente().getDireccionIp());
+               System.out.println(lib.ultimoMensajeAgente().getPuertosDisponibles());
+               }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(JavaApplication1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          }
         
 //        while (true){
 //         String line, id = null;
@@ -93,27 +111,27 @@ public class JavaApplication1 {
 //            Logger.getLogger(JavaApplication1.class.getName()).log(Level.SEVERE, null, ex);
 //        }
        // String a = "id-123123";
-        String a = "ejecutar_hectorSam.jar:127.0.0.1";
-        if (a.contains("_")==true){
-            String b = a.substring(0,a.indexOf("_"));
-            if (b.contentEquals("eliminarTodos")==true){
-                //metodo eliminarTodos;
-            }
-            else{
-                String c = a.substring(a.indexOf("_")+1, a.indexOf(":"));
-                String ip = a.substring(a.indexOf(":")+1, a.length());
-                System.out.println("c:"+c+" ip:"+ip);
-            }
+//        String a = "ejecutar_hectorSam.jar:127.0.0.1";
+//        if (a.contains("_")==true){
+//            String b = a.substring(0,a.indexOf("_"));
+//            if (b.contentEquals("eliminarTodos")==true){
+//                //metodo eliminarTodos;
+//            }
+//            else{
+//                String c = a.substring(a.indexOf("_")+1, a.indexOf(":"));
+//                String ip = a.substring(a.indexOf(":")+1, a.length());
+//                System.out.println("c:"+c+" ip:"+ip);
+//            }
            
             
-        }
-        else if (a.contains("id-")){
-            System.out.println(a.substring(a.indexOf("-")+1, a.length()));
-        }
-            else{
-            //mensaje entre nodos, modulo de monitoreo;
-            
-        }
+//        }
+//        else if (a.contains("id-")){
+//            System.out.println(a.substring(a.indexOf("-")+1, a.length()));
+//        }
+//            else{
+//            //mensaje entre nodos, modulo de monitoreo;
+//            
+//        }
     }
     
     
