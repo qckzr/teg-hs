@@ -34,7 +34,7 @@ public class GestionarInfraestructura extends Thread{
 
     public GestionarInfraestructura(LibreriaMensajes libreria, String usuarioBd, String passwordBd, String puerto, String ipBaseDeDatos) {
         this.libreria = libreria;
-   //     bd = new ConexionBD(usuarioBd,passwordBd,puerto, ipBaseDeDatos);
+        bd = new ConexionBD(usuarioBd,passwordBd,puerto, ipBaseDeDatos);
         this.ipBaseDeDatos = ipBaseDeDatos;
         nodos = new ArrayList<NodoActivo>();
     }
@@ -100,15 +100,9 @@ public class GestionarInfraestructura extends Thread{
                 aplicacionActiva = "'"+informacion.getAplicacionActiva()+"'";
                 estadoAplicacion = "'ACTIVA'";
             }
-            
-            String idNodo = bd.consultarRegistro("Select id from nodo where ip ="+informacion.getDireccionIp()).getString(1);
-            String query = "Insert into MENSAJES_AGENTE "
-                    + "(ID,ID_PROCESO,CANTIDAD_PROCESOS,MEMORIA_DISPONIBLE,USO_CPU,"
-                    + "PUERTOS_DISPONIBLES,ID_NODO,NOMBRE_APLICACION,ESTADO_APLICACION) "
-                    + "VALUES (S_MENSAJES_AGENTE.NEXTVAL,"+informacion.getIdProceso()+","
-                    + ""+informacion.getProcesosActivos()+","+informacion.getMemoriaDisponible()+","
-                    + ""+informacion.getUsoCpu()+",'"+informacion.getPuertosDisponibles()+"',"
-                    + ""+idNodo+","+aplicacionActiva+","+estadoAplicacion+"";
+            String idNodo = bd.consultarRegistro("Select id from nodos where ip ='"+informacion.getDireccionIp()+"'").getString(1);
+            String query = "Insert into MENSAJES_AGENTE (ID,ID_PROCESO,CANTIDAD_PROCESOS,MEMORIA_DISPONIBLE,USO_CPU,PUERTOS_DISPONIBLES,ID_NODO,NOMBRE_APLICACION_ACTUAL,ESTADO_APLICACION) VALUES (S_MENSAJES_AGENTE.NEXTVAL,"+informacion.getIdProceso()+","+informacion.getProcesosActivos()+","+informacion.getMemoriaDisponible()+","+informacion.getUsoCpu()+",'"+informacion.getPuertosDisponibles()+"',"+idNodo+","+aplicacionActiva+","+estadoAplicacion+")";
+      //      String query = "INSERT INTO NODOS (ID,IP,NOMBRE_USUARIO,CONTRASENA) VALUES (S_NODOS.NEXTVAL,'192.168.1.191','pi','raspberry')";
             if (bd.ejecutarQuery(query)==true)
                 return true;
             else return false;
@@ -234,6 +228,7 @@ public class GestionarInfraestructura extends Thread{
             if (libreria.ultimoMensaje()!=null){
                 Mensaje mensaje = libreria.ultimoMensaje();
                 recibirMensaje(mensaje);
+                insertarEnBd(mensaje);
                 libreria.eliminarMensaje(mensaje);
             }
                 
@@ -347,7 +342,6 @@ public class GestionarInfraestructura extends Thread{
     
     
     
-    
-    
+  
     
 }

@@ -13,14 +13,14 @@ import java.io.Serializable;
 public class InformacionAgente implements Serializable{
     
     
-    private String procesosActivos;
-    private String memoriaDisponible;
-    private String usoCpu;
-    private String direccionIp;
-    private String puertosDisponibles;
-    private String aplicacionActiva;
-    private String numeroNodo;
-    private String idProceso;
+    private String procesosActivos="";
+    private String memoriaDisponible="";
+    private String usoCpu="";
+    private String direccionIp="";
+    private String puertosDisponibles="";
+    private String aplicacionActiva="";
+    private String numeroNodo="";
+    private String idProceso="";
     
 
     public InformacionAgente() {

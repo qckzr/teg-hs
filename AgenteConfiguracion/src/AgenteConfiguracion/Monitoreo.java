@@ -245,13 +245,19 @@ public class Monitoreo extends Thread{
             BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
             while ((line = input.readLine()) != null) {
                 if (line.contains("java -jar Agente")){
-                   id =line.substring(0,line.indexOf(" "));
-                   break;
+                  id =line.substring(0,5);
+                  for (int i = 0; i < id.length(); i++) {
+                    if (id.charAt(i)!=' '){
+                        id = id.substring(i,id.length());
+                        break;
+                    }
                    
+                    }
                 }
                 
-            }
+            }          
             input.close();
+            return id;
              } catch (Exception err) {
             err.printStackTrace();
         }

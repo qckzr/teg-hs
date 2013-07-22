@@ -23,3 +23,9 @@ Informacion de la aplicación:
 -Número de nodo: El agente adicionalmente envía un mensaje preguntando por el número de nodo de la aplicación que se está ejecutando en el raspberry. La aplicación responde al agente enviando un número de acuerdo al nodo activo para esa aplicación.
 
 El agente de configuración al recolectar cada información construye un objeto de tipo InformacionAgente que contiene atributos relacionados a cada tipo de información: uso cpu, memoria disponible, puertos, ip, entre otros. Al finalizar de construir el objeto con la información recolectada se envía al servidor central el objeto para ser redirigido al módulo de monitoreo y almacenar la información en base de datos.
+
+
+Servicio de recepción (Servidor Central):
+
+El servidor central se desarrolló mediante una aplicación en java que chequea constantemente los mensajes recibidos a través de la librería de mensajes. Al llegar un mensaje se analiza si es un mensaje de un Agente o un mensaje proveniente de un nodo o del modulo de ciclo de vida. Si se recibe un mensaje proveniente del agente entonces el servicio de recepción recibe el mensaje, lo almacena en base de datos y se reenvía al modulo de monitoreo. En caso contrario, se evalúa el contenido del mensaje a través del método recibirMensaje de la siguiente manera:
+
