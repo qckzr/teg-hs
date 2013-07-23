@@ -140,7 +140,7 @@ public class GestionarInfraestructura extends Thread{
         ResultSet usuarioNodo = bd.consultarRegistro("SELECT NOMBRE_USUARIO FROM NODOS WHERE IP='"+ipNodo+"' ");        
         try {
             Process p = Runtime.getRuntime().exec(pathScripts+"ejecutar.sh "
-                    + pathEjecutables+nombreEjecutable+" "+ipNodo+" "
+                    +nombreEjecutable+" "+ipNodo+" "
                     + ""+usuarioNodo.getString(1)+" "+parametros+"   ");
             agregarNodoActivo(ipNodo,nombreEjecutable,usuarioNodo.getString(1));
             
@@ -157,7 +157,7 @@ public class GestionarInfraestructura extends Thread{
         String parametros ="";
         try {
             while (rs.next())
-                parametros = parametros+rs.getString(1);
+                parametros = parametros+" "+rs.getString(1);
             return parametros;
         } catch (SQLException ex) {
             Logger.getLogger(GestionarInfraestructura.class.getName()).log(Level.SEVERE, null, ex);
@@ -202,8 +202,8 @@ public class GestionarInfraestructura extends Thread{
     
     public String nombreUsuarioNodo(String ipNodo){
         try {
-            ResultSet nodo = bd.consultarRegistro("SELECT USUARIO FROM NODO WHERE IP='"+ipNodo+"' ");
-            return nodo.getString(0);
+            ResultSet nodo = bd.consultarRegistro("SELECT NOMBRE_USUARIO FROM NODOS WHERE IP='"+ipNodo+"' ");
+            return nodo.getString(1);
         } catch (SQLException ex) {
             Logger.getLogger(GestionarInfraestructura.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -311,7 +311,7 @@ public class GestionarInfraestructura extends Thread{
                 try {
                     String idEjecutable = bd.consultarRegistro(""
                             + "select id from ejecutables where nombre= "
-                            + "'"+nodo.getNombreEjecutable()+"'").getString(0);
+                            + "'"+nodo.getNombreEjecutable()+"'").getString(1);
                     if (bd.ejecutarQuery("INSERT INTO E_N (FECHA_DEPLOY,HORA_DEPLOY,ID_PROCESO,ID_NODO,ID_EJECUTABLE) VALUES"
                             + "(TO_DATE('"+nodo.getFecha()+"','dd/mm/yyyy'),"
                             + "TO_DATE('"+nodo.getHora()+"','HH24:MI:SS'),"+idProceso+","

@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class EscucharMensajes extends Thread {
 
-    private Boolean control = Boolean.TRUE;
+    private boolean control = true;
     private ServerSocket serverSocket;
     private LibreriaMensajes lib;
 

@@ -4,10 +4,9 @@ package Libreria;
 import agente.InformacionAgente;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,11 +38,7 @@ public final  class LibreriaMensajes {
         ipDestino = new ArrayList<String>();
         mensajesRecibidos = new ArrayList<Mensaje>();
         mensajesAgente = new ArrayList<InformacionAgente>();
-        try {
-            this.ipOrigen = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ipOrigen = obtenerIp("192.168.1.");
         
     }
     
@@ -54,11 +49,7 @@ public final  class LibreriaMensajes {
         ipDestino = new ArrayList<String>();
         mensajesRecibidos = new ArrayList<Mensaje>();
         mensajesAgente = new ArrayList<InformacionAgente>();
-        try {
-            this.ipOrigen = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ipOrigen = obtenerIp("192.168.1.");
         
     }
 
@@ -326,6 +317,26 @@ public final  class LibreriaMensajes {
         if (mensajesAgente.remove(informacionAgente)==true)
             return true;
         else return false;
+    }
+    
+    public String obtenerIp(String direccion){
+        try {
+            Enumeration e=NetworkInterface.getNetworkInterfaces();
+                while(e.hasMoreElements())
+                {
+                    NetworkInterface n=(NetworkInterface) e.nextElement();
+                    Enumeration ee = n.getInetAddresses();
+                    while(ee.hasMoreElements())
+                    {
+                        InetAddress i= (InetAddress) ee.nextElement();
+                        if (i.getHostAddress().contains(direccion))
+                            return i.getHostAddress();
+                    }
+                }
+        } catch (SocketException ex) {
+            Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
     }
 
 

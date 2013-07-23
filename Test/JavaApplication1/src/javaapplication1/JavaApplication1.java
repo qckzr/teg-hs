@@ -10,6 +10,8 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Libreria.LibreriaMensajes;
+import java.net.*;
+import java.util.Enumeration;
 
 
 
@@ -26,7 +28,7 @@ public class JavaApplication1 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnknownHostException, SocketException {
 //        try {
             // TODO code application logic here
 
@@ -61,8 +63,27 @@ public class JavaApplication1 {
         
         
            LibreriaMensajes lib = new LibreriaMensajes(5000);
-           lib.enviarMensaje("ejecutar_AgenteConfiguracion.jar:192.168.1.201","192.168.1.105");
-           lib.getHiloDeEscucha().setControl(false);
+   //        lib.enviarMensaje("ejecutar_AgenteConfiguracion.jar:192.168.1.201","192.168.1.101");
+   //        lib.enviarMensaje("id-5965","192.168.1.101");
+           lib.enviarMensaje("eliminar_AgenteConfiguracion.jar:192.168.1.201","192.168.1.101");
+    //       lib.getHiloDeEscucha().setControl(false);
+//          String ipOrigen = InetAddress.getLocalHost().getHostAddress();
+//          System.out.println(Inet4Address.getLocalHost().getHostAddress());
+//          System.out.println(InetAddress.getLocalHost().getHostAddress());
+//          System.out.println("ip: "+ipOrigen);
+          // System.out.println(InetAddress.getLocalHost());
+//          Enumeration e=NetworkInterface.getNetworkInterfaces();
+//            while(e.hasMoreElements())
+//            {
+//                NetworkInterface n=(NetworkInterface) e.nextElement();
+//                Enumeration ee = n.getInetAddresses();
+//                while(ee.hasMoreElements())
+//                {
+//                    InetAddress i= (InetAddress) ee.nextElement();
+//                    if (i.getHostAddress().contains("192.168.1."))
+//                    System.out.println(i.getHostAddress());
+//                }
+//            }
 //           while (true){
 //               if (lib.ultimoMensajeAgente()!=null){
 //               System.out.println(lib.ultimoMensajeAgente().getUsoCpu());
