@@ -102,7 +102,6 @@ public class GestionarInfraestructura extends Thread{
             }
             String idNodo = bd.consultarRegistro("Select id from nodos where ip ='"+informacion.getDireccionIp()+"'").getString(1);
             String query = "Insert into MENSAJES_AGENTE (ID,ID_PROCESO,CANTIDAD_PROCESOS,MEMORIA_DISPONIBLE,USO_CPU,PUERTOS_DISPONIBLES,ID_NODO,NOMBRE_APLICACION_ACTUAL,ESTADO_APLICACION) VALUES (S_MENSAJES_AGENTE.NEXTVAL,"+informacion.getIdProceso()+","+informacion.getProcesosActivos()+","+informacion.getMemoriaDisponible()+","+informacion.getUsoCpu()+",'"+informacion.getPuertosDisponibles()+"',"+idNodo+","+aplicacionActiva+","+estadoAplicacion+")";
-      //      String query = "INSERT INTO NODOS (ID,IP,NOMBRE_USUARIO,CONTRASENA) VALUES (S_NODOS.NEXTVAL,'192.168.1.191','pi','raspberry')";
             if (bd.ejecutarQuery(query)==true)
                 return true;
             else return false;
@@ -138,12 +137,12 @@ public class GestionarInfraestructura extends Thread{
     
     public boolean ejecutarAplicacion(String nombreEjecutable, String ipNodo){
         String parametros = buscarParametros(nombreEjecutable);
-        ResultSet usuarioNodo = bd.consultarRegistro("SELECT USUARIO FROM NODO WHERE IP='"+ipNodo+"' ");        
+        ResultSet usuarioNodo = bd.consultarRegistro("SELECT NOMBRE_USUARIO FROM NODOS WHERE IP='"+ipNodo+"' ");        
         try {
             Process p = Runtime.getRuntime().exec(pathScripts+"ejecutar.sh "
                     + pathEjecutables+nombreEjecutable+" "+ipNodo+" "
-                    + ""+usuarioNodo.getString(0)+" "+parametros+"   ");
-            agregarNodoActivo(ipNodo,nombreEjecutable,usuarioNodo.getString(0));
+                    + ""+usuarioNodo.getString(1)+" "+parametros+"   ");
+            agregarNodoActivo(ipNodo,nombreEjecutable,usuarioNodo.getString(1));
             
             return true;
         } catch (IOException | SQLException ex) {
@@ -154,11 +153,11 @@ public class GestionarInfraestructura extends Thread{
     
     public String buscarParametros(String nombreEjecutable){
         ResultSet rs = bd.consultar("SELECT VALOR FROM PARAMETROS WHERE "
-                + "ID_EJECUTABLE=(SELECT ID FROM EJECUTABLE WHERE NOMBRE='"+nombreEjecutable+"') ");
+                + "ID_EJECUTABLE=(SELECT ID FROM EJECUTABLES WHERE NOMBRE='"+nombreEjecutable+"') ");
         String parametros ="";
         try {
             while (rs.next())
-                parametros = parametros+rs.getString(0);
+                parametros = parametros+rs.getString(1);
             return parametros;
         } catch (SQLException ex) {
             Logger.getLogger(GestionarInfraestructura.class.getName()).log(Level.SEVERE, null, ex);
@@ -228,7 +227,6 @@ public class GestionarInfraestructura extends Thread{
             if (libreria.ultimoMensaje()!=null){
                 Mensaje mensaje = libreria.ultimoMensaje();
                 recibirMensaje(mensaje);
-                insertarEnBd(mensaje);
                 libreria.eliminarMensaje(mensaje);
             }
                 
@@ -248,7 +246,7 @@ public class GestionarInfraestructura extends Thread{
                 String ejecutable = texto.substring(texto.indexOf("_")+1, texto.indexOf(":"));
                 String ipNodo = texto.substring(texto.indexOf(":")+1, texto.length());
                 
-                switch (texto){
+                switch (evento){
                     case "ejecutar":
                         ejecutarAplicacion(ejecutable, ipNodo);
                         break;
@@ -270,6 +268,7 @@ public class GestionarInfraestructura extends Thread{
         
         else{
             reenviarMensaje(mensaje);
+            insertarEnBd(mensaje);
         }
     }
     
@@ -280,7 +279,7 @@ public class GestionarInfraestructura extends Thread{
         nodo.setNombreEjecutable(ejecutable);
         try {
             nodo.setId(bd.consultarRegistro("SELECT ID FROM NODOS WHERE IP='"+ip+"'")
-                    .getString(0));
+                    .getString(1));
         } catch (SQLException ex) {
             Logger.getLogger(GestionarInfraestructura.class.getName()).log(Level.SEVERE, null, ex);
         }

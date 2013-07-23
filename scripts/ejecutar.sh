@@ -9,5 +9,4 @@ usuario=$3
 parametros=${@:4}
 
 scp $archivo $usuario@$ipDestino:/home/$usuario/Desktop
-ssh $usuario@$ipDestino
-java -jar /home/$3/Desktop/$1 $parametros
+ssh $usuario@$ipDestino 'cd Desktop; java -jar /home/$3/Desktop/$1 $parametros'
