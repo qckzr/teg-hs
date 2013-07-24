@@ -179,16 +179,19 @@ public class GestionarInfraestructura extends Thread{
         Iterator iterator = nodos.iterator();
         String parametros = "";
         while (iterator.hasNext()){
-            NodoActivo nodo = (NodoActivo) iterator.next();
-            parametros = parametros + nodo.getUsuario() + " " + nodo.getIp() + " " + nodo.getIdProceso() + " ";
-        }
+          NodoActivo   nodo = (NodoActivo) iterator.next();
+          parametros = parametros + nodo.getUsuario() + " " + nodo.getIp() + " " + nodo.getIdProceso() + " ";
+        
         try {
             Process p = Runtime.getRuntime().exec(pathScripts+"eliminarTodosNodos.sh "+parametros);
-            return true;
+            nodos.remove(nodo);
+                
         } catch (IOException ex) {
             Logger.getLogger(GestionarInfraestructura.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return false;
+        }
+        return true;
     }
     
     public boolean enviarMensajeNodo(String mensaje,String ipNodo){
@@ -277,6 +280,7 @@ public class GestionarInfraestructura extends Thread{
         NodoActivo nodo = new NodoActivo();
         nodo.setIp(ip);
         nodo.setNombreEjecutable(ejecutable);
+        nodo.setUsuario(usuario);
         try {
             nodo.setId(bd.consultarRegistro("SELECT ID FROM NODOS WHERE IP='"+ip+"'")
                     .getString(1));
