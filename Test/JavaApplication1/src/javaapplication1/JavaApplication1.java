@@ -63,9 +63,10 @@ public class JavaApplication1 {
         
         
            LibreriaMensajes lib = new LibreriaMensajes(5000);
-   //        lib.enviarMensaje("ejecutar_AgenteConfiguracion.jar:192.168.1.201","192.168.1.101");
-   //        lib.enviarMensaje("id-5965","192.168.1.101");
-           lib.enviarMensaje("eliminar_AgenteConfiguracion.jar:192.168.1.201","192.168.1.101");
+           lib.enviarMensaje("ejecutar_AgenteConfiguracion.jar:192.168.1.201","192.168.1.101");
+  //         lib.enviarMensaje("id-4609","192.168.1.101");
+   //        lib.enviarMensaje("eliminar_AgenteConfiguracion.jar:192.168.1.201","192.168.1.101");
+  //          lib.enviarMensaje("eliminarTodos_","192.168.1.101");
     //       lib.getHiloDeEscucha().setControl(false);
 //          String ipOrigen = InetAddress.getLocalHost().getHostAddress();
 //          System.out.println(Inet4Address.getLocalHost().getHostAddress());

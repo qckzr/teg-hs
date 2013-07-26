@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package servidorcentral;
+package model;
 
 import java.sql.*;
 import java.util.logging.Level;
@@ -20,11 +20,11 @@ public class ConexionBD {
     private String ipBd;
     private Connection conexion;
 
-    public ConexionBD(String usuario, String password, String puerto,String ipBd) {
-        this.usuario = usuario;
-        this.password = password;
-        this.puerto = puerto;
-        this.ipBd = ipBd;
+    public ConexionBD() {
+        this.usuario = "hector";
+        this.password = "passw0rd";
+        this.puerto = "1521";
+        this.ipBd = "192.168.1.200";
         conexion = conectar();
     }
 
@@ -121,12 +121,11 @@ public class ConexionBD {
             stmt =  conexion.createStatement();
             stmt.execute(query);
             stmt.close();
-
         } catch (SQLException ex) {
-            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex); 
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-        return true;
+          return true;
        
     }
     

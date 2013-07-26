@@ -1,6 +1,6 @@
 <%-- 
-    Document   : prueba
-    Created on : Jul 24, 2013, 12:43:00 AM
+    Document   : topicos.jsp
+    Created on : Jul 24, 2013, 3:46:57 PM
     Author     : hector
 --%>
 
@@ -13,9 +13,5 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <p>ID: {placeholder}</p>
-        <p>IP: {placeholder}</p>
-        <p>Usuario: {placeholder}</p>
-        <p>Contrasena: {placeholder}</p>
     </body>
 </html>
