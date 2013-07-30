@@ -25,7 +25,7 @@
         
         <c:forEach var="row" items="${result.rows}">
            
-            <option value="${row.id}">${row.nombre} ${row.categoria}</option>
+            <option value="${row.id}">${row.categoria}: ${row.nombre} </option>
 	</c:forEach>
         </select>
         <input type="submit" value="Enviar"/>

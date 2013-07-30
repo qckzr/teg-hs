@@ -1,6 +1,6 @@
 <%-- 
-    Document   : consultarTopico1
-    Created on : Jul 28, 2013, 1:50:49 PM
+    Document   : consultarPregunta1
+    Created on : Jul 30, 2013, 1:34:08 AM
     Author     : hector
 --%>
 
@@ -15,17 +15,17 @@
         <title>JSP Page</title>
     </head>
     <body>
-      <form method="POST" action="${pageContext.request.contextPath}/ConsultarTopicoServlet">
-        <select name="topicos">
+       <form method="POST" action="${pageContext.request.contextPath}/ConsultarPreguntaServlet1">
+        <select name="preguntas">
         
             
             <sql:query dataSource="${localSource}" 
-	           sql="SELECT id, nombre, categoria FROM topicos" 
+	           sql="SELECT p.id, p.enunciado, t.nombre FROM preguntas p,topicos t where p.id_topico=t.id" 
 	           var="result" />
         
         <c:forEach var="row" items="${result.rows}">
            
-            <option value="${row.id}">${row.categoria}: ${row.nombre} </option>
+            <option value="${row.id}">${row.nombre}: ${row.enunciado} </option>
 	</c:forEach>
         </select>
         <input type="submit" value="Enviar"/>

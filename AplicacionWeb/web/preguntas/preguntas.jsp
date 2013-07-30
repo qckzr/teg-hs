@@ -1,6 +1,6 @@
 <%-- 
-    Document   : crearPregunta
-    Created on : Jul 28, 2013, 3:40:22 PM
+    Document   : preguntas
+    Created on : Jul 28, 2013, 3:39:52 PM
     Author     : hector
 --%>
 
@@ -12,6 +12,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <a href="crearPregunta.jsp">Crear</a>
+        <a href="">Modificar</a>
+        <a href="eliminarPregunta1.jsp">Eliminar</a>
+        <a href="consultarPregunta1.jsp">Consultar</a>
     </body>
 </html>
