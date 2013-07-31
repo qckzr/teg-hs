@@ -15,11 +15,8 @@
         <a href="usuarios/usuarios.jsp">Usuarios</a><br/>
         <a href="topicos/topicos.jsp">Topicos</a><br/>
         <a href="preguntas/preguntas.jsp">Pregunta</a><br/>
-        <a>Respuesta</a><br/>
-        <a>Escenario</a><br/>
-        <a>Aplicacion></a><br/>
+        <a href="aplicaciones/aplicaciones.jsp">Aplicacion</a><br/>
         <a href="ejecutables/ejecutables.jsp">Ejecutable</a><br/>
-        <a>Parametro</a><br/>
         <a>Nodo</a><br/>
         
     </body>
