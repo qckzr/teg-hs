@@ -24,7 +24,7 @@ public final  class LibreriaMensajes {
 
     private final static int PUERTO = 1337;
     private final static int MENSAJES_MAXIMOS = 5;
-    private EscucharMensajes hiloDeEscucha;
+    private static EscucharMensajes hiloDeEscucha;
     private ArrayList<String> ipDestino;
     private String ipOrigen;
     private ArrayList<Mensaje> mensajesRecibidos;
@@ -53,12 +53,12 @@ public final  class LibreriaMensajes {
         
     }
 
-    public EscucharMensajes getHiloDeEscucha() {
+    public static EscucharMensajes getHiloDeEscucha() {
         return hiloDeEscucha;
     }
 
-    public void setHiloDeEscucha(EscucharMensajes hiloDeEscucha) {
-        this.hiloDeEscucha = hiloDeEscucha;
+    public static void setHiloDeEscucha(EscucharMensajes hiloDeEscucha) {
+        LibreriaMensajes.hiloDeEscucha = hiloDeEscucha;
     }
 
     public ArrayList<String> getIpDestino() {

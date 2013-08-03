@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Hector
  */
-public class EscucharMensajes extends Thread {
+public class  EscucharMensajes extends Thread {
 
     private boolean control = true;
     private ServerSocket serverSocket;
@@ -84,6 +84,16 @@ public class EscucharMensajes extends Thread {
             } catch (IOException ex) {
                 Logger.getLogger(EscucharMensajes.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+    
+    
+    public void kill(){
+        control = false;
+        try {
+            serverSocket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(EscucharMensajes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

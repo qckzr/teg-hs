@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,5 +15,7 @@
     <body>
         <a href="topicos.jsp">Topicos</a>
         <a href="gestion.jsp">Gestion</a>
+       
+  
     </body>
 </html>

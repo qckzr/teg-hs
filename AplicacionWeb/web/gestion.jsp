@@ -17,7 +17,7 @@
         <a href="preguntas/preguntas.jsp">Pregunta</a><br/>
         <a href="aplicaciones/aplicaciones.jsp">Aplicacion</a><br/>
         <a href="ejecutables/ejecutables.jsp">Ejecutable</a><br/>
-        <a>Nodo</a><br/>
+        <a href="nodos/nodos.jsp">Nodo</a><br/>
         
     </body>
 </html>
