@@ -4,9 +4,13 @@
  */
 package controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -16,6 +20,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
+import model.Directorios;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -42,22 +52,69 @@ public class CrearAplicacionServlet extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-              
+            Directorios directorio = new Directorios();
+            String nombre ="";
+            String instrucciones = "";
+            String idTopico = "";
+            String cantidadEscenarios = "";
+            ArrayList<String> nombreEscenarios = new ArrayList<>();
+            ArrayList<String> descripcionEscenarios = new ArrayList<>();
+            ArrayList<String> imagenes = new ArrayList<>();
+
+            File seshdir = new File(directorio.getDirectorioImagenesEscenarios());
+            if (!seshdir.exists()) {
+            seshdir.mkdirs();
+            }
+            FileItemFactory factory = new DiskFileItemFactory();
+            ServletFileUpload upload = new ServletFileUpload(factory);
+            List<FileItem> items = null;
+            try {
+                items = upload.parseRequest(request);
+            } catch (FileUploadException ex) {
+                Logger.getLogger(CrearEjecutableServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+ 
+      for (FileItem diskFileItem : items) {
+
+        if (diskFileItem.isFormField()) {
+            switch (diskFileItem.getFieldName()){
+                case "nombre": nombre = diskFileItem.getString();
+                                    break;
+                case "instrucciones": instrucciones = diskFileItem.getString();
+                                break;
+                case "topicos": idTopico = diskFileItem.getString();
+                    break;
+                case "cantidadEscenarios": cantidadEscenarios = diskFileItem.getString();
+                    break;
+                default:{
+                    if (diskFileItem.getFieldName().contains("escenario"))
+                       nombreEscenarios.add(diskFileItem.getString());
+                    else if (diskFileItem.getFieldName().contains("descripcion"))
+                        descripcionEscenarios.add(diskFileItem.getString());
+                }
+                       
+            };
+        
+        }
+        else{
+            if (!diskFileItem.getString().isEmpty()){
+            byte[] fileBytes = diskFileItem.get();
+            File file = new File(seshdir, diskFileItem.getName());
+            imagenes.add("'"+directorio.getDirectorioImagenesTopico()+"/"+diskFileItem.getName()+"'");
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(fileBytes);
+            fileOutputStream.flush();
+            }
+            else imagenes.add("NULL");
+        }
+      } 
             ConexionBD conexionBD = new ConexionBD();
-             String nombre =request.getParameter("nombre");
-            String instrucciones = request.getParameter("instrucciones");
-            
-            String idTopico = request.getParameter("topicos");
             conexionBD.ejecutarQuery("INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)"
                     + " VALUES (S_APLICACIONES.NEXTVAL,'"+nombre+"',TO_DATE(SYSDATE,'DD/MM/YYYY'),'"+instrucciones+"',"+idTopico+")");
             String idAplicacion  = conexionBD.consultarRegistro("Select id from aplicaciones where nombre='"+nombre+"'").getString(1);
-            String cantidadEscenarios = request.getParameter("cantidadEscenarios");
-            for (int i = 1; i < Integer.valueOf(cantidadEscenarios); i++) {
-                String nombreEscenario = request.getParameter("nombre"+i);
-                String descripcion = request.getParameter("descripcion"+i);
-                //String rutaImagen = request.getParameter("imagen");
+            for (int i = 0; i < Integer.valueOf(cantidadEscenarios)-1; i++) {
                 conexionBD.ejecutarQuery("INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)"
-                        + "VALUES(S_ESCENARIOS.NEXTVAL,'"+nombreEscenario+"','"+descripcion+"',"+idAplicacion+",NULL)");
+                        + "VALUES(S_ESCENARIOS.NEXTVAL,'"+nombreEscenarios.get(i) +"','"+descripcionEscenarios.get(i) +"',"+idAplicacion+","+imagenes.get(i) +")");
                 
             }
             

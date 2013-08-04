@@ -4,10 +4,14 @@
  */
 package controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -17,6 +21,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
+import model.Directorios;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -43,24 +54,68 @@ public class CrearEjecutableServlet extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-            ConexionBD conexion = new ConexionBD();
-            //String nombre = request.getParameter("nombreEjecutable");
-            String nombre = "1";
-            String tipo = request.getParameter("tipoEjecutable");
-            //String rutaEjecutable = request.getParameter("nombreEjecutable");
-            String rutaEjecutable = "1";
-            String idAplicacion = request.getParameter("aplicacion");
-            conexion.ejecutarQuery("INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION)"
-                    + " VALUES (S_EJECUTABLES.NEXTVAL,'"+nombre+"','"+tipo+"','"+rutaEjecutable+"',"+idAplicacion+")");
-            String idEjecutable  = conexion.consultarRegistro("Select id from ejecutables where nombre='"+nombre+"'").getString(1);
-            String cantidadParametros = request.getParameter("cantidadParametros");
-            for (int i = 1; i < Integer.valueOf(cantidadParametros); i++) {
-                String nombreParametro = request.getParameter("nombreParametro"+i);
-                String valorParametro = request.getParameter("parametro"+i);
-                conexion.ejecutarQuery("INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)"
-                        + "VALUES(S_EJECUTABLES.NEXTVAL,'"+nombreParametro+"','"+valorParametro+"',"+idEjecutable+")");
-                
+            Directorios directorio = new Directorios();
+            String nombreEjecutable ="";
+            String tipo = "";
+            String idAplicacion = "";
+            String cantidadParametros = "";
+            ArrayList<String> nombreParametros = new ArrayList<String>();
+            ArrayList<String> valorParametros = new ArrayList<String>();
+            File seshdir = new File(directorio.getDirectorioEjecutables());
+            if (!seshdir.exists()) {
+            seshdir.mkdirs();
             }
+            FileItemFactory factory = new DiskFileItemFactory();
+            ServletFileUpload upload = new ServletFileUpload(factory);
+            List<FileItem> items = null;
+            try {
+                items = upload.parseRequest(request);
+            } catch (FileUploadException ex) {
+                Logger.getLogger(CrearEjecutableServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+ 
+      for (FileItem diskFileItem : items) {
+
+        if (diskFileItem.isFormField()) {
+            switch (diskFileItem.getFieldName()){
+                case "tipoEjecutable": tipo = diskFileItem.getString();
+                                    break;
+                case "aplicacion": idAplicacion = diskFileItem.getString();
+                                break;
+                case "cantidadParametros": cantidadParametros = diskFileItem.getString();
+                    break;
+                default:{
+                    if (diskFileItem.getFieldName().contains("nombreParametro"))
+                        nombreParametros.add(diskFileItem.getString());               
+                    else if (diskFileItem.getFieldName().contains("parametro"))
+                        valorParametros.add(diskFileItem.getString());
+                }
+                
+                
+            };
+        
+        }
+        else{
+
+            byte[] fileBytes = diskFileItem.get();
+            File file = new File(seshdir, diskFileItem.getName());
+            nombreEjecutable = diskFileItem.getName();
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(fileBytes);
+            fileOutputStream.flush();
+        }
+  }
+            ConexionBD conexion = new ConexionBD();
+            String rutaEjecutable = "";
+            conexion.ejecutarQuery("INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION)"
+                    + " VALUES (S_EJECUTABLES.NEXTVAL,'"+nombreEjecutable+"','"+tipo+"','"+rutaEjecutable+"',"+idAplicacion+")");
+            String idEjecutable  = conexion.consultarRegistro("Select id from ejecutables where nombre='"+nombreEjecutable+"'").getString(1);
+            for (int i = 0; i <  Integer.valueOf(cantidadParametros)-1; i++) {
+                conexion.ejecutarQuery("INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)"
+                        + "VALUES(S_EJECUTABLES.NEXTVAL,'"+nombreParametros.get(i) +"','"+valorParametros.get(i) +"',"+idEjecutable+")");
+            }
+  
+            conexion.ejecutarQuery("UPDATE EJECUTABLES SET RUTA_EJECUTABLE='"+directorio.getDirectorioEjecutables()+"/"+nombreEjecutable+"' WHERE ID="+idEjecutable);
             
             request.setAttribute("mensaje","Se agregó el ejecutable");     
             request.setAttribute("link","ejecutables/ejecutables.jsp");

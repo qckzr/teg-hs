@@ -26,7 +26,7 @@
         for (var i=1;i<=sel;i++){
             var text = document.createElement("input");
             text.type = "text";
-            var nombre = "nombre";           
+            var nombre = "escenario";           
             text.name = nombre.concat("",i.toString());
             var textArea = document.createElement("textarea");
             var descripcion = "descripcion";
@@ -58,7 +58,7 @@
     </head>
     <body>
         
-        <form method="POST" action="${pageContext.request.contextPath}/CrearAplicacionServlet">
+        <form method="POST" action="${pageContext.request.contextPath}/CrearAplicacionServlet" enctype="multipart/form-data">
             
             <label>Nombre: </label><input type="text" name="nombre"/>
             <label>Instrucciones: </label><textarea name="instrucciones"></textarea>

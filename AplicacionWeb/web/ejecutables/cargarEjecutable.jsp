@@ -49,7 +49,7 @@
 </script>
     </head>
     <body>
-        <form method="POST" action="${pageContext.request.contextPath}/CrearEjecutableServlet">
+        <form method="POST" action="${pageContext.request.contextPath}/CrearEjecutableServlet" enctype="multipart/form-data">
             
             <label>Ejecutable: </label><input type="file" name="nombreEjecutable"/>
             <label>Tipo de Ejecutable: </label><select name="tipoEjecutable">
@@ -83,6 +83,7 @@
     </select> 
             <span id="Parametros"></span><br/>
             <input type="hidden" id="cantidadParametros" name="cantidadParametros"/>
+            
             <input type="submit" value="Enviar"/>
         </form>
     </body>

@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="${pageContext.request.contextPath}/CrearTopicoServlet" method="POST">
+        <form action="${pageContext.request.contextPath}/CrearTopicoServlet" method="POST" enctype="multipart/form-data">
             <label>Nombre: <input type="text" name="nombre"/></label><br/>
             <label>Categoria: <select name="categoria"><br/>
                 <option value="INTRODUCCION A LOS SISTEMAS DISTRIBUIDOS">INTRODUCCION A LOS SISTEMAS DISTRIBUIDOS</option>
