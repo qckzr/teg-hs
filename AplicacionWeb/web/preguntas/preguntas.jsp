@@ -13,7 +13,7 @@
     </head>
     <body>
         <a href="crearPregunta.jsp">Crear</a>
-        <a href="">Modificar</a>
+        <a href="modificarPregunta1.jsp">Modificar</a>
         <a href="eliminarPregunta1.jsp">Eliminar</a>
         <a href="consultarPregunta1.jsp">Consultar</a>
     </body>

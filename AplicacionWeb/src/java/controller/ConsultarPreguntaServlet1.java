@@ -55,8 +55,8 @@ public class ConsultarPreguntaServlet1 extends HttpServlet {
                 pregunta[1] = rs2.getString(2);
                 preguntas.add(pregunta);
             }
-            request.setAttribute("enunciado", rs.getString(1));
-            request.setAttribute("topico", rs.getString(2));
+            request.setAttribute("enunciado", rs.getString(2));
+            request.setAttribute("topico", rs.getString(3));
             request.setAttribute("preguntas", preguntas);
             RequestDispatcher dispatcher = request.getRequestDispatcher("preguntas/consultarPregunta2.jsp");
             dispatcher.forward(request, response);

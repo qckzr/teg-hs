@@ -13,7 +13,7 @@
     </head>
     <body>
         <a href="cargarEjecutable.jsp">Cargar Ejecutable</a>
-        <a href="">Modificar</a>
+        <a href="modificarEjecutable1.jsp">Modificar</a>
         <a href="eliminarEjecutable1.jsp">Eliminar</a>
         <a href="consultarEjecutable1.jsp">Consultar</a>
     </body>

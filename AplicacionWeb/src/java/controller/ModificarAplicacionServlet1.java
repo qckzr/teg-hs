@@ -6,7 +6,9 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -19,10 +21,10 @@ import model.ConexionBD;
 
 /**
  *
- * @author hector
+ * @author sam
  */
-@WebServlet(name = "CrearPreguntaServlet", urlPatterns = {"/CrearPreguntaServlet"})
-public class CrearPreguntaServlet extends HttpServlet {
+@WebServlet(name = "ModificarAplicacionServlet1", urlPatterns = {"/ModificarAplicacionServlet1"})
+public class ModificarAplicacionServlet1 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -42,31 +44,31 @@ public class CrearPreguntaServlet extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-           ConexionBD conexionBD = new ConexionBD();
-           String enunciado = request.getParameter("enunciado");
-           String topico = request.getParameter("topicos");
-           String opcion1 = request.getParameter("opcion1");
-           String opcion2 = request.getParameter("opcion2");
-           String opcion3 = request.getParameter("opcion3");
-           String opcion4 = request.getParameter("opcion4");
-           String respuestaCorrecta1 = request.getParameter("checkbox1");
-           String respuestaCorrecta2 = request.getParameter("checkbox2");
-           String respuestaCorrecta3 = request.getParameter("checkbox3");
-           String respuestaCorrecta4 = request.getParameter("checkbox4");
-
-          
-           conexionBD.ejecutarQuery("INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) VALUES (S_PREGUNTAS.NEXTVAL,'"+enunciado+"',"+topico+")");
-           String idPregunta = conexionBD.consultarRegistro("SELECT ID FROM PREGUNTAS WHERE ENUNCIADO='"+enunciado+"'").getString(1);
-            conexionBD.ejecutarQuery("INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA) VALUES (S_RESPUESTAS.NEXTVAL,'"+opcion1+"',"+idPregunta+","+respuestaCorrecta1+")");
-            conexionBD.ejecutarQuery("INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA) VALUES (S_RESPUESTAS.NEXTVAL,'"+opcion2+"',"+idPregunta+","+respuestaCorrecta2+")");
-            conexionBD.ejecutarQuery("INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA) VALUES (S_RESPUESTAS.NEXTVAL,'"+opcion3+"',"+idPregunta+","+respuestaCorrecta3+")");
-            conexionBD.ejecutarQuery("INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA) VALUES (S_RESPUESTAS.NEXTVAL,'"+opcion4+"',"+idPregunta+","+respuestaCorrecta4+")");
-            request.setAttribute("mensaje","Se agregó la pregunta");     
-            request.setAttribute("link","preguntas/preguntas.jsp");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
+               ConexionBD conexion = new ConexionBD();
+            String id = request.getParameter("aplicaciones");
+            ArrayList<String[]> escenarios = new ArrayList<String[]>();
+            ResultSet rs = conexion.consultarRegistro("SELECT NOMBRE,TO_CHAR(FECHA_ACTUALIZACION,'DD-MM-YYYY'),INSTRUCCIONES,ID_TOPICO FROM APLICACIONES WHERE ID="+id);
+            ResultSet rs2 = conexion.consultar("SELECT NOMBRE,DESCRIPCION, IMAGEN,ID FROM ESCENARIOS WHERE ID_APLICACION="+id);
+            while (rs2.next()){
+                String[] escenario = new String[4];
+                escenario[0] = rs2.getString(1);
+                escenario[1] = rs2.getString(2);
+                if (rs2.getString(3)!=null)
+                    escenario[2] = rs2.getString(3);
+                else escenario[2] = "NULL";
+                escenario[3] = rs2.getString(4);
+                escenarios.add(escenario);
+            }
+            request.setAttribute("nombre",rs.getString(1));
+            request.setAttribute("fecha_actualizacion",rs.getString(2));
+            request.setAttribute("instrucciones",rs.getString(3));
+            request.setAttribute("idTopico", rs.getString(4));
+            request.setAttribute("id",id);
+            request.setAttribute("escenarios",escenarios);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("aplicaciones/modificarAplicacion2.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(CrearPreguntaServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ModificarAplicacionServlet1.class.getName()).log(Level.SEVERE, null, ex);
         } finally {            
             out.close();
         }

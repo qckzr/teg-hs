@@ -6,7 +6,9 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -19,10 +21,10 @@ import model.ConexionBD;
 
 /**
  *
- * @author hector
+ * @author sam
  */
-@WebServlet(name = "CrearPreguntaServlet", urlPatterns = {"/CrearPreguntaServlet"})
-public class CrearPreguntaServlet extends HttpServlet {
+@WebServlet(name = "ModificarPreguntaServlet1", urlPatterns = {"/ModificarPreguntaServlet1"})
+public class ModificarPreguntaServlet1 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -43,30 +45,27 @@ public class CrearPreguntaServlet extends HttpServlet {
              * TODO output your page here. You may use following sample code.
              */
            ConexionBD conexionBD = new ConexionBD();
-           String enunciado = request.getParameter("enunciado");
-           String topico = request.getParameter("topicos");
-           String opcion1 = request.getParameter("opcion1");
-           String opcion2 = request.getParameter("opcion2");
-           String opcion3 = request.getParameter("opcion3");
-           String opcion4 = request.getParameter("opcion4");
-           String respuestaCorrecta1 = request.getParameter("checkbox1");
-           String respuestaCorrecta2 = request.getParameter("checkbox2");
-           String respuestaCorrecta3 = request.getParameter("checkbox3");
-           String respuestaCorrecta4 = request.getParameter("checkbox4");
-
-          
-           conexionBD.ejecutarQuery("INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) VALUES (S_PREGUNTAS.NEXTVAL,'"+enunciado+"',"+topico+")");
-           String idPregunta = conexionBD.consultarRegistro("SELECT ID FROM PREGUNTAS WHERE ENUNCIADO='"+enunciado+"'").getString(1);
-            conexionBD.ejecutarQuery("INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA) VALUES (S_RESPUESTAS.NEXTVAL,'"+opcion1+"',"+idPregunta+","+respuestaCorrecta1+")");
-            conexionBD.ejecutarQuery("INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA) VALUES (S_RESPUESTAS.NEXTVAL,'"+opcion2+"',"+idPregunta+","+respuestaCorrecta2+")");
-            conexionBD.ejecutarQuery("INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA) VALUES (S_RESPUESTAS.NEXTVAL,'"+opcion3+"',"+idPregunta+","+respuestaCorrecta3+")");
-            conexionBD.ejecutarQuery("INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA) VALUES (S_RESPUESTAS.NEXTVAL,'"+opcion4+"',"+idPregunta+","+respuestaCorrecta4+")");
-            request.setAttribute("mensaje","Se agregó la pregunta");     
-            request.setAttribute("link","preguntas/preguntas.jsp");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
+            String idPregunta = request.getParameter("preguntas");
+            String idRespuestaCorrecta="";
+            ResultSet rs = conexionBD.consultarRegistro("SELECT p.id, p.enunciado, t.id FROM preguntas p,topicos t where p.id_topico=t.id and p.id="+idPregunta);
+            ResultSet rs2 = conexionBD.consultar("select opcion,correcta,id from respuestas where id_pregunta="+idPregunta);
+            ArrayList<String[]> preguntas = new ArrayList<String[]>();
+            while (rs2.next()){
+                String[] pregunta = new String[3];
+                pregunta[0] = rs2.getString(1);
+                pregunta[1] = rs2.getString(2);
+                pregunta[2] = rs2.getString(3);
+                
+                preguntas.add(pregunta);
+            }
+            request.setAttribute("enunciado", rs.getString(2));
+            request.setAttribute("topico", rs.getString(3));
+            request.setAttribute("preguntas", preguntas);
+            request.setAttribute("id", idPregunta);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("preguntas/modificarPregunta2.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(CrearPreguntaServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EliminarPreguntaServlet1.class.getName()).log(Level.SEVERE, null, ex);
         } finally {            
             out.close();
         }

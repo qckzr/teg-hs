@@ -1,7 +1,7 @@
 <%-- 
-    Document   : modificarEjecutable1
-    Created on : Jul 28, 2013, 11:24:21 PM
-    Author     : hector
+    Document   : modificarPregunta1
+    Created on : Aug 5, 2013, 12:39:18 AM
+    Author     : sam
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,20 +15,20 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form method="POST" action="${pageContext.request.contextPath}/ModificarEjecutableServlet1">
-        <select name="ejecutables">
+        <form method="POST" action="${pageContext.request.contextPath}/ModificarPreguntaServlet1">
+        <select name="preguntas">
         
             
             <sql:query dataSource="${localSource}" 
-	           sql="SELECT id,nombre,tipo FROM ejecutables" 
+	           sql="SELECT p.id, p.enunciado, t.nombre FROM preguntas p,topicos t where p.id_topico=t.id" 
 	           var="result" />
         
         <c:forEach var="row" items="${result.rows}">
            
-            <option value="${row.id}">${row.nombre} - ${row.tipo}</option>
+            <option value="${row.id}">${row.nombre}: ${row.enunciado} </option>
 	</c:forEach>
         </select>
         <input type="submit" value="Enviar"/>
-         </form>
+        </form>
     </body>
 </html>

@@ -6,6 +6,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,10 +20,10 @@ import model.ConexionBD;
 
 /**
  *
- * @author hector
+ * @author sam
  */
-@WebServlet(name = "CrearPreguntaServlet", urlPatterns = {"/CrearPreguntaServlet"})
-public class CrearPreguntaServlet extends HttpServlet {
+@WebServlet(name = "ModificarPreguntaServlet2", urlPatterns = {"/ModificarPreguntaServlet2"})
+public class ModificarPreguntaServlet2 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -42,31 +43,32 @@ public class CrearPreguntaServlet extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-           ConexionBD conexionBD = new ConexionBD();
-           String enunciado = request.getParameter("enunciado");
-           String topico = request.getParameter("topicos");
-           String opcion1 = request.getParameter("opcion1");
-           String opcion2 = request.getParameter("opcion2");
-           String opcion3 = request.getParameter("opcion3");
-           String opcion4 = request.getParameter("opcion4");
-           String respuestaCorrecta1 = request.getParameter("checkbox1");
-           String respuestaCorrecta2 = request.getParameter("checkbox2");
-           String respuestaCorrecta3 = request.getParameter("checkbox3");
-           String respuestaCorrecta4 = request.getParameter("checkbox4");
-
-          
-           conexionBD.ejecutarQuery("INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) VALUES (S_PREGUNTAS.NEXTVAL,'"+enunciado+"',"+topico+")");
-           String idPregunta = conexionBD.consultarRegistro("SELECT ID FROM PREGUNTAS WHERE ENUNCIADO='"+enunciado+"'").getString(1);
-            conexionBD.ejecutarQuery("INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA) VALUES (S_RESPUESTAS.NEXTVAL,'"+opcion1+"',"+idPregunta+","+respuestaCorrecta1+")");
-            conexionBD.ejecutarQuery("INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA) VALUES (S_RESPUESTAS.NEXTVAL,'"+opcion2+"',"+idPregunta+","+respuestaCorrecta2+")");
-            conexionBD.ejecutarQuery("INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA) VALUES (S_RESPUESTAS.NEXTVAL,'"+opcion3+"',"+idPregunta+","+respuestaCorrecta3+")");
-            conexionBD.ejecutarQuery("INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA) VALUES (S_RESPUESTAS.NEXTVAL,'"+opcion4+"',"+idPregunta+","+respuestaCorrecta4+")");
-            request.setAttribute("mensaje","Se agregó la pregunta");     
+                ConexionBD conexionBD = new ConexionBD();
+                String enunciado = request.getParameter("enunciado");
+                String topico = request.getParameter("topicos");
+                String id = request.getParameter("id");
+                String respuestaCorrecta = request.getParameter("respuestaCorrecta");
+                ResultSet pregunta = conexionBD.consultarRegistro("SELECT ENUNCIADO,ID_TOPICO FROM PREGUNTAS WHERE ID="+id);
+                if (!pregunta.getString(1).contentEquals(enunciado))
+                    conexionBD.ejecutarQuery("UPDATE PREGUNTAS SET ENUNCIADO='"+enunciado+"' WHERE ID="+id);
+                if (!pregunta.getString(2).contentEquals(topico))
+                    conexionBD.ejecutarQuery("UPDATE PREGUNTAS SET ID_TOPICO="+topico+" WHERE ID="+id);
+                ResultSet respuestas = conexionBD.consultar("SELECT ID FROM RESPUESTAS WHERE ID_PREGUNTA="+id);
+                
+                for (int i = 1; i <= 4; i++) {
+                    String respuesta = request.getParameter("respuesta"+i);
+                    String opcion = request.getParameter("checkbox"+i);
+                    conexionBD.ejecutarQuery("UPDATE RESPUESTAS SET OPCION='"+respuesta+"' WHERE ID="+request.getParameter("idRespuesta"+i));
+                    conexionBD.ejecutarQuery("UPDATE RESPUESTAS SET CORRECTA="+opcion+" WHERE ID="+request.getParameter("idRespuesta"+i));
+                
+            }
+            request.setAttribute("mensaje","Pregunta Modificada");
             request.setAttribute("link","preguntas/preguntas.jsp");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
-            dispatcher.forward(request, response);
+            dispatcher.forward(request, response);    
+                    
         } catch (SQLException ex) {
-            Logger.getLogger(CrearPreguntaServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ModificarPreguntaServlet2.class.getName()).log(Level.SEVERE, null, ex);
         } finally {            
             out.close();
         }

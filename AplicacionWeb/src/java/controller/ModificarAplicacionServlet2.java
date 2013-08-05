@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +30,10 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
- * @author hector
+ * @author sam
  */
-@WebServlet(name = "CrearAplicacionServlet", urlPatterns = {"/CrearAplicacionServlet"})
-public class CrearAplicacionServlet extends HttpServlet {
+@WebServlet(name = "ModificarAplicacionServlet2", urlPatterns = {"/ModificarAplicacionServlet2"})
+public class ModificarAplicacionServlet2 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -54,12 +55,15 @@ public class CrearAplicacionServlet extends HttpServlet {
              */
             Directorios directorio = new Directorios();
             String nombre ="";
+            String fecha_actualizacion="";
             String instrucciones = "";
-            String idTopico = "";
+            String id = "";
+            String idTopico ="";
             String cantidadEscenarios = "";
             ArrayList<String> nombreEscenarios = new ArrayList<>();
             ArrayList<String> descripcionEscenarios = new ArrayList<>();
             ArrayList<String> imagenes = new ArrayList<>();
+            ArrayList<String> idEscenarios = new ArrayList<>();
 
             File seshdir = new File(directorio.getDirectorioImagenesEscenarios());
             if (!seshdir.exists()) {
@@ -82,15 +86,19 @@ public class CrearAplicacionServlet extends HttpServlet {
                                     break;
                 case "instrucciones": instrucciones = diskFileItem.getString();
                                 break;
+                case "fecha_actualizacion": fecha_actualizacion = diskFileItem.getString();
+                    break;
+                case "id": id = diskFileItem.getString();
+                    break;
                 case "topicos": idTopico = diskFileItem.getString();
-                    break;
-                case "cantidadEscenarios": cantidadEscenarios = diskFileItem.getString();
-                    break;
+                    break;    
                 default:{
                     if (diskFileItem.getFieldName().contains("escenario"))
                        nombreEscenarios.add(diskFileItem.getString());
                     else if (diskFileItem.getFieldName().contains("descripcion"))
                         descripcionEscenarios.add(diskFileItem.getString());
+                    else if (diskFileItem.getFieldName().contains("idEscenario"))
+                        idEscenarios.add(diskFileItem.getString());
                 }
                        
             };
@@ -98,27 +106,42 @@ public class CrearAplicacionServlet extends HttpServlet {
         }
         else{
             if (!diskFileItem.getString().isEmpty()){
-            byte[] fileBytes = diskFileItem.get();
-            File file = new File(seshdir, diskFileItem.getName());
-            imagenes.add("'"+directorio.getDirectorioImagenesEscenarios()+"/"+diskFileItem.getName()+"'");
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            fileOutputStream.write(fileBytes);
-            fileOutputStream.flush();
+                byte[] fileBytes = diskFileItem.get();
+                File file = new File(seshdir, diskFileItem.getName());
+                imagenes.add("'"+directorio.getDirectorioImagenesEscenarios()+"/"+diskFileItem.getName()+"'");
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                fileOutputStream.write(fileBytes);
+                fileOutputStream.flush();
             }
             else imagenes.add("NULL");
         }
       } 
             ConexionBD conexionBD = new ConexionBD();
-            conexionBD.ejecutarQuery("INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)"
-                    + " VALUES (S_APLICACIONES.NEXTVAL,'"+nombre+"',TO_DATE(SYSDATE,'DD/MM/YYYY'),'"+instrucciones+"',"+idTopico+")");
-            String idAplicacion  = conexionBD.consultarRegistro("Select id from aplicaciones where nombre='"+nombre+"'").getString(1);
-            for (int i = 0; i < Integer.valueOf(cantidadEscenarios)-1; i++) {
-                conexionBD.ejecutarQuery("INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)"
-                        + "VALUES(S_ESCENARIOS.NEXTVAL,'"+nombreEscenarios.get(i) +"','"+descripcionEscenarios.get(i) +"',"+idAplicacion+","+imagenes.get(i) +")");
+            ResultSet aplicacion = conexionBD.consultarRegistro("SELECT NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO FROM APLICACIONES WHERE ID="+id);
+            if (!aplicacion.getString(1).contentEquals(nombre))
+                conexionBD.ejecutarQuery("UPDATE APLICACIONES SET NOMBRE='"+nombre+"' WHERE ID="+id);
+            if (!aplicacion.getString(2).contentEquals(fecha_actualizacion))
+                conexionBD.ejecutarQuery("UPDATE APLICACIONES SET FECHA_ACTUALIZACION=TO_DATE('"+fecha_actualizacion+"','DD-MM-YYYY') WHERE ID="+id);
+            if (!aplicacion.getString(3).contentEquals(instrucciones))
+                conexionBD.ejecutarQuery("UPDATE APLICACIONES SET INSTRUCCIONES='"+instrucciones+"' WHERE ID="+id);
+            if (!aplicacion.getString(4).contentEquals(idTopico))
+                conexionBD.ejecutarQuery("UPDATE APLICACIONES SET ID_TOPICO="+idTopico+" WHERE ID="+id);
+            for (int i = 0; i < Integer.valueOf(nombreEscenarios.size()); i++) {
+                
+                ResultSet escenario = conexionBD.consultarRegistro("SELECT NOMBRE,DESCRIPCION,IMAGEN FROM ESCENARIOS WHERE ID="+idEscenarios.get(i));
+                if (!escenario.getString(1).contentEquals(nombreEscenarios.get(i)))
+                    conexionBD.ejecutarQuery("UPDATE ESCENARIOS SET NOMBRE='"+nombreEscenarios.get(i)+"' WHERE ID="+idEscenarios.get(i));
+                if (!escenario.getString(2).contentEquals(descripcionEscenarios.get(i)))
+                    conexionBD.ejecutarQuery("UPDATE ESCENARIOS SET DESCRIPCION='"+descripcionEscenarios.get(i)+"' WHERE ID="+idEscenarios.get(i));
+                if (escenario.getString(3)==null && !imagenes.get(i).contentEquals("NULL"))
+                        conexionBD.ejecutarQuery("UPDATE ESCENARIOS SET IMAGEN="+imagenes.get(i)+" WHERE ID="+idEscenarios.get(i));
+                else if ( !imagenes.get(i).contentEquals("NULL") && !escenario.getString(3).contentEquals(imagenes.get(i)))
+                    conexionBD.ejecutarQuery("UPDATE ESCENARIOS SET IMAGEN="+imagenes.get(i)+" WHERE ID="+idEscenarios.get(i));
+                    
                 
             }
             
-            request.setAttribute("mensaje","Se agregó la aplicacion");     
+            request.setAttribute("mensaje","Se modificó la aplicacion");     
             request.setAttribute("link","aplicaciones/aplicaciones.jsp");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
             dispatcher.forward(request, response);
