@@ -15,7 +15,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form method="POST" action="${pageContext.request.contextPath}/ModificarTopicoServlet2">
+        <form method="POST" action="${pageContext.request.contextPath}/ModificarTopicoServlet2" enctype="multipart/form-data">
             <label>Nombre: <input type="text" value="${nombre}" name="nombre"/></label><br/>
             <label>Categoria: <select name="categoriaFinal">
                          <c:set var="categoriaTopico" value="${categoria}"/>
@@ -31,7 +31,8 @@
                          </c:forEach>
                 </select></label><br/>
             <label>Descripcion:<textarea  name="descripcion">${descripcion}</textarea></label><br/>
-            <label>Imagen: FALTA IMPLEMENTAR</label><br/>
+            <label>Imagen: ${imagen}</label><br/>
+            <input type="file" name="imagen"/><br/>
             <select name="usuarios">
                  <c:set var="idUsuario" value="${idUsuario}"/>
                 <c:forEach var="usuarios" items="${usuarios}">

@@ -12,10 +12,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-
-        <a href="crearUsuario.jsp">Crear</a><br/>
-        <a href="modificarUsuario1.jsp">Modificar</a><br/>
-        <a href="eliminarUsuario1.jsp">Eliminar</a><br/>
-        <a href="consultarUsuario1.jsp">Consultar</a><br/>
+        <ul>
+            <li><a href="crearUsuario.jsp">Crear</a></li>
+            <li><a href="modificarUsuario1.jsp">Modificar</a></li>
+            <li><a href="eliminarUsuario1.jsp">Eliminar</a></li>
+            <li><a href="consultarUsuario1.jsp">Consultar</a></li>
+        </ul>
     </body>
 </html>

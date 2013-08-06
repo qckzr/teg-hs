@@ -12,12 +12,13 @@
         <title>Gestion Topicos</title>
     </head>
     <body>
-        <a href="usuarios/usuarios.jsp">Usuarios</a><br/>
-        <a href="topicos/topicos.jsp">Topicos</a><br/>
-        <a href="preguntas/preguntas.jsp">Pregunta</a><br/>
-        <a href="aplicaciones/aplicaciones.jsp">Aplicacion</a><br/>
-        <a href="ejecutables/ejecutables.jsp">Ejecutable</a><br/>
-        <a href="nodos/nodos.jsp">Nodo</a><br/>
-        
+        <ul>
+            <li><a href="usuarios/usuarios.jsp">Usuarios</a></li>
+            <li><a href="topicos/topicos.jsp">Topicos</a></li>
+            <li><a href="preguntas/preguntas.jsp">Pregunta</a></li>
+            <li><a href="aplicaciones/aplicaciones.jsp">Aplicacion</a></li>
+            <li><a href="ejecutables/ejecutables.jsp">Ejecutable</a></li>
+            <li><a href="nodos/nodos.jsp">Nodo</a></li>
+        </ul>
     </body>
 </html>

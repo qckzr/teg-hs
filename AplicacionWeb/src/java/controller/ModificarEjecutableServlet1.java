@@ -50,14 +50,14 @@ public class ModificarEjecutableServlet1 extends HttpServlet {
             request.setAttribute("nombre",rs.getString(1));
             request.setAttribute("tipo",rs.getString(2));
             request.setAttribute("ruta_ejecutable",rs.getString(3));
-            ResultSet aplicacion = conexion.consultarRegistro("Select nombre from aplicaciones where id="+rs.getString(4));
-            request.setAttribute("aplicacion",aplicacion.getString(1));
-            ResultSet parametros = conexion.consultar("select nombre, valor from parametros where id_ejecutable="+id);
+            request.setAttribute("aplicacion",rs.getString(4));
+            ResultSet parametros = conexion.consultar("select nombre, valor,id from parametros where id_ejecutable="+id);
             ArrayList<String[]> listaParametros = new ArrayList<String[]>();
             while (parametros.next()){
-                String[] parametro = new String[2];
+                String[] parametro = new String[3];
                 parametro[0] = parametros.getString(1);
                 parametro[1] = parametros.getString(2);
+                parametro[2] = parametros.getString(3);
                 listaParametros.add(parametro);
             }
             request.setAttribute("parametros",listaParametros);

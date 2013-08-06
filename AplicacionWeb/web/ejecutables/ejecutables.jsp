@@ -12,9 +12,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <a href="cargarEjecutable.jsp">Cargar Ejecutable</a>
-        <a href="modificarEjecutable1.jsp">Modificar</a>
-        <a href="eliminarEjecutable1.jsp">Eliminar</a>
-        <a href="consultarEjecutable1.jsp">Consultar</a>
+        <ul>
+            <li><a href="cargarEjecutable.jsp">Cargar Ejecutable</a></li>
+            <li><a href="modificarEjecutable1.jsp">Modificar</a></li>
+            <li><a href="eliminarEjecutable1.jsp">Eliminar</a></li>
+            <li><a href="consultarEjecutable1.jsp">Consultar</a></li>
+        </ul>
     </body>
 </html>

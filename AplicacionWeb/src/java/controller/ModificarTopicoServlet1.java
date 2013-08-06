@@ -51,6 +51,7 @@ public class ModificarTopicoServlet1 extends HttpServlet {
              request.setAttribute("nombre",rs.getString(2));
              request.setAttribute("categoria",rs.getString(3));
              request.setAttribute("descripcion",rs.getString(4));
+             request.setAttribute("imagen",rs.getString(6));
              ResultSet rs2 = conexion.consultar("Select id, nombre, apellido from usuarios");
              request.setAttribute("idUsuario",rs.getString(5));
              ArrayList<String[]> usuarios = new ArrayList<String[]>();

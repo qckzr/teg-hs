@@ -13,9 +13,10 @@
         <title>Sistemas Distribuidos</title>
     </head>
     <body>
-        <a href="topicos.jsp">Topicos</a>
-        <a href="gestion.jsp">Gestion</a>
-       
+        <ul>
+            <li><a href="topicos.jsp">Topicos</a></li>
+            <li><a href="gestion.jsp">Gestion</a></li>
+        </ul>
   
     </body>
 </html>

@@ -12,9 +12,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <a href="crearAplicacion.jsp">Crear</a>
-        <a href="modificarAplicacion1.jsp">Modificar</a>
-        <a href="eliminarAplicacion1.jsp">Eliminar</a>
-        <a href="consultarAplicacion1.jsp">Consultar</a>
+        <ul>
+            <li><a href="crearAplicacion.jsp">Crear</a></li>
+            <li><a href="modificarAplicacion1.jsp">Modificar</a></li>
+            <li><a href="eliminarAplicacion1.jsp">Eliminar</a></li>
+            <li><a href="consultarAplicacion1.jsp">Consultar</a></li>
+        </ul>
     </body>
 </html>
