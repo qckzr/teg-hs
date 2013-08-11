@@ -12,27 +12,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script>
-            function validarUnicaRespuesta(check){
-                for (var i=1;i<=4;i++){
-                    var a = "";
-                    var checkBox = document.getElementById(a.concat("checkbox",i));
-                    if ((checkBox.checked==true) && (checkBox!=check)){
-                        checkBox.checked = false;
-                        checkBox.value = "NULL";
-                        check.value ="'SI'";
-                        return;
-                        }
-                        
-                }
-                check.value="'SI'";
-                return;
-            }
-        </script>
+        <script src="scripts/validarUnicaRespuesta.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="scripts/formularios.js"></script>
         <title>JSP Page</title>
     </head>
     <body>
-        <form method="POST" action="${pageContext.request.contextPath}/ModificarPreguntaServlet2">
+        <form class="formularios" method="POST" action="${pageContext.request.contextPath}/ModificarPreguntaServlet2">
             <label>Enunciado: <input type="text" name="enunciado" value="${enunciado}"</label><br/>
             <label>Topico: <select name="topicos">
                      <sql:query dataSource="${localSource}" 
@@ -70,5 +56,6 @@
                     <input type="hidden" name="id" value="${id}"/>
                
              </form>
+                    <div id="results"></div>   
     </body>
 </html>

@@ -47,9 +47,10 @@ public class Aplicacion extends HttpServlet {
             
             ConexionBD conexionBD = new ConexionBD();
             String idAplicacion = request.getParameter("aplicacion");
+            String idTopico = request.getParameter("idTopico");
             ResultSet resultSet = conexionBD.consultarRegistro("SELECT NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES FROM APLICACIONES WHERE ID="+idAplicacion);
             ResultSet escenariosAplicacion = conexionBD.consultar("SELECT NOMBRE,DESCRIPCION,IMAGEN FROM ESCENARIOS WHERE ID_APLICACION="+idAplicacion);
-            ResultSet ejecutablesAplicacion = conexionBD.consultar("SELECT ID,NOMBRE,TIPO FROM EJECUTABLES WHERE ID_APLICACION="+idAplicacion);
+            ResultSet ejecutablesAplicacion = conexionBD.consultar("SELECT ID,NOMBRE,TIPO,ID_NODO FROM EJECUTABLES WHERE ID_APLICACION="+idAplicacion);
             ArrayList<String[]> escenarios = new ArrayList<String[]>();
             while (escenariosAplicacion.next()){
                 String[] escenario = new String[3];
@@ -61,10 +62,11 @@ public class Aplicacion extends HttpServlet {
             ArrayList<String[]> ejecutables = new ArrayList<String[]>();
             
             while (ejecutablesAplicacion.next()){
-                String [] ejecutable = new String[3];
+                String [] ejecutable = new String[4];
                 ejecutable[0] = ejecutablesAplicacion.getString(1);
                 ejecutable[1] = ejecutablesAplicacion.getString(2);
                 ejecutable[2] = ejecutablesAplicacion.getString(3);
+                ejecutable[3] = ejecutablesAplicacion.getString(4);
                 ejecutables.add(ejecutable);
             }
             request.setAttribute("nombre",resultSet.getString(1));
@@ -72,6 +74,7 @@ public class Aplicacion extends HttpServlet {
             request.setAttribute("instrucciones", resultSet.getString(3));
             request.setAttribute("escenarios",escenarios);
             request.setAttribute("ejecutables",ejecutables);
+            request.setAttribute("idTopico", idTopico);
            RequestDispatcher dispatcher = request.getRequestDispatcher("aplicacion.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException ex) {

@@ -49,8 +49,10 @@
                 
         </c:forEach></ul>
                 <input type="hidden" id="count" value="${count}"/>
+                <input type="hidden" name="idTopico" value="${param.idTopico}"/>
                 <input type="hidden" name="aplicacion" id="aplicacion" value="" />
-        <input type="submit" value="Enviar"/>
+        <input type="submit" value="Enviar"/><br/>
+        <a href="topicos.jsp">Regresar</a>
         </form>
     </body>
 </html>

@@ -11,9 +11,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="scripts/formularios.js"></script>
     </head>
     <body>
-        <form method="POST" action="${pageContext.request.contextPath}/EliminarAplicacionServlet2">
+        <form class="formularios" method="POST" action="${pageContext.request.contextPath}/EliminarAplicacionServlet2">
          <label>Nombre: ${nombre}</label><br/>
              <label>Fecha Actualizacion: ${fecha_actualizacion}</label><br/>
              <label>Instrucciones:  ${instrucciones}</label><br/>
@@ -25,5 +27,6 @@
             <input type="submit" value="Enviar" />
             <input type="hidden" value="${id}" name="id"/>
         </form>
+        <div id="results"></div>
     </body>
 </html>

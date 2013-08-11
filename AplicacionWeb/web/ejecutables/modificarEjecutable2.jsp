@@ -13,9 +13,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="scripts/formularios.js"></script>
     </head>
     <body>
-        <form method="POST" action="${pageContext.request.contextPath}/ModificarEjecutableServlet2" enctype="multipart/form-data">
+        <form class="formularios" method="POST" action="${pageContext.request.contextPath}/ModificarEjecutableServlet2" enctype="multipart/form-data">
             <label>Nombre: ${nombre}</label><br/>
              <label>Tipo: <select name="tipo">
                      <c:set var="tipoAplicacion" value="CLIENTE"/>       
@@ -61,5 +63,6 @@
             <input type="hidden" value="${id}" name="id"/>
             <input type="hidden" value="${cantidadParametros}" name="cantidadParametros"/>
         </form>
+        <div id="results"></div>
     </body>
 </html>

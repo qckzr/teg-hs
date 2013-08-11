@@ -17,6 +17,13 @@
             <li><a href="topicos.jsp">Topicos</a></li>
             <li><a href="gestion.jsp">Gestion</a></li>
         </ul>
+        <div id="login">
+            <form>
+                <label>Usuario:<input type="text" name="usuario"/></label>
+                <label>Password:<input type="password" name="contrasena"/></label>
+                <input type="submit" value="Entrar"/>
+            </form>
+        </div>
   
     </body>
 </html>

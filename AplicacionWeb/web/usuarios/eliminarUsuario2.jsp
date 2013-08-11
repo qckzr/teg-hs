@@ -10,9 +10,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="scripts/formularios.js"></script>
     </head>
     <body>
-        <form action="${pageContext.request.contextPath}/EliminarUsuarioServlet2" method="POST">
+        <form class="formularios" action="${pageContext.request.contextPath}/EliminarUsuarioServlet2" method="POST">
             <p>Nombre: ${nombre}</p>
             <p>Apellido ${apellido}</p>
             <p>Correo ${correo}</p>
@@ -20,5 +22,8 @@
             <input type="hidden" value="${id}" name="id"/>
             <input type="submit" value="Enviar"/>
         </form>
+            <div id="results">
+            </div>
+                 
     </body>
 </html>

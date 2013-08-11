@@ -11,9 +11,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="scripts/formularios.js"></script>
     </head>
     <body>
-         <form method="POST" action="${pageContext.request.contextPath}/EliminarPreguntaServlet2">
+        <form class="formularios" method="POST" action="${pageContext.request.contextPath}/EliminarPreguntaServlet2">
              <label>Enunciado: ${enunciado}</label><br/>
              <label>Topico: ${topico}</label><br/>
              <c:set var="respuesta" value="SI"/>
@@ -30,5 +32,6 @@
                     <input type="submit" value="Enviar"/>
                     <input type="hidden" name="id" value="${id}"/>
              </form>
+             <div id="results"></div>
     </body>
 </html>

@@ -4,12 +4,9 @@
  */
 package controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -20,11 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
 import model.Directorios;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -53,52 +45,52 @@ public class CrearTopicoServlet extends HttpServlet {
              */
             
             Directorios directorio = new Directorios();
-            String nombre ="";
-            String categoria = "";
-            String descripcion = "";
+//            String nombre ="";
+//            String categoria = "";
+//            String descripcion = "";
             String imagen = "NULL";
 
-            File seshdir = new File(directorio.getDirectorioImagenesTopico());
-            if (!seshdir.exists()) {
-            seshdir.mkdirs();
-            }
-            FileItemFactory factory = new DiskFileItemFactory();
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            List<FileItem> items = null;
-            try {
-                items = upload.parseRequest(request);
-            } catch (FileUploadException ex) {
-                Logger.getLogger(CrearEjecutableServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
- 
-      for (FileItem diskFileItem : items) {
-
-        if (diskFileItem.isFormField()) {
-            switch (diskFileItem.getFieldName()){
-                case "nombre": nombre = diskFileItem.getString();
-                                    break;
-                case "categoria": categoria = diskFileItem.getString();
-                                break;
-                case "descripcion": descripcion = diskFileItem.getString();
-                    break;
-                       
-            };
-        
-        }
-        else{
-            if (!diskFileItem.getString().isEmpty()){
-            byte[] fileBytes = diskFileItem.get();
-            File file = new File(seshdir, diskFileItem.getName());
-            imagen = "'"+directorio.getDirectorioImagenesTopico()+"/"+diskFileItem.getName()+"'";
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            fileOutputStream.write(fileBytes);
-            fileOutputStream.flush();
-            }
-        }
-      }
-//            String nombre  = request.getParameter("nombre");
-//            String categoria = request.getParameter("categoria");
-//            String descripcion = request.getParameter("descripcion");
+//            File seshdir = new File(directorio.getDirectorioImagenesTopico());
+//            if (!seshdir.exists()) {
+//            seshdir.mkdirs();
+//            }
+//            FileItemFactory factory = new DiskFileItemFactory();
+//            ServletFileUpload upload = new ServletFileUpload(factory);
+//            List<FileItem> items = null;
+//            try {
+//                items = upload.parseRequest(request);
+//            } catch (FileUploadException ex) {
+//                Logger.getLogger(CrearEjecutableServlet.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+// 
+//      for (FileItem diskFileItem : items) {
+//
+//        if (diskFileItem.isFormField()) {
+//            switch (diskFileItem.getFieldName()){
+//                case "nombre": nombre = diskFileItem.getString();
+//                                    break;
+//                case "categoria": categoria = diskFileItem.getString();
+//                                break;
+//                case "descripcion": descripcion = diskFileItem.getString();
+//                    break;
+//                       
+//            };
+//        
+//        }
+//        else{
+//            if (!diskFileItem.getString().isEmpty()){
+//            byte[] fileBytes = diskFileItem.get();
+//            File file = new File(seshdir, diskFileItem.getName());
+//            imagen = "'"+directorio.getDirectorioImagenesTopico()+"/"+diskFileItem.getName()+"'";
+//            FileOutputStream fileOutputStream = new FileOutputStream(file);
+//            fileOutputStream.write(fileBytes);
+//            fileOutputStream.flush();
+//            }
+//        }
+//      }
+            String nombre  = request.getParameter("nombre");
+            String categoria = request.getParameter("categoria");
+            String descripcion = request.getParameter("descripcion");
 //            //String imagen = request.getParameter("imagen");
             ConexionBD conexion = new ConexionBD();
             if (conexion.ejecutarQuery("INSERT INTO TOPICOS (ID,NOMBRE,CATEGORIA,DESCRIPCION,ID_USUARIO,RUTA_IMAGEN) VALUES (S_TOPICOS.NEXTVAL,'"+nombre+"','"+categoria+"','"+descripcion+"',1,"+imagen+")")){
@@ -107,10 +99,22 @@ public class CrearTopicoServlet extends HttpServlet {
             else{
                 request.setAttribute("mensaje","No se pudo agregar el topico");
             }
-            request.setAttribute("link","topicos/topicos.jsp");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
-            dispatcher.forward(request, response);
+            String imagen1 = request.getParameter("imagen");
+            if (imagen1.contentEquals("false")){
+                request.setAttribute("link","topicos/topicos.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
+                dispatcher.forward(request, response);
+            }
+            else {
+                String idTopico = conexion.consultarRegistro("SELECT ID FROM TOPICOS WHERE NOMBRE='"+nombre+"'").getString(1);
+                request.setAttribute("topico",idTopico);
+                request.setAttribute("tipoArchivo","topico");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/subirArchivo.jsp");
+                dispatcher.forward(request, response);
+            }
            
+        } catch (SQLException ex) {
+            Logger.getLogger(CrearTopicoServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {            
             out.close();
         }

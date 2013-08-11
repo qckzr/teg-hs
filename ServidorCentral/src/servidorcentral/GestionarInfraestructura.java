@@ -168,6 +168,7 @@ public class GestionarInfraestructura extends Thread{
     public boolean eliminarAplicacion(String ipNodo, String idProceso){
         try {
             Process p = Runtime.getRuntime().exec(pathScripts+"eliminarNodo.sh "+ipNodo+" "+nombreUsuarioNodo(ipNodo)+" "+idProceso+"");
+            nodos.remove(buscarNodo(ipNodo));
             return true;
         } catch (IOException ex) {
             Logger.getLogger(GestionarInfraestructura.class.getName()).log(Level.SEVERE, null, ex);
@@ -246,18 +247,18 @@ public class GestionarInfraestructura extends Thread{
                 eliminarTodasAplicaciones();
             else{
                 
-                String ejecutable = texto.substring(texto.indexOf("_")+1, texto.indexOf(":"));
+                String argumento = texto.substring(texto.indexOf("_")+1, texto.indexOf(":"));
                 String ipNodo = texto.substring(texto.indexOf(":")+1, texto.length());
                 
                 switch (evento){
                     case "ejecutar":
-                        ejecutarAplicacion(ejecutable, ipNodo);
+                        ejecutarAplicacion(argumento, ipNodo);
                         break;
                     case "eliminar":
                         eliminarAplicacion(ipNodo,buscarNodo(ipNodo).getIdProceso());
                         break;
                     case "mensajeNodo":
-                        enviarMensajeNodo(ejecutable, ipNodo);
+                        enviarMensajeNodo(argumento, ipNodo);
                         break;
                 }
             }
@@ -316,10 +317,10 @@ public class GestionarInfraestructura extends Thread{
                     String idEjecutable = bd.consultarRegistro(""
                             + "select id from ejecutables where nombre= "
                             + "'"+nodo.getNombreEjecutable()+"'").getString(1);
-                    if (bd.ejecutarQuery("INSERT INTO E_N (FECHA_DEPLOY,HORA_DEPLOY,ID_PROCESO,ID_NODO,ID_EJECUTABLE) VALUES"
+                    if (bd.ejecutarQuery("INSERT INTO E_N (FECHA_DEPLOY,HORA_DEPLOY,ID_PROCESO,ID_EJECUTABLE) VALUES"
                             + "(TO_DATE('"+nodo.getFecha()+"','dd/mm/yyyy'),"
                             + "TO_DATE('"+nodo.getHora()+"','HH24:MI:SS'),"+idProceso+","
-                            + ""+nodo.getId()+","+idEjecutable+")")==true)
+                            + ""+idEjecutable+")")==true)
                         return true;
                 } catch (SQLException ex) {
                     Logger.getLogger(GestionarInfraestructura.class.getName()).log(Level.SEVERE, null, ex);

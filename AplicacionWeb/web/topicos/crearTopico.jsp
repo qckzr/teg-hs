@@ -10,9 +10,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="scripts/formulariosImagenes.js"></script>
+        <script src="scripts/prueba.js"></script>
     </head>
     <body>
-        <form action="${pageContext.request.contextPath}/CrearTopicoServlet" method="POST" enctype="multipart/form-data">
+        <form class="formularios" action="${pageContext.request.contextPath}/CrearTopicoServlet" method="POST">
             <label>Nombre: <input type="text" name="nombre"/></label><br/>
             <label>Categoria: <select name="categoria"><br/>
                 <option value="INTRODUCCION A LOS SISTEMAS DISTRIBUIDOS">INTRODUCCION A LOS SISTEMAS DISTRIBUIDOS</option>
@@ -25,8 +28,10 @@
                 <option value="SERVICIOS WEB">SERVICIOS WEB</option>
             </select></label><br/>
             <label>Descripcion: <textarea name="descripcion"  cols="45" rows="5"></textarea></label><br/>
-            <label>Imagen (Opcional): <input type="file" name="imagen"/></label><br/>
+            <label>¿Imagen? <input type="checkbox" name="checkboxImagen" id="checkboxImagen" onclick="valor()"/></label><br/>
+            <input type="hidden" name="imagen" id="imagen" value="false"/>
             <input type="submit" value="Enviar"/>
         </form>
+            <div id="results"></div>
     </body>
 </html>
