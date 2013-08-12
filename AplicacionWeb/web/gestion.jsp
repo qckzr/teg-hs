@@ -11,12 +11,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Gestion Topicos</title>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-        <script type="text/javascript" src="scripts/enviarPagina.js">
+        <script type="text/javascript" src="scripts/enviarPagina.js"></script>
+        <script type="text/javascript" src="scripts/iniciarSesion.js"></script>
    
-</script>
     </head>
     <body>
-        
+        <div id="infoUsuario">
+        <p>${sessionScope.nombre} ${sessionScope.apellido}</p>
+        <a href="#" id="logout">Salir</a>
+        </div>
         <div id="usuarios">
             <h1>Usuarios</h1>
             <ul>
