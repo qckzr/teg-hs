@@ -89,23 +89,27 @@ public class SubirArchivoServlet extends HttpServlet {
             if (!diskFileItem.getString().isEmpty()){
                 byte[] fileBytes = diskFileItem.get();
                 File seshdir;
+                String ruta = "";
                 if (tipoArchivo.contentEquals("topico")){
                     seshdir = new File(directorio.getDirectorioImagenesTopico());
+                    ruta = "'"+directorio.getDirectorioImagenesTopico()+"/"+diskFileItem.getName()+"'";
                     mensaje = "Imagen";
                 }
                 else if (tipoArchivo.contentEquals("ejecutable")){
                     seshdir = new File(directorio.getDirectorioEjecutables());
+                    ruta = "'"+directorio.getDirectorioEjecutables()+"/";
                     mensaje = "Ejecutable";
+                    
                 }
                 else {
                     seshdir = new File(directorio.getDirectorioImagenesEscenarios());
                     mensaje = "Escenario";
+                    ruta = "'"+directorio.getDirectorioImagenesEscenarios()+"/"+diskFileItem.getName()+"'";
                 }
                 if (!seshdir.exists())
                         seshdir.mkdirs();
                 File file = new File(seshdir, diskFileItem.getName());
-                String nombre = diskFileItem.getName();
-                String ruta = "'"+directorio.getDirectorioImagenesTopico()+"/"+diskFileItem.getName()+"'";
+                String nombre = diskFileItem.getName();     
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
                 fileOutputStream.write(fileBytes);
                 fileOutputStream.flush();

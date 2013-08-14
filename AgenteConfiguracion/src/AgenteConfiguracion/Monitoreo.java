@@ -14,6 +14,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sun.awt.windows.ThemeReader;
 
 /**
  *
@@ -225,6 +226,11 @@ public class Monitoreo extends Thread{
     public String aplicacionActiva(String ip){
         
         libreria.enviarMensaje("aplicacion",ip);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Monitoreo.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return "Aplicacion: "+libreria.ultimoMensaje().getMensaje();
         
     }
@@ -232,6 +238,11 @@ public class Monitoreo extends Thread{
     public String numeroNodo (String ip){
         
         libreria.enviarMensaje("nodo",ip);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Monitoreo.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return "Nodo #: "+libreria.ultimoMensaje().getMensaje();
         
     }

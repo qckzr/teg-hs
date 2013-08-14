@@ -101,7 +101,11 @@ public class GestionarInfraestructura extends Thread{
                 estadoAplicacion = "'ACTIVA'";
             }
             String idNodo = bd.consultarRegistro("Select id from nodos where ip ='"+informacion.getDireccionIp()+"'").getString(1);
-            String query = "Insert into MENSAJES_AGENTE (ID,ID_PROCESO,CANTIDAD_PROCESOS,MEMORIA_DISPONIBLE,USO_CPU,PUERTOS_DISPONIBLES,ID_NODO,NOMBRE_APLICACION_ACTUAL,ESTADO_APLICACION) VALUES (S_MENSAJES_AGENTE.NEXTVAL,"+informacion.getIdProceso()+","+informacion.getProcesosActivos()+","+informacion.getMemoriaDisponible()+","+informacion.getUsoCpu()+",'"+informacion.getPuertosDisponibles()+"',"+idNodo+","+aplicacionActiva+","+estadoAplicacion+")";
+            String query = "Insert into MENSAJES_AGENTE (ID,ID_PROCESO,CANTIDAD_PROCESOS,"
+                    + "MEMORIA_DISPONIBLE,USO_CPU,PUERTOS_DISPONIBLES,ID_NODO,NOMBRE_APLICACION_ACTUAL,ESTADO_APLICACION)"
+                    + " VALUES (S_MENSAJES_AGENTE.NEXTVAL,"+informacion.getIdProceso()+","
+                    + ""+informacion.getProcesosActivos()+","+informacion.getMemoriaDisponible()+","+informacion.getUsoCpu()+","
+                    + "'"+informacion.getPuertosDisponibles()+"',"+idNodo+","+aplicacionActiva+","+estadoAplicacion+")";
             if (bd.ejecutarQuery(query)==true)
                 return true;
             else return false;
@@ -137,10 +141,11 @@ public class GestionarInfraestructura extends Thread{
     
     public boolean ejecutarAplicacion(String nombreEjecutable, String ipNodo){
         String parametros = buscarParametros(nombreEjecutable);
+        ResultSet rutaEjecutable = bd.consultarRegistro("SELECT RUTA_EJECUTABLE FROM EJECUTABLES WHERE NOMBRE='"+nombreEjecutable+"' ");        
         ResultSet usuarioNodo = bd.consultarRegistro("SELECT NOMBRE_USUARIO FROM NODOS WHERE IP='"+ipNodo+"' ");        
         try {
             Process p = Runtime.getRuntime().exec(pathScripts+"ejecutar.sh "
-                    +nombreEjecutable+" "+ipNodo+" "
+                    +nombreEjecutable+" "+rutaEjecutable.getString(1)+" "+ipNodo+" "
                     + ""+usuarioNodo.getString(1)+" "+parametros+"   ");
             agregarNodoActivo(ipNodo,nombreEjecutable,usuarioNodo.getString(1));
             

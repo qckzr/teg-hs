@@ -28,3 +28,8 @@ insert into escenarios (id,nombre,descripcion,id_aplicacion,imagen)
 values (s_escenarios.nextval,'escenario2 aplicacion1','descripcion escenario2',1,'Users/hectorsam/Desktop/escenarios/Screen Shot 2013-08-10 at 10.40.31 PM.png');
 insert into escenarios (id,nombre,descripcion,id_aplicacion,imagen)
 values (s_escenarios.nextval,'escenario3 aplicacion1','descripcion escenario3',1,'Users/hectorsam/Desktop/escenarios/Screen Shot 2013-08-10 at 10.40.23 PM.png');
+insert into eventos(id,nombre,PATHSCRIPT) values (s_eventos.nextval,'INICIAR','1');
+insert into eventos(id,nombre,PATHSCRIPT) values (s_eventos.nextval,'DETENER','2');
+insert into eventos(id,nombre,PATHSCRIPT) values (s_eventos.nextval,'MENSAJE','3');
+insert into e_e(id_ejecutable,id_evento) values (1,1);
+insert into e_e(id_ejecutable,id_evento) values (1,2);
