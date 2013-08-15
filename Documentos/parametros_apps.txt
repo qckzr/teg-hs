@@ -2,4 +2,12 @@ Arquitectura_CS_Cliente: <nombreApp> <numeroNodo> <ipServidorCentral>  <puertoAg
 
 Arquitectura_CS_Socket:  <nombreApp> <numeroNodo> <ipServidorCentral>  <puertoAgente> 
 
-Sockets: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <idNodoSiguiente> <ipNodoSiguiente>…
+Sockets: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <ipNodoSiguiente> <ipNodoSiguiente>…
+
+P2P: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <ipNodoSiguiente> 
+
+Comunicación en Grupo Emisor: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> 
+
+Comunicación en Grupo Receptor: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <ipGrupoEmisor> 
+
+Lamport: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <ipNodoSiguiente> <ipNodoAnterior>

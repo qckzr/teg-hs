@@ -179,6 +179,74 @@ public final  class LibreriaMensajes {
 
     }
      
+      public boolean enviarMensaje(Mensaje mensaje){
+
+            
+            Iterator iterator = ipDestino.iterator();
+            while (iterator.hasNext()){
+                try {
+                    
+                    Socket socket = new Socket(iterator.next().toString(), PUERTO);
+                    ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                    oos.writeObject(mensaje);
+                    socket.close();
+                   
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                } catch (IOException ex) {
+                    Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                }
+            }
+            return true;
+
+    }
+    
+    public boolean enviarMensaje(Mensaje mensaje, String ipDestino){
+
+           
+                try {
+                    
+                    Socket socket = new Socket(ipDestino, PUERTO);
+                    ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                    oos.writeObject(mensaje);
+                    socket.close();
+                   
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                } catch (IOException ex) {
+                    Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                }
+            
+            return true;
+
+    }
+    
+     public boolean enviarMensaje(Mensaje mensaje, String ipDestino,int puerto){
+
+           
+                try {
+                    
+                    Socket socket = new Socket(ipDestino, puerto);
+                    ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                    oos.writeObject(mensaje);
+                    socket.close();
+                   
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                } catch (IOException ex) {
+                    Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                }
+            
+            return true;
+
+    }
+     
       public boolean enviarMensaje(InformacionAgente informacion){
 
             
