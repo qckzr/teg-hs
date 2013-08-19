@@ -4,8 +4,12 @@
  */
 package controller;
 
+import Libreria.LibreriaMensajes;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
+import model.Archivo;
 
 /**
  *
@@ -52,6 +57,10 @@ public class Aplicacion extends HttpServlet {
             ResultSet escenariosAplicacion = conexionBD.consultar("SELECT NOMBRE,DESCRIPCION,IMAGEN FROM ESCENARIOS WHERE ID_APLICACION="+idAplicacion);
             ResultSet ejecutablesAplicacion = conexionBD.consultar("SELECT ID,NOMBRE,TIPO,ID_NODO FROM EJECUTABLES WHERE ID_APLICACION="+idAplicacion);
             ArrayList<String[]> escenarios = new ArrayList<String[]>();
+            String root = getServletContext().getRealPath("/");
+            
+            
+            
             while (escenariosAplicacion.next()){
                 String[] escenario = new String[3];
                 escenario[0] = escenariosAplicacion.getString(1);
@@ -60,7 +69,8 @@ public class Aplicacion extends HttpServlet {
                 escenarios.add(escenario);
             }
             ArrayList<String[]> ejecutables = new ArrayList<String[]>();
-            
+            ArrayList<String> archivoMensajes = new ArrayList<>();
+            ArrayList<String> archivoAgentes = new ArrayList<>();
             while (ejecutablesAplicacion.next()){
                 String [] ejecutable = new String[4];
                 ejecutable[0] = ejecutablesAplicacion.getString(1);
@@ -68,13 +78,21 @@ public class Aplicacion extends HttpServlet {
                 ejecutable[2] = ejecutablesAplicacion.getString(3);
                 ejecutable[3] = ejecutablesAplicacion.getString(4);
                 ejecutables.add(ejecutable);
+                archivoMensajes.add("archivo"+ejecutable[3]+".xml");
+                archivoAgentes.add("agente"+ejecutable[3]+".xml");
+               
             }
+            Archivo archivo = new Archivo(root.substring(0,
+                    root.indexOf("build/"))+"archivos/",archivoMensajes,
+                    archivoAgentes,5000,idAplicacion);
+                archivo.start();
             request.setAttribute("nombre",resultSet.getString(1));
             request.setAttribute("fecha_actualizacion", resultSet.getString(2));
             request.setAttribute("instrucciones", resultSet.getString(3));
             request.setAttribute("escenarios",escenarios);
             request.setAttribute("ejecutables",ejecutables);
             request.setAttribute("idTopico", idTopico);
+            request.setAttribute("idAplicacion",idAplicacion);
            RequestDispatcher dispatcher = request.getRequestDispatcher("aplicacion.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException ex) {
@@ -83,6 +101,9 @@ public class Aplicacion extends HttpServlet {
             out.close();
         }
     }
+    
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

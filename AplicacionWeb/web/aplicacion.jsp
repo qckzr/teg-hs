@@ -14,12 +14,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Monitoreo y Control</title>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-        <script src="scripts/enviarInstruccion.js"></script>
-        <script src="scripts/mostrarEscenario.js"></script>
+        <script type="text/javascript" src="scripts/enviarInstruccion.js"></script>
+        <script type="text/javascript" src="scripts/mostrarEscenario.js"></script>
+        <script type="text/javascript" src="scripts/monitorearEjecutable.js"></script>
+        <script type="text/javascript" src="scripts/volver.js"></script>
     </head>
     <body>
         <div id="informacionAplicacion">
-         <label>Nombre: ${nombre}</label><br/>
+             <label>Nombre: ${nombre}</label><br/>
              <label>Fecha Creacion: ${fecha_actualizacion}</label><br/>
              <label>Instrucciones:  ${instrucciones}</label><br/>
         </div>
@@ -40,12 +42,14 @@
             </div>
                 <c:set var="ejec" value="1"/>
                 <div id="nodos">
+                    
              <c:forEach var="ejecutable" items="${ejecutables}">
                  <div id="nombreNodo">
                      <p>Nodo${ejecutable[3]}</p>
                  </div>
                  <div id="ejecutable${ejec}">
-                     <p> "Monitoreo"</p>
+                     <input type="hidden" id="${ejec}" value="${ejecutable[3]}"/>
+                     <div id="monitoreo"></div>
                  </div>
                  
                  <div id="botones${ejec}">
@@ -79,9 +83,16 @@
                         </c:forEach>
                  </div>
                  <c:set var="ejec" value="${ejec + 1}" scope="page"/>
-             </c:forEach> 
+                 
+                     
+            
+             </c:forEach>
+                
                 </div>
-             <div id="footer"><a href="aplicaciones.jsp?idTopico=${idTopico}">Volver</a></div>
+             
+                 <div id="footer"><input type="button" id="volver" value="Volver"/>
+                     <input type="hidden" id="idTopico" value="${idTopico}"/>
+                 </div>
 
     </body>
 </html>
