@@ -11,3 +11,17 @@ Comunicación en Grupo Emisor: <nombreApp> <numeroNodo> <ipServidorCentral> <pue
 Comunicación en Grupo Receptor: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <ipGrupoEmisor> 
 
 Lamport: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <ipNodoSiguiente> <ipNodoAnterior>
+
+Cristian_Cliente: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <ipServidor> <tiempoSincronizacion>
+
+Cristian_Servidor: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente>
+
+Berkeley_Cliente: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <ipServidor>
+
+Berkeley_Servidor: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <tiempoPregunta>
+
+Promedio: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <tiempoEspera> <nodos…>
+
+Centralizado_Cliente: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <ipServidor>
+
+Centralizado_Servidor: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> 
