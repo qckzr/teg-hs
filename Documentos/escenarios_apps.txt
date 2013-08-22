@@ -11,3 +11,10 @@ Centralizado:
 - Si se cae el servidor central no se puede acceder a las regiones criticas
 - Se accede a una región enviando "<numeroNodo>:acceder"
 - Para salir de una región critica: "<numeroNodo>:salir"
+
+Distribuido:
+-Se accede a la región indicando <numero_nodo>:acceder
+-Se sale de la región critica indicando <numero_nodo>:salir
+-Si un nodo quiere acceder a una región critica debe esperar tantos Oks como nodos en el sistema
+- No se pueden caer ningún nodo
+- 

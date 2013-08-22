@@ -25,3 +25,7 @@ Promedio: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <tiempoEsp
 Centralizado_Cliente: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <ipServidor>
 
 Centralizado_Servidor: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> 
+
+Distribuido: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <nodos…>
+
+Grandulon: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <nodosMenores -> <nodosMayores ->
