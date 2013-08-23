@@ -294,6 +294,28 @@ public final  class LibreriaMensajes {
 
     }
     
+    public boolean enviarMensaje(InformacionAgente informacionAgente, String ipDestino, int puerto){
+
+            
+                try {
+                    
+                    Socket socket = new Socket(ipDestino,puerto);
+                    ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                    oos.writeObject(informacionAgente);
+                    socket.close();
+                   
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                } catch (IOException ex) {
+                    Logger.getLogger(LibreriaMensajes.class.getName()).log(Level.SEVERE, null, ex);
+                    return false;
+                }
+            
+            return true;
+
+    }
+    
     
      
 

@@ -18,6 +18,9 @@
         <script type="text/javascript" src="scripts/mostrarEscenario.js"></script>
         <script type="text/javascript" src="scripts/monitorearEjecutable.js"></script>
         <script type="text/javascript" src="scripts/volver.js"></script>
+        <script type="text/javascript" src="scripts/prueba.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles/aplicacion.css">
+        <link rel="stylesheet" href="styles/console.css" />
     </head>
     <body>
         <div id="informacionAplicacion">
@@ -49,7 +52,46 @@
                  </div>
                  <div id="ejecutable${ejec}">
                      <input type="hidden" id="${ejec}" value="${ejecutable[3]}"/>
-                     <div id="monitoreo"></div>
+                     <div id="informacion"></div>
+                     <div id="window">
+ 	<div id="toolbar">
+		<div class="top">
+			<div id="lights">
+				<div class="light red">
+					<div class="glyph">X</div>
+					<div class="shine"></div>
+					<div class="glow"></div>
+				</div>				
+				<div class="light yellow">
+					<div class="glyph">-</div>
+					<div class="shine"></div>
+					<div class="glow"></div>
+				</div>
+				<div class="light green">
+					<div class="glyph">+</div>
+					<div class="shine"></div>
+					<div class="glow"></div>
+				</div>
+			</div>
+			<div id="title">
+				<div class="folder">
+					<div class="tab"></div>
+					<div class="body"></div>
+				</div>
+				capsulecrm.com
+			</div>
+			<div id="bubble">
+				<div class="shine"></div>
+				<div class="glow"></div>
+			</div>
+		</div>
+	</div>
+	<div id="monitoreo">
+            <p id="hola">asdasdasd</p>	
+			
+	</div>	
+</div>
+                    
                  </div>
                  
                  <div id="botones${ejec}">

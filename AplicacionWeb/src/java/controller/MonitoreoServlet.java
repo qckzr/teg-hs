@@ -7,9 +7,7 @@ package controller;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,32 +55,54 @@ public class MonitoreoServlet extends HttpServlet {
             SAXBuilder builder = new SAXBuilder();
             String root = getServletContext().getRealPath("/");
             String ruta =root.substring(0, root.indexOf("build/"))+"archivos/";
-            String nombreArchivoMensajes ="archivo"+nodo+".xml";
-            Document doc =  builder.build(ruta+nombreArchivoMensajes);
-     //       String hora = null;
-         //   out.println("<div>");
-            for (Element element : doc.getRootElement().getChildren()) {
-                String fecha = element.getChild("fecha").getText();
-               String hora = element.getChild("hora").getText();
-                String mensaje = element.getChild("texto").getText();
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
-//                if (hora!=null){
-//                Date date1= sdf.parse(horaActual);
-//                Date date2 = sdf.parse(hora);
-//                long differenceInMillis = date2.getTime() - date1.getTime();
-//                    if(differenceInMillis>=0)
-                        out.println("<span>"+fecha+"-"+hora+"-"+mensaje+"</span></br/>");
-//                }
-            }
-            crearArchivo(ruta, nombreArchivoMensajes);
+            String tipo = request.getParameter("tipo");
+            if (tipo.contentEquals("1")){
+                String nombreArchivoMensajes ="archivo"+nodo+".xml";
+                Document doc =  builder.build(ruta+nombreArchivoMensajes);
+                if (doc.getRootElement().getChildren().size()>0){
+                for (Element element : doc.getRootElement().getChildren()) {
+                    String fecha = element.getChild("fecha").getText();
+                String hora = element.getChild("hora").getText();
+                    String mensaje = element.getChild("texto").getText();
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
 
-            
-          //  out.println("</div>");
-            
-       
+                            out.println("<p>"+fecha+"-"+hora+"-"+mensaje+"</p>");
+
+                }
+                out.println("<div class=\"cursor\"></div>");
+                crearArchivo(ruta, nombreArchivoMensajes);
+                }
+            }
+            else{
+                String nombreArchivoAgentes ="agente"+nodo+".xml";
+                Document doc =  builder.build(ruta+nombreArchivoAgentes);
+                for (Element element : doc.getRootElement().getChildren()) {
+                      String aplicacionActiva = element.getChild("aplicacionActiva").getText();
+                      String direccionIp = element.getChild("direccionIp").getText();
+                      String idProceso = element.getChild("idProceso").getText();
+                      String memoriaDisponible = element.getChild("memoriaDisponible").getText();
+                      String numeroNodo = element.getChild("numeroNodo").getText();
+                      String procesosActivos = element.getChild("procesosActivos").getText();
+                      String puertosDisponibles = element.getChild("puertosDisponibles").getText();
+                      String usoCpu = element.getChild("usoCpu").getText();
+                      out.println("<input type=\"hidden\" class=\""+nodo+"\"  id=\"aplicacionActiva\" value=\""+aplicacionActiva+"\" />");
+                      out.println("<input type=\"hidden\" class=\""+nodo+"\"  id=\"direccionIp\" value=\""+direccionIp+"\" />");
+                      out.println("<input type=\"hidden\" class=\""+nodo+"\"  id=\"idProceso\" value=\""+idProceso+"\" />");
+                      out.println("<input type=\"hidden\" class=\""+nodo+"\"  id=\"memoriaDisponible\" value=\""+memoriaDisponible+"\" />");
+                      out.println("<input type=\"hidden\" class=\""+nodo+"\"  id=\"numeroNodo\" value=\""+numeroNodo+"\" />");
+                      out.println("<input type=\"hidden\" class=\""+nodo+"\"  id=\"procesosActivos\" value=\""+procesosActivos+"\" />");
+                      out.println("<input type=\"hidden\" class=\""+nodo+"\"  id=\"puertosDisponibles\" value=\""+puertosDisponibles+"\" />");
+                      out.println("<input type=\"hidden\" class=\""+nodo+"\"  id=\"usoCpu\" value=\""+usoCpu+"\" />");
+                            
+
+                }
+                
+            }
+
+                  
         
         } catch (JDOMException ex) {
-            Logger.getLogger(MonitoreoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        //    Logger.getLogger(MonitoreoServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {            
             out.close();
         }
@@ -97,17 +117,6 @@ public class MonitoreoServlet extends HttpServlet {
                 XMLOutputter xmlOutput = new XMLOutputter();
                 xmlOutput.setFormat(Format.getPrettyFormat());
                 xmlOutput.output(doc, new FileWriter(ruta+nombreArchivo));
-          
-            
-          
-//                Element agente = new Element("agente");
-//                Document doc = new Document();
-//                doc.setRootElement(agente);
-//                XMLOutputter xmlOutput = new XMLOutputter();
-//                xmlOutput.setFormat(Format.getPrettyFormat());
-//                xmlOutput.output(doc, new FileWriter(ruta+nombreArchivo));
-          
-            
      
         } catch (IOException ex) {
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);

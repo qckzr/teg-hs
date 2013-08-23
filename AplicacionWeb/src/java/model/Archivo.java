@@ -60,7 +60,7 @@ public class Archivo extends Thread{
                     Mensaje mensaje = libreriaMensajes.ultimoMensaje();
                     System.out.println("mensaje recibido: "+mensaje.getMensaje());
                     if (mensaje.getMensaje().contains("~_Eliminar")){
-                        this.libreriaMensajes.getHiloDeEscucha().kill();
+                        libreriaMensajes.getHiloDeEscucha().kill();
                         kill();
                     }
                     else{
@@ -74,6 +74,7 @@ public class Archivo extends Thread{
             if (libreriaMensajes.ultimoMensajeAgente()!=null){
                 InformacionAgente informacionAgente = libreriaMensajes.ultimoMensajeAgente();
                 agregarMensaje(informacionAgente,retornarNodo(informacionAgente.getDireccionIp()));
+                libreriaMensajes.eliminarMensaje(informacionAgente);
                 
             }
             
@@ -143,6 +144,7 @@ public class Archivo extends Thread{
     
     public void agregarMensaje(InformacionAgente mensajeRecibido,String idNodo){
         try {
+            crearArchivoAgente(nombreArchivoAgente(idNodo));
             Element mensaje = new Element("mensaje");
             mensaje.addContent(new Element("aplicacionActiva").setText(mensajeRecibido.getAplicacionActiva()));
             mensaje.addContent(new Element("direccionIp").setText(mensajeRecibido.getDireccionIp()));
@@ -198,28 +200,16 @@ public class Archivo extends Thread{
         return "";
     }
     
-//    public boolean eliminarMensajes(String archivo){
-//        try {
-//            SAXBuilder builder = new SAXBuilder();
-//            Document doc =  builder.build(ruta+archivo);
-//            XMLOutputter xmlOutput = new XMLOutputter();
-//                Element root = doc.getRootElement();
-//                ArrayList<Element> elements = new ArrayList<>();
-//                for (Element element : root.getChildren()) {
-//                    elements.add(element);
-//                }
-//                for (Element element : elements) {
-//                 root.removeContent(element);
-//                }
-//                xmlOutput.setFormat(Format.getPrettyFormat());
-//                xmlOutput.output(doc, new FileWriter(ruta+archivo));
-//            
-//            return true;
-//        } catch (JDOMException ex) {
-//            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return false;
-//    }
+    public void crearArchivoAgente(String nombreArchivo){
+        try {
+            Element agente = new Element("agente");
+                       Document doc = new Document();
+                       doc.setRootElement(agente);
+                       XMLOutputter xmlOutput = new XMLOutputter();
+                       xmlOutput.setFormat(Format.getPrettyFormat());
+                       xmlOutput.output(doc, new FileWriter(ruta+nombreArchivo));
+        } catch (IOException ex) {
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
