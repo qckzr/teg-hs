@@ -29,3 +29,17 @@ Centralizado_Servidor: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgent
 Distribuido: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <nodos…>
 
 Grandulon: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <nodosMenores -> <nodosMayores ->
+
+Anillo: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <siguienteNodo>
+
+DNS_Cliente: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <ipServidor>
+
+DNS_Servidor: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente>
+
+LDAP_Cliente: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <ipServidor>
+
+LDAP_Servidor: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente>
+
+RMI_Cliente: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente> <ipServidor>
+
+RMI_Servidor: <nombreApp> <numeroNodo> <ipServidorCentral> <puertoAgente>
