@@ -13,78 +13,85 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="styles/general.css">
+        <link rel="stylesheet" type="text/css" href="styles/estilos-extras.css">
     </head>
-    <body>
-        <h1>Topicos Disponibles:</h1>
-            <sql:query dataSource="${localSource}" 
-	           sql="SELECT id,nombre FROM topicos where categoria='INTRODUCCION A LOS SISTEMAS DISTRIBUIDOS'" 
-	           var="result" />
-            <p>Introducción a los Sistemas Distribuidos:</p>
-            <ul>
-        <c:forEach var="row" items="${result.rows}">
-             
-            <li><a href="aplicaciones.jsp?idTopico=${row.id}"> ${row.nombre} </a></li>
-	</c:forEach>
-            </ul>
-        <sql:query dataSource="${localSource}" 
-	           sql="SELECT id,nombre FROM topicos where categoria='COMUNICACION EN SISTEMAS DISTRIBUIDOS'" 
-	           var="result" />
-            <p>Comunicación en Sistemas Distribuidos:</p>
-            <ul><c:forEach var="row" items="${result.rows}">
+    <body id="body">
+        <div id="titulo" class="col w10"><h1 class="content">Topicos Disponibles</h1></div>
+        <div id="contenido" class="col w10">
+            <table class="content"><tr><th>Topico</th><th>Aplicaciones</th></tr>
+            <sql:query dataSource="${localSource}" sql="SELECT id,nombre FROM topicos where categoria='INTRODUCCION A LOS SISTEMAS DISTRIBUIDOS'" var="result" />
+            <tr><td><p>Introducción a los Sistemas Distribuidos:</p></td>
+                <td>
+                    <ul>
+                        <c:forEach var="row" items="${result.rows}">
+                            <li><a href="aplicaciones.jsp?idTopico=${row.id}"> ${row.nombre} </a></li>
+                        </c:forEach>
+                    </ul>
+                </td>
+            </tr>
+            <sql:query dataSource="${localSource}" sql="SELECT id,nombre FROM topicos where categoria='COMUNICACION EN SISTEMAS DISTRIBUIDOS'" var="result" />
+            <tr><td><p>Comunicación en Sistemas Distribuidos:</p></td>
+                <td><ul><c:forEach var="row" items="${result.rows}">
             <c:url value="aplicaciones.jsp" var="storeLink">
     <c:param name="idTopico" value="${row.id}"></c:param>
   </c:url>
     <li><a href="${storeLink}">${row.nombre}</a></li>
-                   <%-- <a href="aplicaciones.jsp?idTopico=${row.id}"> ${row.nombre} </a> --%>
-	</c:forEach></ul>
+                        </c:forEach></ul></td></tr>
         <sql:query dataSource="${localSource}" 
 	           sql="SELECT id,nombre FROM topicos where categoria='SINCRONIZACION EN AMBIENTES DISTRIBUIDOS'" 
 	           var="result" />
-            <p>Sincronización en Ambientes Distribuidos:</p>
-            <ul><c:forEach var="row" items="${result.rows}">
+        <tr><td><p>Sincronización en Ambientes Distribuidos:</p></td>
+            <td><ul><c:forEach var="row" items="${result.rows}">
             
                     <li><a href="aplicaciones.jsp?idTopico=${row.id}"> ${row.nombre} </a></li>
-                </c:forEach></ul>
+                    </c:forEach></ul></td></tr>
         <sql:query dataSource="${localSource}" 
 	           sql="SELECT id,nombre FROM topicos where categoria='REPLICACION'" 
 	           var="result" />
-            <p>Replicación:</p>
-            <ul><c:forEach var="row" items="${result.rows}">
+        <tr><td><p>Replicación:</p></td>
+            <td><ul><c:forEach var="row" items="${result.rows}">
             
                     <li><a href="aplicaciones.jsp?idTopico=${row.id}"> ${row.nombre} </a></li>
-                </c:forEach></ul>
+                    </c:forEach></ul></td></tr>
         <sql:query dataSource="${localSource}" 
 	           sql="SELECT id,nombre FROM topicos where categoria='SISTEMAS DE ARCHIVOS DISTRIBUIDOS'" 
 	           var="result" />
-            <p>Sistemas de Archivos Distribuidos:</p>
-            <ul><c:forEach var="row" items="${result.rows}">
+        <tr><td><p>Sistemas de Archivos Distribuidos:</p></td>
+            <td><ul><c:forEach var="row" items="${result.rows}">
             
                     <li><a href="aplicaciones.jsp?idTopico=${row.id}"> ${row.nombre} </a></li>
-	</c:forEach></ul>
+                    </c:forEach></ul></td></tr>
         <sql:query dataSource="${localSource}" 
 	           sql="SELECT id,nombre FROM topicos where categoria='SERVICIOS DE NOMBRE'" 
 	           var="result" />
-            <p>Servicios de Nombre:</p>
-            <ul><c:forEach var="row" items="${result.rows}">
+        <tr><td><p>Servicios de Nombre:</p></td>
+            <td><ul><c:forEach var="row" items="${result.rows}">
             
                     <li><a href="aplicaciones.jsp?idTopico=${row.id}"> ${row.nombre} </a></li>
-	</c:forEach></ul>
+                    </c:forEach></ul></td></tr>
         <sql:query dataSource="${localSource}" 
 	           sql="SELECT id,nombre FROM topicos where categoria='OBJETOS DISTRIBUIDOS'" 
 	           var="result" />
-            <p>Objetos Distribuidos:</p>
-            <ul><c:forEach var="row" items="${result.rows}">
+        <tr><td><p>Objetos Distribuidos:</p></td>
+            <td><ul><c:forEach var="row" items="${result.rows}">
             
                     <li><a href="aplicaciones.jsp?idTopico=${row.id}"> ${row.nombre} </a></li>
-	</c:forEach></ul>
+                    </c:forEach></ul></td></tr>
         <sql:query dataSource="${localSource}" 
 	           sql="SELECT id,nombre FROM topicos where categoria='SERVICIOS WEB'" 
 	           var="result" />
-            <p>Servicios Web:</p>
-            <ul><c:forEach var="row" items="${result.rows}">
+        <tr><td><p>Servicios Web:</p></td>
+            <td><ul><c:forEach var="row" items="${result.rows}">
             
                     <li><a href="aplicaciones.jsp?idTopico=${row.id}"> ${row.nombre} </a></li>
-	</c:forEach></ul>
+                    </c:forEach></ul></td></tr>
+            </table>
+        </div>
+                    <div id="opciones">
+                        <a href="index.jsp">Regresar</a>
+                    </div>
+        <div id="footer" class="col w10"><p class="content">Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p></div>
 
     </body>
 </html>

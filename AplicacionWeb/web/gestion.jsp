@@ -13,6 +13,7 @@
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script type="text/javascript" src="scripts/enviarPagina.js"></script>
         <script type="text/javascript" src="scripts/iniciarSesion.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles/estilos-extras.css">
    
     </head>
     <body>
@@ -20,7 +21,7 @@
         <p>${sessionScope.nombre} ${sessionScope.apellido}</p>
         <a href="#" id="logout">Salir</a>
         </div>
-        <div id="usuarios">
+        <div id="usuarios" class="col w2">
             <h1>Usuarios</h1>
             <ul>
                 <li><a id="crearUsuario" href="#">Crear</a></li>
@@ -30,7 +31,7 @@
                      
             </ul>
         </div>
-        <div id="topicos">
+        <div id="topicos" class="col w2">
             <h1>Topicos</h1>
             <ul>
                 <li><a id="crearTopico"href="#">Crear</a></li>
@@ -39,7 +40,7 @@
                 <li><a id="consultarTopico"href="#">Consultar</a></li>
             </ul>
         </div>
-        <div id="preguntas">
+        <div id="preguntas" class="col w2">
             <h1>Preguntas</h1>
             <ul>
                 <li><a id="crearPregunta"href="#">Crear</a></li>
@@ -49,7 +50,7 @@
                 
             </ul>
         </div>
-        <div id="aplicaciones">
+        <div id="aplicaciones" class="col w2">
             <h1>Aplicaciones</h1>
             <ul>
                 <li><a id="crearAplicacion" href="#">Crear</a></li>
@@ -58,7 +59,7 @@
                 <li><a id="consultarAplicacion" href="#">Consultar</a></li>
             </ul>
         </div>
-        <div id="ejecutables">
+        <div id="ejecutables" class="col w2">
             <h1>Ejecutables</h1>
             <ul>
                 <li><a id="crearEjecutable" href="#">Crear</a></li>
@@ -67,7 +68,7 @@
                 <li><a id="consultarEjecutable"href="#">Consultar</a></li>
             </ul>
         </div>
-        <div id="nodos">
+        <div id="nodos" class="col w1">
             <h1>Nodos</h1>
             <ul>
                 <li><a id="crearNodo" href="#">Crear</a></li>
@@ -76,7 +77,7 @@
                 <li><a id="consultarNodo"href="#">Consultar</a></li>
             </ul>
         </div>
-        <div id="operaciones">
+        <div id="operaciones" class="col w10">
             <div id="resultado">
             </div>
         </div>

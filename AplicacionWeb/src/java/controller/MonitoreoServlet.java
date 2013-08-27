@@ -69,7 +69,7 @@ public class MonitoreoServlet extends HttpServlet {
                             out.println("<p>"+fecha+"-"+hora+"-"+mensaje+"</p>");
 
                 }
-                out.println("<div class=\"cursor\"></div>");
+              
                 crearArchivo(ruta, nombreArchivoMensajes);
                 }
             }

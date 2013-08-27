@@ -20,13 +20,16 @@
         <script type="text/javascript" src="scripts/volver.js"></script>
         <script type="text/javascript" src="scripts/prueba.js"></script>
         <link rel="stylesheet" type="text/css" href="styles/aplicacion.css">
-        <link rel="stylesheet" href="styles/console.css" />
+        <link rel="stylesheet" type="text/css" href="styles/console.css" />
+        <link rel="stylesheet" type="text/css" href="styles/general.css">
     </head>
     <body>
+        <div id="titulo"><h1>
+       ${nombre}</h1></div>
         <div id="informacionAplicacion">
-             <label>Nombre: ${nombre}</label><br/>
-             <label>Fecha Creacion: ${fecha_actualizacion}</label><br/>
-             <label>Instrucciones:  ${instrucciones}</label><br/>
+            
+             <p>Fecha Creacion: ${fecha_actualizacion}</p><br/>
+             <p>Instrucciones:  ${instrucciones}</p><br/>
         </div>
              <div id="escenarios">
                  <p>Escenarios</p>
@@ -78,7 +81,7 @@
 					<div class="tab"></div>
 					<div class="body"></div>
 				</div>
-				capsulecrm.com
+				RaspberryPi
 			</div>
 			<div id="bubble">
 				<div class="shine"></div>
@@ -87,7 +90,7 @@
 		</div>
 	</div>
 	<div id="monitoreo">
-            <p id="hola">asdasdasd</p>	
+            	
 			
 	</div>	
 </div>
@@ -99,7 +102,7 @@
               
                 sql="select e.nombre, e.pathscript from eventos e where e.id in (select e.id_evento from e_e e where e.id_ejecutable=${ejecutable[0]})"/>
                 
-                     <input type="button" class="informacion" id="${ejecutable[0]}" value="Informacion"/>
+                     <input type="button" class="informacion button" id="${ejecutable[0]}" value="Informacion"/>
                       <c:forEach var="row" items="${result.rows}">
                           <c:set var="evento1" value="INICIAR"/> 
                           <c:set var="evento2" value="DETENER"/>
@@ -107,14 +110,14 @@
                              <c:choose>
                                 
                                 <c:when test="${row.nombre == evento1}">
-                                     <input type="button" class="iniciar" id="${ejecutable[0]}" value="Iniciar"/>
+                                     <input type="button" class="iniciar button" id="${ejecutable[0]}" value="Iniciar"/>
                                 </c:when>
                                 <c:when test="${row.nombre == evento2}">
-                                     <input type="button"  class="detener" id="${ejecutable[0]}" value="Detener"/>
+                                     <input type="button"  class="detener button" id="${ejecutable[0]}" value="Detener"/>
                                 </c:when>
                                 <c:when test="${row.nombre == evento3}">
                                         <label>Mensaje: <input type="text" id="mensaje${ejecutable[0]}"/></label>
-                                        <input type="button" class="enviar" id="${ejecutable[0]}" value="Enviar"/>
+                                        <input type="button" class="enviar button" id="${ejecutable[0]}" value="Enviar"/>
                                 </c:when>
                                 <c:otherwise>
                                     <input type="buton" class="${row.nombre}" id="${ejecutable[0]}" value="${row.nombre}"/>
@@ -131,9 +134,11 @@
              </c:forEach>
                 
                 </div>
-             
-                 <div id="footer"><input type="button" id="volver" value="Volver"/>
+                 <input type="button" id="volver" class="button" value="Volver"/>
                      <input type="hidden" id="idTopico" value="${idTopico}"/>
+                 <div id="footer" class="col w10">
+                     
+            <p class="content">Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p>
                  </div>
 
     </body>
