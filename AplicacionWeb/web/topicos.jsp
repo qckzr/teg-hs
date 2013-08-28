@@ -13,8 +13,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script  type="text/javascript" src="scripts/jquery-ui-1.10.3.custom.js"></script>
         <link rel="stylesheet" type="text/css" href="styles/general.css">
         <link rel="stylesheet" type="text/css" href="styles/estilos-extras.css">
+        
+        <link rel="stylesheet" type="text/css" href="css/teg-theme/jquery-ui-1.10.3.custom.css">
+       <script>
+            $(function() {
+                $( "a, input[type=button]" )
+                .button()
+               
+                });
+  </script>
     </head>
     <body id="body">
         <div id="titulo" class="col w10"><h1 class="content">Topicos Disponibles</h1></div>
@@ -91,7 +102,7 @@
                     <div id="opciones">
                         <a href="index.jsp">Regresar</a>
                     </div>
-        <div id="footer" class="col w10"><p class="content">Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p></div>
+        <div id="footer"><p>Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p></div>
 
     </body>
 </html>

@@ -1,14 +1,14 @@
  $(document).ready(function() {
    $(".informacion").click(function(){
       
-        var aplicacionActiva = $("#ejecutable"+this.id+" #informacion #aplicacionActiva").val();
-        var idProceso = $("#ejecutable"+this.id+" #informacion #idProceso").val();
-        var memoriaDisponible = $("#ejecutable"+this.id+" #informacion #memoriaDisponible").val();
-        var numeroNodo = $("#ejecutable"+this.id+" #informacion #numeroNodo").val();
-        var procesosActivos = $("#ejecutable"+this.id+" #informacion #procesosActivos").val();
-        var puertosDisponibles = $("#ejecutable"+this.id+" #informacion #puertosDisponibles").val();
-        var usoCpu = $("#ejecutable"+this.id+" #informacion #usoCpu").val();
-        var direccionIp = $("#ejecutable"+this.id+" #informacion #direccionIp").val();
+        var aplicacionActiva = $("#ejecutable"+this.id+" .informacion .aplicacionActiva").val();
+        var idProceso = $("#ejecutable"+this.id+" .informacion .idProceso").val();
+        var memoriaDisponible = $("#ejecutable"+this.id+" .informacion .memoriaDisponible").val();
+        var numeroNodo = $("#ejecutable"+this.id+" .informacion .numeroNodo").val();
+        var procesosActivos = $("#ejecutable"+this.id+" .informacion .procesosActivos").val();
+        var puertosDisponibles = $("#ejecutable"+this.id+" .informacion .puertosDisponibles").val();
+        var usoCpu = $("#ejecutable"+this.id+" .informacion .usoCpu").val();
+        var direccionIp = $("#ejecutable"+this.id+" .informacion .direccionIp").val();
         $.post('InformacionAgenteServlet',{aplicacionActiva:aplicacionActiva,
             idProceso:idProceso,memoriaDisponible:memoriaDisponible,
             numeroNodo:numeroNodo,procesosActivos:procesosActivos,

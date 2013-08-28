@@ -13,13 +13,21 @@
         <title>Sistemas Distribuidos</title>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script type="text/javascript" src="scripts/iniciarSesion.js"></script>
-        <script type="text/javascript" src="scripts/pruebaTimer.js"></script>
+        <script  type="text/javascript" src="scripts/jquery-ui-1.10.3.custom.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/teg-theme/jquery-ui-1.10.3.custom.css">
         <link rel="stylesheet" type="text/css" href="styles/estilos-extras.css">
         <link rel="stylesheet" type="text/css" href="styles/general.css">
-        
+       
+        <script>
+            $(function() {
+                $( "a, input[type=button]" )
+                .button()
+               
+                });
+  </script>
     </head>
     <body>
-        
+        <div id="contenido">
         <div id="titulo"><h1>Infraestructura Tecnológica con Fines Educativos Sobre Sistemas Distribuidos v1.0</h1></div>
         <div id="infoUsuario" class="col w4">
             <div class="content">
@@ -37,7 +45,7 @@
         
         </div>
         
-       
+        </div>
         <div id="footer" class="col w10">
             <p>Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p></div>
     </body>

@@ -85,14 +85,14 @@ public class MonitoreoServlet extends HttpServlet {
                       String procesosActivos = element.getChild("procesosActivos").getText();
                       String puertosDisponibles = element.getChild("puertosDisponibles").getText();
                       String usoCpu = element.getChild("usoCpu").getText();
-                      out.println("<input type=\"hidden\" class=\""+nodo+"\"  id=\"aplicacionActiva\" value=\""+aplicacionActiva+"\" />");
-                      out.println("<input type=\"hidden\" class=\""+nodo+"\"  id=\"direccionIp\" value=\""+direccionIp+"\" />");
-                      out.println("<input type=\"hidden\" class=\""+nodo+"\"  id=\"idProceso\" value=\""+idProceso+"\" />");
-                      out.println("<input type=\"hidden\" class=\""+nodo+"\"  id=\"memoriaDisponible\" value=\""+memoriaDisponible+"\" />");
-                      out.println("<input type=\"hidden\" class=\""+nodo+"\"  id=\"numeroNodo\" value=\""+numeroNodo+"\" />");
-                      out.println("<input type=\"hidden\" class=\""+nodo+"\"  id=\"procesosActivos\" value=\""+procesosActivos+"\" />");
-                      out.println("<input type=\"hidden\" class=\""+nodo+"\"  id=\"puertosDisponibles\" value=\""+puertosDisponibles+"\" />");
-                      out.println("<input type=\"hidden\" class=\""+nodo+"\"  id=\"usoCpu\" value=\""+usoCpu+"\" />");
+                      out.println("<input type=\"hidden\" class=\"aplicacionActiva\" value=\""+aplicacionActiva+"\" />");
+                      out.println("<input type=\"hidden\" class=\"direccionIp\" value=\""+direccionIp+"\" />");
+                      out.println("<input type=\"hidden\" class=\"idProceso\" value=\""+idProceso+"\" />");
+                      out.println("<input type=\"hidden\" class=\"memoriaDisponible\" value=\""+memoriaDisponible+"\" />");
+                      out.println("<input type=\"hidden\" class=\"numeroNodo\" value=\""+numeroNodo+"\" />");
+                      out.println("<input type=\"hidden\" class=\"procesosActivos\" value=\""+procesosActivos+"\" />");
+                      out.println("<input type=\"hidden\" class=\"puertosDisponibles\" value=\""+puertosDisponibles+"\" />");
+                      out.println("<input type=\"hidden\" class=\"usoCpu\" value=\""+usoCpu+"\" />");
                             
 
                 }

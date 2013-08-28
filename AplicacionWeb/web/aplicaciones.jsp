@@ -12,8 +12,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script  type="text/javascript" src="scripts/jquery-ui-1.10.3.custom.js"></script>
         <link rel="stylesheet" type="text/css" href="styles/general.css">
         <link rel="stylesheet" type="text/css" href="styles/estilos-extras.css">
+        <link rel="stylesheet" type="text/css" href="css/teg-theme/jquery-ui-1.10.3.custom.css">
         <script>
             function aplicacionSeleccionada(check){
               
@@ -33,6 +36,13 @@
                 return;
             }
         </script>
+        <script>
+            $(function() {
+                $( "a,li, input[type=submit]" )
+                .button()
+               
+                });
+  </script>
         <title>JSP Page</title>
     </head>
     <body>
