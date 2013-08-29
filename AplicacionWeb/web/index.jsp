@@ -27,26 +27,37 @@
   </script>
     </head>
     <body>
-        <div id="contenido">
-        <div id="titulo"><h1>Infraestructura Tecnológica con Fines Educativos Sobre Sistemas Distribuidos v1.0</h1></div>
-        <div id="infoUsuario" class="col w4">
+        <div id="contenido" >
+            <div id="main">
+            <div id="titulo" class="col w10"><h1 class="content">Infraestructura Tecnológica con Fines Educativos Sobre Sistemas Distribuidos v1.0</h1></div>
+        <div id="infoUsuario" class="col w1">
+            
             <div class="content">
-                <label>Usuario:<input type="text" name="usuario" id="usuario" class="input"/></label>
-                <label>Password:<input type="password" name="contrasena" id="contrasena" class="input"/></label>
-                <input type="button" id="login" class="button" value="Entrar"/>
-                <a href="#" id="logout">Salir</a>
+                <%--<c:choose>
+                                <c:when test="${sessionScope.nombre == asd}"> --%>
+                                    <label>Usuario:<input type="text" name="usuario" id="usuario" class="input"/></label>
+                                    <label>Password:<input type="password" name="contrasena" id="contrasena" class="input"/></label>
+                                    <input type="button" id="login" class="button" value="Entrar"/> 
+<%--                                 </c:when>
+                                <c:otherwise> --%>
+                                    <a href="#" id="logout">Salir</a>
+<%--                                </c:otherwise>
+                </c:choose> --%>
+                
+                
             </div>
             
         </div>
         <div id="menu" class="col w10">
         
-            <a href="topicos.jsp">Tópicos</a>
-            <a href="gestion.jsp">Gestión</a>
+            <a  class="content"href="topicos.jsp">Tópicos</a>
+            <a  class="content"href="gestion.jsp">Gestión</a>
         
         </div>
-        
+            </div>
         </div>
-        <div id="footer" class="col w10">
-            <p>Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p></div>
+        <div id="footer">
+            <p>Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p>
+        </div>
     </body>
 </html>

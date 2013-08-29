@@ -21,9 +21,9 @@
         <script type="text/javascript" src="scripts/volver.js"></script>
         <script type="text/javascript" src="scripts/prueba.js"></script>
         
-        <link rel="stylesheet" type="text/css" href="styles/aplicacion.css">
         <link rel="stylesheet" type="text/css" href="styles/console.css" />
         <link rel="stylesheet" type="text/css" href="styles/general.css">
+        <link rel="stylesheet" type="text/css" href="styles/estilos-extras.css">
         <link rel="stylesheet" type="text/css" href="css/teg-theme/jquery-ui-1.10.3.custom.css">
         <script>
             $(function() {
@@ -34,19 +34,20 @@
   </script>
     </head>
     <body>
-        <div id="contenido">
-        <div id="titulo"><h1>${nombre}</h1></div>
-        <div id="informacionAplicacion">
+        <div id="contenido" class="col w10">
+            <div id="main">
+            <div id="titulo" class="col w10"><h1 class="content">${nombre}</h1></div>
+            <div id="informacionAplicacion" class="col w9">
             
-             <p>Fecha Creacion: ${fecha_actualizacion}</p><br/>
-             <p>Instrucciones:  ${instrucciones}</p><br/>
+                <p class="content">Fecha Creacion: ${fecha_actualizacion}</p>
+                <p class="content">Instrucciones:  ${instrucciones}</p>
         </div>
-             <div id="escenarios">
-                 <p>Escenarios</p>
+        <div id="escenarios" class="col w1">
+            <p class="content">ESCENARIOS</p>
                  <c:set var="escenario" value="1"/>
                 <c:forEach var="row" items="${escenarios}">
                     
-                        <a href="#" class="linkEscenario" id="${escenario}">Escenario${escenario}</a>
+                        <a href="#" class="linkEscenario content" id="${escenario}">Escenario ${escenario}</a>
                     
                     <form id="${escenario}">
                     <input type="hidden" class="nombreEscenario"  id="${escenario}" value="${row[0]}"/>
@@ -58,10 +59,10 @@
             </div>
                 <c:set var="ejec" value="1"/>
                 
-                <div id="nodos">
+                <div id="nodos" class="col w8">
              <c:forEach var="ejecutable" items="${ejecutables}">
-                <div class="nodo">
-                 <div class="nombreNodo">
+                <div class="nodo content">
+                 <div class="nombreNodo content">
                      <p>Nodo${ejecutable[3]}</p>
                  </div>
                  <div id="ejecutable${ejec}">
@@ -139,14 +140,14 @@
                 
                 
                 </div>
-                 <div id="opciones">
-                 <input type="button" id="volver" class="button" value="Volver"/>
+                 <div id="opciones" class="col w2">
+                     <input type="button" id="volver" class="button content" value="Regresar"/>
                      <input type="hidden" id="idTopico" value="${idTopico}"/>
                  </div>
+            </div>
         </div>
-                 <div id="footer">
-                     
-            <p>Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p>
+                 <div id="footer" >  
+                     <p >Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p>
                  </div>
 
     </body>

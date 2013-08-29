@@ -27,10 +27,12 @@
                 });
   </script>
     </head>
-    <body id="body">
-        <div id="titulo" class="col w10"><h1 class="content">Topicos Disponibles</h1></div>
+    <body> 
         <div id="contenido" class="col w10">
-            <table class="content"><tr><th>Topico</th><th>Aplicaciones</th></tr>
+            <div id="main">
+                <div id="titulo" class="col w10"><h1 class="content">Topicos Disponibles</h1></div>
+       
+                <table class="col w10"><tr><th>Topico</th><th>Aplicaciones</th></tr>
             <sql:query dataSource="${localSource}" sql="SELECT id,nombre FROM topicos where categoria='INTRODUCCION A LOS SISTEMAS DISTRIBUIDOS'" var="result" />
             <tr><td><p>Introducción a los Sistemas Distribuidos:</p></td>
                 <td>
@@ -98,11 +100,13 @@
                     <li><a href="aplicaciones.jsp?idTopico=${row.id}"> ${row.nombre} </a></li>
                     </c:forEach></ul></td></tr>
             </table>
+       
+                    <div id="opciones" class="col w2">
+                        <a  href="index.jsp" class="content">Regresar</a>
+                    </div> 
+            </div>
         </div>
-                    <div id="opciones">
-                        <a href="index.jsp">Regresar</a>
-                    </div>
-        <div id="footer"><p>Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p></div>
+                    <div id="footer"><p>Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p></div>
 
     </body>
 </html>
