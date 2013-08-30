@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $("#logout").hide();
+ 
    $("#login").click(function(){
        var usuario = $("#usuario").val();
        var password = $("#contrasena").val();
@@ -14,7 +14,7 @@ $(document).ready(function(){
         });
    })
    
-   $("#logout").click(function(){
+   $("#infoUsuario a").click(function(){
        $.post('IniciarSesion',{sesion:"desconectar"},function(responseText) { 
            location.reload();
         

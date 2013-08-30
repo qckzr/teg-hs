@@ -21,11 +21,16 @@
         <script type="text/javascript" src="scripts/volver.js"></script>
         <script type="text/javascript" src="scripts/prueba.js"></script>
         
-        <link rel="stylesheet" type="text/css" href="styles/console.css" />
+      <!--  <link rel="stylesheet" type="text/css" href="styles/console.css" />
         <link rel="stylesheet" type="text/css" href="styles/general.css">
         <link rel="stylesheet" type="text/css" href="styles/estilos-extras.css">
-        <link rel="stylesheet" type="text/css" href="css/teg-theme/jquery-ui-1.10.3.custom.css">
+        <link rel="stylesheet" type="text/css" href="css/teg-theme/jquery-ui-1.10.3.custom.css"> -->
+        <link rel="stylesheet" type="text/css" href="css/boostrap.css">
+	<link rel="stylesheet" type="text/css" href="css/footer.css">
+        <link rel="stylesheet" type="text/css" href="css/console.css">
+
         <script>
+
             $(function() {
                 $( "a, input[type=submit],input[type=button]" )
                 .button()
@@ -35,8 +40,9 @@
     </head>
     <body>
         <div id="contenido" class="col w10">
+		<div class="container-fluid">
             <div id="main">
-            <div id="titulo" class="col w10"><h1 class="content">${nombre}</h1></div>
+            <div id="titulo" class="span12"><h1 class="text-center">${nombre}</h1></div>
             <div id="informacionAplicacion" class="col w9">
             
                 <p class="content">Fecha Creacion: ${fecha_actualizacion}</p>
@@ -70,22 +76,10 @@
                      <div class="informacion"></div>
                     <div  class="window">
                             <div class="toolbar">
-                                    <div class="top">
-                                            <div class="lights">
-                                                    <div class="light red">
-                                                            <div class="glyph">X</div>
-                                                            <div class="shine"></div>
-                                                            <div class="glow"></div>
-                                                    </div>				
-                                                    <div class="light yellow">
-                                                            <div class="glyph">-</div>
-                                                            <div class="shine"></div>
-                                                            <div class="glow"></div>
+                                    <div class="top"><div class="lights"><div class="light red"><div class="glyph">X</div><div class="shine"></div><div class="glow"></div></div><div class="light yellow">
+                                                            <div class="glyph">-</div><div class="shine"></div><div class="glow"></div>
                                                     </div>
-                                                    <div class="light green">
-                                                            <div class="glyph">+</div>
-                                                            <div class="shine"></div>
-                                                            <div class="glow"></div>
+                                                    <div class="light green"><div class="glyph">+</div><div class="shine"></div><div class="glow"></div>
                                                     </div>
                                             </div>
                                             <div class="title">
@@ -144,11 +138,26 @@
                      <input type="button" id="volver" class="button content" value="Regresar"/>
                      <input type="hidden" id="idTopico" value="${idTopico}"/>
                  </div>
+	 </div>
             </div>
         </div>
-                 <div id="footer" >  
-                     <p >Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p>
-                 </div>
-
+	<div id="footer" > <div class="container"> 
+                     <p class="text-center">Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p>
+     			</div>
+        </div>
+			  <script type="text/javascript" src="scripts/application.js"></script>
+                <script type="text/javascript" src="scripts/bootstrap-affix.js"></script>
+                <script type="text/javascript" src="scripts/bootstrap-alert.js"></script>
+                <script type="text/javascript" src="scripts/bootstrap-button.js"></script>
+                <script type="text/javascript" src="scripts/bootstrap-carousel.js"></script>
+                <script type="text/javascript" src="scripts/bootstrap-collapse.js"></script>
+                <script type="text/javascript" src="scripts/bootstrap-dropdown.js"></script>
+                <script type="text/javascript" src="scripts/bootstrap-modal.js"></script>
+                <script type="text/javascript" src="scripts/bootstrap-popover.js"></script>
+                <script type="text/javascript" src="scripts/bootstrap-scrollspy.js"></script>
+                <script type="text/javascript" src="scripts/bootstrap-tab.js"></script>
+                <script type="text/javascript" src="scripts/bootstrap-tooltip.js"></script>
+                <script type="text/javascript" src="scripts/bootstrap-transition.js"></script>
+                <script type="text/javascript" src="scripts/bootstrap-typeahead.js"></script>
     </body>
 </html>
