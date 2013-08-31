@@ -49,12 +49,18 @@ public class Aplicacion extends HttpServlet {
             ConexionBD conexionBD = new ConexionBD();
             String idAplicacion = request.getParameter("aplicacion");
             String idTopico = request.getParameter("idTopico");
-            ResultSet resultSet = conexionBD.consultarRegistro("SELECT NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES FROM APLICACIONES WHERE ID="+idAplicacion);
+            ResultSet resultSet = conexionBD.consultarRegistro("SELECT NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO FROM APLICACIONES WHERE ID="+idAplicacion);
             ResultSet escenariosAplicacion = conexionBD.consultar("SELECT NOMBRE,DESCRIPCION,IMAGEN FROM ESCENARIOS WHERE ID_APLICACION="+idAplicacion);
+	    ResultSet topicoAplicacion = conexionBD.consultar("SELECT DESCRIPCION,RUTA_IMAGEN FROM TOPICOS WHERE ID="+resultSet.getString(4));
             ResultSet ejecutablesAplicacion = conexionBD.consultar("SELECT ID,NOMBRE,TIPO,ID_NODO FROM EJECUTABLES WHERE ID_APLICACION="+idAplicacion);
             ArrayList<String[]> escenarios = new ArrayList<String[]>();
             String root = getServletContext().getRealPath("/");
-            
+            String descripcion = "";
+            String rutaImagen = "";
+            while(topicoAplicacion.next()){
+                descripcion = topicoAplicacion.getString(1);
+                rutaImagen = topicoAplicacion.getString(2);
+            }
             
             
             while (escenariosAplicacion.next()){
@@ -89,6 +95,8 @@ public class Aplicacion extends HttpServlet {
             request.setAttribute("ejecutables",ejecutables);
             request.setAttribute("idTopico", idTopico);
             request.setAttribute("idAplicacion",idAplicacion);
+	    request.setAttribute("descripcionTopico",descripcion);
+	    request.setAttribute("imagenTopico",rutaImagen);
            RequestDispatcher dispatcher = request.getRequestDispatcher("aplicacion.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException ex) {

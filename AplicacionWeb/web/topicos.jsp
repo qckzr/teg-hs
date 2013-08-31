@@ -106,10 +106,16 @@
             </table>
            </div>
                     <div id="opciones">
-                        <a  href="index.jsp" class="content">Regresar</a>
+                       <ul class="pager">
+			<li class="previous">
+				<a href="index.jsp" class="volver">&larr; Regresar</a>
+			</li>
+			</ul>
+ 
                     </div> 
             </div>
         </div>
+<div id="push"></div>
             </div>
                     <div id="footer">
                 <div class="container">

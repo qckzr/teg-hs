@@ -1,6 +1,6 @@
 
 $(document).ready( function(){
-   $("#volver").click(function(){
+   $(".volver").click(function(){
       var idTopico = $("#idTopico").val();
       window.close();
       $.post('TerminarAplicacionServlet',{},function(){

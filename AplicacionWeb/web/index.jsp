@@ -39,7 +39,6 @@
                  <div id="menu" class="span2">
             <a  class="btn btn-large btn-primary btn-block" href="topicos.jsp">Tópicos</a>
             <a  class="btn btn-large btn-primary btn-block" href="gestion.jsp">Gestión</a>
-        
         </div>
             <div id="infoUsuario" class="span1 offset7">
             <div class="content">

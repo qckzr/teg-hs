@@ -89,7 +89,11 @@
                 <input type="hidden" name="aplicacion" id="aplicacion" value="" />
             
                 <div id="opciones" class="span12">
-                    <a class="content" href="topicos.jsp">Regresar</a>
+                    <ul class="pager">
+			<li class="previous">
+				<a href="topicos.jsp" class="volver">&larr; Regresar</a>
+			</li>
+			</ul>
                 </div>
             
                 
@@ -97,6 +101,7 @@
                 
         </form>
             </div>
+<div id="push"></div>
             </div>
         </div><div id="footer">
                 <div class="container">

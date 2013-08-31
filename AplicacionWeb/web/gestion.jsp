@@ -12,26 +12,10 @@
         <title>Gestion Topicos</title>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script type="text/javascript" src="scripts/enviarPagina.js"></script>
-        <script type="text/javascript" src="scripts/iniciarSesion.js"></script>
-      <!--  <script  type="text/javascript" src="scripts/jquery-ui-1.10.3.custom.js"></script> -->
-      <!--  <link rel="stylesheet" type="text/css" href="css/teg-theme/jquery-ui-1.10.3.custom.css">
-       <link rel="stylesheet" type="text/css" href="styles/estilos-extras.css">
-        <link rel="stylesheet" type="text/css" href="styles/general.css">
-        <link rel="stylesheet" type="text/css" href="styles/dropdown.css"> -->
-      
-      
+        <script type="text/javascript" src="scripts/iniciarSesion.js"></script>      
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="css/footer.css">
-  <!--  <script>
-            $(function() {
-                $("a,li input[type=button]" )
-                .button();
-               
-               
-                });
-  </script> -->
-   
-    </head>
+        <link rel="stylesheet" type="text/css" href="css/footer.css">  
+   </head>
     <body>
         <div id="contenido"  >
             <div class="container-fluid">
@@ -117,12 +101,7 @@
             
                 </div>
             
-        </div><!--<div class="row-fluid">
-                <div id="opciones" class="span1" >
-                        <a  href="index.jsp" class="btn">Regresar</a>
-                      
-                    </div> 
-            </div>-->
+        </div>
             <div class="row-fluid">
               
                 <div id="operaciones" class="span3 offset3" >
@@ -139,6 +118,7 @@
             
             
         </div>
+<div id="push"></div>
         </div>
             <div id="footer">
                 <div class="container">
@@ -148,8 +128,8 @@
             
             
             
-            
-      <script type="text/javascript" src="scripts/application.js"></script>
+    <!--<script type="text/javascript" src="scripts/formularios.js"></script>    
+      <script type="text/javascript" src="scripts/application.js"></script>  -->
       <script type="text/javascript" src="scripts/bootstrap-affix.js"></script>
       <script type="text/javascript" src="scripts/bootstrap-alert.js"></script>
       <script type="text/javascript" src="scripts/bootstrap-button.js"></script>
@@ -157,12 +137,13 @@
       <script type="text/javascript" src="scripts/bootstrap-collapse.js"></script>
       <script type="text/javascript" src="scripts/bootstrap-dropdown.js"></script>
       <script type="text/javascript" src="scripts/bootstrap-modal.js"></script>
-      <script type="text/javascript" src="scripts/bootstrap-popover.js"></script>
+      <!--<script type="text/javascript" src="scripts/bootstrap-popover.js"></script> -->
       <script type="text/javascript" src="scripts/bootstrap-scrollspy.js"></script>
       <script type="text/javascript" src="scripts/bootstrap-tab.js"></script>
       <script type="text/javascript" src="scripts/bootstrap-tooltip.js"></script>
       <script type="text/javascript" src="scripts/bootstrap-transition.js"></script>
       <script type="text/javascript" src="scripts/bootstrap-typeahead.js"></script>
+      
       
     </body>
 </html>

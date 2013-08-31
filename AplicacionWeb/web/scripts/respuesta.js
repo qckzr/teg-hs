@@ -2,7 +2,8 @@
         $('#regresar').click(function() {
             
        //   $(this).closets('#operaciones').remove();
-         window.location = 'gestion.jsp';
+        $("#resultado").empty();
+//         window.location = 'gestion.jsp';
     
 });
     });
