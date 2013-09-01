@@ -57,7 +57,7 @@ public class CrearUsuarioServlet extends HttpServlet {
             else{
                 request.setAttribute("mensaje","NO SE PUDO!");
             }
-            request.setAttribute("link","usuarios/usuarios.jsp");
+     
             RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
             dispatcher.forward(request, response);
         } finally {            

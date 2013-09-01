@@ -15,21 +15,33 @@
         <script src="scripts/respuesta.js"></script>
     </head>
     <body>
-          <label>Enunciado: ${enunciado}</label><br/>
-             <label>Topico: ${topico}</label><br/>
-             <c:set var="respuesta" value="SI"/>
-             <c:forEach var="row" items="${preguntas}">
-                <c:choose>
-                    
-                                 <c:when test="${row[1] == respuesta}">
-                                     <p>Nombre: ${row[0]} - Respuesta Correcta</p> 
-                                 </c:when>
-                                  <c:otherwise>
-                                      <p>Nombre: ${row[0]}</p> 
-                                  </c:otherwise>
-                             </c:choose>
-              
+        <form class="form-horizontal">
+          <h1 class="text-center pull-left page-header">Consultar Pregunta</h1>           
+             <div class="row-fluid pull-left">
+            <div class="control-group">
+                 <div class="span4">
+             <dl class="dl-horizontal"> 
+                 <dt>Enunciado:</dt> <dd><p class="text-justify">${enunciado}</p></dd>
+                 <dt>Topico:</dt> <dd><p class="text-justify">${topico}</p></dd>
+                 <c:set var="respuesta" value="SI"/>
+                    <c:forEach var="row" items="${preguntas}">
+                        <c:choose>
+                            <c:when test="${row[1] == respuesta}">
+                            <dt>Opcion:</dt> <dd><p class="text-justify">${row[0]} - Respuesta Correcta</p></dd>
+                    </c:when>
+                    <c:otherwise>
+                        <dt>Opcion:</dt> <dd><p class="text-justify">${row[0]}</p></dd>
+                    </c:otherwise>
+                </c:choose>
             </c:forEach>
-            <input type="button" id="regresar" value="Regresar"/>
+                
+            </dl>
+             </div>
+             </div>
+                    <div class="controls">
+                        <input type="button" id="regresar" value="Regresar"/>
+                    </div>
+             </div>
+        </form>
     </body>
 </html>

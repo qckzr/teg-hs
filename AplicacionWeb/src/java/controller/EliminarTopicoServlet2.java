@@ -42,7 +42,6 @@ public class EliminarTopicoServlet2 extends HttpServlet {
             ConexionBD conexion = new ConexionBD();
             if(conexion.ejecutarQuery("DELETE FROM TOPICOS WHERE ID="+request.getParameter("id"))){
                  request.setAttribute("mensaje","Topico Eliminado");
-                request.setAttribute("link","topicos/topicos.jsp");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
                 dispatcher.forward(request, response);  
             }

@@ -17,8 +17,13 @@
         <script src="scripts/formularios.js"></script>
     </head>
     <body>
-        <form class="formularios" method="POST" action="${pageContext.request.contextPath}/ModificarPreguntaServlet1">
-        <select name="preguntas">
+        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarPreguntaServlet1">
+              <h1 class="text-center pull-left page-header">Modificar Pregunta</h1>           
+             <div class="row-fluid pull-left">
+            <div class="control-group">
+                <label class="control-label" for="preguntas">Pregunta:</label>
+                <div class="controls">
+                    <select name="preguntas" class="span10">
         
             
             <sql:query dataSource="${localSource}" 
@@ -30,7 +35,12 @@
             <option value="${row.id}">${row.nombre}: ${row.enunciado} </option>
 	</c:forEach>
         </select>
-        <input type="submit" value="Enviar"/>
+                </div>
+            </div>
+        <div class="controls">
+            <input type="submit" value="Enviar" class="btn"/>
+        </div>
+             </div>
         </form>
         <div id="results"></div>
     </body>

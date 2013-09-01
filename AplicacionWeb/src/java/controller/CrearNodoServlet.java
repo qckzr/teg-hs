@@ -46,8 +46,7 @@ public class CrearNodoServlet extends HttpServlet {
             String contrasena = request.getParameter("contrasena");
             conexionBD.ejecutarQuery("INSERT INTO NODOS (ID,IP,NOMBRE_USUARIO,CONTRASENA)"
                     + " VALUES (S_NODOS.NEXTVAL,'"+ip+"','"+usuario+"','"+contrasena+"')");
-            request.setAttribute("mensaje","Se agregó el nodo");     
-            request.setAttribute("link","nodos/nodos.jsp");
+            request.setAttribute("mensaje","Se agregó el nodo");      
             RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
             dispatcher.forward(request, response);
         } finally {            

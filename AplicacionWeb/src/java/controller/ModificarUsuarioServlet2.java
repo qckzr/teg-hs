@@ -60,7 +60,6 @@ public class ModificarUsuarioServlet2 extends HttpServlet {
           if (!rs.getString(5).contentEquals(contrasena))
               conexion.ejecutarQuery("UPDATE USUARIOS SET CONTRASENA='"+contrasena+"' WHERE ID="+id);
           request.setAttribute("mensaje","Usuario Modificado");
-          request.setAttribute("link","usuarios/usuarios.jsp");
            RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
             dispatcher.forward(request, response);    
         } catch (SQLException ex) {

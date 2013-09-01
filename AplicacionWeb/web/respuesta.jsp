@@ -15,8 +15,11 @@
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     </head>
     <body>
+        <form class="form-horizontal">
         <h1 class="page-header text-center pull-left">${mensaje}</h1>
-        <a href="${link}">Regresar</a>
+        <div class="row-fluid pull-left">
         <input type="button" id="regresar" value="Regresar" class="btn"/>
+        </div>
+        </form>
     </body>
 </html>

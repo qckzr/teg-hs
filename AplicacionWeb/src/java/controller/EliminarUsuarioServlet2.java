@@ -42,7 +42,6 @@ public class EliminarUsuarioServlet2 extends HttpServlet {
             ConexionBD conexion = new ConexionBD();
             if (conexion.ejecutarQuery("DELETE FROM USUARIOS WHERE ID="+request.getParameter("id"))){
                 request.setAttribute("mensaje","Usuario Eliminado");
-                request.setAttribute("link","usuarios/usuarios.jsp");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
                 dispatcher.forward(request, response);  
             }

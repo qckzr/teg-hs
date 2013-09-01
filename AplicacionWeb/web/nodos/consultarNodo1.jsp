@@ -17,8 +17,13 @@
         <script src="scripts/formularios.js"></script>
     </head>
     <body>
-        <form class="formularios" method="POST" action="${pageContext.request.contextPath}/ConsultarNodoServlet">
-        <select name="nodos">
+        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ConsultarNodoServlet">
+         <h1 class="text-center pull-left page-header">Consultar Nodo</h1>
+             <div class="row-fluid pull-left">
+            <div class="control-group">
+                <label class="control-label">Nodos:</label>
+                <div class="controls">
+                    <select name="nodos">
         
             
             <sql:query dataSource="${localSource}" 
@@ -29,8 +34,13 @@
            
             <option value="${row.id}">${row.ip}</option>
 	</c:forEach>
-        </select>
-        <input type="submit" value="Enviar"/>
+                    </select>
+                </div>
+            </div>
+        <div class="controls">
+            <input type="submit" value="Enviar" class="btn"/>
+        </div>
+             </div>
         </form>
         <div id="results"></div>
     </body>

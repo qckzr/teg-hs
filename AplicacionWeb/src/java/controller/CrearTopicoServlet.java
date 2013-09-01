@@ -44,54 +44,12 @@ public class CrearTopicoServlet extends HttpServlet {
              * TODO output your page here. You may use following sample code.
              */
             
-            Directorios directorio = new Directorios();
-//            String nombre ="";
-//            String categoria = "";
-//            String descripcion = "";
+    
             String imagen = "NULL";
-
-//            File seshdir = new File(directorio.getDirectorioImagenesTopico());
-//            if (!seshdir.exists()) {
-//            seshdir.mkdirs();
-//            }
-//            FileItemFactory factory = new DiskFileItemFactory();
-//            ServletFileUpload upload = new ServletFileUpload(factory);
-//            List<FileItem> items = null;
-//            try {
-//                items = upload.parseRequest(request);
-//            } catch (FileUploadException ex) {
-//                Logger.getLogger(CrearEjecutableServlet.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-// 
-//      for (FileItem diskFileItem : items) {
-//
-//        if (diskFileItem.isFormField()) {
-//            switch (diskFileItem.getFieldName()){
-//                case "nombre": nombre = diskFileItem.getString();
-//                                    break;
-//                case "categoria": categoria = diskFileItem.getString();
-//                                break;
-//                case "descripcion": descripcion = diskFileItem.getString();
-//                    break;
-//                       
-//            };
-//        
-//        }
-//        else{
-//            if (!diskFileItem.getString().isEmpty()){
-//            byte[] fileBytes = diskFileItem.get();
-//            File file = new File(seshdir, diskFileItem.getName());
-//            imagen = "'"+directorio.getDirectorioImagenesTopico()+"/"+diskFileItem.getName()+"'";
-//            FileOutputStream fileOutputStream = new FileOutputStream(file);
-//            fileOutputStream.write(fileBytes);
-//            fileOutputStream.flush();
-//            }
-//        }
-//      }
             String nombre  = request.getParameter("nombre");
             String categoria = request.getParameter("categoria");
             String descripcion = request.getParameter("descripcion");
-//            //String imagen = request.getParameter("imagen");
+          //String imagen = request.getParameter("imagen");
             ConexionBD conexion = new ConexionBD();
             if (conexion.ejecutarQuery("INSERT INTO TOPICOS (ID,NOMBRE,CATEGORIA,DESCRIPCION,ID_USUARIO,RUTA_IMAGEN) VALUES (S_TOPICOS.NEXTVAL,'"+nombre+"','"+categoria+"','"+descripcion+"',1,"+imagen+")")){
                 request.setAttribute("mensaje","Se agregó un topico a la bd.");
@@ -101,7 +59,6 @@ public class CrearTopicoServlet extends HttpServlet {
             }
             String imagen1 = request.getParameter("imagen");
             if (imagen1.contentEquals("false")){
-                request.setAttribute("link","topicos/topicos.jsp");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
                 dispatcher.forward(request, response);
             }

@@ -17,20 +17,26 @@
         <script src="scripts/formularios.js"></script>
     </head>
     <body>
-        <form class="formularios" method="POST" action="${pageContext.request.contextPath}/ModificarTopicoServlet1">
-        <select name="topicos">
-        
-            
-            <sql:query dataSource="${localSource}" 
-	           sql="SELECT id, nombre, categoria FROM topicos" 
-	           var="result" />
-        
-        <c:forEach var="row" items="${result.rows}">
-           
-            <option value="${row.id}">${row.categoria}: ${row.nombre} </option>
-	</c:forEach>
-        </select>
-        <input type="submit" value="Enviar"/>
+        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarTopicoServlet1">
+            <h1 class="text-center pull-left page-header">Modificar Topico</h1>           
+             <div class="row-fluid pull-left">
+            <div class="control-group">
+                <label class="control-label" for="topicos">Topicos:</label>
+                <div class="controls">
+                    <select name="topicos" class="span6">
+                        <sql:query dataSource="${localSource}" 
+                            sql="SELECT id, nombre, categoria FROM topicos" 
+                            var="result" />
+                        <c:forEach var="row" items="${result.rows}">
+                            <option value="${row.id}">${row.categoria}: ${row.nombre} </option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+                        <div class="controls">
+                            <input type="submit" value="Enviar" class="btn"/>
+                        </div>
+             </div>
         </form>
         <div id="results"></div>
     </body>

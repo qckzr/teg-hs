@@ -17,9 +17,19 @@
         <script src="scripts/formularios.js"></script>
     </head>
     <body>
-        <form class="formularios" method="POST" action="${pageContext.request.contextPath}/ModificarEjecutableServlet2" enctype="multipart/form-data">
-            <label>Nombre: ${nombre}</label><br/>
-             <label>Tipo: <select name="tipo">
+        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarEjecutableServlet2" enctype="multipart/form-data">
+              <h1 class="text-center pull-left page-header">Modificar Ejecutable</h1>
+             <div class="row-fluid pull-left">
+            <div class="control-group">
+                <label class="control-label">Nombre:</label> 
+                <div class="controls">
+                    <input type="text" value="${nombre}"  disabled class="span6"/>
+                </div>
+            </div>
+                <div class="control-group">
+                    <label class="control-label">Tipo:</label>
+                    <div class="controls">
+                        <select name="tipo">
                      <c:set var="tipoAplicacion" value="CLIENTE"/>       
                      <c:choose>
                                 
@@ -31,10 +41,24 @@
                                       <option value="CLIENTE" >CLIENTE </option>
                                       <option value="SERVIDOR" selected="selected">SERVIDOR </option>
                                   </c:otherwise>
-                             </c:choose></select></label><br/>
-             <label>Ruta Ejecutable: ${ruta_ejecutable}</label><br/>
-             <label>Nuevo Ejecutable: <input type="file" name="ejecutable"/></label><br/>
-             <label>Aplicacion: <select name="aplicaciones">
+                             </c:choose></select></div>
+                </div>
+                   <div class="control-group">                   
+                       <label class="control-label">Ruta Ejecutable:</label> 
+                       <div class="controls">
+                           <input type="text" value="${ruta_ejecutable}"disabled class="span6"/>
+                       </div>
+                   </div>
+                    <div class="control-group">
+                        <label class="control-label">Nuevo Ejecutable: </label>
+                        <div class="controls">
+                            <input type="file" name="ejecutable"/>
+                        </div>
+                    </div>
+            <div class="control-group">
+                <label class="control-label">Aplicacion: </label>
+                <div class="controls">
+                    <select name="aplicaciones">
                        <sql:query dataSource="${localSource}" 
                     sql="SELECT id, nombre FROM aplicaciones" 
 	           var="result" />
@@ -50,18 +74,37 @@
                              </c:choose>
                     
                     </c:forEach>
-                 </select> </label><br/>
+                 </select>
+                </div>
+            </div>
+            <h2 class="text-center pull-left  page-header">Parametros: </h2>
+                <div class="row-fluid pull-left">
              <c:forEach var="row" items="${parametros}">
                     <c:set var="cantidadParametros" value="1"/>
-                    <label>Nombre: <input name="nombreParametro${cantidadParametros}" value="${row[0]}"/></label> 
-                    <label>Valor: <input name="valorParametro${cantidadParametros}" value="${row[1]}" /></label> 
+                    <div class="control-group">
+                        <label class="control-label">Nombre: </label>
+                        <div class="controls">
+                            <input name="nombreParametro${cantidadParametros}" value="${row[0]}"/>
+                        </div>
+                    </div>
+                        <div class="control-group">
+                        <label class="control-label">Valor: </label>
+                        <div class="controls">
+                                <input name="valorParametro${cantidadParametros}" value="${row[1]}" />
+                        </div>
+                    
                     <input type="hidden" value="${row[2]}" name="idParametro${cantidadParametros}"/>
                     <c:set var="cantidadEscenarios" value="${cantidadParametros + 1}" scope="page"/>
-                    
+                    </div>
             </c:forEach>
-            <input type="Submit" value="Enviar"/>
+                    </div>
+                    <div class="controls pull-left">
+                    
+                        <input type="Submit" value="Enviar" class="btn"/>
             <input type="hidden" value="${id}" name="id"/>
             <input type="hidden" value="${cantidadParametros}" name="cantidadParametros"/>
+                    </div>
+             </div>
         </form>
         <div id="results"></div>
     </body>

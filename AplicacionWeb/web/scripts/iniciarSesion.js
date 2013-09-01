@@ -14,7 +14,7 @@ $(document).ready(function(){
         });
    })
    
-   $("#infoUsuario a").click(function(){
+   $("#logout").click(function(){
        $.post('IniciarSesion',{sesion:"desconectar"},function(responseText) { 
            location.reload();
         

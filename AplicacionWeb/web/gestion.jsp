@@ -28,7 +28,7 @@
                 <a href="gestion.jsp" class="brand">Modulo Gestión:</a>
             <ul class="nav">
                
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuarios <b class="caret"></b></a>
+                <li class="dropdown divider-vertical"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuarios <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a id="crearUsuario" href="#">Crear</a></li>
                                 <li><a id="modificarUsuario" href="#" >Modificar</a></li>
@@ -37,24 +37,24 @@
                             </ul>
                     
                 </li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Topicos <b class="caret"></b></a>
+                <li class="dropdown divider-vertical"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Topicos <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a id="crearTopico"href="#">Crear</a></li>
-                    <li><a id="modificarTopico"href="#">Modificar</a></li>
-                    <li><a id="eliminarTopico"href="#">Eliminar</a></li>
-                    <li><a id="consultarTopico"href="#">Consultar</a></li>
+                    <li><a id="crearTopico" href="#">Crear</a></li>
+                    <li><a id="modificarTopico" href="#">Modificar</a></li>
+                    <li><a id="eliminarTopico" href="#">Eliminar</a></li>
+                    <li><a id="consultarTopico" href="#">Consultar</a></li>
                 </ul>
             </li>
 
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Preguntas <b class="caret"></b></a>
+            <li class="dropdown divider-vertical"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Preguntas <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a id="crearPregunta"href="#">Crear</a></li>
-                    <li><a id="modificarPregunta"href="#">Modificar</a></li>
-                    <li><a id="eliminarPregunta"href="#">Eliminar</a></li>
-                    <li><a id="consultarPregunta"href="#">Consultar</a></li>
+                    <li><a id="crearPregunta" href="#">Crear</a></li>
+                    <li><a id="modificarPregunta" href="#">Modificar</a></li>
+                    <li><a id="eliminarPregunta" href="#">Eliminar</a></li>
+                    <li><a id="consultarPregunta" href="#">Consultar</a></li>
                 </ul>
             </li> 
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Aplicaciones <b class="caret"></b></a>
+            <li class="dropdown divider-vertical"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Aplicaciones <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a id="crearAplicacion" href="#">Crear</a></li>
                     <li><a id="modificarAplicacion" href="#">Modificar</a></li>
@@ -62,49 +62,50 @@
                     <li><a id="consultarAplicacion" href="#">Consultar</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Ejecutables <b class="caret"></b></a>
+            <li class="dropdown divider-vertical"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Ejecutables <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a id="crearEjecutable" href="#">Crear</a></li>
-                    <li><a id="modificarEjecutable"href="#">Modificar</a></li>
-                    <li><a id="eliminarEjecutable"href="#">Eliminar</a></li>
-                    <li><a id="consultarEjecutable"href="#">Consultar</a></li>
+                    <li><a id="modificarEjecutable" href="#">Modificar</a></li>
+                    <li><a id="eliminarEjecutable" href="#">Eliminar</a></li>
+                    <li><a id="consultarEjecutable" href="#">Consultar</a></li>
                 </ul>
             </li>
         
         
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Nodos <b class="caret"></b></a>
+            <li class="dropdown divider-vertical"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Nodos <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a id="crearNodo" href="#">Crear</a></li>
-                    <li><a id="modificarNodo"href="#">Modificar</a></li>
-                    <li><a id="eliminarNodo"href="#">Eliminar</a></li>
-                    <li><a id="consultarNodo"href="#">Consultar</a></li>
+                    <li><a id="modificarNodo" href="#">Modificar</a></li>
+                    <li><a id="eliminarNodo" href="#">Eliminar</a></li>
+                    <li><a id="consultarNodo" href="#">Consultar</a></li>
                 </ul>
             </li>
+            </ul>
+            <ul class="nav pull-right">
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">${sessionScope.nombre} ${sessionScope.apellido}<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                         <li><a id="logout" href="#">Desconectarse</a></li>
+                    </ul>
+                </li>
             
-</ul>
+            </ul>
+
             </div>
         </div>
         </div>
                 <div class="row-fluid">
-                    <div class="span2">
+                    <div class="span2 pull-left">
                             <ul class="breadcrumb">
                                 <li><a href="index.jsp">Index</a> <span class="divider">/</span></li>
                              <li class="active">Gestión</li>
                             </ul>
                     </div>
                       
-                <div id="infoUsuario" class="span1 offset9" >
-            
-            <h1 class="pull-right">${sessionScope.nombre} ${sessionScope.apellido}</h1>
-           
-            <a href="#" class="btn pull-right">Desconectarse</a>
-            
-                </div>
             
         </div>
             <div class="row-fluid">
               
-                <div id="operaciones" class="span3 offset3" >
+                <div id="operaciones" class="span12 " >
             
             <div id="resultado">
             </div>

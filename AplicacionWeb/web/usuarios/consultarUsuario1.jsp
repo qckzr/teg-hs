@@ -15,10 +15,16 @@
         <title>JSP Page</title>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script src="scripts/formularios.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     </head>
     <body>
-        <form class="formularios" method="POST" action="${pageContext.request.contextPath}/ConsultarUsuarioServlet1">
-        <select name="usuarios">
+        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ConsultarUsuarioServlet1">
+            <h1 class="page-header text-center pull-left">Consultar Usuario</h1>
+            <div class="row-fluid pull-left">
+             <div class="control-group">
+                  <label class="control-label" for="usuarios">Usuario:</label>
+                <div class="controls">
+                    <select name="usuarios" id="usuarios">
         
             
             <sql:query dataSource="${localSource}" 
@@ -30,7 +36,12 @@
             <option value="${row.id}">${row.nombre} ${row.apellido}</option>
 	</c:forEach>
         </select>
-        <input type="submit" value="Enviar"/>
+        </div>
+        </div>
+        <div class="controls">
+            <input type="submit"  value="Enviar" class="btn"/> 
+        </div>
+            </div>
         </form>
         <div id="results"></div>
     </body>

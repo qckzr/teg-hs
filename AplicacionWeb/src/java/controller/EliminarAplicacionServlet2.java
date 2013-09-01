@@ -43,7 +43,6 @@ public class EliminarAplicacionServlet2 extends HttpServlet {
              if (conexionBD.ejecutarQuery("DELETE FROM ESCENARIOS WHERE ID_APLICACION="+request.getParameter("id")))
                 if (conexionBD.ejecutarQuery("DELETE FROM APLICACIONES WHERE ID="+request.getParameter("id"))){
                     request.setAttribute("mensaje","Aplicacion Eliminada");
-                    request.setAttribute("link","aplicaciones/aplicaciones.jsp");
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
                     dispatcher.forward(request, response);  
             }

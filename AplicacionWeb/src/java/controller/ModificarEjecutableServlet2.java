@@ -141,7 +141,6 @@ public class ModificarEjecutableServlet2 extends HttpServlet {
             }
             
             request.setAttribute("mensaje","Se modificó el ejecutable");     
-            request.setAttribute("link","ejecutables/ejecutables.jsp");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
             dispatcher.forward(request, response);
             

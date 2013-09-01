@@ -17,20 +17,28 @@
         <script src="scripts/formularios.js"></script>
     </head>
     <body>
-        <form class="formularios" method="POST" action="${pageContext.request.contextPath}/EliminarPreguntaServlet1">
-        <select name="preguntas">
-        
-            
-            <sql:query dataSource="${localSource}" 
-	           sql="SELECT p.id, p.enunciado, t.nombre FROM preguntas p,topicos t where p.id_topico=t.id" 
-	           var="result" />
-        
-        <c:forEach var="row" items="${result.rows}">
-           
-            <option value="${row.id}">${row.nombre}: ${row.enunciado} </option>
-	</c:forEach>
-        </select>
-        <input type="submit" value="Enviar"/>
+        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/EliminarPreguntaServlet1">
+             <h1 class="text-center pull-left page-header">Eliminar Pregunta</h1>           
+             <div class="row-fluid pull-left">
+            <div class="control-group">
+                <label class="control-label" for="preguntas">Pregunta:</label>
+                <div class="controls">
+                    <select name="preguntas" class="span6">            
+                        <sql:query dataSource="${localSource}" 
+                            sql="SELECT p.id, p.enunciado, t.nombre FROM preguntas p,topicos t where p.id_topico=t.id" 
+                            var="result" />
+
+                    <c:forEach var="row" items="${result.rows}">
+
+                        <option value="${row.id}">${row.nombre}: ${row.enunciado} </option>
+                    </c:forEach>
+                    </select>
+                </div>
+            </div>
+                    <div class="controls">
+                        <input type="submit" value="Enviar" class="btn"/>
+                    </div>
+             </div>
         </form>
         <div id="results"></div>
     </body>

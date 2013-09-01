@@ -16,8 +16,9 @@
     </head>
     <body>
         <form  class="formularios form-horizontal"  action="${pageContext.request.contextPath}/CrearUsuarioServlet" method="POST">
+           
             <h1 class="text-center pull-left page-header">Crear Usuario</h1>
-            
+             <div class="row-fluid pull-left">
             <div class="control-group">
                 <label class="control-label" for="nombre">Nombre:</label>
                 <div class="controls">
@@ -47,7 +48,7 @@
          <div class="controls"> 
        <input type="submit" value="Enviar" class="btn"/>
   </div>
-            
+            </div>
         </form>
             <div id="results"></div>
                  

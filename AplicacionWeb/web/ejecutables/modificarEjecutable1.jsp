@@ -17,20 +17,26 @@
         <script src="scripts/formularios.js"></script>
     </head>
     <body>
-        <form class="formularios" method="POST" action="${pageContext.request.contextPath}/ModificarEjecutableServlet1">
-        <select name="ejecutables">
-        
-            
-            <sql:query dataSource="${localSource}" 
-	           sql="SELECT id,nombre,tipo FROM ejecutables" 
-	           var="result" />
-        
-        <c:forEach var="row" items="${result.rows}">
-           
-            <option value="${row.id}">${row.nombre} - ${row.tipo}</option>
-	</c:forEach>
-        </select>
-        <input type="submit" value="Enviar"/>
+        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarEjecutableServlet1">
+              <h1 class="text-center pull-left page-header">Modificar Ejecutable</h1>
+             <div class="row-fluid pull-left">
+            <div class="control-group">
+                <label class="control-label">Ejecutable:</label>
+                <div class="controls">
+                    <select name="ejecutables" class="span6">
+                        <sql:query dataSource="${localSource}" 
+                            sql="SELECT id,nombre,tipo FROM ejecutables" 
+                            var="result" />
+                            <c:forEach var="row" items="${result.rows}">
+
+                        <option value="${row.id}">${row.nombre} - ${row.tipo}</option>
+                    </c:forEach>
+                    </select></div>
+        </div>
+                    <div class="controls">
+                    <input type="submit" value="Enviar" class="btn"/>
+                    </div>
+             </div>
          </form>
         <div id="results"></div>
     </body>

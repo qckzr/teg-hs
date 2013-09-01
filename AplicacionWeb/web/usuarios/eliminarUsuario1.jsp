@@ -22,10 +22,11 @@
        
         <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/EliminarUsuarioServlet1">
             <h1 class="page-header text-center pull-left">Eliminar Usuario</h1>
+             <div class="row-fluid pull-left">
              <div class="control-group">
                 <label class="control-label" for="usuarios">Usuario:</label>
                 <div class="controls">
-            <select name="usuarios" id="usuarios" class="span8">
+            <select name="usuarios" id="usuarios" >
             
         
             
@@ -43,7 +44,7 @@
         <div class="controls">
             <input type="submit"  value="Enviar" class="btn"/> 
         </div>
-             
+             </div>
         </form>
         <div id="results">
         </div>

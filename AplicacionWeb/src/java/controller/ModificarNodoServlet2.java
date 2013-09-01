@@ -59,7 +59,6 @@ public class ModificarNodoServlet2 extends HttpServlet {
                     conexion.ejecutarQuery("UPDATE nodos SET contrasena='"+contrasena+"' WHERE ID="+id);
             
              request.setAttribute("mensaje","Nodo Modificado");
-          request.setAttribute("link","nodos/nodos.jsp");
            RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
             dispatcher.forward(request, response);    
         } catch (SQLException ex) {

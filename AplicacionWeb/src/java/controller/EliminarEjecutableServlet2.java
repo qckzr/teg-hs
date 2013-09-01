@@ -42,7 +42,6 @@ public class EliminarEjecutableServlet2 extends HttpServlet {
             ConexionBD conexionBD = new ConexionBD();
             if (conexionBD.ejecutarQuery("DELETE FROM EJECUTABLES WHERE ID="+request.getParameter("id"))){
                 request.setAttribute("mensaje","Ejecutable Eliminado");
-                request.setAttribute("link","ejecutables/ejecutables.jsp");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
                 dispatcher.forward(request, response);  
             }

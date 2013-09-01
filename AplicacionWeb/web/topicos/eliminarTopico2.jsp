@@ -14,13 +14,24 @@
         <script src="scripts/formularios.js"></script>
     </head>
     <body>
-        <form class="formularios" method="POST" action="${pageContext.request.contextPath}/EliminarTopicoServlet2">
-             <label>Nombre: ${nombre}</label><br/>
-             <label>Categoria: ${categoria}</label><br/>
-             <label>Descripcion: ${descripcion}</label><br/>
-             <label>Usuario: ${usuario}</label><br/>
+        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/EliminarTopicoServlet2">
+               <h1 class="text-center pull-left page-header">Eliminar Topico</h1>           
+             <div class="row-fluid pull-left">
+                
+            <div class="control-group">
+                 <div class="span12">
+             <dl class="dl-horizontal"> 
+                 <dt>Nombre:</dt> <dd><p class="text-justify">${nombre}</p></dd>
+                 <dt>Categoria:</dt> <dd><p class="text-justify">${categoria}</p></dd>
+                 <dt>Descripcion:</dt> <dd><p class="text-justify">${descripcion}</p></dd>
+                 <dt>Usuario:</dt> <dd><p class="text-justify">${usuario}</p></dd>
+            </dl>
+             </div>
+             </div>
+            <div class="controls">
              <input type="hidden" name="id" value="${id}"/>
-             <input type="submit" value="Enviar"/>
+             <input type="submit" value="Enviar" class="btn"/>
+            </div>
              
          </form>
              <div id="results"></div>

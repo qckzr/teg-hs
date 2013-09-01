@@ -15,9 +15,23 @@
         <script src="scripts/respuesta.js"></script>
     </head>
     <body>
-        <label>IP: ${ip}</label><br/>
-             <label>Nombre Usuario: ${usuario}</label><br/>
-             <label>Contrasena ${contrasena}</label><br/>
-             <input type="button" id="regresar" value="Regresar"/>
+        <form class="form-horizontal">
+             <h1 class="text-center pull-left page-header">Consultar Nodo</h1>
+             <div class="row-fluid pull-left">
+            <div class="control-group">
+                <div class="span4">
+             <dl class="dl-horizontal"> 
+                 <dt>IP:</dt> <dd><p class="text-justify">${ip}</p></dd>
+                 <dt>Nombre Usuario:</dt> <dd><p class="text-justify">${nombre}</p></dd>
+                 <dt>Contrasena:</dt> <dd><p class="text-justify">${contrasena}</p></dd>
+            </dl>
+             </div>
+             </div>
+            <div class="controls">
+                  <input type="button" id="regresar" class="btn" value="Regresar"/>
+            </div>
+             </div>
+            
+        </form>
     </body>
 </html>

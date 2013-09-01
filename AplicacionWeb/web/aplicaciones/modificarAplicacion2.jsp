@@ -17,15 +17,35 @@
         <script src="scripts/formularios.js"></script>
     </head>
     <body>
-        <form class="formularios" method="POST" action="${pageContext.request.contextPath}/ModificarAplicacionServlet2" enctype="multipart/form-data">
-            <label>Nombre: <input type="text" value="${nombre}" name="nombre"/></label><br/>
-            <label>Fecha Actualizacion: <input type="text" name="fecha_actualizacion" value="${fecha_actualizacion}"></label><br/>
-            <label>Instrucciones:<textarea  name="instrucciones">${instrucciones}</textarea></label><br/>
-            <label>Topico: <select name="topicos">
+        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarAplicacionServlet2" enctype="multipart/form-data">
+            <h1 class="text-center pull-left page-header">Modificar Aplicación</h1>
+             <div class="row-fluid pull-left">
+            <div class="control-group">
+                
+                <label class="control-label">Nombre:</label> 
+                <div class="controls">
+                    <input type="text" value="${nombre}" name="nombre"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Fecha Actualizacion:</label> 
+                <div class="controls">
+                    <input type="text" name="fecha_actualizacion" value="${fecha_actualizacion}">
+                </div>
+            </div>
+            <div class="control-group">    
+                <label class="control-label">Instrucciones:</label>
+                <div class="controls">
+                    <textarea  name="instrucciones" class="span6">${instrucciones}</textarea>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Topico:</label> 
+                <div class="controls">
+                    <select name="topicos" class="span6">
                      <sql:query dataSource="${localSource}" 
                     sql="SELECT id, nombre, categoria FROM topicos" 
 	           var="result" />
-        
                     <c:forEach var="row" items="${result.rows}">
                          <c:choose>
                                  <c:when test="${row.id == idTopico}">
@@ -35,24 +55,50 @@
                                       <option value="${row.id}">${row.categoria}: ${row.nombre} </option>
                                   </c:otherwise>
                              </c:choose>
-                    
                     </c:forEach>
                          
-                </select></label><br/>
-            <label>Escenarios: </label><br/>
-           
+                </select>
+                </div>
+            </div>
+            
+                <h2 class="text-center pull-left  page-header">Escenarios: </h2>
+                <div class="row-fluid pull-left">
                  <c:set var="cantidadEscenarios" value="1"/>
                 <c:forEach var="escenario" items="${escenarios}">
                     <input type="hidden" name="idEscenario${cantidadEscenarios}" value="${escenario[3]}"/>
-                    <input type="text" name="escenario${cantidadEscenarios}" value="${escenario[0]}"/>
-                    <textarea name="descripcion${cantidadEscenarios}">${escenario[1]}</textarea>
-                    <label>Imagen: ${escenario[2]}</label><input type="file" name="imagen${cantidadEscenarios}" /><br/>s
+                    <div class="control-group">
+                        <label class="control-label">Nombre:</label>
+                        <div class="controls">
+                            <input type="text" name="escenario${cantidadEscenarios}" value="${escenario[0]}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Descripción:</label>
+                        <div class="controls">
+                            <textarea name="descripcion${cantidadEscenarios}" class="span6">${escenario[1]}</textarea>
+                        </div>
+                    </div>
+                        <div class="control-group">
+                            <label class="control-label">Imagen:</label>
+                            <div class="controls">
+                                <p>${escenario[2]}</p>
+                            </div>
+
+                            
+                                <label class="control-label">Nueva Imagen:</label>
+                                <div class="controls">
+                                    <input type="file" name="imagen${cantidadEscenarios}"  />
+                                </div>
+                            </div>
                     <c:set var="cantidadEscenarios" value="${cantidadEscenarios + 1}" scope="page"/>
                     
                 </c:forEach>
-            <br/>
-            <input type="hidden" value="${id}" name="id"/>
-            <input type="submit" value="Enviar"/>            
+                </div>
+                    <div class="controls pull-left">
+                        <input type="hidden" value="${id}" name="id"/>
+                        <input type="submit" value="Enviar" class="btn"/>   
+                    </div>
+            </div>
         </form>
             <div id="results"></div>
     </body>

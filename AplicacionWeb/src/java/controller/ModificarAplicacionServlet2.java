@@ -142,7 +142,6 @@ public class ModificarAplicacionServlet2 extends HttpServlet {
             }
             
             request.setAttribute("mensaje","Se modificó la aplicacion");     
-            request.setAttribute("link","aplicaciones/aplicaciones.jsp");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
             dispatcher.forward(request, response);
             

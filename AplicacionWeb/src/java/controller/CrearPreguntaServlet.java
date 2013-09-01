@@ -62,7 +62,6 @@ public class CrearPreguntaServlet extends HttpServlet {
             conexionBD.ejecutarQuery("INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA) VALUES (S_RESPUESTAS.NEXTVAL,'"+opcion3+"',"+idPregunta+","+respuestaCorrecta3+")");
             conexionBD.ejecutarQuery("INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA) VALUES (S_RESPUESTAS.NEXTVAL,'"+opcion4+"',"+idPregunta+","+respuestaCorrecta4+")");
             request.setAttribute("mensaje","Se agregó la pregunta");     
-            request.setAttribute("link","preguntas/preguntas.jsp");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException ex) {

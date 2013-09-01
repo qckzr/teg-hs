@@ -42,7 +42,6 @@ public class EliminarPreguntaServlet2 extends HttpServlet {
            ConexionBD conexion = new ConexionBD();
             if(conexion.ejecutarQuery("DELETE FROM PREGUNTAS WHERE ID="+request.getParameter("id"))){
                  request.setAttribute("mensaje","Pregunta Eliminada");
-                request.setAttribute("link","preguntas/preguntas.jsp");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
                 dispatcher.forward(request, response);  
             }

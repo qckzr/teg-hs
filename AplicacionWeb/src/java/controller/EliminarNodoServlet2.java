@@ -42,7 +42,6 @@ public class EliminarNodoServlet2 extends HttpServlet {
             ConexionBD conexionBD = new ConexionBD();
              if (conexionBD.ejecutarQuery("DELETE FROM NODOS WHERE ID="+request.getParameter("id")))
                     request.setAttribute("mensaje","Nodo Eliminado");
-                    request.setAttribute("link","nodos/nodos.jsp");
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
                     dispatcher.forward(request, response);  
             

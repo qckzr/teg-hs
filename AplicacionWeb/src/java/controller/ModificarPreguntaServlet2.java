@@ -63,7 +63,6 @@ public class ModificarPreguntaServlet2 extends HttpServlet {
                 
             }
             request.setAttribute("mensaje","Pregunta Modificada");
-            request.setAttribute("link","preguntas/preguntas.jsp");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
             dispatcher.forward(request, response);    
                     

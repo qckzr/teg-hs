@@ -18,9 +18,19 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form class="formularios" method="POST" action="${pageContext.request.contextPath}/ModificarPreguntaServlet2">
-            <label>Enunciado: <input type="text" name="enunciado" value="${enunciado}"</label><br/>
-            <label>Topico: <select name="topicos">
+        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarPreguntaServlet2">
+             <h1 class="text-center pull-left page-header">Modificar Pregunta</h1>           
+             <div class="row-fluid pull-left">
+            <div class="control-group">
+                <label class="control-label" for="Enunciado">Enunciado:</label>
+                <div class="controls">
+                    <textarea name="enunciado" cols="50" rows="3" class="span6">${enunciado}</textarea>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="topicos">Topico:</label>
+                <div class="controls">
+                    <select name="topicos" class="span6">
                      <sql:query dataSource="${localSource}" 
                     sql="SELECT id, nombre, categoria FROM topicos" 
 	           var="result" />
@@ -37,24 +47,47 @@
                     
                     </c:forEach>
                          
-                </select></label><br/>
+                </select>
+                </div>
+            </div>
              <c:set var="respuesta" value="SI"/>
              <c:set var="contadorPregunta" value="1"/>
              <c:forEach var="row" items="${preguntas}">
                 <c:choose>
                     <c:when test="${row[1] == respuesta}">
-                        <p>Respuesta ${contadorPregunta}: <input type="text" name="respuesta${contadorPregunta}" value="${row[0]}"/> Respuesta Correcta: <input type="checkbox" name="checkbox${contadorPregunta}" id="checkbox${contadorPregunta}" value="'SI'" checked="checked" onclick="validarUnicaRespuesta(checkbox${contadorPregunta})"/></p> 
+                        <div class="control-group">
+                            <label class="control-label" for="respuesta${contadorPregunta}">Respuesta ${contadorPregunta}: </label>
+                            <div class="controls">
+                              <input type="text" name="respuesta${contadorPregunta}" value="${row[0]}"/>
+                            </div>
+                              <label class="control-label" for="checkbox${contadorPregunta}">Respuesta Correcta:</label>
+                              <div class="controls">
+                                  <input type="checkbox" name="checkbox${contadorPregunta}" id="checkbox${contadorPregunta}" value="'SI'" checked="checked" onclick="validarUnicaRespuesta(checkbox${contadorPregunta})"/>
+                              </div>
+                        </div>
                     </c:when>
                     <c:otherwise>
-                        <p>Respuesta ${contadorPregunta}: <input type="text" name="respuesta${contadorPregunta}" value="${row[0]}"/> Respuesta Correcta: <input type="checkbox" name="checkbox${contadorPregunta}" id="checkbox${contadorPregunta}" value="NULL" onclick="validarUnicaRespuesta(checkbox${contadorPregunta})"/></p> 
+                        <div class="control-group">
+                            <label class="control-label" for="respuesta${contadorPregunta}">Respuesta ${contadorPregunta}:</label>
+                            <div class="controls">
+                                <input type="text" name="respuesta${contadorPregunta}" value="${row[0]}"/>
+                            </div>
+                                <label class="control-label" for="checkbox${contadorPregunta}">Respuesta Correcta:</label> 
+                                <div class="controls">
+                                    <input type="checkbox" name="checkbox${contadorPregunta}" id="checkbox${contadorPregunta}" value="NULL" onclick="validarUnicaRespuesta(checkbox${contadorPregunta})"/>
+                                </div>
+                        </div>
                     </c:otherwise>
                 </c:choose>
                         <input type="hidden" name="idRespuesta${contadorPregunta}" value="${row[2]}"/>
                       <c:set var="contadorPregunta" value="${contadorPregunta + 1}" scope="page"/>
             </c:forEach>
-                    <input type="submit" value="Enviar"/>
-                    <input type="hidden" name="id" value="${id}"/>
-               
+            <div class="controls">
+                <input type="submit" value="Enviar" class="btn"/>
+                    <input type="hidden" name="id" value="${id}" />
+            </div>
+             </div>
+        
              </form>
                     <div id="results"></div>   
     </body>

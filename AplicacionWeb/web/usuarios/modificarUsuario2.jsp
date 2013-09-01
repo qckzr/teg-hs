@@ -17,15 +17,38 @@
         <script src="scripts/formularios.js"></script>
     </head>
     <body>
-        <form class="formularios" method="POST" action="${pageContext.request.contextPath}/ModificarUsuarioServlet2">
-            <label>Nombre: <input type="text" value="${nombre}" name="nombre"/></label><br/>
-            <label>Apellido: <input type="text" value="${apellido}" name="apellido"/></label><br/>
-            <label>Correo:<input type="text" value="${correo}" name="correo"/></label><br/>
-            <label>Contrasena: <input type="text" value="${contrasena}" name="contrasena"/></label><br/>
+        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarUsuarioServlet2">
+             <h1 class="text-center pull-left page-header">Modificar Usuario</h1>
+            <div class="row-fluid pull-left">
+            <div class="control-group">
+                <label class="control-label" for="nombre">Nombre:</label>
+                <div class="controls">
+                    <input type="text" value="${nombre}" name="nombre" id="nombre"/>
+                </div>
+            </div>
+                <div class="control-group">
+                    <label class="control-label" for="apellido">Apellido: </label> 
+                    <div class="controls">
+                        <input type="text" value="${apellido}" name="apellido" id="apellido"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="correo">Correo:</label>
+                    <div class="controls">
+                        <input type="text" value="${correo}" name="correo" id="correo"/>
+                    </div>
+                </div>
+            <div class="control-group">
+                    <label class="control-label" for="contrasena">Contrasena:</label>
+                    <div class="controls">
+                        <input type="text" value="${contrasena}" name="contrasena" id="contrasena"/>
+                    </div>
+            </div>
+            <div class="controls">        
             <input type="hidden" value="${id}" name="id"/>
-            <input type="submit" value="Enviar"/> 
-                
-            
+            <input type="submit" value="Enviar" class="btn"/> 
+            </div>    
+            </div>
         </form>
             <div id="results"></div>
     </body>

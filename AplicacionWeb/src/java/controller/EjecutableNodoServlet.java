@@ -63,18 +63,7 @@ public class EjecutableNodoServlet extends HttpServlet {
                     out.println("<option value=\""+nodos.getString(1)+"\">Nodo"+nodos.getString(1)+"</option>");
                 }   while (nodos.next());
              out.println("</select>");     
-            
-            
-                
-            
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet EjecutableNodo</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet EjecutableNodo at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
+
         } catch (SQLException ex) {
             Logger.getLogger(EjecutableNodoServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {            

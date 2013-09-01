@@ -1,7 +1,18 @@
  $(document).ready(function() {
-     var imagen = document.getElementById("imagen");
+     
+     $("#checkboxImagen").click(function(){
+        if($("#imagen").val()=="true")
+            $("#imagen").val("false");
+        
+        else
+            $("#imagen").val("true");
+     });
+ 
+        
+        
         $('.formularios').submit(function() {
-           
+        
+            var imagen = $("#imagen").val();
            if (imagen.value == "false"){
                 $.post($(this).attr("action"), $(this).serialize(), function(data) {
                     
