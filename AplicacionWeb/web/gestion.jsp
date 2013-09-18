@@ -125,12 +125,7 @@
                 <div class="container">
                     <p class="text-center">Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p> 
                 </div></div>
-            
-            
-            
-            
-    <!--<script type="text/javascript" src="scripts/formularios.js"></script>    
-      <script type="text/javascript" src="scripts/application.js"></script>  -->
+
       <script type="text/javascript" src="scripts/bootstrap-affix.js"></script>
       <script type="text/javascript" src="scripts/bootstrap-alert.js"></script>
       <script type="text/javascript" src="scripts/bootstrap-button.js"></script>
@@ -138,7 +133,6 @@
       <script type="text/javascript" src="scripts/bootstrap-collapse.js"></script>
       <script type="text/javascript" src="scripts/bootstrap-dropdown.js"></script>
       <script type="text/javascript" src="scripts/bootstrap-modal.js"></script>
-      <!--<script type="text/javascript" src="scripts/bootstrap-popover.js"></script> -->
       <script type="text/javascript" src="scripts/bootstrap-scrollspy.js"></script>
       <script type="text/javascript" src="scripts/bootstrap-tab.js"></script>
       <script type="text/javascript" src="scripts/bootstrap-tooltip.js"></script>

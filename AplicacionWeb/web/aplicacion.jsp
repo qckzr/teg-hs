@@ -30,17 +30,28 @@
         <link rel="stylesheet" type="text/css" href="css/console.css">
 
         <script>
+              $(document).ready(function() {
+                    $("#preguntas").click (function() {  
+                        var idTopico = $("#idTopico").val();
+                        $.post('GenerarPreguntaServlet',{idTopico:idTopico},function(responseText) { 
+                            $("#archivoPreguntas").html(responseText);
+                            return;
+                    });
+                    
+                     $("#archivoPreguntas a").click(function(){
+                         var child = $("#preguntasPdf");
+                        $("#archivoPreguntas").removeChild(child);
+                    }); 
 
-            $(function() {
-                $( "a, input[type=submit],input[type=button]" )
-                .button()
-               
-                });
+        });
+       
+    });
+            
   </script>
     </head>
     <body>
-        <div id="contenido">
-		<div class="container-fluid">
+        <div id="contenido" class="container-fluid">
+		
             	<div id="main">
        	             <div class="row-fluid">
             		<div id="titulo" class="span12"><h1 class="text-center">${nombre}</h1></div>
@@ -64,6 +75,8 @@
                     			</form>
                     		 	<c:set var="escenario" value="${escenario + 1}" scope="page"/>
                 		</c:forEach></ul>
+                                <a href="#" id="preguntas">Generar Preguntas</a>
+                                <div id="archivoPreguntas"></div>
             		</div>
          </div>
                 <c:set var="ejec" value="1"/>
@@ -166,14 +179,14 @@
 		    </div>
                  </div>
 	 </div>
-            </div>
+            
             <div id="push"></div>
         </div>
 	<div id="footer" > <div class="container"> 
                      <p class="text-center">Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p>
      			</div>
         </div>
-		<script type="text/javascript" src="scripts/application.js"></script>
+	<!--	<script type="text/javascript" src="scripts/application.js"></script> -->
                 <script type="text/javascript" src="scripts/bootstrap-affix.js"></script>
                 <script type="text/javascript" src="scripts/bootstrap-alert.js"></script>
                 <script type="text/javascript" src="scripts/bootstrap-button.js"></script>
@@ -181,7 +194,7 @@
                 <script type="text/javascript" src="scripts/bootstrap-collapse.js"></script>
                 <script type="text/javascript" src="scripts/bootstrap-dropdown.js"></script>
                 <script type="text/javascript" src="scripts/bootstrap-modal.js"></script>
-                <script type="text/javascript" src="scripts/bootstrap-popover.js"></script>
+              <!--  <script type="text/javascript" src="scripts/bootstrap-popover.js"></script> -->
                 <script type="text/javascript" src="scripts/bootstrap-scrollspy.js"></script>
                 <script type="text/javascript" src="scripts/bootstrap-tab.js"></script>
                 <script type="text/javascript" src="scripts/bootstrap-tooltip.js"></script>

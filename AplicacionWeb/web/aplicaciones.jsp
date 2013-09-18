@@ -38,13 +38,6 @@
                 return;
             }
         </script>
-        <script>
-            $(function() {
-                $( "a,li, input[type=submit]" )
-                .button()
-               
-                });
-  </script>
         <title>JSP Page</title>
     </head>
     <body>
@@ -56,21 +49,21 @@
                 sql="SELECT a.id,a.nombre \"nombre\", t.categoria, t.nombre \"topico\" FROM aplicaciones a,topicos t where a.id_topico=t.id and t.id=${param.idTopico}"
             />
             <div class="row-fluid">
-            <div id="titulo" class="span12"><h1 class="text-center">${result.rows[0].categoria}</h1></div>
+          <!--  <div id="titulo" class="span12"><h1 class="text-center">${result.rows[0].categoria}</h1></div> -->
             <c:set var="count" value="1"/>
             </div>
            <!-- <div id="aplicaciones" class="span12"> -->
            <div class="row-fluid">
-           <div class="span3">
+        <!--   <div class="span3">
                             <ul class="breadcrumb">
                                 <li><a href="index.jsp">Index</a> <span class="divider">/</span></li>
                                 <li><a href="topicos.jsp">Tópicos</a> <span class="divider">/</span></li>
                                 <li class="active">Aplicaciones</li>
                             </ul>
-                    </div>
+                    </div> -->
            </div>
                <div class="row-fluid">
-                   <table class="table table-bordered table-hover span5 offset3"><caption><p class="text-center">Aplicaciones Disponibles para: ${result.rows[0].topico} </p></caption><tr><td >Apps:</td><td ><ul class="inline">
+                   <table class="table table-bordered"><caption><p class="text-center">Aplicaciones Disponibles para: ${result.rows[0].topico} </p></caption><tr><td class="span1" >Apps:</td><td ><ul class="inline">
                  	 <c:forEach var="row" items="${result.rows}">
             
                            <li> <p><input type="checkbox" name="aplicacion${count}" id="aplicacion${count}" value="${row.id}" onclick="aplicacionSeleccionada(aplicacion${count})"/>  ${row.nombre} </p></li>
@@ -88,27 +81,27 @@
                 <input type="hidden" name="idTopico" value="${param.idTopico}"/>
                 <input type="hidden" name="aplicacion" id="aplicacion" value="" />
             
-                <div id="opciones" class="span12">
+          <!--      <div id="opciones" class="span12">
                     <ul class="pager">
 			<li class="previous">
 				<a href="topicos.jsp" class="volver">&larr; Regresar</a>
 			</li>
 			</ul>
-                </div>
+                </div> -->
             
                 
         
                 
         </form>
             </div>
-<div id="push"></div>
+<!--<div id="push"></div> -->
             </div>
-        </div><div id="footer">
+        </div><!--<div id="footer">
                 <div class="container">
                     <p class="text-center">Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p> 
                 </div>
-            </div>
-                <script type="text/javascript" src="scripts/application.js"></script>
+            </div> -->
+          <!--      <script type="text/javascript" src="scripts/application.js"></script>
                 <script type="text/javascript" src="scripts/bootstrap-affix.js"></script>
                 <script type="text/javascript" src="scripts/bootstrap-alert.js"></script>
                 <script type="text/javascript" src="scripts/bootstrap-button.js"></script>
@@ -121,6 +114,6 @@
                 <script type="text/javascript" src="scripts/bootstrap-tab.js"></script>
                 <script type="text/javascript" src="scripts/bootstrap-tooltip.js"></script>
                 <script type="text/javascript" src="scripts/bootstrap-transition.js"></script>
-                <script type="text/javascript" src="scripts/bootstrap-typeahead.js"></script>
+                <script type="text/javascript" src="scripts/bootstrap-typeahead.js"></script> -->
     </body>
 </html>

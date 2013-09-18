@@ -24,7 +24,7 @@ public class ConexionBD {
         this.usuario = "hector";
         this.password = "passw0rd";
         this.puerto = "1521";
-        this.ipBd = "192.168.1.200";
+        this.ipBd = "192.168.0.200";
         conexion = conectar();
     }
 

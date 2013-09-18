@@ -10,7 +10,7 @@
 <%@ taglib prefix="sql" 
            uri="http://java.sun.com/jsp/jstl/sql" %>
 <sql:setDataSource driver="oracle.jdbc.driver.OracleDriver"
-     				   url="jdbc:oracle:thin:@192.168.1.200:1521:XE"
+     				   url="jdbc:oracle:thin:@192.168.0.200:1521:XE"
      				   var="localSource" 
      				   user="hector"  
      				   password="passw0rd"/>

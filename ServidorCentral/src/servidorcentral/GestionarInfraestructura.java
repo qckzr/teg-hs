@@ -31,6 +31,7 @@ public class GestionarInfraestructura extends Thread{
     private String ipBaseDeDatos;
     private boolean control = true;
     private ArrayList<NodoActivo> nodos;
+    private final int PUERTO_APP_WEB = 5000;
 
     public GestionarInfraestructura(LibreriaMensajes libreria, String usuarioBd, String passwordBd, String puerto, String ipBaseDeDatos) {
         this.libreria = libreria;
@@ -132,10 +133,12 @@ public class GestionarInfraestructura extends Thread{
     }
     
     public boolean reenviarMensaje(InformacionAgente informacion){
+        libreria.enviarMensaje(informacion,"localhost",PUERTO_APP_WEB);
         return true;
     }
     
     public boolean reenviarMensaje (Mensaje mensaje){
+        libreria.enviarMensaje(mensaje, "localhost",PUERTO_APP_WEB);
         return true;
     }
     

@@ -5,11 +5,7 @@ $(document).ready(function(){
        var password = $("#contrasena").val();
        $.post('IniciarSesion',{sesion:"iniciar",usuario:usuario,password:password},function(responseText) { 
            $("#usuario").val("");
-           $("#contrasena").val("");
-           $("#usuario").hide();
-           $("#contrasena").hide();
-           $("#login").hide();
-           $("#logout").show();
+           location.reload();
             return;
         });
    })
@@ -17,7 +13,6 @@ $(document).ready(function(){
    $("#logout").click(function(){
        $.post('IniciarSesion',{sesion:"desconectar"},function(responseText) { 
            location.reload();
-        
             return;
    });
 });
