@@ -2,11 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package grupo_receptor;
+package tipos_de_fallas_cliente;
 
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
-import sun.awt.EmbeddedFrame;
 
 /**
  *
@@ -17,13 +16,13 @@ public class LogicaAplicacion {
     private LibreriaMensajes libreriaMensajes;
     private int puertoAgente;
     private DatosAplicacion datosAplicacion;
-    private String nodoEmisor;
+    private String ipServidor;
 
-    public LogicaAplicacion(LibreriaMensajes libreriaMensajes, DatosAplicacion datosAplicacion,int puertoAgente,String nodoEmisor) {
+    public LogicaAplicacion(LibreriaMensajes libreriaMensajes, DatosAplicacion datosAplicacion,int puertoAgente,String ipServidor) {
         this.libreriaMensajes = libreriaMensajes;
         this.datosAplicacion = datosAplicacion;
         this.puertoAgente = puertoAgente;
-        this.nodoEmisor = nodoEmisor;
+        this.ipServidor = ipServidor;
         
     }
     
@@ -39,8 +38,10 @@ public class LogicaAplicacion {
                     return true;
                 break;
             default:{
-                
                 System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
+                if (mensaje.getIpOrigen().contains(libreriaMensajes.getIpDestino().get(0))){
+                    enviarMensaje(mensaje);
+                }
                 
             }
         };
@@ -51,12 +52,13 @@ public class LogicaAplicacion {
         libreriaMensajes.enviarMensaje(datosAplicacion.getIdProceso(),ipServidor);
     }
     
-    public boolean enviarPresenciaEmisor(){
-        if(libreriaMensajes.enviarMensaje(datosAplicacion.getNumeroNodoAplicacion()+"~ACTIVO", nodoEmisor))
-            return true;
-        else 
-            return false;
+    public void enviarMensaje(Mensaje mensaje){
+        Mensaje mensaje1 = new Mensaje(libreriaMensajes.getIpOrigen(),mensaje.getMensaje());
+        libreriaMensajes.enviarMensaje(mensaje1, ipServidor);
     }
+    
+    
+    
 
     
     
