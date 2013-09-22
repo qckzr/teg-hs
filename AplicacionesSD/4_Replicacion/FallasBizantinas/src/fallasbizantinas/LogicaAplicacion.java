@@ -7,6 +7,9 @@ package fallasbizantinas;
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,10 +23,12 @@ public class LogicaAplicacion {
     private ArrayList<String> nodos;
     private String vectorProcesos;
     private String[] vectorDemasProcesos;
-    private String nodo1;
-    private String nodo2;
-    private String nodo3;
+    private String valorNodo = "";
+    private String nodo1 = "";
+    private String nodo2 = "";
+    private String nodo3 = "";
     private String[] vectorFinal;
+    private boolean corrupto = false;
     
 
     public LogicaAplicacion(LibreriaMensajes libreriaMensajes, DatosAplicacion datosAplicacion,int puertoAgente) {
@@ -31,12 +36,7 @@ public class LogicaAplicacion {
         this.datosAplicacion = datosAplicacion;
         this.puertoAgente = puertoAgente;
         nodos = new ArrayList<>();
-        vectorDemasProcesos = new String[3];
-        vectorDemasProcesos[0] = "";
-        vectorDemasProcesos[1] = "";
-        vectorDemasProcesos[2] = "";
-        vectorFinal = new String[4];
-        
+
     }
     
     public boolean verificarMensajeRecibido(Mensaje mensaje){
@@ -81,41 +81,59 @@ public class LogicaAplicacion {
         String mensaje = "";
         switch (opcion){
             case 1: 
-                mensaje ="numero:"+datosAplicacion.getNumeroNodoAplicacion();
+                mensaje ="numero:"+valorNodo;
                 break;
         }
         
         for (String nodo : nodos) {
-            libreriaMensajes.enviarMensaje(mensaje, nodo);
+            if (corrupto == false)
+                libreriaMensajes.enviarMensaje(mensaje, nodo);
+            else{
+                 int valorAleatorio = (int) (1 + Math.random()*5);
+                 libreriaMensajes.enviarMensaje("numero:"+valorAleatorio, nodo);
+            }
         }
     }
     
     public void colocarNumero(Mensaje mensaje){
         
         if (mensaje.getIpOrigen().contentEquals(nodos.get(0)))
-            nodo1 = mensaje.getMensaje().substring(mensaje.getMensaje().charAt(':')+1);
+            nodo1 = mensaje.getMensaje().substring(mensaje.getMensaje().indexOf(":")+1);
         else if (mensaje.getIpOrigen().contentEquals(nodos.get(1)))
-            nodo2 = mensaje.getMensaje().substring(mensaje.getMensaje().charAt(':')+1);
+            nodo2 = mensaje.getMensaje().substring(mensaje.getMensaje().indexOf(":")+1);
         else
-            nodo3 = mensaje.getMensaje().substring(mensaje.getMensaje().charAt(':')+1);
+            nodo3 = mensaje.getMensaje().substring(mensaje.getMensaje().indexOf(':')+1);
         
         
         if (nodo1.length()>0 && nodo2.length()>0 && nodo3.length()>0){
-            vectorProcesos = nodo1+"-"+nodo2+"-"+nodo3;
+            if (datosAplicacion.getNumeroNodoAplicacion().contains("1"))
+                vectorProcesos = valorNodo+"-"+nodo1+"-"+nodo2+"-"+nodo3;
+            else if (datosAplicacion.getNumeroNodoAplicacion().contains("2"))
+                vectorProcesos = nodo1+"-"+valorNodo+"-"+nodo2+"-"+nodo3;
+            else if (datosAplicacion.getNumeroNodoAplicacion().contains("3"))
+                vectorProcesos = nodo1+"-"+nodo2+"-"+valorNodo+"-"+nodo3;
+            else
+                vectorProcesos = nodo1+"-"+nodo2+"-"+nodo3+"-"+valorNodo;
             enviarVector();
         }
     }
     
     public void enviarVector(){
         for (String nodo : nodos) {
-            libreriaMensajes.enviarMensaje("vector:"+vectorProcesos);
+            if (corrupto == false)
+                libreriaMensajes.enviarMensaje("vector:"+vectorProcesos,nodo);
+            else{
+                String nuevoVector = valorAleatorio()+"-"+valorAleatorio()+"-"+
+                        valorAleatorio()+"-"+valorAleatorio();
+                libreriaMensajes.enviarMensaje("vector:"+nuevoVector,nodo);
+            }
         }
         
     }
     
     
     public void colocarVector(Mensaje mensaje){
-        String vector = mensaje.getMensaje().substring(mensaje.getMensaje().charAt(':')+1);
+        String vector = mensaje.getMensaje().substring(mensaje.getMensaje().indexOf(":") +1);
         if (mensaje.getIpOrigen().contentEquals(nodos.get(0)))
             vectorDemasProcesos[0] = vector;
         else if (mensaje.getIpOrigen().contentEquals(nodos.get(1)))
@@ -124,31 +142,132 @@ public class LogicaAplicacion {
             vectorDemasProcesos[2] = vector;
         
         if (vectorDemasProcesos[0].length()>0 && vectorDemasProcesos[1].length()>0 && vectorDemasProcesos[2].length()>0){
+             System.out.println("vector procesos:"+vectorProcesos);
+             System.out.println("vector demas procesos:"+vectorDemasProcesos[0]);
+             System.out.println("vector demas procesos:"+vectorDemasProcesos[1]);
+             System.out.println("vector demas procesos:"+vectorDemasProcesos[2]);
             calcularVector();
+            
         }
     }
     
     
     public void calcularVector(){
-        
-        switch (datosAplicacion.getNombreAplicacion()){
-            case 1:
-                
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
+       int posicion = 0;
+       String [] casillas = vectorProcesos.split("-");
+        for (String string : casillas) {
+            compararCasilla(Integer.valueOf(string), posicion);
+            posicion++;
         }
+        
+        imprimirVectorFinal();
         
         
     }
     
-    public void comparar(String[] vector,String nodo){
-       String []casillas = vectorProcesos.split("-");
+    
+    public void compararCasilla(int valor,int posicion){
+        int [] vector =  new int [3];
+        String []vector1 = vectorDemasProcesos[0].split("-");
+        String []vector2 = vectorDemasProcesos[1].split("-");
+        String []vector3 = vectorDemasProcesos[2].split("-");
+        switch (posicion){
+            case 0:
+                    vector[0] = Integer.valueOf(vector1[0]);
+                    vector[1] = Integer.valueOf(vector2[0]);
+                    vector[2] = Integer.valueOf(vector3[0]);
+                break;
+            case 1:
+                    vector[0] = Integer.valueOf(vector1[1]);
+                    vector[1] = Integer.valueOf(vector2[1]);
+                    vector[2] = Integer.valueOf(vector3[1]);
+                break;
+            case 2:
+                    vector[0] = Integer.valueOf(vector1[2]);
+                    vector[1] = Integer.valueOf(vector2[2]);
+                    vector[2] = Integer.valueOf(vector3[2]);
+                break;
+            case 3:
+                    vector[0] = Integer.valueOf(vector1[3]);
+                    vector[1] = Integer.valueOf(vector2[3]);
+                    vector[2] = Integer.valueOf(vector3[3]);
+                break;
+
+        }
+        int repeticion = contarRepeticion(valor, vector);
+        if (repeticion >2)
+            vectorFinal[posicion] = String.valueOf(valor);
+        else{
+            repeticion = contarRepeticion(vector[0],Arrays.copyOfRange(vector,1, vector.length));
+            if (repeticion>1)
+                vectorFinal[posicion] = String.valueOf(vector[0]);
+            else{
+                repeticion = contarRepeticion(vector[1], Arrays.copyOfRange(vector,2, vector.length));
+                if (repeticion>1)
+                    vectorFinal[posicion] = String.valueOf(vector[1]);
+                else
+                    vectorFinal[posicion] = "UNKNOWN";
+            }
+                
+        }
+        
+                
+            
+        
+        
+        
+        
+        
     }
+    
+    public int contarRepeticion (int valor, int[] vector){
+         int repeticiones = 1;
+         for (int i = 0; i < vector.length; i++) {
+            if (valor == vector[i])
+                repeticiones++;
+            
+        }
+         return repeticiones;
+    }
+    
+    public void imprimirVectorFinal(){
+        System.out.println("Vector Final: ["+vectorFinal[0]+","+vectorFinal[1]+","
+                + ""+vectorFinal[2]+","+vectorFinal[3]+"]");
+    }
+    
+    public void iniciar(int opcion){
+        try {
+            vectorDemasProcesos = new String[3];
+            vectorDemasProcesos[0] = "";
+            vectorDemasProcesos[1] = "";
+            vectorDemasProcesos[2] = "";
+            vectorFinal = new String[4];
+            valorNodo = datosAplicacion.getNumeroNodoAplicacion();
+            int valorAleatorio = (int) (1 + Math.random()*5);
+            if (valorAleatorio == 1){
+                System.out.println("Corrupto");
+                corrupto = true;
+                
+            }
+            Thread.sleep(5000);
+            if (opcion == 1){
+                for (String string : nodos) {
+                    libreriaMensajes.enviarMensaje("id:", string);
+                }
+                libreriaMensajes.enviarMensaje("id:",libreriaMensajes.getIpOrigen());
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    public String valorAleatorio(){
+        return String.valueOf((int)(5 + Math.random()*10));
+        
+    }
+    
+    
     
     
    
