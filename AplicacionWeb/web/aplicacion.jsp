@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
  <%@include file="conexionBD.jsp" %>
 <!DOCTYPE html>
@@ -58,7 +59,12 @@
             		<div id="informacionAplicacion" class="span9">
 			     <dl> 
                 		<dt>Fecha Creación:</dt> <dd><p class="text-justify">${fecha_actualizacion}</p></dd>
- 				<dt>Descripción Tópico:</dt> <dd><p class="text-justify">${descripcionTopico}${imagenTopico}</p></dd>
+ 				<dt>Descripción Tópico:</dt> <dd><p class="text-justify">${descripcionTopico}
+                                        <c:set var="string1" value="${imagenTopico}" />
+   <c:if test="${fn:length(string1)>0}">
+       <img src="${imagenTopico}"/> 
+   </c:if>
+<%--${imagenTopico}--%></p></dd>
 			                		<dt>Instrucciones:</dt>  <dd><p class="text-justify">${instrucciones}</p></dd>
       			     </dl>
         		</div>
