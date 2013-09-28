@@ -30,8 +30,10 @@
       var id = this.id;
       var mensaje = $("#mensaje"+id).val();
       if (mensaje!=""){
+            $("#mensaje"+id).val("");
             $.post('CicloDeVidaServlet',{idEjecutable:id,instruccion:"enviar",mensaje:mensaje},function(responseText) { 
                 alert("Se envió el mensaje: "+mensaje+" al nodo con el ejecutable: "+id);
+                
                 return;
        
             }); 
@@ -41,11 +43,15 @@
       }
    });
    $(".iniciar").click(function(){
+       var id = this.id;
+       $.post('CicloDeVidaServlet',{idEjecutable:id,instruccion:"iniciar"},function(responseText) { 
+                        alert ("Se inicio el nodo con el ejecutable: "+id);      
+                        return;
+                    }); 
    //   $.post('EjecutableNodoServlet',{idAplicacion:value},function(responseText) { 
      //                   $('#node').html(responseText);         
        //                 return;
        
-       alert ("iniciar"+this.id);
        //             }); 
    });
    

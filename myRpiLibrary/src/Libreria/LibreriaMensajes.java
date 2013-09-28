@@ -52,6 +52,13 @@ public final  class LibreriaMensajes {
         ipOrigen = obtenerIp("192.168.0.");
         
     }
+    
+    public LibreriaMensajes(boolean puerto){
+        ipDestino = new ArrayList<String>();
+        mensajesRecibidos = new ArrayList<Mensaje>();
+        mensajesAgente = new ArrayList<InformacionAgente>();
+        ipOrigen = obtenerIp("192.168.0.");
+    }
 
     public static EscucharMensajes getHiloDeEscucha() {
         return hiloDeEscucha;

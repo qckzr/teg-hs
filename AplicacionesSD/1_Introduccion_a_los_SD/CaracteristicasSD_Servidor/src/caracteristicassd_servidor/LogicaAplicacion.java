@@ -55,6 +55,7 @@ public class LogicaAplicacion {
             default:{
                 
                 System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
+                libreriaMensajes.enviarMensaje("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
                 if (mensaje.getMensaje().contains("iniciar_servidor:")){
                     servidorWeb(1);
                 }
@@ -81,7 +82,7 @@ public class LogicaAplicacion {
     }
      
     public void enviarId(String ipServidor){
-        libreriaMensajes.enviarMensaje(datosAplicacion.getIdProceso(),ipServidor);
+        libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),ipServidor);
     }
     
     
@@ -91,6 +92,7 @@ public class LogicaAplicacion {
             if (opcion==1){
                 Process p = Runtime.getRuntime().exec("sudo /etc/init.d/apache2 start");
                 System.out.println("Servidor Iniciado");
+                libreriaMensajes.enviarMensaje("Servidor Iniciado");
                 if (servidorWeb == false)
                     enviarInformacionSiguienteNodo(1); 
                 // CAUSA CICLO INFINITO
@@ -99,6 +101,7 @@ public class LogicaAplicacion {
             else{
                 Process p = Runtime.getRuntime().exec("sudo /etc/init.d/apache2 stop");
                 System.out.println("Servidor Detenido");
+                libreriaMensajes.enviarMensaje("Servidor Detenido");
                 if (servidorWeb == true)
                     enviarInformacionSiguienteNodo(2);
                 // CAUSA CICLO INFINITO
@@ -118,10 +121,13 @@ public class LogicaAplicacion {
         try {
                 fis = new FileInputStream(file);
                 int content;
+                String mensaje = "";
                 while ((content = fis.read()) != -1) {
                         // convert to char and display it
                         System.out.print((char) content);
+                        mensaje = mensaje + (char) content;
                 }
+                libreriaMensajes.enviarMensaje(mensaje);
         } catch (IOException e) {
                 e.printStackTrace();
         } finally {
@@ -165,9 +171,11 @@ public class LogicaAplicacion {
                 URL pagina = new URL("http://localhost/");
                 in = new BufferedReader(new InputStreamReader(pagina.openStream()));
                 String inputLine;
-                while ((inputLine = in.readLine()) != null)  
+                while ((inputLine = in.readLine()) != null){  
          //               System.out.println(inputLine.substring(inputLine.indexOf("1>")+2,inputLine.indexOf("</")-1));
                     System.out.println(inputLine);
+                    libreriaMensajes.enviarMensaje(inputLine);
+                }
                 in.close();
                 return true;
             } catch (IOException ex) {

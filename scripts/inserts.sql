@@ -31,7 +31,7 @@ INSERT INTO TOPICOS (ID,NOMBRE,CATEGORIA,DESCRIPCION,ID_USUARIO,RUTA_IMAGEN)
 VALUES (S_TOPICOS.NEXTVAL,'Caracteristicas de los Sistemas Distribuidos','INTRODUCCION A LOS SISTEMAS DISTRIBUIDOS','Las caracteristicas principales responsables de la utilidad de los sistemas distribuidos:
 1. Comparticion de Recursos: Los recursos en un sistema distribuido estan fisicamente encapsulados en una de las computadoras y solo pueden ser accedidos por otras computadoras mediante las comunicaciones (la red).
 Los usuarios de los recursos se comunican con los gestores de los recursos para acceder a los recursos compartidos del sistema. Esta perspectiva nos lleva a dos modelos de sistemas distribuidos: el modelo CLIENTE-SERVIDOR y el modelo BASADO EN OBJETOS
-2. Apertura (opennesss): Se determina primariamente por el grado hacia el que nuevos servicios de comparticion de recursos se pueden añadir sin perjudicar ni duplicar a los ya existentes.
+2. Apertura (opennesss): Se determina primariamente por el grado hacia el que nuevos servicios de comparticion de recursos se pueden a&ntildeadir sin perjudicar ni duplicar a los ya existentes.
 3. Concurrencia: En los sistemas distribuidos hay muchas maquinas, cada una con uno o mas procesadores. Es decir, si hay M ordenadores en un sistema distribuido con un procesador cada una entonces hasta M procesos pueden estar ejecutandose en paralelo..
 Casos en que se puede presentar una ejecucion en paralelo: 
 Muchos usuarios interactuan simultaneamente con programas de aplicacion - Muchos procesos servidores se ejecutan concurrentemente, cada uno respondiendo a diferentes peticiones de los procesos clientes.
@@ -295,7 +295,12 @@ REST afirma que la web ha disfrutado de escalabilidad como resultado de una seri
 /*INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Aplicacion1',TO_DATE('23/07/2013','DD/MM/YYYY'),'Instrucciones para la aplicacion1',1); */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
-VALUES (S_APLICACIONES.NEXTVAL,'Caracteristicas SD',TO_DATE('22/09/2013','DD/MM/YYYY'),' ',2); /* 1 */
+VALUES (S_APLICACIONES.NEXTVAL,'Caracteristicas SD',TO_DATE('22/09/2013','DD/MM/YYYY'),'1. 
+Se obtiene dos aplicaciones servidor que poseen un archivo txt y un servidor web con una pagina de prueba. <br/>
+2. La aplicacion cliente accede al archivo de los servidores enviando el mensaje "leer:", para iniciar el servidor web se envia el mensaje: "iniciar_servidor:". <br/>
+3. Para detener el servidor web se envia el mensaje: "detener_servidor:" <br/>
+4. Para consultar la pagina web de prueba enviar el mensaje: "pagina:".<br/>
+5. Si se cae uno de los servidores, se puede seguir enviando informacion al servidor restante. <br/>',2); /* 1 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Desafios_SD',TO_DATE('22/09/2013','DD/MM/YYYY'),' ',3); /* 2 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
@@ -367,9 +372,9 @@ VALUES (S_EJECUTABLES.NEXTVAL,'AgenteConfiguracion.jar','CLIENTE','ejecutables/'
 
 
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'CaracteristicasSD_Servidor.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',1,1);/* 1 */
+VALUES (S_EJECUTABLES.NEXTVAL,'CaracteristicasSD_Servidor1.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',1,1);/* 1 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'CaracteristicasSD_Servidor.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',1,2); /* 2 */
+VALUES (S_EJECUTABLES.NEXTVAL,'CaracteristicasSD_Servidor2.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',1,2); /* 2 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
 VALUES (S_EJECUTABLES.NEXTVAL,'CaracteristicasSD_Cliente.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',1,3); /* 3 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
@@ -544,7 +549,7 @@ INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'intefaz_red','eth0',1);
 */
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
-VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','CaracteristicasSD Servidor',1);
+VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','CaracteristicasSD_Servidor',1);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Numero Nodo','1',1);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
@@ -552,7 +557,9 @@ VALUES (S_PARAMETROS.NEXTVAL,'Ip Servidor Central','192.168.0.199',1);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Puerto Agente','2000',1);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
-VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','CaracteristicasSD Servidor',2);
+VALUES (S_PARAMETROS.NEXTVAL,'Ip Segundo Servidor','192.168.0.192',1);
+INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
+VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','CaracteristicasSD_Servidor',2);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Numero Nodo','2',2);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
@@ -560,7 +567,9 @@ VALUES (S_PARAMETROS.NEXTVAL,'Ip Servidor Central','192.168.0.199',2);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Puerto Agente','2000',2);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
-VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','CaracteristicasSD Cliente',3);
+VALUES (S_PARAMETROS.NEXTVAL,'Ip Segundo Servidor','192.168.0.191',2);
+INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
+VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','CaracteristicasSD_Cliente',3);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Numero Nodo','3',3);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
@@ -572,7 +581,7 @@ VALUES (S_PARAMETROS.NEXTVAL,'Ip Servidor 1','192.168.0.191',3);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Ip Servidor 2','192.168.0.192',3);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
-VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','DesafiosSD Servidor',4);
+VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','DesafiosSD_Servidor',4);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Numero Nodo','1',4);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
@@ -580,7 +589,7 @@ VALUES (S_PARAMETROS.NEXTVAL,'Ip Servidor Central','192.168.0.199',4);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Puerto Agente','2000',4);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
-VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','DesafiosSD Cliente',5);
+VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','DesafiosSD_Cliente',5);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Numero Nodo','2',5);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
@@ -590,7 +599,7 @@ VALUES (S_PARAMETROS.NEXTVAL,'Puerto Agente','2000',5);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Ip Servidor','192.168.0.191',5);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
-VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','DesafiosSD Cliente',6);
+VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','DesafiosSD_Cliente',6);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Numero Nodo','3',6);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
@@ -600,7 +609,7 @@ VALUES (S_PARAMETROS.NEXTVAL,'Puerto Agente','2000',6);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Ip Servidor','192.168.0.191',6);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
-VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','Arquitectura Cliente-Servidor Servidor',7);
+VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','Arquitectura_C_S_Servidor',7);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Numero Nodo','1',7);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
@@ -608,7 +617,7 @@ VALUES (S_PARAMETROS.NEXTVAL,'Ip Servidor Central','192.168.0.199',7);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Puerto Agente','2000',7);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
-VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','Arquitectura Cliente-Servidor Cliente',8);
+VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','Arquitectura_C_S_Cliente',8);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Numero Nodo','2',8);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
@@ -1400,14 +1409,33 @@ VALUES (S_PARAMETROS.NEXTVAL,'','',);
 /* PARAMETROS */
 
 /* ESCENARIOS */
+INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
+VALUES (S_ESCENARIOS.NEXTVAL,'Leer Archivo','Cuando se envie el mensaje "leer:" el servidor mostrara el contenido del archivo. Logrando comprobar la comparticion de recursos',1,NULL);
+INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
+VALUES (S_ESCENARIOS.NEXTVAL,'Iniciar Servidor Web','Cuando se envie el mensaje "iniciar_servidor:" la aplicacion servidor iniciara el servidor web. Logrando comprobar la apertura (openness).',1,NULL);
+INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
+VALUES (S_ESCENARIOS.NEXTVAL,'Pagina de Prueba','Cuando se envie el mensaje "pagina:" el servidor mostrara la pagina de prueba. ',1,NULL);
+INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
+VALUES (S_ESCENARIOS.NEXTVAL,'Detener Servidor Web','Cuando se envie el mensaje "detener_servidor:" el servidor dentendra el servidor web del sistema.',1,NULL);
+INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
+VALUES (S_ESCENARIOS.NEXTVAL,'Escalabilidad','Al tener dos servidores corriendo, se comprueba la escalabilidad de los sistemas distribuidos',1,NULL);
+INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
+VALUES (S_ESCENARIOS.NEXTVAL,'Tolerancia a Fallos','Al detenerse una aplicacion servidor el sistema puede seguir funcionando con el servidor activo.',1,NULL);
+INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
+VALUES (S_ESCENARIOS.NEXTVAL,'Transparencia','La aplicacion cliente no percibe cuantas aplicaciones servidores existen, solo envia el mensaje del usuario.',1,NULL);
 
-insert into escenarios (id,nombre,descripcion,id_aplicacion,imagen)
-values (s_escenarios.nextval,'escenario1 aplicacion1','descripcion escenario1',1,'Users/hectorsam/Desktop/escenarios/Screen Shot 2013-08-10 at 10.40.37 PM.png');
+/*
+INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
+VALUES (S_ESCENARIOS.NEXTVAL,'','',,NULL);
+*/
+/*
+INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
+VALUES (S_ESCENARIOS.NEXTVAL,'ESCENARIO1 APLICACION1','DESCRIPCION ESCENARIO1',1,'Users/hectorsam/Desktop/escenarios/Screen Shot 2013-08-10 at 10.40.37 PM.png');
 insert into escenarios (id,nombre,descripcion,id_aplicacion,imagen)
 values (s_escenarios.nextval,'escenario2 aplicacion1','descripcion escenario2',1,'Users/hectorsam/Desktop/escenarios/Screen Shot 2013-08-10 at 10.40.31 PM.png');
 insert into escenarios (id,nombre,descripcion,id_aplicacion,imagen)
 values (s_escenarios.nextval,'escenario3 aplicacion1','descripcion escenario3',1,'Users/hectorsam/Desktop/escenarios/Screen Shot 2013-08-10 at 10.40.23 PM.png');
-
+*/
 /* ESCENARIOS */
 
 /* EVENTOS */

@@ -31,7 +31,7 @@ public class Archivo extends Thread{
     
     private boolean control = true;
     
-    private LibreriaMensajes libreriaMensajes;
+    private static LibreriaMensajes libreriaMensajes;
     private String ruta = "";
     private int port;
     private ArrayList<String> nombresArchivoMensajes;

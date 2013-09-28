@@ -119,12 +119,13 @@ public class GestionarInfraestructura extends Thread{
     public boolean insertarEnBd(Mensaje mensaje){
         try {
             NodoActivo nodo = buscarNodo(mensaje.getIpOrigen());
-            String idEjecutable = bd.consultarRegistro("SELECT ID FROM EJECUTABLES WHERE NOMBRE ='"+nodo.getNombreEjecutable()+"'").getString(0);
+            ResultSet rs = bd.consultarRegistro("SELECT ID FROM EJECUTABLES WHERE NOMBRE ='"+nodo.getNombreEjecutable()+"'");
+            String idEjecutable = rs.getString(1);
             if (bd.ejecutarQuery("INSERT INTO MENSAJE_ENTRE_NODOS (ID,FECHA,HORA,"
-                    + "MENSAJE,IP_DESTINO,ID_NODO,ID_EJECUTABLE,ID_PROCESO) VALUES"
-                    + "(S_MENSAJES_ENTRE_NODOS.NEXTVAL,TO_DATE('"+mensaje.getFecha()+"',"
-                    + "'dd/mm/yyyy'),TO_DATE('"+mensaje.getHora()+"','hh24:MI:ss')"
-                    + ","+nodo.getId()+","+idEjecutable+","+nodo.getIdProceso()+" )"))
+                    + "MENSAJE,ID_EJECUTABLE,ID_PROCESO) VALUES"
+                    + "(S_MENSAJE_ENTRE_NODOS.NEXTVAL,TO_DATE('"+mensaje.getFecha()+"',"
+                    + "'dd/mm/yyyy'),TO_DATE('"+mensaje.getHora()+"','hh24:MI:ss'),'"+mensaje.getMensaje()+"'"
+                    + ","+idEjecutable+","+nodo.getIdProceso()+" )"))
                 return true;           
         } catch (SQLException ex) {
             Logger.getLogger(GestionarInfraestructura.class.getName()).log(Level.SEVERE, null, ex);
@@ -238,6 +239,7 @@ public class GestionarInfraestructura extends Thread{
             
             if (libreria.ultimoMensaje()!=null){
                 Mensaje mensaje = libreria.ultimoMensaje();
+                System.out.println("mensaje: "+mensaje.getMensaje());
                 recibirMensaje(mensaje);
                 libreria.eliminarMensaje(mensaje);
             }
@@ -249,14 +251,14 @@ public class GestionarInfraestructura extends Thread{
     
     public void recibirMensaje(Mensaje mensaje){
         String texto = mensaje.getMensaje();
-        if (texto.contains("_")){
-            String evento = texto.substring(0,texto.indexOf("_"));
+        if (texto.contains(">")){
+            String evento = texto.substring(0,texto.indexOf(">"));
             if (evento.contentEquals("eliminarTodos"))
                 eliminarTodasAplicaciones();
             else{
                 
-                String argumento = texto.substring(texto.indexOf("_")+1, texto.indexOf(":"));
-                String ipNodo = texto.substring(texto.indexOf(":")+1, texto.length());
+                String argumento = texto.substring(texto.indexOf(">")+1, texto.indexOf("192.")-1);
+                String ipNodo = texto.substring(texto.indexOf("192"), texto.length());
                 
                 switch (evento){
                     case "ejecutar":
@@ -272,10 +274,10 @@ public class GestionarInfraestructura extends Thread{
             }
 
         }
-        else if (texto.contains("-")){
+        else if (texto.contains("<")){
            agregarIdProceso(mensaje.getIpOrigen(),texto.substring(
-                   texto.indexOf("-")+1, texto.length()));
-           insertarE_N(texto.substring(texto.indexOf("-")+1, texto.length()));
+                   texto.indexOf("<")+1, texto.length()));
+           insertarE_N(texto.substring(texto.indexOf("<")+1, texto.length()));
         }
         
         else{

@@ -81,6 +81,7 @@ public class  EscucharMensajes extends Thread {
              //   Logger.getLogger(EscucharMensajes.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SocketException ex){
                 System.out.println("Se está reseteando...!");
+           //     Logger.getLogger(EscucharMensajes.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
               //  Logger.getLogger(EscucharMensajes.class.getName()).log(Level.SEVERE, null, ex);
             }

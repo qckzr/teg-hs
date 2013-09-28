@@ -5,7 +5,7 @@
         if (nodo1){
             $.post('MonitoreoServlet',{nodo:nodo1,tipo:1},function(responseText) {
                 $("#ejecutable1 .cursor").remove();
-                $("#ejecutable1 #monitoreo").append(responseText);
+                $("#ejecutable1 .monitoreo").append(responseText);
                 return;
 
            
