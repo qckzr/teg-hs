@@ -61,6 +61,7 @@ public class LogicaAplicacion {
             default:{
                 
                 System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
+                libreriaMensajes.enviarMensaje("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
                 if (mensaje.getMensaje().contains("archivo:"))
                     eliminarArchivos();
                     solicitarArchivo(retornarArchivo(mensaje.getMensaje()), ipServidor, PUERTO);    
@@ -71,7 +72,7 @@ public class LogicaAplicacion {
     }
      
     public void enviarId(String ipServidor){
-        libreriaMensajes.enviarMensaje(datosAplicacion.getIdProceso(),ipServidor);
+        libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),ipServidor);
     }
     
    
@@ -85,6 +86,7 @@ public class LogicaAplicacion {
             try {
                 socketCliente = (SSLSocket)fact.createSocket( ip,puerto );
                 System.out.println("Clase: "+socketCliente.getClass());
+                libreriaMensajes.enviarMensaje("Clase: "+socketCliente.getClass());
                 
                 return true;
             } catch (IOException ex) {
@@ -126,10 +128,6 @@ public class LogicaAplicacion {
                 if (mensajeAux instanceof MensajeTomaFichero)
                 {
                     mensajeRecibido = (MensajeTomaFichero) mensajeAux;
-                    // Se escribe en pantalla y en el fichero
-                 //   System.out.print(new String(
-                   //         mensajeRecibido.contenidoFichero, 0,
-                     //       mensajeRecibido.bytesValidos));
                     fos.write(mensajeRecibido.contenidoFichero, 0,
                             mensajeRecibido.bytesValidos);
                 } else
@@ -142,8 +140,10 @@ public class LogicaAplicacion {
                 }
             } while (!mensajeRecibido.ultimoMensaje);
             System.out.println("Archivo recibido");
+            libreriaMensajes.enviarMensaje("Archivo recibido");
             String hash = (String) ois.readObject();
             System.out.println("Hash recibido: "+hash);
+            libreriaMensajes.enviarMensaje("Hash recibido: "+hash);
             compararHash(hash);
             // Se cierra socket y fichero
             fos.close();
@@ -227,10 +227,15 @@ public class LogicaAplicacion {
                 break;
         }
         System.out.println("Hash archivo recibido: "+hashArchivoActual);
-        if (hashActual.contentEquals(hashArchivoActual))
+        libreriaMensajes.enviarMensaje("Hash archivo recibido: "+hashArchivoActual);
+        if (hashActual.contentEquals(hashArchivoActual)){
             System.out.println("Los hash son iguales");
-        else
+            libreriaMensajes.enviarMensaje("Los hash son iguales");
+        }
+        else{
             System.out.println("Los hash son distintos");
+            libreriaMensajes.enviarMensaje("Los hash son distintos");
+        }
             
     }
   

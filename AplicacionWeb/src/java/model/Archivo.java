@@ -31,7 +31,7 @@ public class Archivo extends Thread{
     
     private boolean control = true;
     
-    private static LibreriaMensajes libreriaMensajes;
+    private LibreriaMensajes libreriaMensajes;
     private String ruta = "";
     private int port;
     private ArrayList<String> nombresArchivoMensajes;
@@ -60,7 +60,7 @@ public class Archivo extends Thread{
                     Mensaje mensaje = libreriaMensajes.ultimoMensaje();
                     System.out.println("mensaje recibido: "+mensaje.getMensaje());
                     if (mensaje.getMensaje().contains("~_Eliminar")){
-                        libreriaMensajes.getHiloDeEscucha().kill();
+                        LibreriaMensajes.getHiloDeEscucha().kill();
                         kill();
                     }
                     else{

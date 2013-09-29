@@ -6,8 +6,6 @@ package socket;
 
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -43,9 +41,12 @@ public class LogicaAplicacion {
                 break;
             default:{
                 
-                System.out.println("Se ha recibido el mensaje: "+mensaje.getMensaje());
-                if (!evaluarMensaje(mensaje))
+                System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
+                libreriaMensajes.enviarMensaje("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
+                if (!evaluarMensaje(mensaje)){
                     System.out.println("Error al enviar el mensaje");
+                    libreriaMensajes.enviarMensaje("Error al enviar el mensaje");
+                }
             }
         };
         return false;
@@ -69,7 +70,7 @@ public class LogicaAplicacion {
     
      
     public void enviarId(String ipServidor){
-        libreriaMensajes.enviarMensaje(datosAplicacion.getIdProceso(),ipServidor);
+        libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),ipServidor);
     }
     
     public boolean agregarDestinatario(String id,String ip){
@@ -89,6 +90,7 @@ public class LogicaAplicacion {
                 return nodo[1];
         }
         System.out.println("Nodo Invalido.");
+        libreriaMensajes.enviarMensaje("Nodo Invalido");
         return "";
     }
     
@@ -98,8 +100,10 @@ public class LogicaAplicacion {
         
          if (mensaje.getMensaje().contains("Respuesta_")){
                     System.out.println("Se recibió una RESPUESTA del host: "+mensaje.getIpOrigen());
+                    libreriaMensajes.enviarMensaje("Se recibió una RESPUESTA del host: "+mensaje.getIpOrigen());
                     String texto = mensaje.getMensaje();
                     System.out.println(texto.substring(texto.indexOf("_")));
+                    libreriaMensajes.enviarMensaje(texto.substring(texto.indexOf("_")));
                     return true;
         }
         else if (mensaje.getIpOrigen().contentEquals(libreriaMensajes.getIpDestino().get(0))){

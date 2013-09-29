@@ -122,7 +122,7 @@
                                                 	<div class="tab"></div>
                                                         <div class="body"></div>
                                                 </div>
-                                                    Nodo${ejecutable[3]}
+                                                    Nodo${ejecutable[3]}-${ejecutable[2]}
                                          </div>
                                          <div class="bubble">
                                          	<div class="shine"></div>

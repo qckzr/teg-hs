@@ -39,16 +39,19 @@ public class LogicaAplicacion {
                 break;
             default:{
                 
-                System.out.println("Se ha recibido el mensaje: "+mensaje.getMensaje());
-                if (!evaluarMensaje(mensaje))
+                System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
+                libreriaMensajes.enviarMensaje("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
+                if (!evaluarMensaje(mensaje)){
                     System.out.println("Error al enviar el mensaje");
+                    libreriaMensajes.enviarMensaje("Error al enviar el mensaje");
+                }
             }
         };
         return false;
     }
      
     public void enviarId(String ipServidor){
-        libreriaMensajes.enviarMensaje(datosAplicacion.getIdProceso(),ipServidor);
+        libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),ipServidor);
     }
     
     public boolean enviarMensaje(Mensaje mensaje){
@@ -74,7 +77,7 @@ public class LogicaAplicacion {
          
         if (mensaje.getIpOrigen().contentEquals(libreriaMensajes.getIpDestino().get(0))){
             String texto = mensaje.getMensaje()+"~"+datosAplicacion.getNumeroNodoAplicacion();
-            enviarMensaje(texto,nodoSiguiente);
+            enviarMensaje(texto,libreriaMensajes.getIpOrigen());
             return true;
         }
         
@@ -87,6 +90,7 @@ public class LogicaAplicacion {
             else {
                     if (mensaje.getMensaje().contains("Respuesta_")){
                         System.out.println("Se recibió una RESPUESTA del host: "+mensaje.getIpOrigen());
+                        libreriaMensajes.enviarMensaje("Se recibió una RESPUESTA del host: "+mensaje.getIpOrigen());
                         String texto = mensaje.getMensaje();
                         System.out.println(texto.substring(texto.indexOf("_")+1));
                         return true;

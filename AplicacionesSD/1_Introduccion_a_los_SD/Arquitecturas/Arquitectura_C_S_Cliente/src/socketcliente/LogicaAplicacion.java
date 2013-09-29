@@ -6,8 +6,6 @@ package socketcliente;
 
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 
 /**
  *
@@ -40,11 +38,13 @@ public class LogicaAplicacion {
                 break;
             default:{
                 
-                System.out.println("Se ha recibido el mensaje: "+mensaje.getMensaje());
+                System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
+                libreriaMensajes.enviarMensaje("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
                 if (!mensaje.getIpOrigen().contentEquals(ipAppSocketServidor))
                     enviarMensajeServidor(mensaje);
                 else{
-                    System.out.println("Fue una respuesta del servidor");   
+                    System.out.println("Fue una respuesta del servidor"); 
+                    libreriaMensajes.enviarMensaje("Fue una respuesta del servidor");
                 }
             }
         };
@@ -52,7 +52,7 @@ public class LogicaAplicacion {
     }
     
     public boolean enviarMensajeServidor(Mensaje mensajeRecibido){
-        if (libreriaMensajes.enviarMensaje(mensajeRecibido.getMensaje()))
+        if (libreriaMensajes.enviarMensaje(mensajeRecibido.getMensaje(),ipAppSocketServidor))
             return true;
             
         else 
@@ -64,7 +64,7 @@ public class LogicaAplicacion {
      
      
     public void enviarId(String ipServidor){
-        libreriaMensajes.enviarMensaje(datosAplicacion.getIdProceso(),ipServidor);
+        libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),ipServidor);
     }
     
 }

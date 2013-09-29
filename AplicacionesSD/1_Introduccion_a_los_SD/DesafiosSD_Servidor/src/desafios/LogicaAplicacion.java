@@ -41,6 +41,16 @@ public class LogicaAplicacion {
     public void setArchivoOcupado(boolean archivoOcupado) {
         this.archivoOcupado = archivoOcupado;
     }
+
+    public LibreriaMensajes getLibreriaMensajes() {
+        return libreriaMensajes;
+    }
+
+    public void setLibreriaMensajes(LibreriaMensajes libreriaMensajes) {
+        this.libreriaMensajes = libreriaMensajes;
+    }
+    
+    
     
     
     
@@ -69,17 +79,17 @@ public class LogicaAplicacion {
             default:{
                 
                 System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen()); 
+                libreriaMensajes.enviarMensaje("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
             }
         };
         return false;
     }
      
     public void enviarId(String ipServidor){
-        libreriaMensajes.enviarMensaje(datosAplicacion.getIdProceso(),ipServidor);
+        libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),ipServidor);
     }
     
     public void iniciar(){
-     //   System.setProperty("javax.net.ssl.keyStore","/home/pi/Desktop/certificadoSSL");  
         System.setProperty("javax.net.ssl.keyStorePassword","password");
         HiloSSL hiloSSL = new HiloSSL(this);
         hiloSSL.start();
@@ -168,7 +178,7 @@ public class LogicaAplicacion {
                 sb.append(Integer.toString((mdbytes[i] & 0xff) + 0x100, 16).substring(1));
             }
 
-         //   System.out.println("Digest(in hex format):: " + sb.toString());
+       
             
             objectOutputStream.writeObject(sb.toString());
             fis.close();

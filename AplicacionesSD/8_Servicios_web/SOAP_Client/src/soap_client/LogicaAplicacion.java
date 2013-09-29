@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import soap_server.MensajesServicio;
-import soap_server.MensajesServicioImpl;
 
 /**
  *
@@ -60,7 +59,7 @@ public class LogicaAplicacion {
     }
      
     public void enviarId(String ipServidor){
-        libreriaMensajes.enviarMensaje(datosAplicacion.getIdProceso(),ipServidor);
+        libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),ipServidor);
     }
     
     public boolean evaluarMensaje(Mensaje mensaje){

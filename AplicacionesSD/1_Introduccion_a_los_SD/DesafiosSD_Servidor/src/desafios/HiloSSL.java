@@ -64,6 +64,7 @@ public class HiloSSL extends Thread{
 
             // Llega un cliente.
             System.out.println("Aceptado cliente");
+            logicaAplicacion.getLibreriaMensajes().enviarMensaje("Aceptado cliente");
 
             // Cuando se cierre el socket, esta opci�n hara que el cierre se
             // retarde autom�ticamente hasta 10 segundos dando tiempo al cliente
@@ -77,6 +78,7 @@ public class HiloSSL extends Thread{
             if (logicaAplicacion.isArchivoOcupado()){
                 while (true){
                     System.out.println("Archivo ocupado...!");
+                    logicaAplicacion.getLibreriaMensajes().enviarMensaje("Archivo ocupado...!");
                     Thread.sleep(1000);
                     if (!logicaAplicacion.isArchivoOcupado())
                         break;
