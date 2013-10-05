@@ -23,6 +23,7 @@ public class Tipos_De_Fallas_Servidor {
         libreriaMensajes.agregarIpDestino(args[2]); //args[2] ip del servidor central
         LogicaAplicacion logicaAplicacion = new LogicaAplicacion(libreriaMensajes, datosAplicacion, Integer.valueOf(args[3]));
         logicaAplicacion.enviarId(args[2]);
+        logicaAplicacion.generarTipoFalla();
         EscucharClientes escucharMensajes = new EscucharClientes(logicaAplicacion, libreriaMensajes);
         escucharMensajes.start();
     }

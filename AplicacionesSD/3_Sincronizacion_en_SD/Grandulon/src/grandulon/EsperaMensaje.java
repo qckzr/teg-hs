@@ -4,8 +4,6 @@
  */
 package grandulon;
 
-import Libreria.Mensaje;
-import com.sun.medialib.mlib.mediaLibException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,6 +43,7 @@ public class EsperaMensaje extends Thread{
                 control = false;
                 if (!logicaAplicacion.isRecibiOk()){
                     System.out.println("nodo COORDINADOR");
+                    logicaAplicacion.getLibreriaMensajes().enviarMensaje("nodo COORDINADOR");
                     logicaAplicacion.enviarMensaje("COORDINADOR");
                     logicaAplicacion.setCoordinador(true);
                     logicaAplicacion.eliminarNodosCaidos();

@@ -78,6 +78,7 @@ public class LogicaAplicacion {
     }
     
     public void enviarMensaje(int opcion){
+        libreriaMensajes.enviarMensaje("Enviando Id a los demas procesos...");
         String mensaje = "";
         switch (opcion){
             case 1: 
@@ -142,10 +143,14 @@ public class LogicaAplicacion {
             vectorDemasProcesos[2] = vector;
         
         if (vectorDemasProcesos[0].length()>0 && vectorDemasProcesos[1].length()>0 && vectorDemasProcesos[2].length()>0){
-             System.out.println("vector procesos:"+vectorProcesos);
-             System.out.println("vector demas procesos:"+vectorDemasProcesos[0]);
+             System.out.println("Vector Procesos:"+vectorProcesos);
+             libreriaMensajes.enviarMensaje("Vector Procesos:"+vectorProcesos);
+             System.out.println("Vector Otros Procesos 1:"+vectorDemasProcesos[0]);
+             libreriaMensajes.enviarMensaje("Vector Otros Procesos 1:"+vectorDemasProcesos[0]);
              System.out.println("vector demas procesos:"+vectorDemasProcesos[1]);
+             libreriaMensajes.enviarMensaje("Vector Otros Procesos 2:"+vectorDemasProcesos[1]);
              System.out.println("vector demas procesos:"+vectorDemasProcesos[2]);
+             libreriaMensajes.enviarMensaje("Vector Otros Procesos 3:"+vectorDemasProcesos[2]);
             calcularVector();
             
         }
@@ -233,6 +238,8 @@ public class LogicaAplicacion {
     public void imprimirVectorFinal(){
         System.out.println("Vector Final: ["+vectorFinal[0]+","+vectorFinal[1]+","
                 + ""+vectorFinal[2]+","+vectorFinal[3]+"]");
+        libreriaMensajes.enviarMensaje("Vector Final: ["+vectorFinal[0]+","+vectorFinal[1]+","
+                + ""+vectorFinal[2]+","+vectorFinal[3]+"]");
     }
     
     public void iniciar(int opcion){
@@ -246,6 +253,7 @@ public class LogicaAplicacion {
             int valorAleatorio = (int) (1 + Math.random()*5);
             if (valorAleatorio == 1){
                 System.out.println("Corrupto");
+                libreriaMensajes.enviarMensaje("Corrupto");
                 corrupto = true;
                 
             }

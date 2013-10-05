@@ -6,6 +6,8 @@ package modelo;
 
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -58,7 +60,11 @@ public class EscucharClientes extends Thread{
             
             if (libreriaMensajes.ultimoMensaje()!=null){
                 Mensaje mensaje= libreriaMensajes.ultimoMensaje();
-                logicaAplicacion.verificarMensajeRecibido(mensaje);
+                try {
+                    logicaAplicacion.verificarMensajeRecibido(mensaje);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(EscucharClientes.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 libreriaMensajes.eliminarMensaje(mensaje);
       
             }

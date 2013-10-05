@@ -29,6 +29,7 @@
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/footer.css">
         <link rel="stylesheet" type="text/css" href="css/console.css">
+        <link rel="stylesheet" type="text/css" href="css/general.css">
 
         <script>
               $(document).ready(function() {

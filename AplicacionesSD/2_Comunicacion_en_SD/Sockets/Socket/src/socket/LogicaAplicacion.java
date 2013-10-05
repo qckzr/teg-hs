@@ -42,7 +42,6 @@ public class LogicaAplicacion {
             default:{
                 
                 System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
-                libreriaMensajes.enviarMensaje("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
                 if (!evaluarMensaje(mensaje)){
                     System.out.println("Error al enviar el mensaje");
                     libreriaMensajes.enviarMensaje("Error al enviar el mensaje");
@@ -103,10 +102,11 @@ public class LogicaAplicacion {
                     libreriaMensajes.enviarMensaje("Se recibió una RESPUESTA del host: "+mensaje.getIpOrigen());
                     String texto = mensaje.getMensaje();
                     System.out.println(texto.substring(texto.indexOf("_")));
-                    libreriaMensajes.enviarMensaje(texto.substring(texto.indexOf("_")));
+                    libreriaMensajes.enviarMensaje(texto.substring(texto.indexOf("_")+1));
                     return true;
         }
         else if (mensaje.getIpOrigen().contentEquals(libreriaMensajes.getIpDestino().get(0))){
+            libreriaMensajes.enviarMensaje("Enviando mensaje...");
                     if (mensaje.getMensaje().charAt(1)==':'){
                         char idNodo = mensaje.getMensaje().charAt(0);
                         if (enviarMensajeNodo(0,""+idNodo,mensaje.getMensaje().substring(2)))
@@ -115,8 +115,8 @@ public class LogicaAplicacion {
                 }
                         
                 else{
-                    
-                    if (enviarMensajeNodo(1,mensaje.getIpOrigen(),"Respuesta_Mensaje de respuesta al mensaje recibido "+mensaje.getMensaje()))
+                   libreriaMensajes.enviarMensaje("Recibiendo un mensaje desde otro nodo...\""+mensaje.getMensaje()+"\""); 
+                    if (enviarMensajeNodo(1,mensaje.getIpOrigen(),"Respuesta_Mensaje de respuesta al mensaje recibido \""+mensaje.getMensaje()+"\""))
                         return true;
                 }
          return false;

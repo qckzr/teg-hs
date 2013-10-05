@@ -9,8 +9,6 @@ import Libreria.Mensaje;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -26,6 +24,16 @@ public class LogicaAplicacion {
     private String rutaArchivo;
     private final static int PUERTO_ESCUCHA = 3500;
     private EscuchaArchivo escuchaArchivo;
+
+    public LibreriaMensajes getLibreriaMensajes() {
+        return libreriaMensajes;
+    }
+
+    public void setLibreriaMensajes(LibreriaMensajes libreriaMensajes) {
+        this.libreriaMensajes = libreriaMensajes;
+    }
+    
+    
     
   
     
@@ -40,7 +48,7 @@ public class LogicaAplicacion {
         this.datosAplicacion = datosAplicacion;
         this.puertoAgente = puertoAgente;
         nodos = new ArrayList<>();
-        escuchaArchivo = new EscuchaArchivo(PUERTO_ESCUCHA);
+        escuchaArchivo = new EscuchaArchivo(PUERTO_ESCUCHA, this);
         escuchaArchivo.start();
    //     dividirArchivo(rutaArchivo);
     //    iniciar();
@@ -61,9 +69,8 @@ public class LogicaAplicacion {
             default:{
                 
                 System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
-//                if (mensaje.getMensaje().contains("dividir:")){
-//               //     dividirArchivo(rutaArchivo);
-//                }
+                libreriaMensajes.enviarMensaje("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
+
                 
             }
         };
@@ -78,22 +85,7 @@ public class LogicaAplicacion {
     public void enviarId(String ipServidor){
         libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),ipServidor);
     }
-    
-    
-    
-//    public void dividirArchivo(String rutaArchivo){
-//        try {
-//            SplitFiles splitFiles = new SplitFiles(rutaArchivo);
-//            splitFiles.split(CANTIDAD_ARCHIVOS);
-//            nombreArchivo = rutaArchivo.substring(rutaArchivo.indexOf("archivoCluster.txt"));
-//            System.out.println("El archivo fue dividido");
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//    }
+ 
     
     
     public void solicitarArchivo(String fichero, String servidor, int puerto)
@@ -155,11 +147,6 @@ public class LogicaAplicacion {
         }
     }
     
-    
-    private  void iniciar(){
-        EscuchaArchivo escuchaArchivo = new EscuchaArchivo(PUERTO_ESCUCHA);
-        escuchaArchivo.start();
-    }
     
         
    

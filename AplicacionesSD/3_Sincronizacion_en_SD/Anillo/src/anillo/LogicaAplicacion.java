@@ -57,17 +57,20 @@ public class LogicaAplicacion {
                  System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
                  if (mensaje.getMensaje().contains("COORDINADOR")){
                      System.out.println(mensaje.getMensaje());
+                     libreriaMensajes.enviarMensaje(mensaje.getMensaje());
                      if (!envioMensajeCoordinador)
                          enviarMensaje(mensaje.getMensaje(),0);
 
 
                  }
                  else if (mensaje.getMensaje().contains("iniciar")){
+                     libreriaMensajes.enviarMensaje("Iniciando la seleccion de coordinador...");
                      enviarMensaje();
                      esperaMensajeProcesos = true;
    
                  }
                  else if (mensaje.getMensaje().contains("eleccion")){
+                     libreriaMensajes.enviarMensaje("Recibido mensaje de eleccion...");
                      if (esperaMensajeProcesos==true)
                          evaluarMensaje(mensaje);
                      else
@@ -119,7 +122,8 @@ public class LogicaAplicacion {
             }
         }
         System.out.println("Se eligió el Coordinador... enviando mensaje...");
-        enviarMensaje("COORDINADOR: "+ipCoordinador+": "+procesoMayor,0);
+        libreriaMensajes.enviarMensaje("Se eligió el Coordinador... enviando mensaje...");
+        enviarMensaje("COORDINADOR = "+ipCoordinador.substring(ipCoordinador.length()-1,ipCoordinador.length()) +": "+procesoMayor,0);
         envioMensajeCoordinador = true;
     
         

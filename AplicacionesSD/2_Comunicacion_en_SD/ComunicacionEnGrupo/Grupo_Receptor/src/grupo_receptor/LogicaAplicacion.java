@@ -6,7 +6,6 @@ package grupo_receptor;
 
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
-import sun.awt.EmbeddedFrame;
 
 /**
  *
@@ -41,6 +40,7 @@ public class LogicaAplicacion {
             default:{
                 
                 System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
+                libreriaMensajes.enviarMensaje("Mensaje recibido: "+mensaje.getMensaje());
                 
             }
         };

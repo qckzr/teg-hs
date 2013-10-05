@@ -46,11 +46,14 @@ public class LogicaAplicacion {
             default:{
                  
                  System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
+                 
                  if (mensaje.getMensaje().contains(":")){
+                     libreriaMensajes.enviarMensaje("Agregando el sitio...");
                      agregarSitio(mensaje.getMensaje());
                  }
                  else{
                      enviarMensaje(mensaje);
+                     libreriaMensajes.enviarMensaje("Ip enviado...");
                  }
                  
             }
@@ -80,6 +83,7 @@ public class LogicaAplicacion {
         sitio[1] = mensaje.substring(0,mensaje.indexOf(":"));
         sitios.add(sitio);
         System.out.println("Sitio agregado");
+        libreriaMensajes.enviarMensaje("Sitio agregado");
         
     }
     

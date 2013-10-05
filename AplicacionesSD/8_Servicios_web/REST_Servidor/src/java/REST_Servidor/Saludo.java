@@ -38,7 +38,7 @@ public class Saludo {
     @Produces("text/html")
     public String getHtml() {
         //TODO return proper representation object
-           return "<html><body><h1>Saludo, WebService!!</body></h1></html>";
+           return "Saludo, WebService!!";
     }
 
     /**

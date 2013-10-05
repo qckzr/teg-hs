@@ -76,6 +76,7 @@ public class LogicaAplicacion {
     
     
     public void responderNodo(Mensaje mensaje){
+        libreriaMensajes.enviarMensaje("Respondiendo al nodo que desea acceder a una region critica...");
         if (verificarRegion(mensaje.getMensaje())){
             ocuparRegion(mensaje.getMensaje());
             libreriaMensajes.enviarMensaje("_aprobado", mensaje.getIpOrigen());
@@ -89,6 +90,7 @@ public class LogicaAplicacion {
         String numeroNodo= mensaje.substring(0,mensaje.indexOf(":"));
         regionCriticaOcupada.remove(numeroNodo);
         System.out.println("La región critica del nodo: "+numeroNodo+" fue liberada");
+        libreriaMensajes.enviarMensaje("La región critica del nodo: "+numeroNodo+" fue liberada");
     }
     
    

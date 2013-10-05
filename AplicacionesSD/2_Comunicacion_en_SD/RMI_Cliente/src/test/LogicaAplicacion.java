@@ -71,10 +71,8 @@ public class LogicaAplicacion {
     
     public static void iniciarCliente(){
         try {
-           System.setProperty("java.rmi.server.hostname", ipServidor);
             registry = LocateRegistry.getRegistry(ipServidor, PORT);
             System.setProperty("java.security.policy","file:///home/pi/Desktop/rmi.policy");
-       //     System.setProperty("java.security.policy","file:./test.policy");
             System.setSecurityManager(new RMISecurityManager());
         } catch (RemoteException ex) {
             Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
@@ -86,18 +84,21 @@ public class LogicaAplicacion {
         try {
           
             MensajesRemotos mensajesRemotos = (MensajesRemotos) 
-                   // registry.lookup(lookUp);
                   Naming.lookup("//"+ipServidor+"/"+lookUp);  
             switch (mensaje){
                 case "hora":  System.out.println(mensajesRemotos.horaActual());
+                    libreriaMensajes.enviarMensaje(mensajesRemotos.horaActual());
                    
                     break;
                 case "fecha": System.out.println(mensajesRemotos.fechaActual());
+                    libreriaMensajes.enviarMensaje(mensajesRemotos.fechaActual());
                     break;
                 case "saludo": System.out.println(mensajesRemotos.saludos());
+                    libreriaMensajes.enviarMensaje(mensajesRemotos.saludos());
                     break;
                 default:
                     System.out.println("Opcion no valida");
+                    libreriaMensajes.enviarMensaje("Opcion no valida");
             };
             
             

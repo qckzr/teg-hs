@@ -47,8 +47,10 @@ public class LogicaAplicacion {
             default:{
                 
                  System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
-                if (!evaluarMensaje(mensaje))
+                if (!evaluarMensaje(mensaje)){
                     System.out.println("Error al enviar el mensaje");
+                    libreriaMensajes.enviarMensaje("Error al enviar el mensaje");
+                }
             }
         };
         return false;
@@ -91,6 +93,7 @@ public class LogicaAplicacion {
         
          
         if (mensaje.getIpOrigen().contentEquals(libreriaMensajes.getIpDestino().get(0))){
+            libreriaMensajes.enviarMensaje("Enviando mensaje a los nodos del grupo...") ;
             eliminarNodosCaidos();
             enviarMensaje(mensaje.getMensaje());
             return true;

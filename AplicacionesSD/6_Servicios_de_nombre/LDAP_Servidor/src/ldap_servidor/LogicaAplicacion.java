@@ -53,14 +53,18 @@ public class LogicaAplicacion {
                          libreriaMensajes.enviarMensaje("Error agregando el cliente",mensaje.getIpOrigen());
                  }
                  else if (mensaje.getMensaje().contains("search")) {
+                     libreriaMensajes.enviarMensaje("Buscando usuario...");
                      Cliente cliente = buscarCliente(mensaje.getMensaje());
-                     if (cliente!=null)
+                     if (cliente!=null){
+                         libreriaMensajes.enviarMensaje("Usuario encontrado, enviando datos...");
                          libreriaMensajes.enviarMensaje(cliente.imprimirDatos(),mensaje.getIpOrigen());
+                     }
                      else
                          libreriaMensajes.enviarMensaje("No se consiguió el usuario",mensaje.getIpOrigen());
 
                  }
                  else if (mensaje.getMensaje().contains("delete")){
+                     libreriaMensajes.enviarMensaje("Eliminando usuario...");
                       if (eliminarCliente(mensaje.getMensaje())==true)
                           libreriaMensajes.enviarMensaje("Se eliminó el usuario",mensaje.getIpOrigen());
                       else
@@ -71,6 +75,7 @@ public class LogicaAplicacion {
                      for (Dominio dominio : dominios) {
                          for (Cliente cliente : dominio.getClientes()) {
                              System.out.println(cliente.toString());
+                             libreriaMensajes.enviarMensaje(cliente.toString());
                          }
                      }
                  }
@@ -81,7 +86,6 @@ public class LogicaAplicacion {
     }
      
     public void enviarId(String ipServidor){
-        libreriaMensajes.enviarMensaje(datosAplicacion.getIdProceso(),ipServidor);
         libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),ipServidor);
     }
     

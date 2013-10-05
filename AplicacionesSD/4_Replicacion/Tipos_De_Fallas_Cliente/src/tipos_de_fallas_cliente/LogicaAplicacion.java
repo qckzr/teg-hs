@@ -39,8 +39,12 @@ public class LogicaAplicacion {
                 break;
             default:{
                 System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
+               
                 if (mensaje.getIpOrigen().contains(libreriaMensajes.getIpDestino().get(0))){
                     enviarMensaje(mensaje);
+                }
+                else{
+                    libreriaMensajes.enviarMensaje("Mensaje recibido: "+mensaje.getMensaje());
                 }
                 
             }
@@ -53,6 +57,7 @@ public class LogicaAplicacion {
     }
     
     public void enviarMensaje(Mensaje mensaje){
+        libreriaMensajes.enviarMensaje("Enviando mensaje al servidor...");
         Mensaje mensaje1 = new Mensaje(libreriaMensajes.getIpOrigen(),mensaje.getMensaje());
         libreriaMensajes.enviarMensaje(mensaje1, ipServidor);
     }

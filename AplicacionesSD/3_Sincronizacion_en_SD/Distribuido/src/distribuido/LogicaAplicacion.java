@@ -70,6 +70,7 @@ public class LogicaAplicacion {
                  
                  System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
                  if (mensaje.getMensaje().contains("OK")){
+                     libreriaMensajes.enviarMensaje("Recibido OK");
                      agregarOk();
                  }
                  else if (mensaje.getMensaje().contains("_:")){
@@ -78,6 +79,7 @@ public class LogicaAplicacion {
                  else if (mensaje.getMensaje().contains(":acceder"))
                         configurarAmbiente(mensaje.getMensaje());
                  else if (mensaje.getMensaje().contains(":salir")){
+                     
                      salirRegion();
                  }
             }
@@ -136,10 +138,13 @@ public class LogicaAplicacion {
                  long diferencia = horaRecibida.getTime() - horaMensajeEnvio.getTime();
                  if (diferencia<0){
                      System.out.println("La hora recibida es menor que la de este nodo");
+                     libreriaMensajes.enviarMensaje("La hora recibida es menor que la de este nodo");
                      libreriaMensajes.enviarMensaje("OK",mensaje.getIpOrigen());
                  }
                  else{
                      System.out.println("La hora recibida es mayor que la de este nodo");
+                     libreriaMensajes.enviarMensaje("La hora recibida es mayor que la de este nodo");
+                     libreriaMensajes.enviarMensaje("Guardando peticion en cola de solicitudes...");
                      solicitudesRecibidas.add(mensaje.getIpOrigen());
                  }
                      
@@ -159,6 +164,7 @@ public class LogicaAplicacion {
         
         accederRegionCritica = false;
         System.out.println("Saliendo de la region critica de: "+nodoRegionCritica);
+        libreriaMensajes.enviarMensaje("Saliendo de la region critica de: "+nodoRegionCritica);
         nodoRegionCritica="";
         enviarMensaje();
         okRecibidos = 0;
@@ -172,6 +178,7 @@ public class LogicaAplicacion {
         if (okRecibidos==nodosSistema.size()){
             accederRegionCritica = true;
             System.out.println("El nodo se encuentra utilizando la region critica de: "+nodoRegionCritica);
+            libreriaMensajes.enviarMensaje("El nodo se encuentra utilizando la region critica de: "+nodoRegionCritica);
         }
         return true;
         

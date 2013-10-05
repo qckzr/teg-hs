@@ -21,10 +21,12 @@ public class EscuchaArchivo extends Thread{
     
     private boolean control = true;
     private ServerSocket serverSocket;
+    private LogicaAplicacion logicaAplicacion;
 
-    public EscuchaArchivo(int puerto) {
+    public EscuchaArchivo(int puerto, LogicaAplicacion logicaAplicacion) {
         try {
             serverSocket = new ServerSocket(puerto);
+            this.logicaAplicacion = logicaAplicacion;
         } catch (IOException ex) {
             Logger.getLogger(EscuchaArchivo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -36,9 +38,8 @@ public class EscuchaArchivo extends Thread{
     public void run(){
         
         while (control){
-            System.out.println("Escuchando...");
             escucha();
-            
+            logicaAplicacion.getLibreriaMensajes().enviarMensaje("Esperando...");
         }
     }
     
@@ -55,6 +56,7 @@ public class EscuchaArchivo extends Thread{
 
             // Llega un cliente.
             System.out.println("Aceptado cliente");
+            logicaAplicacion.getLibreriaMensajes().enviarMensaje("Aceptado cliente");
 
             // Cuando se cierre el socket, esta opci�n hara que el cierre se
             // retarde autom�ticamente hasta 10 segundos dando tiempo al cliente
@@ -148,6 +150,7 @@ public class EscuchaArchivo extends Thread{
             }
             // Se cierra el ObjectOutputStream
             oos.close();
+            logicaAplicacion.getLibreriaMensajes().enviarMensaje("Archivo enviado");
         } catch (Exception e)
         {
             e.printStackTrace();

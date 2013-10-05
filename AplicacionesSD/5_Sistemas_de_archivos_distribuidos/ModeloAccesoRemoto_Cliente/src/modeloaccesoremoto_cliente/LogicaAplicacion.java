@@ -6,10 +6,6 @@ package modeloaccesoremoto_cliente;
 
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -46,9 +42,11 @@ public class LogicaAplicacion {
                 
                 System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
                 if (mensaje.getMensaje().contains("ver:")){
+                    libreriaMensajes.enviarMensaje("Leyendo el archivo...");
                     enviarMensaje(mensaje);
                 }
                 else if (mensaje.getMensaje().contains("escribir:")){
+                    libreriaMensajes.enviarMensaje("Escribiendo en el archivo...");
                     enviarMensaje(mensaje);
                 }
             }
@@ -57,7 +55,6 @@ public class LogicaAplicacion {
     }
      
     public void enviarId(String ipServidor){
-        libreriaMensajes.enviarMensaje(datosAplicacion.getIdProceso(),ipServidor);
         libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),ipServidor);
     }
     

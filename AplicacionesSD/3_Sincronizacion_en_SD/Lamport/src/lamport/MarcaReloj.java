@@ -22,6 +22,7 @@ public class MarcaReloj extends Thread{
     public MarcaReloj(LogicaAplicacion logicaAplicacion) {
         this.logicaAplicacion = logicaAplicacion;
         incrementoMarcaReloj = (int) (1 + Math.random()*10);
+        logicaAplicacion.enviarId("INCREMENTANDO LAS MARCA DE RELOJ EN: "+incrementoMarcaReloj+" UNIDADES");
     }
 
     public int getIncrementoMarcaReloj() {
@@ -65,6 +66,7 @@ public class MarcaReloj extends Thread{
             try {
                 marcaActual = marcaActual + incrementoMarcaReloj;
                 System.out.println(marcaActual);
+                logicaAplicacion.getLibreriaMensajes().enviarMensaje(String.valueOf(marcaActual));
                 this.sleep(4000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(MarcaReloj.class.getName()).log(Level.SEVERE, null, ex);

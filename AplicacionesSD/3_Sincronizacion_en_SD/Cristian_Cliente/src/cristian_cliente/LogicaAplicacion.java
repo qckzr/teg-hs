@@ -98,11 +98,14 @@ public class LogicaAplicacion {
             Date horaServidor = sdf.parse(mensaje.getHora());
             long differenceInMillis = horaServidor.getTime() - (date2.getTime() - date1.getTime())/2;
             System.out.println("Hora Envio: "+horaEnvio);
+            libreriaMensajes.enviarMensaje("Hora Envio: "+horaEnvio);
             System.out.println("Hora Recepcion: "+horaRecepcion);
             Date a = new Date(differenceInMillis);
+            libreriaMensajes.enviarMensaje("Hora Recepcion: "+horaRecepcion);
             
             String complemento = a.toString().substring(a.toString().indexOf(":")+1,a.toString().indexOf(":")+6);
             System.out.println("Reloj Sincronizado con:"+m.getHora().substring(0,mensaje.getHora().indexOf(":")+1)+complemento);
+            libreriaMensajes.enviarMensaje("Reloj Sincronizado con:"+m.getHora().substring(0,mensaje.getHora().indexOf(":")+1)+complemento);
             return true;
         } catch (ParseException ex) {
             Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);

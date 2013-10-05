@@ -6,13 +6,6 @@ package centralizado_cliente;
 
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -52,10 +45,14 @@ public class LogicaAplicacion {
             default:{
                 
                  System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
-                 if (mensaje.getMensaje().contains("_aprobado"))
+                 if (mensaje.getMensaje().contains("_aprobado")){
                     System.out.println("El nodo se encuentra accediendo a la región critica de: "+nodoRegionCritica);
-                 else if (mensaje.getMensaje().contains("_rechazado"))
+                    libreriaMensajes.enviarMensaje("El nodo se encuentra accediendo a la región critica de: "+nodoRegionCritica);
+                 }
+                 else if (mensaje.getMensaje().contains("_rechazado")){
                     System.out.println("No se puede acceder al nodo: "+nodoRegionCritica);
+                    libreriaMensajes.enviarMensaje("No se puede acceder al nodo: "+nodoRegionCritica);
+                 }
                  else if (mensaje.getMensaje().contains(":acceder") || mensaje.getMensaje().contains(":salir"))
                      enviarMensaje(mensaje.getMensaje());
             }
@@ -70,7 +67,12 @@ public class LogicaAplicacion {
   
     
     public boolean enviarMensaje(String mensaje){
+        
         nodoRegionCritica = mensaje.substring(0,mensaje.indexOf(":"));
+        if (mensaje.contains("acceder"))
+            libreriaMensajes.enviarMensaje("Solicitando permiso para acceder a la region critica de "+nodoRegionCritica);
+        else
+            libreriaMensajes.enviarMensaje("Saliendo de la region critica de "+nodoRegionCritica);
         Mensaje m = new Mensaje(libreriaMensajes.getIpOrigen(), mensaje);
         libreriaMensajes.enviarMensaje(mensaje,nodoServidor);
        

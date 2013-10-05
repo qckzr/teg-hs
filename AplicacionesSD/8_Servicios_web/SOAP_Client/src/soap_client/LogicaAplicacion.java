@@ -63,18 +63,21 @@ public class LogicaAplicacion {
     }
     
     public boolean evaluarMensaje(Mensaje mensaje){
-        
+        libreriaMensajes.enviarMensaje("Mensaje recibido: "+mensaje.getMensaje());
             if (mensaje.getMensaje().contains("mensaje:")){
                 String mensajeAconsumir = mensaje.getMensaje().substring(mensaje.getMensaje().indexOf(":")+1);
                 System.out.println(mensajesServicio.getMensajeAsString(mensajeAconsumir));
+                libreriaMensajes.enviarMensaje(mensajesServicio.getMensajeAsString(mensajeAconsumir));
                 return true;
             }
             else if (mensaje.getMensaje().contains("hora:")){
                 System.out.println(mensajesServicio.getTimeAsString());
+                libreriaMensajes.enviarMensaje(mensajesServicio.getTimeAsString());
                 return true;
             }
             else if (mensaje.getMensaje().contains("fecha:")){
                 System.out.println(mensajesServicio.getDateAsString());
+                libreriaMensajes.enviarMensaje(mensajesServicio.getDateAsString());
                 return true;
             }
             else

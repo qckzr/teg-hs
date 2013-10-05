@@ -37,7 +37,9 @@ public class EsperaArchivo extends Thread{
 
         while (control){
             System.out.println("Esperando...");
+        //    logicaAplicacion.getLibreriaMensajes().enviarMensaje("Esperando...");
             escucha();
+            logicaAplicacion.getLibreriaMensajes().enviarMensaje("Esperando...");
         }
     }
     
@@ -53,6 +55,7 @@ public class EsperaArchivo extends Thread{
 
             // Llega un cliente.
             System.out.println("Aceptado cliente");
+            logicaAplicacion.getLibreriaMensajes().enviarMensaje("Aceptado cliente");
 
             // Cuando se cierre el socket, esta opci�n hara que el cierre se
             // retarde autom�ticamente hasta 10 segundos dando tiempo al cliente
@@ -77,6 +80,7 @@ public class EsperaArchivo extends Thread{
             {
                 // Si no es el mensaje esperado, se avisa y se sale todo.
                 System.out.println("El archivo ya fue enviado a un nodo");
+                logicaAplicacion.getLibreriaMensajes().enviarMensaje("El archivo ya fue enviado a un nodo");
             }
             
             // Cierre de sockets 

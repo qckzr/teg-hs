@@ -56,8 +56,10 @@ public class LogicaAplicacion {
             default:{
                 
                  System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
-                 if (mensaje.getMensaje().contains(":activo"))
+                 if (mensaje.getMensaje().contains(":activo")){
+                     libreriaMensajes.enviarMensaje("Registrando nodo activo...");
                      agregarNodo(mensaje);
+                 }
                  else if (mensaje.getMensaje().contains(":hora")){   
                      agregarHora(mensaje);
                      comprobarPromedio();
@@ -80,6 +82,7 @@ public class LogicaAplicacion {
     }
     
     public boolean agregarHora(Mensaje mensaje){
+        libreriaMensajes.enviarMensaje("Agregando hora...");
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
             Date date = sdf.parse(mensaje.getHora());
@@ -94,6 +97,7 @@ public class LogicaAplicacion {
     
     public boolean comprobarPromedio(){
         if (mensajesRecibidos == nodos.size()){
+            libreriaMensajes.enviarMensaje("Sincronizando relojes...");
             long longitud = 0;
             for (Date date : horas) {
                 longitud = longitud +date.getTime();

@@ -64,7 +64,7 @@ public class LogicaAplicacion {
     }
     
     public boolean evaluarMensaje(Mensaje mensaje){
-        
+        libreriaMensajes.enviarMensaje("Mensaje recibido: "+mensaje.getMensaje());
             if (mensaje.getMensaje().contains("mensaje:")){
                 consumir("saludo");
                 return true;
@@ -109,6 +109,7 @@ public class LogicaAplicacion {
             String output;
             while ((output = br.readLine()) != null) {
                     System.out.println(output);
+                    libreriaMensajes.enviarMensaje(output);
             }
             conn.disconnect();
         } catch (IOException ex) {

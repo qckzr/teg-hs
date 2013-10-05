@@ -44,6 +44,7 @@ public class LogicaAplicacion {
             default:{
                 
                 System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
+           
                 if (mensaje.getMensaje().contains("ver:")){
                     leerArchivo();
                 }
@@ -56,7 +57,6 @@ public class LogicaAplicacion {
     }
      
     public void enviarId(String ipServidor){
-        libreriaMensajes.enviarMensaje(datosAplicacion.getIdProceso(),ipServidor);
         libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),ipServidor);
     }
     
@@ -82,42 +82,24 @@ public class LogicaAplicacion {
                 Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+          libreriaMensajes.enviarMensaje("Se ha escrito en el archivo el mensaje: "+datos);
     }
-    
-    public void leerArchivo(){
-        File file = new File(archivo);
-		FileInputStream fis = null;
- 
-		try {
-			fis = new FileInputStream(file);
-			int content;
-			while ((content = fis.read()) != -1) {
-				// convert to char and display it
-				System.out.print((char) content);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (fis != null)
-					fis.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-    }
-    
-    
-    
-    
-    
-   
-    
-    
-   
-    
-   
 
+    public void leerArchivo(){
+        libreriaMensajes.enviarMensaje("Leyendo el contenido del archivo...");
+        try {
+            BufferedReader br = null;
+            String sCurrentLine;
+            br = new BufferedReader(new FileReader(archivo));
+            while ((sCurrentLine = br.readLine()) != null) {
+                System.out.println(sCurrentLine);
+                libreriaMensajes.enviarMensaje(sCurrentLine);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     
     
    

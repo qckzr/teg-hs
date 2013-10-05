@@ -53,6 +53,7 @@ public class LogicaAplicacion {
                  }  
                  else{
                      System.out.println(mensaje.getMensaje());
+                     libreriaMensajes.enviarMensaje(mensaje.getMensaje());
                  }
                  
             }
@@ -68,6 +69,12 @@ public class LogicaAplicacion {
   
     
     public boolean enviarMensaje(String mensaje){
+        if (mensaje.contains("add"))
+            libreriaMensajes.enviarMensaje("Agregando Usuario...");
+        else if (mensaje.contains("search"))
+            libreriaMensajes.enviarMensaje("Buscando Usuario...");
+        else 
+            libreriaMensajes.enviarMensaje("Elimiando Usuario...");
         libreriaMensajes.enviarMensaje(mensaje,ipServidor);
         return true;
         

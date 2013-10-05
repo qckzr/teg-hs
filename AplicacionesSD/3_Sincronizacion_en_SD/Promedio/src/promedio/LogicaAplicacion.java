@@ -6,7 +6,6 @@ package promedio;
 
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -71,14 +70,15 @@ public class LogicaAplicacion {
                 escuchaHoras = new EscuchaHoras(tiempoEspera, this);
                 escuchaHoras.start();
                 return true;
-            default:{
-                
+            default:{             
                  System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
-                 if (mensaje.getMensaje().contains("_hora"))
+                 
+                 if (mensaje.getMensaje().contains("_hora")){
+                       
                     enviarMensaje(datosAplicacion.getNumeroNodoAplicacion()+":hora",mensaje.getIpOrigen());
+                 }
                  else if (mensaje.getMensaje().contains(":hora")){
-                     agregarHora(mensaje);
-                     
+                     agregarHora(mensaje);                     
                  }
             }
         };
@@ -92,14 +92,15 @@ public class LogicaAplicacion {
   
     
     public boolean enviarMensaje(String mensaje, String ip){
+        libreriaMensajes.enviarMensaje("Enviando hora actual...");
         Mensaje m = new Mensaje(libreriaMensajes.getIpOrigen(), mensaje);
         libreriaMensajes.enviarMensaje(mensaje+"_"+m.getHora(),ip);
-       
         return true;
         
     }
     
     public boolean enviarMensaje(){
+        libreriaMensajes.enviarMensaje("Solicitando hora a los demas nodos...");
         for (String ip : nodos) {
             libreriaMensajes.enviarMensaje("_hora",ip);
         }
@@ -113,9 +114,11 @@ public class LogicaAplicacion {
             horaActual = new Mensaje("","").getHora();
             differenceInMillis = differenceInMillis / horasRecibidas.size();
             System.out.println("Hora Actual: "+horaActual);
+            libreriaMensajes.enviarMensaje("Hora Actual: "+horaActual);
             Date a = new Date(differenceInMillis);
             String complemento = a.toString().substring(a.toString().indexOf(":")+1,a.toString().indexOf(":")+6);
             System.out.println("Hora Actualizada: "+horaActual.substring(0,horaActual.indexOf(":")+1)+complemento);
+            libreriaMensajes.enviarMensaje("Hora Actualizada: "+horaActual.substring(0,horaActual.indexOf(":")+1)+complemento);
             return true;
     }
     
@@ -124,6 +127,7 @@ public class LogicaAplicacion {
          try {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
             Date date = sdf.parse(mensaje.getHora());
+            libreriaMensajes.enviarMensaje("Agregando hora recibida...");
             horasRecibidas.add(date);
 
         } catch (ParseException ex) {

@@ -6,11 +6,6 @@ package cristian_servidor;
 
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
-import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  *
@@ -58,8 +53,10 @@ public class LogicaAplicacion {
     
     public boolean enviarRespuesta(Mensaje mensajeRecibido){
         libreriaMensajes.enviarMensaje("*respuesta del servidor",mensajeRecibido.getIpOrigen());
+        libreriaMensajes.enviarMensaje("*respuesta del servidor");
         Mensaje m = new Mensaje(null, null);
         System.out.println("Hora de Envío: "+m.getHora());
+        libreriaMensajes.enviarMensaje("Hora de Envío: "+m.getHora());
         return true;
         
     }

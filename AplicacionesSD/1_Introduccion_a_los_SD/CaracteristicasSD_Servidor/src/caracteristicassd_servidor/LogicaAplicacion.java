@@ -55,7 +55,6 @@ public class LogicaAplicacion {
             default:{
                 
                 System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
-                libreriaMensajes.enviarMensaje("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
                 if (mensaje.getMensaje().contains("iniciar_servidor:")){
                     servidorWeb(1);
                 }
@@ -63,6 +62,7 @@ public class LogicaAplicacion {
                     servidorWeb(0);
                 }
                 else if (mensaje.getMensaje().contains("leer:")){
+                    libreriaMensajes.enviarMensaje("Leyendo el contenido del archivo...");
                     leerArchivo();
                 }
                 else if (mensaje.getMensaje().contains("pagina:")){

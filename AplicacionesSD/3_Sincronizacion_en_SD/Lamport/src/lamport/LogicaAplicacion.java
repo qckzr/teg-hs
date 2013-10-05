@@ -29,11 +29,22 @@ public class LogicaAplicacion {
         this.puertoAgente = puertoAgente;
         this.nodoSiguiente = nodoSiguiente;
         this.nodoAnterior = nodoAnterior;
+        enviarId(libreriaMensajes.getIpDestino().get(0));
         marcaReloj = new MarcaReloj(this);
         marcaReloj.start();
         
         
     }
+
+    public LibreriaMensajes getLibreriaMensajes() {
+        return libreriaMensajes;
+    }
+
+    public void setLibreriaMensajes(LibreriaMensajes libreriaMensajes) {
+        this.libreriaMensajes = libreriaMensajes;
+    }
+    
+    
     
     public boolean verificarMensajeRecibido(Mensaje mensaje){
         
@@ -79,7 +90,8 @@ public class LogicaAplicacion {
                         enviarMarca("-"+String.valueOf(marcaReloj.getMarcaActual()));
                 }
                 else{
-                    System.out.println("ARREGLANDO MARCA DE LAMPORT! "+marca+" > "+marcaReloj.getMarcaActual());
+                    System.out.println("ARREGLANDO MARCA DE LAMPORT! "+marca+" mayor que "+marcaReloj.getMarcaActual());
+                    libreriaMensajes.enviarMensaje("ARREGLANDO MARCA DE LAMPORT! "+marca+" mayor que "+marcaReloj.getMarcaActual());
                     marcaReloj.setMarcaActual(Integer.valueOf(marca)+1);
                     if (nodoSiguiente.length()>0)
                         enviarMarca("+"+String.valueOf(marcaReloj.getMarcaActual()));
@@ -97,7 +109,8 @@ public class LogicaAplicacion {
                         enviarMarca("+"+String.valueOf(marcaReloj.getMarcaActual()));
                 }
                 else{
-                    System.out.println("ARREGLANDO MARCA DE RELOJ! "+marca+" > "+marcaReloj.getMarcaActual());
+                    System.out.println("ARREGLANDO MARCA DE RELOJ! "+marca+" mayor que "+marcaReloj.getMarcaActual());
+                    libreriaMensajes.enviarMensaje("ARREGLANDO MARCA DE RELOJ! "+marca+" mayor que "+marcaReloj.getMarcaActual());
                     marcaReloj.setMarcaActual(Integer.valueOf(marca)+1);
                     if (nodoAnterior.length()>0)
                         enviarMarca("-"+String.valueOf(marcaReloj.getMarcaActual()));

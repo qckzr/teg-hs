@@ -8,7 +8,6 @@ import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
 import java.io.*;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -57,10 +56,11 @@ public class LogicaAplicacion {
         this.ipServidor = ipServidor;
         esperaArchivo = new EsperaArchivo(this);
         esperaArchivo.start();
+        eliminarArchivo();
         
     }
     
-    public boolean verificarMensajeRecibido(Mensaje mensaje){
+    public boolean verificarMensajeRecibido(Mensaje mensaje) throws InterruptedException{
         
         switch (mensaje.getMensaje()){
             case "aplicacion": 
@@ -75,15 +75,20 @@ public class LogicaAplicacion {
                 
                 System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
                 if (mensaje.getMensaje().contains("archivo:")){
-         //           descargar();
+                    libreriaMensajes.enviarMensaje("Solicitando archivo...");
                     solicitarArchivo(archivo, ipServidor, PUERTO);
-                    archivoRecibido = true;
+                    Thread.sleep(5000);
+                    existeArchivo();
                 }
                 else if (mensaje.getMensaje().contains("escribir:") && archivoRecibido == true){
+                    libreriaMensajes.enviarMensaje("Escribiendo \""+mensaje.getMensaje().substring(mensaje.getMensaje().indexOf(":")+1,mensaje.getMensaje().length())+"\"");
                     escribirArchivo(mensaje);
                 }
                 else if (mensaje.getMensaje().contains("enviar:") && archivoRecibido == true){
+                    libreriaMensajes.enviarMensaje("Enviando archivo...");
                     libreriaMensajes.enviarMensaje("enviar:", ipServidor);
+                    Thread.sleep(5000);
+                    eliminarArchivo();
                 }
                 else if (mensaje.getMensaje().contains("ver:") && archivoRecibido == true){
                     leerArchivo();
@@ -95,7 +100,6 @@ public class LogicaAplicacion {
     }
      
     public void enviarId(String ipServidor){
-        libreriaMensajes.enviarMensaje(datosAplicacion.getIdProceso(),ipServidor);
         libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),ipServidor);
     }
     
@@ -120,31 +124,25 @@ public class LogicaAplicacion {
                 Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+         libreriaMensajes.enviarMensaje("Se ha escrito en el archivo el mensaje: "+datos);
     }
     
     
     
-    public void leerArchivo(){
-        File file = new File(archivo);
-		FileInputStream fis = null;
- 
-		try {
-			fis = new FileInputStream(file);
-			int content;
-			while ((content = fis.read()) != -1) {
-				// convert to char and display it
-				System.out.print((char) content);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (fis != null)
-					fis.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
+     public void leerArchivo(){
+         libreriaMensajes.enviarMensaje("Leyendo el contenido del archivo...");
+        try {
+            BufferedReader br = null;
+            String sCurrentLine;
+            br = new BufferedReader(new FileReader(archivo));
+            while ((sCurrentLine = br.readLine()) != null) {
+                System.out.println(sCurrentLine);
+                libreriaMensajes.enviarMensaje(sCurrentLine);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     
@@ -198,7 +196,11 @@ public class LogicaAplicacion {
                     break;
                 }
             } while (!mensajeRecibido.ultimoMensaje);
-            
+            BufferedReader br = new BufferedReader(new FileReader(archivo));     
+            if (br.readLine() == null) {
+                System.out.println("No errors, and file empty");
+                eliminarArchivo();
+            }
             // Se cierra socket y fichero
             fos.close();
             ois.close();
@@ -218,6 +220,18 @@ public class LogicaAplicacion {
             return true;
         else
             return false;
+    }
+    
+    public boolean existeArchivo(){
+        File f = new File(archivo);
+ 
+	  if(f.exists()){
+                    archivoRecibido = true;
+                    libreriaMensajes.enviarMensaje("Archivo recibido");
+		  return true;
+	  }else{
+		  return false;
+	  }
     }
     
     

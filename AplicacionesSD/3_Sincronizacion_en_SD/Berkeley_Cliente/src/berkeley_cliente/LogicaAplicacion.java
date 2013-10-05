@@ -98,18 +98,23 @@ public class LogicaAplicacion {
             Date date2 = sdf.parse(horaServidor);
             long differenceInMillis = date2.getTime() - date1.getTime();
             System.out.println("Hora Actual: "+horaActual);
+            libreriaMensajes.enviarMensaje("Hora Actual: "+horaActual);
             System.out.println("Hora Servidor: "+horaServidor);
+            libreriaMensajes.enviarMensaje("Hora Servidor: "+horaServidor);
             Date a = new Date(differenceInMillis);
-            if (differenceInMillis>0)
+            if (differenceInMillis>0){
                 System.out.println("AVANZAR reloj del nodo");
+                libreriaMensajes.enviarMensaje("AVANZAR reloj del nodo");
+            }
             else{
                 System.out.println("RETROCEDER reloj  del nodo");
+                libreriaMensajes.enviarMensaje("RETROCEDER reloj  del nodo");
                 differenceInMillis = date1.getTime() - date2.getTime();
                 a = new Date(differenceInMillis);
             }
             String complemento = a.toString().substring(a.toString().indexOf(":")+1,a.toString().indexOf(":")+6);
-          //  configurarReloj("\""+horaServidor+"\""); NO SIRVIO =.=
             System.out.println("Reloj Sincronizado con: "+complemento+ " de diferencia");
+            libreriaMensajes.enviarMensaje("Reloj Sincronizado con: "+complemento+ " de diferencia");
             return true;
         } catch (ParseException ex) {
             Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);

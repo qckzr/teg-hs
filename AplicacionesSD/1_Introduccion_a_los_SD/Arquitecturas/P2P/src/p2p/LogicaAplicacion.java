@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -40,7 +40,6 @@ public class LogicaAplicacion {
             default:{
                 
                 System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
-                libreriaMensajes.enviarMensaje("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
                 if (!evaluarMensaje(mensaje)){
                     System.out.println("Error al enviar el mensaje");
                     libreriaMensajes.enviarMensaje("Error al enviar el mensaje");
@@ -76,6 +75,7 @@ public class LogicaAplicacion {
         
          
         if (mensaje.getIpOrigen().contentEquals(libreriaMensajes.getIpDestino().get(0))){
+            libreriaMensajes.enviarMensaje("Enviando mensaje al nodo destino...");
             String texto = mensaje.getMensaje()+"~"+datosAplicacion.getNumeroNodoAplicacion();
             enviarMensaje(texto,libreriaMensajes.getIpOrigen());
             return true;
@@ -84,6 +84,7 @@ public class LogicaAplicacion {
         else if (mensaje.getMensaje().charAt(1)==':'){
             char idNodo = mensaje.getMensaje().charAt(0);
             if (idNodo != datosAplicacion.getNumeroNodoAplicacion().charAt(0)){
+                libreriaMensajes.enviarMensaje("Enviando mensaje al siguiente nodo...");
                 enviarMensaje(mensaje);
                 return true;
             }
@@ -93,11 +94,14 @@ public class LogicaAplicacion {
                         libreriaMensajes.enviarMensaje("Se recibió una RESPUESTA del host: "+mensaje.getIpOrigen());
                         String texto = mensaje.getMensaje();
                         System.out.println(texto.substring(texto.indexOf("_")+1));
+                        libreriaMensajes.enviarMensaje(texto.substring(texto.indexOf("_")+1));
                         return true;
                     }
                     else{
+                       
                         String nodoOrigen = mensaje.getMensaje().substring(mensaje.getMensaje().indexOf("~")+1);
                         String m = mensaje.getMensaje().substring(mensaje.getMensaje().indexOf(":")+1, mensaje.getMensaje().indexOf("~"));
+                         libreriaMensajes.enviarMensaje("Respondiendo al nodo que envio el mensaje: "+m);
                         String mensajeRespuesta = nodoOrigen+":Respuesta_Mensaje de respuesta al mensaje recibido: \""+m+"\"";
                         if (enviarMensaje(mensajeRespuesta,libreriaMensajes.getIpOrigen()))
                             return true;

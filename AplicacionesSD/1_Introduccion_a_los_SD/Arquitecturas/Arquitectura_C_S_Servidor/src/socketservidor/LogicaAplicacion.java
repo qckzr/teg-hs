@@ -36,7 +36,6 @@ public class LogicaAplicacion {
                 break;
             default:{
                 System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
-                libreriaMensajes.enviarMensaje("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
                 enviarMensajeRespuesta(mensaje);
             }
         };
@@ -45,10 +44,9 @@ public class LogicaAplicacion {
     
     public boolean enviarMensajeRespuesta(Mensaje mensajeRecibido){
         String mensajeAenviar ="Respondiendo al host "+mensajeRecibido.getIpOrigen()+""
-                + " quien envió el mensaje "+mensajeRecibido.getMensaje();
+                + " quien envió el mensaje \""+mensajeRecibido.getMensaje()+"\"";
         libreriaMensajes.enviarMensaje(mensajeAenviar);
         if (libreriaMensajes.enviarMensaje(mensajeAenviar,mensajeRecibido.getIpOrigen())){
-  //          libreriaMensajes.enviarMensaje(mensajeAenviar);
             return true;
         }
             

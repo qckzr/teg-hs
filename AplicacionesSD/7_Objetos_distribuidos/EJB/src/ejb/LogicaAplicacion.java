@@ -96,8 +96,10 @@ public class LogicaAplicacion {
             BufferedReader rd = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
                    String line = "";
                    while ((line = rd.readLine()) != null) {
-                       if (line.contains("<h2>"))
-                             System.out.println(line.substring(line.indexOf("<h2>")));
+                       if (line.contains("<h2>")){
+                             System.out.println(line.substring(line.indexOf("<h2>")+1,line.indexOf("</h2>")-1));
+                             libreriaMensajes.enviarMensaje(line.substring(line.indexOf("<h2>")+4,line.indexOf("</h2>")));
+                       }
                    }
         } catch (IOException ex) {
             Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);

@@ -10,7 +10,7 @@ import Libreria.LibreriaMensajes;
  *
  * @author sam
  */
-public class SocketServidor {
+public class Arquitectura_C_S_Servidor {
 
     /**
      * @param args the command line arguments

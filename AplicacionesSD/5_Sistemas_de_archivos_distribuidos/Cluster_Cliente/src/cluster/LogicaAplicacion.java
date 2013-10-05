@@ -35,6 +35,16 @@ public class LogicaAplicacion {
         return archivoRecibido;
     }
 
+    public LibreriaMensajes getLibreriaMensajes() {
+        return libreriaMensajes;
+    }
+
+    public void setLibreriaMensajes(LibreriaMensajes libreriaMensajes) {
+        this.libreriaMensajes = libreriaMensajes;
+    }
+    
+    
+
     public void setArchivoRecibido(int archivoRecibido) {
         this.archivoRecibido = archivoRecibido;
     }
@@ -75,10 +85,11 @@ public class LogicaAplicacion {
                 
                 System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
                 if (mensaje.getMensaje().contains("archivo_partes")){
+                    libreriaMensajes.enviarMensaje("Archivo por partes...");
                     esperarArchivos();
                 }
                 else if (mensaje.getMensaje().contains("archivo_completo")){
-                    
+                    libreriaMensajes.enviarMensaje("Archivo completo...");
                     solicitarArchivo(nombreArchivoCompleto,nodos.get(0),PUERTO_ARCHIVO);
                     
                 }
@@ -169,6 +180,7 @@ public class LogicaAplicacion {
             ois.close();
             socket.close();
             System.out.println("\n Segundos que tardó el archivo: "+tiempo.getSegundos());
+            libreriaMensajes.enviarMensaje("\n Segundos que tardó el archivo: "+tiempo.getSegundos());
             tiempo.kill();
         } catch (Exception e)
         {

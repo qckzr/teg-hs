@@ -29,7 +29,7 @@ public class LogicaAplicacion {
         this.libreriaMensajes = libreriaMensajes;
         this.datosAplicacion = datosAplicacion;
         this.puertoAgente = puertoAgente;
-        falla = generarTipoFalla();
+        
         
         
     }
@@ -60,10 +60,13 @@ public class LogicaAplicacion {
     }
     
     
-    public int generarTipoFalla(){
+    
+    
+    public void generarTipoFalla(){
         int tipoDeFalla = (int) (1 + Math.random()*CANTIDAD_FALLAS);
         System.out.println("Falla: "+tipoDeFalla);
-        return tipoDeFalla;
+        libreriaMensajes.enviarMensaje("Falla: "+tipoDeFalla);
+        falla = tipoDeFalla;
         
     }
     
@@ -71,13 +74,16 @@ public class LogicaAplicacion {
         switch (falla){
             case 1:
                     System.out.println("FALLA DE CONGELACION");
+                    libreriaMensajes.enviarMensaje("FALLA DE CONGELACION");
                     libreriaMensajes.getHiloDeEscucha().kill();
                 break;
             case 2:
                     System.out.println("FALLA DE OMISION, NO RESPONDE A LOS MENSAJES");
+                    libreriaMensajes.enviarMensaje("FALLA DE OMISION, NO RESPONDE A LOS MENSAJES");
                 break;
             case 3:
                     System.out.println("FALLA DE TIEMPO");
+                    libreriaMensajes.enviarMensaje("FALLA DE TIEMPO");
                     try {
                         Thread.sleep(10000);
                         enviarMensajeRespuesta(mensaje,1);
@@ -87,6 +93,7 @@ public class LogicaAplicacion {
                 break;
             case 4:
                 System.out.println("FALLA DE RESPUESTA");
+                libreriaMensajes.enviarMensaje("FALLA DE RESPUESTA");
                 enviarMensajeRespuesta(mensaje,0);
                 break;
         };

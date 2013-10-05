@@ -54,7 +54,7 @@ public class LogicaAplicacion {
             default:{
                  
                  System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
-               
+                 libreriaMensajes.enviarMensaje("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
                  
             }
         };
@@ -70,7 +70,6 @@ public class LogicaAplicacion {
         try {
             mensajesRemotosImpl = new MensajesRemotosImpl();
             System.setProperty("java.security.policy","file:///home/pi/Desktop/rmiServer.policy");
-           // System.setProperty("java.security.policy","file:./test.policy");
             registry = java.rmi.registry.LocateRegistry.createRegistry(1099);
             registry.bind("RMIServer", mensajesRemotosImpl);
         } catch (AlreadyBoundException ex) {

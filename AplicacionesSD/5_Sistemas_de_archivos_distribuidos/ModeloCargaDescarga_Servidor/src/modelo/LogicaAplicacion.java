@@ -43,6 +43,15 @@ public class LogicaAplicacion {
     public void setArchivoEnviado(boolean archivoEnviado) {
         this.archivoEnviado = archivoEnviado;
     }
+
+    public LibreriaMensajes getLibreriaMensajes() {
+        return libreriaMensajes;
+    }
+
+    public void setLibreriaMensajes(LibreriaMensajes libreriaMensajes) {
+        this.libreriaMensajes = libreriaMensajes;
+    }
+    
     
     
     
@@ -74,9 +83,6 @@ public class LogicaAplicacion {
                     solicitarArchivo(archivo,mensaje.getIpOrigen(), PUERTO);
                     archivoEnviado = false;
                 }
-//                else if (archivoEnviado == true){
-//                    libreriaMensajes.enviarMensaje("No se puede acceder al archivo",mensaje.getIpOrigen());
-//                }
                 
             }
         };
@@ -115,27 +121,42 @@ public class LogicaAplicacion {
         }
     }
     
-    public void leerArchivo(){
-        File file = new File(archivo);
-		FileInputStream fis = null;
- 
-		try {
-			fis = new FileInputStream(file);
-			int content;
-			while ((content = fis.read()) != -1) {
-				// convert to char and display it
-				System.out.print((char) content);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (fis != null)
-					fis.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
+//    public void leerArchivo(){
+//        File file = new File(archivo);
+//		FileInputStream fis = null;
+// 
+//		try {
+//			fis = new FileInputStream(file);
+//			int content;
+//			while ((content = fis.read()) != -1) {
+//				// convert to char and display it
+//				System.out.print((char) content);
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				if (fis != null)
+//					fis.close();
+//			} catch (IOException ex) {
+//				ex.printStackTrace();
+//			}
+//		}
+//    }
+    
+     public void leerArchivo(){
+        try {
+            BufferedReader br = null;
+            String sCurrentLine;
+            br = new BufferedReader(new FileReader(archivo));
+            while ((sCurrentLine = br.readLine()) != null) {
+                System.out.println(sCurrentLine);
+                libreriaMensajes.enviarMensaje(sCurrentLine);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     
      public void sendFile(Mensaje mensaje) {
@@ -249,6 +270,7 @@ public class LogicaAplicacion {
             fos.close();
             ois.close();
             socket.close();
+            libreriaMensajes.enviarMensaje("Archivo recibido");
         } catch (Exception e)
         {
             e.printStackTrace();

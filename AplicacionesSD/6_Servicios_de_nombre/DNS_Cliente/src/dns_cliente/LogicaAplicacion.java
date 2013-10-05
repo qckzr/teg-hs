@@ -47,10 +47,12 @@ public class LogicaAplicacion {
                  
                  System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
                  if (mensaje.getIpOrigen().contentEquals(libreriaMensajes.getIpDestino().get(0))){
+                     libreriaMensajes.enviarMensaje("Enviando direccion...");
                      enviarMensaje(mensaje.getMensaje());
                  }  
                  else{
                      System.out.println("Ip recibido: "+mensaje.getMensaje());
+                     libreriaMensajes.enviarMensaje("Ip recibido: "+mensaje.getMensaje());
                  }
                  
             }

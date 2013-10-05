@@ -74,6 +74,16 @@ public class LogicaAplicacion {
     public void setCoordinador(boolean coordinador) {
         this.coordinador = coordinador;
     }
+
+    public LibreriaMensajes getLibreriaMensajes() {
+        return libreriaMensajes;
+    }
+
+    public void setLibreriaMensajes(LibreriaMensajes libreriaMensajes) {
+        this.libreriaMensajes = libreriaMensajes;
+    }
+    
+    
     
     
     
@@ -99,15 +109,18 @@ public class LogicaAplicacion {
                  System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
                  if (mensaje.getMensaje().contains("COORDINADOR")){
                      System.out.println("El coodinador es :"+mensaje.getIpOrigen());
+                     libreriaMensajes.enviarMensaje("El coodinador es: "+mensaje.getIpOrigen().substring(mensaje.getIpOrigen().length()-1,mensaje.getIpOrigen().length()));
                      esperaMensaje = new EsperaMensaje(this,TIEMPO_ESPERA);
                      recibiOk = false;
                  }
                  else if (mensaje.getMensaje().contains("iniciar")){
+                     libreriaMensajes.enviarMensaje("Iniciando eleccion de coordinador...");
                      enviarMensaje();
                      esperaMensaje.start();
                      
                  }
                  else if (mensaje.getMensaje().contains("eleccion")){
+                     libreriaMensajes.enviarMensaje("Recibiendo mensaje de eleccion...");
                      evaluarMensaje(mensaje);
                      if (!esperaMensaje.isEmpezar()){
                         esperaMensaje.start();

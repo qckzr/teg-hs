@@ -61,10 +61,11 @@ public class LogicaAplicacion {
             default:{
                 
                 System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
-                libreriaMensajes.enviarMensaje("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
-                if (mensaje.getMensaje().contains("archivo:"))
+                if (mensaje.getMensaje().contains("archivo:")){
+                    libreriaMensajes.enviarMensaje("Solicitando archivo...");
                     eliminarArchivos();
                     solicitarArchivo(retornarArchivo(mensaje.getMensaje()), ipServidor, PUERTO);    
+                }
                 
             }
         };

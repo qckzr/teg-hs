@@ -19,7 +19,7 @@ public class RMI_Cliente {
      
     
     public static void main(String[] args) {
-        
+        System.setProperty("java.rmi.server.hostname", args[4]);
         LibreriaMensajes libreriaMensajes = new LibreriaMensajes();
         DatosAplicacion datosAplicacion = new DatosAplicacion(args[0],args[1]);//args[0] = nombreApp, args[1] = numeroNodo
         libreriaMensajes.agregarIpDestino(args[2]); //args[2] ip del servidor central
