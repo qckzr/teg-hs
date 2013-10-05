@@ -1,3 +1,43 @@
+El diseño e implementación de la infraestructura se inició con la definición de la base de datos, en ella se debe reflejar las relaciones entre los distintos tópicos de la cátedra Sistemas Distribuidos y las aplicaciones que cada uno puede tener. A su vez, debe contener  tablas que permitan conocer la información de la aplicación que se encuentra en ejecución, los agentes de configuración y los mensajes enviados entre los nodos. Por ello, se definieron las siguientes tablas:
+
+<colocarlo en tabla?>:
+
+1. Usuarios: Se elaboró la tabla usuarios debido a que la infraestructura se encuentra diseñada para que los usuarios, en este caso profesores de la cátedra puedan realizar las operaciones tradicionales: Crear, consultar, modificar y eliminar los datos contenidos en las demás tablas de la infraestructura a través del módulo de gestión. La tabla contiene los atributos: Nombre, apellido, correo electrónico (email) y contraseña.
+
+2. Tópicos: Permite almacenar todos los tópicos de la cátedra Sistemas Distribuidos, sus atributos son: Nombre, categoría ('Introducción a los sistemas distribuidos, etc), descripción del tópico y ruta de la imagen (opcional).
+
+3. Preguntas: Almacena el enunciado de las preguntas asociados a un tópico particular.
+
+4. Respuestas: Guarda cada opción disponible para una pregunta y se puede indicar si es opción correcta.
+
+5. Aplicaciones: La tabla aplicación permite asociar distintas aplicaciones para un tópico específico, posee los siguientes atributos: Nombre, fecha de actualización y las instrucciones de uso.
+
+6. Escenario: Permite explicar el objetivo de la aplicación, que sucede cuando ocurre un evento particular. Atributos: Nombre, descripción del escenario e imagen (opcional).
+
+7. Ejecutable: Almacena la información en la relación a los ejecutables que se utilizarán para una aplicación determinada, posee los atributos: Nombre, tipo de ejecutable (Cliente o Servidor) y la ruta física del archivo.
+
+8. Parámetros: Guarda los datos necesarios que se utilizarán al iniciar cada uno de los ejecutables de la aplicación, posee los atributos nombre y valor. 
+
+9. Nodos: La tabla nodos indica la cantidad de nodos que se encuentran disponibles en la infraestructura para desplegar los ejecutables de una aplicación, posee los atributos: Ip del nodo, nombre de usuario y contraseña para iniciar sesión en el sistema operativo.
+
+10. Mensajes agente: Permite guardar toda la información proveniente del agente de configuración alojado en un nodo particular, sus atributos son: Id proceso, cantidad de procesos, memoria disponible, uso cpu, puertos en uso, nombre de la aplicación actual y estado de la aplicación (chequear).
+
+11. Mensaje entre nodos: Almacena los mensajes enviados por un nodo a través de la librería de mensajes. Sus atributos son: Fecha, hora y mensaje.
+
+12. Ejecutable nodo (E_N): Permite asociar los mensajes de un ejecutable particular de una aplicación junto a su número de proceso, posee los atributos fecha de despliegue, hora de despliegue y número de proceso.
+
+13. Evento: La tabla permite generar los distintos eventos disponibles para los ejecutables de las aplicaciones, posee los atributos nombre del evento y dirección del script (opcional).
+
+14. Ejecutable evento (E_E): Asocia los eventos disponibles para un ejecutable particular (Intersección).
+
+ 
+
+ 
+Scripts:
+
+
+
+
 Librería:
 
 El desarrollo de los componentes de la infraestructura se inicia en primer lugar con la librería de mensajes. Se crearon las historias de usuarios pertenecientes a la librería para obtener los requerimientos principales: Envío y recepción de mensajes simples. Se crearon las clases EscucharMensajes que permite abrir un puerto específico para la espera de mensajes por parte de los otros componentes de la infraestructura, esta clase permite almacenarlos en una lista simplemente enlazada para posteriormente consultarla en un momento determinado. Adicionalmente se creó la clase Mensaje permitiendo encapsular los mensajes enviados entre los componentes mediante atributos: Ip origen, fecha, hora, texto que permiten obtener una información más específica de los mensajes enviados.
