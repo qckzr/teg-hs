@@ -35,12 +35,69 @@ El diseño e implementación de la infraestructura se inició con la definición
  
 Scripts:
 
+Se crearon scripts de sistema operativo que permitieran enviar instrucciones desde el módulo de ciclo de vida hacia cada uno de los nodos del sistema distribuido, para ello es utilizó el protocolo Secure Shell (SSH) que permite conectarse de manera segura de un host a otro. Se generó un par de llaves (pública y privada) desde el host donde se ubicará el servidor central, se envía la llave pública a cada Raspberry Pi almacenandose en el directorio ".ssh/authorized_keys'. Esto permite el inicio de sesión desde el host con la llave privada (servidor central) sin la necesidad de introducir contraseña de usuario. La autenticación se realiza mediante <llave privada / llave pública>.
+
+Los scripts creados son los siguientes:
+
+1. Ejecutar.sh: Se creó un script de ejecución que permitiera copiar un ejecutable (.jar) ubicado en el servidor central hacia un nodo específico del sistema distribuido y luego permitir su ejecución junto a los parámetros propios de la aplicación. El script contiene el nombre de usuario con el que se conectará al host, su dirección ip, la ruta y nombre del archivo a copiar y los parámetros de dicha aplicación. Se hace uso de los comandos secure copy (SCP) y secure shell (SSH).
+
+2. EliminarNodo.sh: Un script de eliminar un nodo permite detener el proceso asociado a la ejecución del ejecutable. Se debe conocer el número de proceso del ejecutable actual, para ello, cada aplicacion al ejecutarse envia su numero de proceso al servidor central de manera que se tenga registrado cada ejecutable con su respectivo numero de proceso. El script hace uso del comando kill -9 <numero_de_proceso> lo que conlleva a detener el proceso.
+
+3. EliminarTodos.sh: Este script permite eliminar el ejecutable en acción de cada nodo lo que permite dejar el sistema sin ninguna aplicación en ejecución. Contiene la información de cada usuario, ip e id de proceso del ejecutable actual.
 
 
 
 Librería:
 
-El desarrollo de los componentes de la infraestructura se inicia en primer lugar con la librería de mensajes. Se crearon las historias de usuarios pertenecientes a la librería para obtener los requerimientos principales: Envío y recepción de mensajes simples. Se crearon las clases EscucharMensajes que permite abrir un puerto específico para la espera de mensajes por parte de los otros componentes de la infraestructura, esta clase permite almacenarlos en una lista simplemente enlazada para posteriormente consultarla en un momento determinado. Adicionalmente se creó la clase Mensaje permitiendo encapsular los mensajes enviados entre los componentes mediante atributos: Ip origen, fecha, hora, texto que permiten obtener una información más específica de los mensajes enviados.
+Historias de Usuarios: Para el desarrollo de la librería de recepción de mensajes se crearon las historias de usuarios para obtener los requerimientos principales: Envío y recepción de mensajes simples:
+
+1. Atributos Configurables: La librería posee atributos que pueden ser configurados en cualquier momento: puerto de escucha, cantidad máxima de mensajes a recibir, dirección ip de origen del mensaje, dirección ip de los destinatarios del mensaje.
+
+2. Mensajes simples: La librería debe permitir enviar mensajes a través de un método donde se indique el mensaje a enviar.
+
+3. Fecha y hora del mensaje: Los mensajes recibidos a través de la librería deben contener la fecha y hora del momento en el que fue enviado.
+
+4. Información del agente: La librería permite enviar mensajes de los agentes de configuración para ser capturados por el servidor central.
+
+Diseño:
+Tarjetas CRC:
+
+Se crearon cuatro (4) clases:
+
+1. LibreriaMensaje:
+	- Responsabilidad:
+		1. Almacenar los mensajes recibidos desde otro host.
+		2. Envio de mensajes hacia uno o más hosts.
+        - Colaboración: EscuchaMensajes.
+2. EscuchaMensajes:
+	- Responsabilidad:
+		1. Establecer el puerto de escucha de los mensajes.
+		2. Recibir mensajes de parte de otro host o agente.
+	- Colaboración: Mensaje, InformacionAgente. 
+3. Mensaje:
+	- Responsabilidad:
+		1. Almacenar la información que se enviará hacia un host (Fecha, hora, texto).
+
+4. InformacionAgente:
+	- Responsabilidad:
+		1. Almacenar la información recopilada por los agentes de configuración.
+	-Colaboración:
+ 
+Codificación:
+
+La codificación de la librería de mensajes se inició con la clase Mensaje, en ella, se crean los mensajes que serán enviados por los diferentes componentes de la infraestructura. Un objeto mensaje se crea  indicando el texto de la información a enviar y la dirección ip del host quien enviará el mensaje, la fecha y la hora se obtiene de la clase Date que permite definir un formato particular, en este caso las fechas poseen el formato "dd/mm/aaaa" (Día, mes, año) mientras que la hora posee el formato "HH:mm:ss",  
+
+La clase EscuchaMensaje, esta posee un método iniciar<cursiva> donde se crea un ServerSocket que permite  escuchar por un puerto específico. Se implementa el método run que posee un bucle infinito donde se esperan por los mensajes enviados por otros hosts o por los agentes de configuración. Al llegar un mensaje se chequea el tipo de mensajes recibido: Si el mensaje pertenece a la clase "mensaje" significa que es un mensaje de información enviado por otro host y es almacenado en la lista de mensajes recibidos, en caso contrario se almacena en la lista de mensajes de agentes, ambas listas se encuentran en la clase LibreriaMensaje.
+
+La clase LibreriaMensaje inicia el comportamiento de la librería, posee los atributos: puerto, mensajes máximos, dirección ip origen y las listas de direcciones ip destino, mensajes recibidos y mensajes agente. Al instanciarse un objeto de esta clase se inicia la escucha por medio de la clase EscuchaMensaje y el puerto indicado, por defecto el puerto de escucha posee el valor de 1337 aunque también se puede iniciar con un puerto distinto o sin ningún puerto (Solo para enviar mensajes, no recibe). Se hace llamado al método obtenerIp que permite obtener la dirección ip del host donde se está ejecutando la librería de mensajes. La clase posee el método enviarMensajes que permite enviar un mensaje (una cadena de caracteres) a uno o varios host, indicando o no el puerto de envío, estos métodos abren un socket al host y puerto indicado, envían el objeto correspondiente (Mensaje o InformacionAgente) y cierran el socket. Adicionalmente posee los métodos agregarMensajeRecibido que permite agregar un mensaje de otro host o del agente de configuración a la lista correspondiente, validando que el tamaño de la lista de mensajes sea menor o igual a la cantidad máxima de mensajes (atributo de mensajes máximos), ultimoMensaje que retorna el último mensaje agregado a las listas, buscarMensaje que retorna un mensaje dado un indice de la lista y eliminarMensaje que borra de la lista un mensaje particular.
+
+
+
+Pruebas Unitarias:     
+
+
+
+Se crearon las clases EscucharMensajes que permite abrir un puerto específico para la espera de mensajes por parte de los otros componentes de la infraestructura, esta clase permite almacenarlos en una lista simplemente enlazada para posteriormente consultarla en un momento determinado. Adicionalmente se creó la clase Mensaje permitiendo encapsular los mensajes enviados entre los componentes mediante atributos: Ip origen, fecha, hora, texto que permiten obtener una información más específica de los mensajes enviados.
 
 La librería posee una clase denominada InformacionAgente que permite recolectar un mensaje proveniente de los agentes de configuración, cada objeto perteneciente a esta clase posee los atributos pertenecientes a la información del sistema operativo (Uso del cpu, cantidad de procesos, memoria disponible) de redes (ip del dispositivo, puertos disponibles) y de la aplicación (nombre de la aplicación, numero de nodo). Al recibir un mensaje por parte de la librería se  compara que tipo de objeto se recibió: un objeto tipo Mensaje o uno tipo InformacionAgente, cada objeto es almacenado en una lista con una capacidad máxima de 5 objetos. Al superar esa cantidad, se eliminar el objeto más antiguo de la lista.
 
