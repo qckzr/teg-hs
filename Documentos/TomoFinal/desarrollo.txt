@@ -130,7 +130,7 @@ Se crearon dos clases:
 		1. Contiene los métodos necesarios para la recolección de información de diferente tipo (Sistema operativo, red y aplicación actual).
 	-Colaboración: InformacionAgente (Librería de mensajes).
 
-Desarrollo:
+Codificación:
 
 El agente de configuración se desarrolló mediante una aplicación en java que se ejecuta al iniciar cada Raspberry Pi. La Clase AgenteConfiguracion posee el atributo lib que hace referencia a la librería de mensajes desarrollada, se indica el puerto de escucha de los mensajes, ip del servidor central e interfaz de red activa del Raspberry Pi antes de iniciar el monitoreo de la información. Al iniciarse la librería, se abre un puerto distinto al puerto de escucha por defecto  debido a que este último estará ocupado por la aplicación actual de sistema distribuido. El agente mediante la clase Monitoreo y comandos del sistema operativo (UNIX / Linux) obtiene las siguientes informaciones: 
 
@@ -192,6 +192,34 @@ Se crearon cuatro clases:
 		3. Consultar la base de datos para obtener los parámetros de las aplicaciones, la información de cada nodo (ip, usuario, contraseña).
 		4. Insertar en la base de datos la información correspondiente a los mensajes entre los nodos, el ejecutable actual en el nodo, la información de los agentes de configuración. 
 	
+Codificación:
+
+Para el servidor central se empezó codificando la clase ConexionBD para permitir conexión a la base de datos. Al iniciar el objeto se requieren los datos de la conexión: Nombre de usuario, contraseña, número de puerto y dirección Ip. Se creó el método conectar<cursiva> que establecer la conexión entre la base de datos y el servidor central, el método hace uso del driver de conexión para el tipo de base de datos que se está utilizando, en este caso el driver jdbc pertenece a las base de datos oracle. Se tiene el método consultar que permite retornar los registros indicados a través de una consulta SQL (select), si la consulta es válida entonces se retorna las filas, en caso contrario se retorna vacío. Existe un método llamado consultarRegistro que permite retornar un único registro de la consulta enviada. La clase ConexionBD posee el método ejecutarQuery que permite correr un comando SQL envíado por parámetro, si el comando se ejecuta satisfactoriamente entonces se retorna verdadero, en caso contrario se retorna falso.
+
+La clase NodoActivo posee los atributos relacionados a cada nodo que se encuentre activo para una aplicación. Posee los atributos: Dirección Ip, usuario, nombre del ejecutable, id del nodo, fecha y hora de despliegue y numero de proceso del ejecutable.
+
+La clase GestionarInfraestructura extiende de la clase Thread por lo que implementa un hilo que espera por las instrucciones enviadas por el módulo de ciclo de vida para reflejarlas en los nodos. Para ello el método run posee un bucle infinito que chequea si existen mensajes disponibles en la librería de mensajes, ya sean mensajes pertenecientes a la clase "mensaje" (de información?) o al agente de configuración. Si existen mensajes de información entonces el servidor central realiza las siguientes actividades a través del método recibirMensaje:
+
+1. Mensaje ciclo de vida: El servidor central verifica si se trata de un mensaje proveniente del módulo de ciclo de vida, para ello chequea si el mensaje contiene el carácter '>' y una de las siguientes instrucciones:
+
+-eliminarTodos: Si el servidor central recibe esta instrucción significa que se deben deshacer de todos los nodos activos de la aplicación. Se utiliza el script EliminarTodos.sh para acceder a cada nodo y eliminar el ejecutable activo.
+
+-ejecutar: Si se recibe el mensaje 'ejecutar' significa que se quiere correr un ejecutable dentro de un nodo específico, se obtiene del mensaje el nombre del ejecutable y la dirección ip del nodo. El servidor central envía estos parámetros al método ejecutarAplicacion, este último busca los parámetros de ejecución del ejecutable usando el método buscarParametros, busca la ruta del ejecutable consultando la base de datos y el nombre del usuario asociado al ip del nodo utilizando el método nombreUsuarioNodo, de manera que se pueda correr el script 'ejecutarNodo.sh'.
+
+- eliminarAplicación: Al recibir este mensaje se obtiene el ip del nodo del complemento del mesaje enviado, se busca el número de proceso del ejecutable activo para el ip del nodo enviado y se traslada la información al método eliminarAplicacion el cual utiliza el script de sistema operativo EliminarNodo.sh
+
+- mensajeNodo: Si se recibe el mensaje 'mensajeNodo' entonces el servidor central a través de la librería de mensajes, el ip del nodo se recibe del mensaje enviado por el módulo de ciclo de vida de igual forma el mensaje a enviar.
+
+2. Id de proceso: El servidor central verifica si se trata de un mensaje proveniente de los nodos indicando el id de proceso del ejecutable actual, para ello se chequea que el mensaje contenga el carácter '<' luego se hace llamado al método agregarIdProceso pasando como parámetros la dirección ip del nodo quien envió el mensaje y su número de proceso. El método busca en la lista de nodos del servidor central el nodo que posea la dirección ip enviada por parámetro y le asocia el número de proceso enviado, la fecha y la hora de recepción. <se inserta en e_n>
+
+3. Mensaje de nodos: Si el mensaje no contiene los caracteres '>' o '<' entonces se trata de un mensaje enviado de un nodo hacia otro. El servidor central reenvía el mensaje hacia el módulo de monitoreo utilizando la librería de mensajes. <colocar el ip del servidor del módulo de monitoreo y puerto>.
+
+Se invoca el método insertarEnBd <cambiar nombre?> con el mensaje enviado por el nodo, el método inserta en la tabla mensaje_entre_nodos el mensaje con los valores: Id del nodo, id proceso, fecha, hora y mensaje.
+
+
+
+<servidor central poser path de scripts>
+<indicar que se usa la función Runtime.getRuntime().exec("comando")>
 
 
 
