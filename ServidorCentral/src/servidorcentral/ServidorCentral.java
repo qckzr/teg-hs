@@ -23,7 +23,7 @@ public class ServidorCentral {
             
             libreria = new LibreriaMensajes();
             //GestionarInfraestructura gestion = new GestionarInfraestructura(libreria,"hector","passw0rd","1521","192.168.1.200" );
-            GestionarInfraestructura gestion = new GestionarInfraestructura(libreria,"hector","passw0rd","1521","192.168.0.200" );
+            GestionarInfraestructura gestion = new GestionarInfraestructura(libreria,"hector","passw0rd","1521","192.168.1.200" );
             gestion.start();
             
     }

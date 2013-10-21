@@ -38,7 +38,7 @@ public final  class LibreriaMensajes {
         ipDestino = new ArrayList<String>();
         mensajesRecibidos = new ArrayList<Mensaje>();
         mensajesAgente = new ArrayList<InformacionAgente>();
-        ipOrigen = obtenerIp("192.168.0."); //CAMBIAR
+        ipOrigen = obtenerIp("192.168.1."); //CAMBIAR
         
     }
     
@@ -49,7 +49,7 @@ public final  class LibreriaMensajes {
         ipDestino = new ArrayList<String>();
         mensajesRecibidos = new ArrayList<Mensaje>();
         mensajesAgente = new ArrayList<InformacionAgente>();
-        ipOrigen = obtenerIp("192.168.0.");
+        ipOrigen = obtenerIp("192.168.1.");
         
     }
     
@@ -57,7 +57,7 @@ public final  class LibreriaMensajes {
         ipDestino = new ArrayList<String>();
         mensajesRecibidos = new ArrayList<Mensaje>();
         mensajesAgente = new ArrayList<InformacionAgente>();
-        ipOrigen = obtenerIp("192.168.0.");
+        ipOrigen = obtenerIp("192.168.1.");
     }
 
     public static EscucharMensajes getHiloDeEscucha() {

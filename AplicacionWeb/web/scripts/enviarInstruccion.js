@@ -45,7 +45,7 @@
    $(".iniciar").click(function(){
        var id = this.id;
        $.post('CicloDeVidaServlet',{idEjecutable:id,instruccion:"iniciar"},function(responseText) { 
-                        alert ("Se inicio el nodo con el ejecutable: "+id);      
+            //            alert ("Se inicio el nodo con el ejecutable: "+id);      
                         return;
                     }); 
    //   $.post('EjecutableNodoServlet',{idAplicacion:value},function(responseText) { 

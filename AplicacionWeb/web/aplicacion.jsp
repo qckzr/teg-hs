@@ -46,8 +46,34 @@
                     }); 
 
         });
+        
+      
+      
+         
+               function  botton1(){
+                   $('.iniciar.1').click();
+                };
+                function  botton2(){
+                   $('.iniciar.2').click();
+                };
+                function  botton3(){
+                   $('.iniciar.3').click();
+                };
+                function  botton4(){
+                   $('.iniciar.4').click();
+                };
+   
+   window.setTimeout( botton1, 1000 );
+   window.setTimeout( botton2, 4000 );
+   window.setTimeout( botton3, 7000 );
+   window.setTimeout( botton4, 10000 );
+   
+              });
+
+            
+
        
-    });
+    
             
   </script>
     </head>
@@ -146,7 +172,7 @@
                                 <c:set var="evento3" value="MENSAJE"/> 
                                     <c:choose>
                                         <c:when test="${row.nombre == evento1}">
-                                            <input type="button" class="iniciar button btn" id="${ejecutable[0]}" value="Iniciar"/>
+                                            <input type="button" class="iniciar ${ejec} button btn" id="${ejecutable[0]}" value="Iniciar"/>
                                         </c:when>
                                         <c:when test="${row.nombre == evento2}">
                                             <input type="button"  class="detener button btn" id="${ejecutable[0]}" value="Detener"/>
