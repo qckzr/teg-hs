@@ -20,9 +20,12 @@
    });
    $(".detener").click(function(){
        
-       var id = this.id;
+      var id = this.id;
+      $('#'+id+'.iniciar').removeAttr("disabled");
+      $('#'+id+'.detener').attr("disabled", true);
+      $('#'+id+'.enviar').attr("disabled", true);
+      $('#mensaje'+id).attr("disabled", true);
       $.post('CicloDeVidaServlet',{idEjecutable:id,instruccion:"detener"},function(responseText) { 
-                        alert ("Se Detuvo el nodo con el ejecutable: "+id);      
                         return;
                     }); 
    });
@@ -44,18 +47,21 @@
    });
    $(".iniciar").click(function(){
        var id = this.id;
+       $('#'+id+'.detener').removeAttr("disabled");
+       $('#'+id+'.enviar').removeAttr("disabled");
+       $('#mensaje'+id).removeAttr("disabled");
        $.post('CicloDeVidaServlet',{idEjecutable:id,instruccion:"iniciar"},function(responseText) { 
-            //            alert ("Se inicio el nodo con el ejecutable: "+id);      
+        
                         return;
                     }); 
-   //   $.post('EjecutableNodoServlet',{idAplicacion:value},function(responseText) { 
-     //                   $('#node').html(responseText);         
-       //                 return;
-       
-       //             }); 
+   
    });
    
-   $(".eliminarTodo").click(function(){
+   $("#eliminarTodo").click(function(){
+      $('.iniciar').removeAttr("disabled");
+      $('.detener').attr("disabled", true);
+      $('.enviar').attr("disabled", true);
+      $('.mensaje').attr("disabled", true);
       $.post('CicloDeVidaServlet',{instruccion:"eliminarTodo"},function(responseText) { 
                         alert("Se eliminó todo el ambiente");
                        return;

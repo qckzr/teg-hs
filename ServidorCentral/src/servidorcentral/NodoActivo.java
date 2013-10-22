@@ -11,12 +11,14 @@ package servidorcentral;
 public class NodoActivo {
     
    private String ip;
-   private String idProceso;
+   private String idProceso = "";
    private String id;
    private String nombreEjecutable;
    private String fecha;
    private String hora;
    private String usuario;
+   
+   
 
     public String getIdProceso() {
         return idProceso;

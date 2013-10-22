@@ -194,13 +194,13 @@ public class GestionarInfraestructura extends Thread{
         
         try {
             Process p = Runtime.getRuntime().exec(pathScripts+"eliminarTodosNodos.sh "+parametros);
-            nodos.remove(nodo);
                 
         } catch (IOException ex) {
             Logger.getLogger(GestionarInfraestructura.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         }
+        nodos = new ArrayList<>();
         return true;
     }
     
@@ -251,6 +251,8 @@ public class GestionarInfraestructura extends Thread{
     
     public void recibirMensaje(Mensaje mensaje){
         String texto = mensaje.getMensaje();
+        String a = "";
+        String b = "";
         if (texto.contains(">")){
             String evento = texto.substring(0,texto.indexOf(">"));
             if (evento.contentEquals("eliminarTodos"))
@@ -275,9 +277,12 @@ public class GestionarInfraestructura extends Thread{
 
         }
         else if (texto.contains("<")){
-           agregarIdProceso(mensaje.getIpOrigen(),texto.substring(
-                   texto.indexOf("<")+1, texto.length()));
-           insertarE_N(texto.substring(texto.indexOf("<")+1, texto.length()));
+                a = texto.substring(
+                   texto.indexOf("<")+1, texto.length());
+           agregarIdProceso(mensaje.getIpOrigen(),a);
+           b = texto.substring(
+                   texto.indexOf("<")+1, texto.length());
+           insertarE_N(b);
         }
         
         else{

@@ -52,15 +52,19 @@
          
                function  botton1(){
                    $('.iniciar.1').click();
+                   $('.iniciar.1').attr("disabled", true);
                 };
                 function  botton2(){
                    $('.iniciar.2').click();
+                   $('.iniciar.2').attr("disabled", true);
                 };
                 function  botton3(){
                    $('.iniciar.3').click();
+                   $('.iniciar.3').attr("disabled", true);
                 };
                 function  botton4(){
                    $('.iniciar.4').click();
+                   $('.iniciar.4').attr("disabled", true);
                 };
    
    window.setTimeout( botton1, 1000 );
@@ -178,11 +182,11 @@
                                             <input type="button"  class="detener button btn" id="${ejecutable[0]}" value="Detener"/>
                                         </c:when>
                                         <c:when test="${row.nombre == evento3}">
-                                            <input type="text" placeholder="Mensaje" class="input-small" id="mensaje${ejecutable[0]}"/>
+                                            <input type="text" placeholder="Mensaje" class="mensaje input-small" id="mensaje${ejecutable[0]}"/>
                                                 <input type="button" class="enviar btn" id="${ejecutable[0]}" value="Enviar"/>
                                         </c:when>
                                         <c:otherwise>
-                                            <input type="buton" class="${row.nombre}" id="${ejecutable[0]}" value="${row.nombre}"/>
+                                            <input type="button" class="${row.nombre}" id="${ejecutable[0]}" value="${row.nombre}"/>
                                             <script type="text/javascript" src="${row.pathscript}"></script>
                                         </c:otherwise>
                                     </c:choose>
@@ -206,6 +210,8 @@
 			<ul class="pager">
 			<li class="previous">
 				<a href="#" class="volver">&larr; Regresar</a>
+                                <input type="button"  id="eliminarTodo" value="Eliminar Todos"/>
+                                
 			</li>
 			</ul>
                      <input type="hidden" id="idTopico" value="${idTopico}"/>
