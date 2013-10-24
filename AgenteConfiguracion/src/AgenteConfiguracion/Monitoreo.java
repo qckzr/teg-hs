@@ -16,7 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ *Clase que permite recolectar la información con relación al sistema operativo
+ * redes y aplicaciones para posteriormente enviarla hacia el servidor central.
  * @author hectorsam
  */
 public class Monitoreo extends Thread{
@@ -63,6 +64,10 @@ public class Monitoreo extends Thread{
     
     
     
+    /**
+     * Método que permite ejecutar la recolección de información en un tiempo
+     * indicado.
+     */
     @Override
     public void run(){
         
@@ -72,8 +77,10 @@ public class Monitoreo extends Thread{
                
                 enviarInformacion();    
                 Monitoreo.sleep(TIEMPO_SLEEP);
+                
             } catch (InterruptedException ex) {
-                Logger.getLogger(Monitoreo.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Monitoreo.class.getName()).
+                        log(Level.SEVERE, null, ex);
             }
             }
        
@@ -81,6 +88,9 @@ public class Monitoreo extends Thread{
     
     
     
+    /**
+     * Método que permite enviar la información recolectada al servidor central.
+     */
     public void enviarInformacion(){
         
         InformacionAgente informacion = new InformacionAgente();
@@ -90,59 +100,79 @@ public class Monitoreo extends Thread{
         informacion.setDireccionIp(direccionIp(intefaz));
         informacion.setPuertosDisponibles(puertosDiponibles());
         informacion.setIdProceso(idProceso());
-        if (comprobarAplicacionActiva()==true){
+        
+        if (comprobarAplicacionActiva() == true){
             informacion.setAplicacionActiva(aplicacionActiva("localhost"));
             informacion.setNumeroNodo(numeroNodo("localhost"));
         }
         libreria.enviarMensaje(informacion);
         
     }
+    
+    
+    /**
+     * Método que permite conocer si se encuentra en ejecución una aplicación
+     * en el nodo.
+     * @return True si existe conexión. False en caso contrario.
+     */
     public boolean comprobarAplicacionActiva(){
-        
+        Socket s;
+        boolean retorno = false;
         try {
-            Socket s = new Socket("localhost",libreria.getPuerto());
+            s = new Socket("localhost",libreria.getPuerto());
             s.close();
-        
+            retorno = true;
         } catch (UnknownHostException ex) {
-            return false;
+            ex.getMessage();
         } catch (SocketException ex){
-            return false;
+            ex.getMessage();
         } catch (IOException ex) {
-            return  false;
+            ex.getMessage();
         } 
-        return true;
+        return retorno;
         
     }
     
-    
+    /**
+     * Método que devuelve la cantidad de procesos que se encuentran activos
+     * en el sistema.
+     * @return  La cantidad de procesos activos.
+     */
     public String procesosActivos(){
-        
+        String cantidad = "";
          try {
             String line;
             Process p = Runtime.getRuntime().exec("ps -e");
             int procesos=0;
-            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            while ((line = input.readLine()) != null) 
+            BufferedReader input = new BufferedReader(new InputStreamReader
+                                            (p.getInputStream()));
+            while ((line = input.readLine()) != null) {
                 procesos++;
+            }
             input.close();
-            return String.valueOf(procesos-1);
+            cantidad = String.valueOf(procesos-1);
         } 
          catch (Exception err) {
             err.printStackTrace();
         }
-         return "";
+         return cantidad;
     }
     
+    /**
+     * Método que devuelve la cantidad de memoria disponible en el nodo.
+     * @return La cantidad de memoria disponible en mb.
+     */
     public String memoriaDisponible(){
+        String memoria = "";
         try {
             String line;
             Process p = Runtime.getRuntime().exec("free -m");
-            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            BufferedReader input = new BufferedReader(new InputStreamReader
+                                        (p.getInputStream()));
             int i=0;
             while ((line = input.readLine()) != null) {
                 if (i==2){
-                    String memoria = line.substring(37,40);
-                    return memoria;
+                    memoria = line.substring(37,40);
                 }
                 i++;
             }
@@ -150,59 +180,78 @@ public class Monitoreo extends Thread{
         } catch (Exception err) {
             err.printStackTrace();
         }
-        return "";
+        return memoria;
     }
     
-    
+    /**
+     * Método que devuelve el porcentaje de uso del cpu del nodo.
+     * @return El porcentaje utilizado de cpu por el nodo.
+     */
     public String usoCpu(){
+        String porcentajeCpu = "";
+        int i = 0;
+        float cpu = 0;
         try {
             String line;
             Process p = Runtime.getRuntime().exec("ps -eo pcpu");
-            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            int i=0; float cpu=0;
+            BufferedReader input = new BufferedReader(new 
+                    InputStreamReader(p.getInputStream()));
+
             while ((line = input.readLine()) != null) {
-                if (i>1)
-                    if (Float.valueOf(line)>0)
+                if (i>1){
+                    if (Float.valueOf(line)>0){
                         cpu = cpu + Float.valueOf(line);
-                
+                    }
+                }
                 i++;
             }
             input.close();
-            return String.valueOf(cpu);
+            porcentajeCpu = String.valueOf(cpu);
 
         } catch (Exception err) {
             err.printStackTrace();
         } 
-            return "";
+            return porcentajeCpu;
     }
     
     
+    /**
+     * Método que devuelve la dirección ip del nodo.
+     * @param intefaz Interfaz de red para realizar la consulta de su dirección.
+     * @return La dirección ip del nodo.
+     */
     public String direccionIp(String intefaz){
+        String ip = "";
         try {
-            String line,ip = "";
+            String line = "";
             Process p = Runtime.getRuntime().exec("/sbin/ifconfig "+intefaz);
             BufferedReader input =
                 new BufferedReader(new InputStreamReader(p.getInputStream()));
-            int i=0;
+            int i = 0;
             while ((line = input.readLine()) != null) {
-                if (i==1){
-                    ip=line.substring(line.indexOf(":")+1,
+                if (i == 1){
+                    ip = line.substring(line.indexOf(":")+1,
                     line.indexOf(' ',line.indexOf(':')));
                     break;
                 }
                 i++;
             }
             input.close();  
-            return ip;
         } catch (Exception err) {
             err.printStackTrace();
         } 
-        return "";
+        return ip;
     }
     
+    /**
+     * Método que devuelve los puertos que se encuentran disponibles en el 
+     * nodo.
+     * @return Los puertos disponibles junto a su protocolo y nombre de servicio.
+     */
     public String puertosDiponibles(){
+        String puertos = "";
         try {
-            String line,puertos="";
+            String line = "";
             Process p = Runtime.getRuntime().exec("nmap localhost");
             BufferedReader input =
                 new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -215,47 +264,74 @@ public class Monitoreo extends Thread{
                 i++;
             }
              input.close();
-             return "Puertos abiertos: \n"+puertos;
+             puertos = "Puertos abiertos: \n"+puertos;
         } catch (Exception err) {
             err.printStackTrace();
         } 
-        return "";
+        return puertos;
     }
     
+    /**
+     * Método que devuelve la aplicación activa que se encuentra en el nodo.
+     * @param ip La dirección ip del nodo.
+     * @return El nombre de la aplicación.
+     */
     public String aplicacionActiva(String ip){
-        
+        String aplicacion = "";
         libreria.enviarMensaje("aplicacion",ip);
         try {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
             Logger.getLogger(Monitoreo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "Aplicacion: "+libreria.ultimoMensaje().getMensaje();
+        if (libreria.ultimoMensaje() != null){
+            aplicacion = "Aplicacion: "+libreria.ultimoMensaje().getMensaje();
+        }
+        return aplicacion;
         
     }
     
+    /**
+     * Método que devuelve el número de nodo de la aplicación en ejecución.
+     * @param ip La dirección ip del Nodo.
+     * @return El número de nodo de la aplicación.
+     */
     public String numeroNodo (String ip){
         
+        String numeroNodo = "";
         libreria.enviarMensaje("nodo",ip);
         try {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
-            Logger.getLogger(Monitoreo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Monitoreo.class.getName()).
+                    log(Level.SEVERE, null, ex);
         }
-        return "Nodo #: "+libreria.ultimoMensaje().getMensaje();
+        if (libreria.ultimoMensaje() != null){
+            numeroNodo = "Nodo #: "+libreria.ultimoMensaje().getMensaje();
+        }
+        return  numeroNodo;
         
     }
     
+    /**
+     * Método que devuelve el número de proceso del Agente de configuración
+     * en el nodo.
+     * @return El número de proceso del Agente.
+     */
     public String idProceso(){
         
-        String line, id = null;
+        String line;
+        String id = "";
+        BufferedReader input;
         try {
            
             Process p = Runtime.getRuntime().exec("ps -ax");
-            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            
             while ((line = input.readLine()) != null) {
+                
                 if (line.contains("java -jar Agente")){
-                  id =line.substring(0,5);
+                  id = line.substring(0,5);
                   for (int i = 0; i < id.length(); i++) {
                     if (id.charAt(i)!=' '){
                         id = id.substring(i,id.length());
@@ -267,7 +343,6 @@ public class Monitoreo extends Thread{
                 
             }          
             input.close();
-            return id;
              } catch (Exception err) {
             err.printStackTrace();
         }

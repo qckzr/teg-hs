@@ -7,12 +7,16 @@ package desafios;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
 
 /**
- *
+ * Clase que implementa un hilo que  permite esperar por los mensajes enviados 
+ * a través de Sockets seguros.
  * @author sam
  */
 public class HiloSSL extends Thread{
@@ -21,13 +25,20 @@ public class HiloSSL extends Thread{
     private LogicaAplicacion logicaAplicacion;
     private SSLServerSocket serverSocket;
     
-    
+    /**
+     * Constructor de la clase, inicia el servidor en el puerto indicado en 
+     * la lógica.
+     * @param logicaAplicacion 
+     */
     public HiloSSL(LogicaAplicacion logicaAplicacion){
         this.logicaAplicacion = logicaAplicacion;
         iniciarServidor(logicaAplicacion.getPuerto());
     }
     
     
+    /**
+     * Método que permite escuchar constantemente.
+     */
     @Override
     public void run(){
         
@@ -37,7 +48,11 @@ public class HiloSSL extends Thread{
         
     }
     
-    
+   /**
+    * Método que inicia el socket servidor en un puerto específico.
+    * @param puerto El puerto para iniciar la escucha
+    * @return True si se crea el socket servidor. False en caso contrario.
+    */ 
    public boolean iniciarServidor(int puerto){
          
         SSLServerSocketFactory fact = (SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
@@ -52,73 +67,74 @@ public class HiloSSL extends Thread{
         
     }
    
+   /**
+    * Método que espera por la espera de un cliente para enviarle el archivo
+    * deseado.
+    */
    public void escucha()
     {
-        try
-        {
-            // Se abre el socket servidor
-       
+        SSLSocket cliente;
+        ObjectInputStream objectInputStream;
+        try{
+           
+            cliente = (SSLSocket) serverSocket.accept();
 
-            // Se espera un cliente
-            SSLSocket cliente = (SSLSocket) serverSocket.accept();
-
-            // Llega un cliente.
             System.out.println("Aceptado cliente");
             logicaAplicacion.getLibreriaMensajes().enviarMensaje("Aceptado cliente");
-
-            // Cuando se cierre el socket, esta opci�n hara que el cierre se
-            // retarde autom�ticamente hasta 10 segundos dando tiempo al cliente
-            // a leer los datos.
             cliente.setSoLinger(true, 10);
 
-            // Se lee el mensaje de petici�n de fichero del cliente.
-            ObjectInputStream ois = new ObjectInputStream(cliente
-                    .getInputStream());
-            Object mensaje = ois.readObject();
+            objectInputStream = new ObjectInputStream(cliente.getInputStream());
+            Object mensaje = objectInputStream.readObject();
             if (logicaAplicacion.isArchivoOcupado()){
                 while (true){
                     System.out.println("Archivo ocupado...!");
-                    logicaAplicacion.getLibreriaMensajes().enviarMensaje("Archivo ocupado...!");
+                    logicaAplicacion.getLibreriaMensajes().
+                            enviarMensaje("Archivo ocupado...!");
                     Thread.sleep(1000);
                     if (!logicaAplicacion.isArchivoOcupado())
                         break;
                 }
-            }
-            else{
+            } else{
                 
-             logicaAplicacion.setArchivoOcupado(true);
-            // Si el mensaje es de petici�n de fichero
-            if (mensaje instanceof MensajeDameFichero)
-            {
-                // Se muestra en pantalla el fichero pedido y se envia
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(cliente.getOutputStream());
-                logicaAplicacion.enviaFichero(((MensajeDameFichero) mensaje).nombreFichero,
-                        objectOutputStream);
-                logicaAplicacion.enviarHash(((MensajeDameFichero) mensaje).nombreFichero,
-                objectOutputStream);
-                logicaAplicacion.setArchivoOcupado(false);
-            }
-            else
-            {
-                // Si no es el mensaje esperado, se avisa y se sale todo.
+                logicaAplicacion.setArchivoOcupado(true);
+                if (mensaje instanceof MensajeDameFichero){
+                    enviar(cliente, (MensajeDameFichero) mensaje);
+                
+                } else{
+                
                 System.err.println (
                         "Mensaje no esperado "+mensaje.getClass().getName());
-            }
+                }
             
-            // Cierre de sockets 
-            cliente.close();
+                cliente.close();
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
+   
+   
+   /**
+    * Método que envía el archivo hacia el cliente.
+    * @param cliente El socket por donde enviará la información.
+    * @param mensajeDameFichero El mensaje a enviar.
+    */
+   public void enviar(Socket cliente, MensajeDameFichero mensajeDameFichero){
 
-    /**
-     * Env�a el fichero indicado a trav�s del ObjectOutputStream indicado.
-     * @param fichero Nombre de fichero
-     * @param oos ObjectOutputStream por el que enviar el fichero
-     */
+        ObjectOutputStream objectOutputStream = null;
+        try {            
+            objectOutputStream = new ObjectOutputStream(cliente.getOutputStream());    
+            logicaAplicacion.enviaFichero(((MensajeDameFichero) mensajeDameFichero)
+                    .nombreFichero,objectOutputStream);
+            logicaAplicacion.enviarHash(((MensajeDameFichero) mensajeDameFichero).
+                    nombreFichero,objectOutputStream);
+            logicaAplicacion.setArchivoOcupado(false);
+        } catch (IOException ex) {
+            Logger.getLogger(HiloSSL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+   }
+
    
     
    

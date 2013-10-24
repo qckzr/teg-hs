@@ -12,7 +12,7 @@ import java.util.Date;
  */
 
 /**
- *
+ *Clase encapsuladora del mensaje a enviar
  * @author Hector
  */
 public class Mensaje implements Serializable{
@@ -22,7 +22,11 @@ public class Mensaje implements Serializable{
     private String fecha;
     private String hora;
     private String ipOrigen;
-
+/**
+ * Constructor de la clase 
+ * @param ipOrigen Dirección ip del host quien envia el mensaje.
+ * @param mensaje Mensaje a enviar (texto)
+ */
     public Mensaje(String ipOrigen,String mensaje) {
 
         Date d = new Date();

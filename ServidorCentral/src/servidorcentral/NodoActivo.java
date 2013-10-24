@@ -5,7 +5,8 @@
 package servidorcentral;
 
 /**
- *
+ * Clase que permite guardar la información relacionada con un nodo que se 
+ * encuentra ejecutando una aplicación de sistema distribuido.
  * @author hector
  */
 public class NodoActivo {

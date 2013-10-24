@@ -8,7 +8,7 @@ import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
 
 /**
- *
+ * Clase que verifica si han llegado mensajes a través de la librería de mensajes.
  * @author sam
  */
 public class EscucharClientes extends Thread{
@@ -49,7 +49,10 @@ public class EscucharClientes extends Thread{
         this.libreriaMensajes = libreriaMensajes;
     }
     
- 
+    /**
+     * Método que permite verificar constantemente si llegaron mensajes en la 
+     * librería de mensajes.
+     */
     @Override
     public void run(){
         
@@ -66,7 +69,10 @@ public class EscucharClientes extends Thread{
         }
     }
     
-    
+    /**
+     * Método para eliminar el hilo.
+     * @return True.
+     */
     public boolean kill(){
         control = false;
         return true;

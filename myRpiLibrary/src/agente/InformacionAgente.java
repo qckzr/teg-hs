@@ -7,28 +7,43 @@ package agente;
 import java.io.Serializable;
 
 /**
- *
+ *Clase que almacena la información perteneciente a un agente.
+ * 
  * @author hectorsam
  */
 public class InformacionAgente implements Serializable{
     
     
-    private String procesosActivos="";
-    private String memoriaDisponible="";
-    private String usoCpu="";
-    private String direccionIp="";
-    private String puertosDisponibles="";
-    private String aplicacionActiva="";
-    private String numeroNodo="";
-    private String idProceso="";
+    private String procesosActivos = "";
+    private String memoriaDisponible = "";
+    private String usoCpu = "";
+    private String direccionIp = "";
+    private String puertosDisponibles = "";
+    private String aplicacionActiva = "";
+    private String numeroNodo = "";
+    private String idProceso = "";
     
 
     public InformacionAgente() {
     }
 
   
+    /**
+     * Constructor de la clase 
+     * 
+     * @param procesosActivos Cantidad de procesos activos en el raspberry pi
+     * @param memoriaDisponible Cantidad de memoria disponible (mb) en el sistema
+     * @param usoCpu Porcentaje del cpu que se encuentra en uso.
+     * @param direccionIp Dirección ip del nodo
+     * @param puertosDisponibles Puertos abiertos en el sistema
+     * @param aplicacionActiva Aplicación de Sistema Distribuido que se encuentra activa
+     * @param numeroNodo Numero de Nodo de la aplicación
+     * @param idProceso Número de proceso del ejecutable
+     */
     
-    public InformacionAgente(String procesosActivos, String memoriaDisponible, String usoCpu, String direccionIp, String puertosDisponibles, String aplicacionActiva, String numeroNodo, String idProceso, String ipNodo) {
+    public InformacionAgente(String procesosActivos, String memoriaDisponible,
+            String usoCpu, String direccionIp, String puertosDisponibles, 
+            String aplicacionActiva, String numeroNodo, String idProceso) {
         this.procesosActivos = procesosActivos;
         this.memoriaDisponible = memoriaDisponible;
         this.usoCpu = usoCpu;

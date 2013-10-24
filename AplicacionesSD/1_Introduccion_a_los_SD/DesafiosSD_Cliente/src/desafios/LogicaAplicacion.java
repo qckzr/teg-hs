@@ -15,11 +15,12 @@ import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
 /**
- *
- * @author sam
+ * Clase que proporciona la lógica del tópico Desafíos de los SD.
+ * @author Héctor Sam
  */
 public class LogicaAplicacion {
 
+    private static LogicaAplicacion instancia;
     private LibreriaMensajes libreriaMensajes;
     private int puertoAgente;
     private DatosAplicacion datosAplicacion;
@@ -35,11 +36,51 @@ public class LogicaAplicacion {
     public int getPuerto(){
         return PUERTO;
     }
-    
-    
-    
 
-    public LogicaAplicacion(LibreriaMensajes libreriaMensajes, DatosAplicacion datosAplicacion,int puertoAgente, String ipServidor) {
+    public LibreriaMensajes getLibreriaMensajes() {
+        return libreriaMensajes;
+    }
+
+    public void setLibreriaMensajes(LibreriaMensajes libreriaMensajes) {
+        this.libreriaMensajes = libreriaMensajes;
+    }
+
+    public int getPuertoAgente() {
+        return puertoAgente;
+    }
+
+    public void setPuertoAgente(int puertoAgente) {
+        this.puertoAgente = puertoAgente;
+    }
+
+    public DatosAplicacion getDatosAplicacion() {
+        return datosAplicacion;
+    }
+
+    public void setDatosAplicacion(DatosAplicacion datosAplicacion) {
+        this.datosAplicacion = datosAplicacion;
+    }
+
+    public String getIpServidor() {
+        return ipServidor;
+    }
+
+    public void setIpServidor(String ipServidor) {
+        this.ipServidor = ipServidor;
+    }
+    
+    
+    
+    
+    /**
+     * Constructor de la clase
+     * @param libreriaMensajes Librería de mensajes.
+     * @param datosAplicacion Datos de la aplicación.
+     * @param puertoAgente Puerto de escucha del agente.
+     * @param ipServidor Dirección ip del servidor para el socket SSL.
+     */
+    private LogicaAplicacion(LibreriaMensajes libreriaMensajes, 
+            DatosAplicacion datosAplicacion,int puertoAgente, String ipServidor) {
         this.libreriaMensajes = libreriaMensajes;
         this.datosAplicacion = datosAplicacion;
         this.puertoAgente = puertoAgente;
@@ -47,94 +88,119 @@ public class LogicaAplicacion {
         
     }
     
+    public static LogicaAplicacion dameLogica(){
+        if (instancia == null)
+            instancia = new LogicaAplicacion(null, null, PUERTO,null);
+        return instancia;     
+    }
+    
+    /**
+     * Método que chequea el tipo de mensaje recibido.
+     * @param mensaje El mensaje recibido.
+     * @return True si es un mensaje del agente. False en caso contrario.
+     */
     public boolean verificarMensajeRecibido(Mensaje mensaje){
-        
+        boolean retorno = false;
         switch (mensaje.getMensaje()){
             case "aplicacion": 
-                if (libreriaMensajes.enviarMensaje(datosAplicacion.getNombreAplicacion(),"localhost", puertoAgente))
-                    return true;
+                if (libreriaMensajes.enviarMensaje(
+                        datosAplicacion.getNombreAplicacion(),"localhost",
+                        puertoAgente))
+                    retorno = true;
                 break;
             case "nodo":
-                if (libreriaMensajes.enviarMensaje(datosAplicacion.getNumeroNodoAplicacion(),"localhost",puertoAgente))
-                    return true;
+                if (libreriaMensajes.enviarMensaje(
+                        datosAplicacion.getNumeroNodoAplicacion(),"localhost",
+                        puertoAgente))
+                    retorno = true;
                 break;
             default:{
                 
-                System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
+                System.out.println("Se ha recibido el mensaje: \""
+                        +mensaje.getMensaje()+"\" proveniente del host: "
+                        +mensaje.getIpOrigen());
                 if (mensaje.getMensaje().contains("archivo:")){
                     libreriaMensajes.enviarMensaje("Solicitando archivo...");
                     eliminarArchivos();
-                    solicitarArchivo(retornarArchivo(mensaje.getMensaje()), ipServidor, PUERTO);    
+                    solicitarArchivo(retornarArchivo(mensaje.getMensaje()),
+                            ipServidor, PUERTO);    
                 }
                 
             }
         };
-        return false;
+        return retorno;
     }
-     
+    
+    /**
+     * Método que permite enviar el número de proceso al servidor central.
+     * @param ipServidor Dirección Ip del servidor central.
+     */
     public void enviarId(String ipServidor){
-        libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),ipServidor);
+        libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),
+                ipServidor);
     }
     
    
 
-   
+   /**
+    * Método que permite establecer una conexión segura entre dos hosts a través
+    * de Sockets SSL.
+    * @param ip La dirección ip del servidor.
+    * @param puerto El puerto del servidor.
+    * @return True si se realiza la conexión. False en caso contrario.
+    */
     public boolean conectarse(String ip,int puerto) {
   
-      // Obtenemos el objeto de tipo Factory para crear sockets SSL
-       if (socketCliente==null || socketCliente.isClosed()){
+       boolean retorno = false;
+       if (socketCliente == null || socketCliente.isClosed()){
             SSLSocketFactory fact = (SSLSocketFactory)SSLSocketFactory.getDefault();
             try {
                 socketCliente = (SSLSocket)fact.createSocket( ip,puerto );
                 System.out.println("Clase: "+socketCliente.getClass());
                 libreriaMensajes.enviarMensaje("Clase: "+socketCliente.getClass());
                 
-                return true;
+                retorno = true;
             } catch (IOException ex) {
-                Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
-                return false;
+                Logger.getLogger(LogicaAplicacion.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                retorno = false;
             }
         }
-           else return true;
+        return  retorno;
     }
   
-  public void solicitarArchivo(String fichero, String servidor, int puerto)
-    {
-        try
-        {
-            // Se abre el socket.
+    /**
+     * Método que permite solicitar un archivo particular al servidor.
+     * @param fichero El archivo a buscar en el servidor.
+     * @param servidor La dirección ip del servidor.
+     * @param puerto El puerto de escucha.
+     */
+  public void solicitarArchivo(String fichero, String servidor, int puerto){
+      
+        try{
             conectarse(ipServidor,PUERTO);
-            // Se env�a un mensaje de petici�n de fichero.
+
             ObjectOutputStream oos = new ObjectOutputStream(socketCliente
                     .getOutputStream());
             MensajeDameFichero mensaje = new MensajeDameFichero();
             mensaje.nombreFichero = fichero;
             oos.writeObject(mensaje);
 
-            // Se abre un fichero para empezar a copiar lo que se reciba.
             FileOutputStream fos = new FileOutputStream(mensaje.nombreFichero);
 
-            // Se crea un ObjectInputStream del socket para leer los mensajes
-            // que contienen el fichero.
             ObjectInputStream ois = new ObjectInputStream(socketCliente
                     .getInputStream());
             MensajeTomaFichero mensajeRecibido;
             Object mensajeAux;
-            do
-            {
-                // Se lee el mensaje en una variabla auxiliar
+            do{
+                
                 mensajeAux = ois.readObject();
                 
-                // Si es del tipo esperado, se trata
-                if (mensajeAux instanceof MensajeTomaFichero)
-                {
+                if (mensajeAux instanceof MensajeTomaFichero){
                     mensajeRecibido = (MensajeTomaFichero) mensajeAux;
                     fos.write(mensajeRecibido.contenidoFichero, 0,
                             mensajeRecibido.bytesValidos);
-                } else
-                {
-                    // Si no es del tipo esperado, se marca error y se termina
-                    // el bucle
+                } else{
                     System.err.println("Mensaje no esperado "
                             + mensajeAux.getClass().getName());
                     break;
@@ -146,49 +212,61 @@ public class LogicaAplicacion {
             System.out.println("Hash recibido: "+hash);
             libreriaMensajes.enviarMensaje("Hash recibido: "+hash);
             compararHash(hash);
-            // Se cierra socket y fichero
             fos.close();
             ois.close();
             socketCliente.close();
           
-        } catch (Exception e)
-        {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
   
+  /**
+   * Método que permite obtener el hash MD5 de un archivo.
+   * @param archivo El archivo al que se le quiere obtener el hash
+   * @return El hash md5 del archivo.
+   */
   public String hashArchivo(String archivo){
         FileInputStream fis = null;
+        String datafile;
+        MessageDigest messageDigest;
+        byte[] dataBytes;
+        int nread = 0; 
+        byte[] mdbytes;
+        StringBuffer stringBuffer;
         try {
-            String datafile = archivo;
-            MessageDigest md = MessageDigest.getInstance("MD5");
+            datafile = archivo;
+            messageDigest = MessageDigest.getInstance("MD5");
             fis = new FileInputStream(datafile);
-            byte[] dataBytes = new byte[1024];
-            int nread = 0; 
+            dataBytes = new byte[1024];
             while ((nread = fis.read(dataBytes)) != -1) {
-            md.update(dataBytes, 0, nread);
+                messageDigest.update(dataBytes, 0, nread);
             }
 
-            byte[] mdbytes = md.digest();
-
-             //convert the byte to hex format
-            StringBuffer sb = new StringBuffer("");
+            mdbytes = messageDigest.digest();
+            stringBuffer = new StringBuffer("");
             for (int i = 0; i < mdbytes.length; i++) {
-                sb.append(Integer.toString((mdbytes[i] & 0xff) + 0x100, 16).substring(1));
+                stringBuffer.append(Integer.toString((mdbytes[i] & 0xff) 
+                        + 0x100, 16).substring(1));
             }
 
-         //   System.out.println("Digest(in hex format):: " + sb.toString());
             
-            return sb.toString();
+            return stringBuffer.toString();
             } catch (IOException ex) {
-                Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LogicaAplicacion.class.getName()).
+                        log(Level.SEVERE, null, ex);
             } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LogicaAplicacion.class.getName()).
+                        log(Level.SEVERE, null, ex);
             } 
         return "";
     }
   
-  
+    /**
+     * Método que permite devolver un archivo obtenido por el mensaje recibido.
+     * @param mensaje El mensaje con el nombre del archivo.
+     * @return El nombre del archivo actual
+     */
     public String retornarArchivo(String mensaje){
         String archivo = mensaje.substring(mensaje.indexOf(":")+1);
         switch (archivo){
@@ -204,7 +282,9 @@ public class LogicaAplicacion {
         return "";
     }
     
-    
+    /**
+     * Método que permite eliminar los archivos del nodo actual.
+     */
     public void eliminarArchivos(){
         File file1 = new File(archivo1);
         if (file1.exists())
@@ -217,6 +297,10 @@ public class LogicaAplicacion {
             file3.delete();
     }
     
+    /**
+     * Método que permite comparar el hash recibido con un hash del archivo.
+     * @param hashActual El hash recibido por parte del servidor.
+     */
     public void compararHash(String hashActual){
         String hashArchivoActual = "";
         switch (archivoActual){
@@ -232,8 +316,7 @@ public class LogicaAplicacion {
         if (hashActual.contentEquals(hashArchivoActual)){
             System.out.println("Los hash son iguales");
             libreriaMensajes.enviarMensaje("Los hash son iguales");
-        }
-        else{
+        } else{
             System.out.println("Los hash son distintos");
             libreriaMensajes.enviarMensaje("Los hash son distintos");
         }

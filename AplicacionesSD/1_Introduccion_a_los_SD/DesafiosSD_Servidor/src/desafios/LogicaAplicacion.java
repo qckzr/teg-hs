@@ -14,11 +14,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author sam
+ * Clase que proporciona la lógica del tópico Desafíos de los SD.
+ * @author Héctor Sam
  */
 public class LogicaAplicacion {
 
+    private static LogicaAplicacion instancia;
     private LibreriaMensajes libreriaMensajes;
     private int puertoAgente;
     private DatosAplicacion datosAplicacion;
@@ -49,15 +50,34 @@ public class LogicaAplicacion {
     public void setLibreriaMensajes(LibreriaMensajes libreriaMensajes) {
         this.libreriaMensajes = libreriaMensajes;
     }
-    
-    
-    
-    
-    
-    
-    
 
-    public LogicaAplicacion(LibreriaMensajes libreriaMensajes, DatosAplicacion datosAplicacion,int puertoAgente) {
+    public int getPuertoAgente() {
+        return puertoAgente;
+    }
+
+    public void setPuertoAgente(int puertoAgente) {
+        this.puertoAgente = puertoAgente;
+    }
+
+    public DatosAplicacion getDatosAplicacion() {
+        return datosAplicacion;
+    }
+
+    public void setDatosAplicacion(DatosAplicacion datosAplicacion) {
+        this.datosAplicacion = datosAplicacion;
+    }
+    
+    
+ 
+    
+    /**
+     * Constructor de la clase
+     * @param libreriaMensajes La librería de mensajes.
+     * @param datosAplicacion Objeto de la clase datos de la aplicación
+     * @param puertoAgente Puerto de escucha del agente.
+     */
+    private LogicaAplicacion(LibreriaMensajes libreriaMensajes, 
+            DatosAplicacion datosAplicacion,int puertoAgente) {
         this.libreriaMensajes = libreriaMensajes;
         this.datosAplicacion = datosAplicacion;
         this.puertoAgente = puertoAgente;
@@ -65,128 +85,159 @@ public class LogicaAplicacion {
         hiloSSL.start();
     }
     
+
+
+
+    public static LogicaAplicacion dameLogica(){
+        if (instancia == null)
+            instancia = new LogicaAplicacion(null, null,0);
+        return instancia;     
+    }
+    
+    /**
+     * Método que chequea el tipo de mensaje recibido.
+     * @param mensaje El mensaje recibido.
+     * @return True si es un mensaje del agente. False en caso contrario.
+     */
     public boolean verificarMensajeRecibido(Mensaje mensaje){
-        
+        boolean retornar = false;
         switch (mensaje.getMensaje()){
             case "aplicacion": 
-                if (libreriaMensajes.enviarMensaje(datosAplicacion.getNombreAplicacion(),"localhost", puertoAgente))
-                    return true;
+                if (libreriaMensajes.enviarMensaje(datosAplicacion.
+                        getNombreAplicacion(),"localhost", puertoAgente))
+                    retornar = true;
                 break;
             case "nodo":
-                if (libreriaMensajes.enviarMensaje(datosAplicacion.getNumeroNodoAplicacion(),"localhost",puertoAgente))
-                    return true;
+                if (libreriaMensajes.enviarMensaje(datosAplicacion.
+                        getNumeroNodoAplicacion(),"localhost",puertoAgente))
+                    retornar = true;
                 break;
             default:{
                 
-                System.out.println("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen()); 
-                libreriaMensajes.enviarMensaje("Se ha recibido el mensaje: \""+mensaje.getMensaje()+"\" proveniente del host: "+mensaje.getIpOrigen());
+                System.out.println("Se ha recibido el mensaje: \""
+                        +mensaje.getMensaje()+"\" proveniente del host: "
+                        +mensaje.getIpOrigen()); 
+                libreriaMensajes.enviarMensaje("Se ha recibido el mensaje: \""
+                        +mensaje.getMensaje()+"\" proveniente del host: "
+                        +mensaje.getIpOrigen());
             }
         };
-        return false;
-    }
-     
-    public void enviarId(String ipServidor){
-        libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),ipServidor);
+        return retornar;
     }
     
+    /**
+     * Método que envía el número de proceso al servidor central.
+     * @param ipServidor Dirección ip del servidor central.
+     */
+    public void enviarId(String ipServidor){
+        libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),
+                ipServidor);
+    }
+    
+    /**
+     * Método que inicia el comportamiento de la clase, inicia el hilo con 
+     * el socket seguro.
+     */
     public void iniciar(){
         System.setProperty("javax.net.ssl.keyStorePassword","password");
         HiloSSL hiloSSL = new HiloSSL(this);
         hiloSSL.start();
         
     }
-    
+     
+     /**
+      * Método que permite enviar un archivo indicado a un cliente.
+      * @param fichero El archivo a enviar
+      * @param oos El socket por donde se enviará la información.
+      */
      public void enviaFichero(String fichero, ObjectOutputStream oos){
-        try
+         int leidos;
+         boolean enviadoUltimo;
+         FileInputStream fis;
+         MensajeTomaFichero mensaje;
+         try
         {
-            boolean enviadoUltimo=false;
-            // Se abre el fichero.
-            FileInputStream fis = new FileInputStream(fichero);
-            
-            // Se instancia y rellena un mensaje de envio de fichero
-            MensajeTomaFichero mensaje = new MensajeTomaFichero();
+            enviadoUltimo = false;
+            fis = new FileInputStream(fichero);
+            mensaje = new MensajeTomaFichero();
             mensaje.nombreFichero = fichero;
+            leidos = fis.read(mensaje.contenidoFichero);
             
-            // Se leen los primeros bytes del fichero en un campo del mensaje
-            int leidos = fis.read(mensaje.contenidoFichero);
-            
-            // Bucle mientras se vayan leyendo datos del fichero
-            while (leidos > -1)
-            {
+            while (leidos > -1){
                 
-                // Se rellena el n�mero de bytes leidos
                 mensaje.bytesValidos = leidos;
-                
-                // Si no se han leido el m�ximo de bytes, es porque el fichero
-                // se ha acabado y este es el �ltimo mensaje
-                if (leidos < MensajeTomaFichero.LONGITUD_MAXIMA)
-                {
+                if (leidos < MensajeTomaFichero.LONGITUD_MAXIMA){
                     mensaje.ultimoMensaje = true;
                     enviadoUltimo=true;
-                }
-                else
+                } else{
                     mensaje.ultimoMensaje = false;
+                }
                 
-                // Se env�a por el socket
                 oos.writeObject(mensaje);
-                
-                // Si es el �ltimo mensaje, salimos del bucle.
-                if (mensaje.ultimoMensaje)
+                if (mensaje.ultimoMensaje){
                     break;
+                }
                 
-                // Se crea un nuevo mensaje
                 mensaje = new MensajeTomaFichero();
                 mensaje.nombreFichero = fichero;
                 
-                // y se leen sus bytes.
                 leidos = fis.read(mensaje.contenidoFichero);
                 Thread.sleep(1000);
             }
             
-            if (enviadoUltimo==false)
-            {
+            if (enviadoUltimo == false){
+                
                 mensaje.ultimoMensaje=true;
                 mensaje.bytesValidos=0;
                 oos.writeObject(mensaje);
             }
-            // Se cierra el ObjectOutputStream
-           // oos.close();
+            
         } catch (Exception e){
             e.printStackTrace();
         }
     }
      
      
-     
+    /**
+     * Método que permite enviar el hash de un archivo a un cliente.
+     * @param archivo El nombre del archivo a calcular el hash
+     * @param objectOutputStream El canal donde se enviará el hash.
+     */ 
     public void enviarHash(String archivo, ObjectOutputStream objectOutputStream){
         FileInputStream fis = null;
+        String datafile;
+        MessageDigest messageDigest;
+        byte[] dataBytes;
+        int nread = 0;
+        byte[] mdbytes;
+        StringBuffer stringBuffer;
         try {
-            String datafile = archivo;
-            MessageDigest md = MessageDigest.getInstance("MD5");
+            datafile = archivo;
+            messageDigest = MessageDigest.getInstance("MD5");
             fis = new FileInputStream(datafile);
-            byte[] dataBytes = new byte[1024];
-            int nread = 0; 
+            dataBytes = new byte[1024]; 
             while ((nread = fis.read(dataBytes)) != -1) {
-            md.update(dataBytes, 0, nread);
+                messageDigest.update(dataBytes, 0, nread);
             }
 
-            byte[] mdbytes = md.digest();
+            mdbytes = messageDigest.digest();
 
              //convert the byte to hex format
-            StringBuffer sb = new StringBuffer("");
+            stringBuffer = new StringBuffer("");
             for (int i = 0; i < mdbytes.length; i++) {
-                sb.append(Integer.toString((mdbytes[i] & 0xff) + 0x100, 16).substring(1));
+                stringBuffer.append(Integer.toString((mdbytes[i] & 0xff) + 
+                                    0x100, 16).substring(1));
             }
 
-       
-            
-            objectOutputStream.writeObject(sb.toString());
+            objectOutputStream.writeObject(stringBuffer.toString());
             fis.close();
             objectOutputStream.close();
             } catch (IOException ex) {
-                Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LogicaAplicacion.class.getName()).
+                                log(Level.SEVERE, null, ex);
             } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(LogicaAplicacion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LogicaAplicacion.class.getName()).
+                                log(Level.SEVERE, null, ex);
             } 
         }
         
