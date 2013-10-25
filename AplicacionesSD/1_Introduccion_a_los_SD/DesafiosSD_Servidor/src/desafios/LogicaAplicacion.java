@@ -150,7 +150,7 @@ public class LogicaAplicacion {
       * @param fichero El archivo a enviar
       * @param oos El socket por donde se enviará la información.
       */
-     public void enviaFichero(String fichero, ObjectOutputStream oos){
+     public boolean enviaFichero(String fichero, ObjectOutputStream oos){
          int leidos;
          boolean enviadoUltimo;
          FileInputStream fis;
@@ -191,9 +191,11 @@ public class LogicaAplicacion {
                 mensaje.bytesValidos=0;
                 oos.writeObject(mensaje);
             }
+            return true;
             
         } catch (Exception e){
             e.printStackTrace();
+            return false;
         }
     }
      
@@ -203,7 +205,7 @@ public class LogicaAplicacion {
      * @param archivo El nombre del archivo a calcular el hash
      * @param objectOutputStream El canal donde se enviará el hash.
      */ 
-    public void enviarHash(String archivo, ObjectOutputStream objectOutputStream){
+    public boolean enviarHash(String archivo, ObjectOutputStream objectOutputStream){
         FileInputStream fis = null;
         String datafile;
         MessageDigest messageDigest;
@@ -232,12 +234,15 @@ public class LogicaAplicacion {
             objectOutputStream.writeObject(stringBuffer.toString());
             fis.close();
             objectOutputStream.close();
+            return  true;
             } catch (IOException ex) {
                 Logger.getLogger(LogicaAplicacion.class.getName()).
                                 log(Level.SEVERE, null, ex);
+                return  false;
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(LogicaAplicacion.class.getName()).
                                 log(Level.SEVERE, null, ex);
+                return false;
             } 
         }
         

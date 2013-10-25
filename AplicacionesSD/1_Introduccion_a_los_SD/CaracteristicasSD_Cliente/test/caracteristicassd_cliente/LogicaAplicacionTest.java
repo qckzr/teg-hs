@@ -4,11 +4,10 @@
  * and open the template in the editor.
  */
 
-package desafios;
+package caracteristicassd_cliente;
 
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
-import java.io.ObjectOutputStream;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -41,33 +40,17 @@ public class LogicaAplicacionTest {
     public void tearDown() {
     }
 
-   
 
     /**
-     * Test of enviaFichero method, of class LogicaAplicacion.
+     * Test of enviarMensaje method, of class LogicaAplicacion.
      */
     @Test
-    public void testEnviaFichero() {
-        System.out.println("enviaFichero");
-        String fichero = "";
-        ObjectOutputStream oos = null;
+    public void testEnviarMensaje() {
+        System.out.println("enviarMensaje");
+        Mensaje mensaje = null;
         LogicaAplicacion instance = null;
         boolean expResult = false;
-        boolean result = instance.enviaFichero(fichero, oos);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of enviarHash method, of class LogicaAplicacion.
-     */
-    @Test
-    public void testEnviarHash() {
-        System.out.println("enviarHash");
-        String archivo = "";
-        ObjectOutputStream objectOutputStream = null;
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
-        boolean result = instance.enviarHash(archivo, objectOutputStream);
+        boolean result = instance.enviarMensaje(mensaje);
         assertEquals(expResult, result);
     }
     

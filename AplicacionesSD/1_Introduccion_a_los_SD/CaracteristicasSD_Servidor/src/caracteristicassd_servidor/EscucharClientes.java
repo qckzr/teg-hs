@@ -8,8 +8,8 @@ import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
 
 /**
- *
- * @author sam
+ * Clase que permite verificar los mensajes recibidos en la librería de mensajes.
+ * @author Héctor Sam
  */
 public class EscucharClientes extends Thread{
     
@@ -44,29 +44,34 @@ public class EscucharClientes extends Thread{
     
     
 
-    public EscucharClientes(LogicaAplicacion logicaAplicacion, LibreriaMensajes libreriaMensajes) {
+    public EscucharClientes(LogicaAplicacion logicaAplicacion, 
+            LibreriaMensajes libreriaMensajes) {
         this.logicaAplicacion = logicaAplicacion;
         this.libreriaMensajes = libreriaMensajes;
     }
     
- 
+    /**
+     * Método que permite verificar si se han recibidos mensajes en la librería
+     * de mensajes.
+     */
     @Override
     public void run(){
         
         while (control){
             
-            
-            if (libreriaMensajes.ultimoMensaje()!=null){
+            if (libreriaMensajes.ultimoMensaje() != null){
                 Mensaje mensaje= libreriaMensajes.ultimoMensaje();
                 logicaAplicacion.verificarMensajeRecibido(mensaje);
                 libreriaMensajes.eliminarMensaje(mensaje);
-      
             }
             
         }
     }
     
-    
+    /**
+     * Método que permite eliminar el hilo de ejecución.
+     * @return True.
+     */
     public boolean kill(){
         control = false;
         return true;

@@ -8,8 +8,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 /**
- *
- * @author sam
+ * Clase que permite obtener los datos de la aplicación: Nombre, número de nodo
+ * y número de proceso.
+ * @author Héctor Sam
  */
 public class DatosAplicacion {
     
@@ -48,14 +49,22 @@ public class DatosAplicacion {
     }
     
     
-    
+     /**
+      * Método que permite obtener el número de proceso de una aplicación
+      * específica.
+      * @param nombreAplicacion El nombre de la aplicación a buscar su número
+      * de proceso.
+      * @return El número de proceso.
+      */
      public String idProceso(String nombreAplicacion){
         
-        String line, id = null;
+        String line;
+        String id = null;
+        BufferedReader input;
         try {
            
             Process p = Runtime.getRuntime().exec("ps -ax");
-            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            input = new BufferedReader(new InputStreamReader(p.getInputStream()));
             while ((line = input.readLine()) != null) {
                 if (line.contains("java -jar "+nombreAplicacion)){
                   id =line.substring(0,5);

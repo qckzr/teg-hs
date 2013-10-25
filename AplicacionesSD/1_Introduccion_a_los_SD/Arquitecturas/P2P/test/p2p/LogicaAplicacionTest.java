@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package desafios;
+package p2p;
 
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
@@ -40,51 +40,45 @@ public class LogicaAplicacionTest {
     public void tearDown() {
     }
 
-
     
 
     /**
-     * Test of conectarse method, of class LogicaAplicacion.
+     * Test of enviarMensaje method, of class LogicaAplicacion.
      */
     @Test
-    public void testConectarse() {
-        System.out.println("conectarse");
-        String ip = "";
-        int puerto = 0;
+    public void testEnviarMensaje_Mensaje() {
+        System.out.println("enviarMensaje");
+        Mensaje mensaje = null;
         LogicaAplicacion instance = null;
         boolean expResult = false;
-        boolean result = instance.conectarse(ip, puerto);
+        boolean result = instance.enviarMensaje(mensaje);
         assertEquals(expResult, result);
     }
 
-
     /**
-     * Test of hashArchivo method, of class LogicaAplicacion.
+     * Test of enviarMensaje method, of class LogicaAplicacion.
      */
     @Test
-    public void testHashArchivo() {
-        System.out.println("hashArchivo");
-        String archivo = "";
-        LogicaAplicacion instance = null;
-        String expResult = "";
-        String result = instance.hashArchivo(archivo);
-        assertEquals(expResult, result);
-
-    }
-
-    /**
-     * Test of retornarArchivo method, of class LogicaAplicacion.
-     */
-    @Test
-    public void testRetornarArchivo() {
-        System.out.println("retornarArchivo");
+    public void testEnviarMensaje_String_String() {
+        System.out.println("enviarMensaje");
         String mensaje = "";
+        String ipOrigen = "";
         LogicaAplicacion instance = null;
-        String expResult = "";
-        String result = instance.retornarArchivo(mensaje);
+        boolean expResult = false;
+        boolean result = instance.enviarMensaje(mensaje, ipOrigen);
         assertEquals(expResult, result);
     }
 
-   
-    
+    /**
+     * Test of evaluarMensaje method, of class LogicaAplicacion.
+     */
+    @Test
+    public void testEvaluarMensaje() {
+        System.out.println("evaluarMensaje");
+        Mensaje mensaje = null;
+        LogicaAplicacion instance = null;
+        boolean expResult = false;
+        boolean result = instance.evaluarMensaje(mensaje);
+        assertEquals(expResult, result);
+    }
 }

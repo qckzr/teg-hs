@@ -4,11 +4,10 @@
  * and open the template in the editor.
  */
 
-package desafios;
+package socketcliente;
 
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
-import java.io.ObjectOutputStream;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -41,34 +40,22 @@ public class LogicaAplicacionTest {
     public void tearDown() {
     }
 
-   
-
+    
     /**
-     * Test of enviaFichero method, of class LogicaAplicacion.
+     * Test of enviarMensajeServidor method, of class LogicaAplicacion.
      */
     @Test
-    public void testEnviaFichero() {
-        System.out.println("enviaFichero");
-        String fichero = "";
-        ObjectOutputStream oos = null;
+    public void testEnviarMensajeServidor() {
+        System.out.println("enviarMensajeServidor");
+        Mensaje mensajeRecibido = null;
         LogicaAplicacion instance = null;
         boolean expResult = false;
-        boolean result = instance.enviaFichero(fichero, oos);
+        boolean result = instance.enviarMensajeServidor(mensajeRecibido);
         assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of enviarHash method, of class LogicaAplicacion.
-     */
-    @Test
-    public void testEnviarHash() {
-        System.out.println("enviarHash");
-        String archivo = "";
-        ObjectOutputStream objectOutputStream = null;
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
-        boolean result = instance.enviarHash(archivo, objectOutputStream);
-        assertEquals(expResult, result);
-    }
+    
     
 }
