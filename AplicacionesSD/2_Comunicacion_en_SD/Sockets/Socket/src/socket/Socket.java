@@ -21,7 +21,7 @@ public class Socket {
         LibreriaMensajes libreriaMensajes = new LibreriaMensajes();
         DatosAplicacion datosAplicacion = new DatosAplicacion(args[0],args[1]);//args[0] = nombreApp, args[1] = numeroNodo
         libreriaMensajes.agregarIpDestino(args[2]); //args[2] ip del servidor central
-        LogicaAplicacion logicaAplicacion = new LogicaAplicacion(libreriaMensajes, datosAplicacion, Integer.valueOf(args[3]));
+        LogicaAplicacion logicaAplicacion = LogicaAplicacion.getInstancia(libreriaMensajes, datosAplicacion, Integer.valueOf(args[3]));
         logicaAplicacion.enviarId(args[2]);
         logicaAplicacion.agregarDestinatario(args[4],args[5]); //id, nodo
         logicaAplicacion.agregarDestinatario(args[6],args[7]);

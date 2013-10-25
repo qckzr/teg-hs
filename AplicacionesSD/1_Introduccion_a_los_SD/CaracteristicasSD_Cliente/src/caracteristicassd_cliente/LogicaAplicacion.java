@@ -94,11 +94,17 @@ public class LogicaAplicacion {
         
     }
     
-    
-    public static LogicaAplicacion getInstancia(){
+    /**
+     * Singleton
+     * @return 
+     */
+    public static LogicaAplicacion getInstancia(LibreriaMensajes libreriaMensajes, 
+            DatosAplicacion datosAplicacion,int puertoAgente, 
+            String ipServidor1, String ipServidor2){
         
         if (instancia == null){
-            instancia = new LogicaAplicacion(null, null, PUERTO, null, null);
+            instancia = new LogicaAplicacion(libreriaMensajes, datosAplicacion,
+                    puertoAgente, ipServidor1, ipServidor2);
         }
         return instancia;
     }

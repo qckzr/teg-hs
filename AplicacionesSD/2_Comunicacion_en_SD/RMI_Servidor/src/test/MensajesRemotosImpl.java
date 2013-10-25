@@ -9,8 +9,9 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- *
- * @author sam
+ * Clase que implementa los métodos de la interfaz para poder ser invocados
+ * desde otro host.
+ * @author Héctor Sam
  */
 public class MensajesRemotosImpl extends UnicastRemoteObject implements MensajesRemotos{
         

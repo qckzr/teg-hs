@@ -7,8 +7,8 @@ package test;
 import java.rmi.RemoteException;
 
 /**
- *
- * @author sam
+ * Interfaz que permite definir los métodos a invocar remotamente.
+ * @author Héctor Sam
  */
 public interface MensajesRemotos extends java.rmi.Remote {
     

@@ -8,8 +8,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author sam
+ * Clase que permite sincronizarse con el servidor cada cierto intervalo de
+ * tiempo.
+ * @author Héctor Sam
  */
 public class Sincronizacion extends Thread{
     
@@ -17,7 +18,8 @@ public class Sincronizacion extends Thread{
     private int tiempoSincronizacion;
     private LogicaAplicacion logicaAplicacion;
 
-    public Sincronizacion(int tiempoSincronizacion, LogicaAplicacion logicaAplicacion) {
+    public Sincronizacion(int tiempoSincronizacion, LogicaAplicacion 
+            logicaAplicacion) {
         this.tiempoSincronizacion = tiempoSincronizacion;
         this.logicaAplicacion = logicaAplicacion;
     }
@@ -26,7 +28,10 @@ public class Sincronizacion extends Thread{
     
     
     
-    
+    /**
+     * Método que permite enviar al servidor el mensaje de sincronización cada
+     * cierto tiempo indicado en el parámetro 'tiempoSincronizacion'.
+     */
     @Override
     public void run(){
      
@@ -37,7 +42,8 @@ public class Sincronizacion extends Thread{
                 logicaAplicacion.enviarMensaje("sincronizacion");  
                 Thread.sleep(1000*tiempoSincronizacion);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Sincronizacion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Sincronizacion.class.getName())
+                        .log(Level.SEVERE, null, ex);
             }
         }
     }
