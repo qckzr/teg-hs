@@ -9,8 +9,8 @@ import Libreria.Mensaje;
 import java.util.ArrayList;
 
 /**
- * Clase que implementa la lógica de la aplicación para el tópico Algoritmo
- * Centralizado - Servidor.
+ * Clase que implementa la lógica de la aplicación para el tópico Exclusión Mutua:
+ * Algoritmo Centralizado - Servidor.
  * @author Héctor Sam.
  */
 public class LogicaAplicacion {

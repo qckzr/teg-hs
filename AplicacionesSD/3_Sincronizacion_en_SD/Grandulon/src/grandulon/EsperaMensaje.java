@@ -9,7 +9,9 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author sam
+ * Clase que permite esperar por los mensajes de los demás nodos al iniciar una
+ * votación de coordinador.
+ * @author Héctor Sam
  */
 public class EsperaMensaje extends Thread{
     
@@ -35,6 +37,11 @@ public class EsperaMensaje extends Thread{
     
     
     
+    /**
+     * Método que perite enviar el mensaje de anuncion del coordinador al
+     * pasar el tiempo de espera.
+     */
+    @Override
     public void run(){
         
         while (control){
@@ -43,13 +50,15 @@ public class EsperaMensaje extends Thread{
                 control = false;
                 if (!logicaAplicacion.isRecibiOk()){
                     System.out.println("nodo COORDINADOR");
-                    logicaAplicacion.getLibreriaMensajes().enviarMensaje("nodo COORDINADOR");
+                    logicaAplicacion.getLibreriaMensajes().
+                            enviarMensaje("nodo COORDINADOR");
                     logicaAplicacion.enviarMensaje("COORDINADOR");
                     logicaAplicacion.setCoordinador(true);
                     logicaAplicacion.eliminarNodosCaidos();
                 }
             } catch (InterruptedException ex) {
-                Logger.getLogger(EsperaMensaje.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EsperaMensaje.class.getName()).
+                        log(Level.SEVERE, null, ex);
             }
             
             

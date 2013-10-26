@@ -8,8 +8,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author sam
+ * Clase que permite contar una cantidad de tiempo determinada a través de un 
+ * hilo.
+ * @author Héctor Sam
  */
 public class EscuchaHoras extends Thread{
     
@@ -23,6 +24,10 @@ public class EscuchaHoras extends Thread{
         this.logicaAplicacion = logicaAplicacion;
     }
     
+    /**
+     * Método que permite escuchar por un tiempo determinado y luego se elimina 
+     * el hilo.
+     */
     @Override
     public void run(){
         

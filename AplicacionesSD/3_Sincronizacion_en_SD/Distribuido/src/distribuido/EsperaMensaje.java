@@ -5,7 +5,6 @@
 package distribuido;
 
 import Libreria.Mensaje;
-import com.sun.medialib.mlib.mediaLibException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

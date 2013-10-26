@@ -8,8 +8,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author sam
+ * Clase que permite incrementar las marcas de reloj del nodo.
+ * @author Héctor Sam
  */
 public class MarcaReloj extends Thread{
     
@@ -22,7 +22,8 @@ public class MarcaReloj extends Thread{
     public MarcaReloj(LogicaAplicacion logicaAplicacion) {
         this.logicaAplicacion = logicaAplicacion;
         incrementoMarcaReloj = (int) (1 + Math.random()*10);
-        logicaAplicacion.enviarId("INCREMENTANDO LAS MARCA DE RELOJ EN: "+incrementoMarcaReloj+" UNIDADES");
+        logicaAplicacion.getLibreriaMensajes().enviarMensaje("INCREMENTANDO LAS MARCA DE RELOJ EN: "
+                + ""+incrementoMarcaReloj+" UNIDADES"); //PENDIENTE.
     }
 
     public int getIncrementoMarcaReloj() {
@@ -59,6 +60,9 @@ public class MarcaReloj extends Thread{
     
     
     
+    /**
+     * Método que permite incrementar las marcas de reloj cada 4 segundos.
+     */
     @Override
     public void run(){
         

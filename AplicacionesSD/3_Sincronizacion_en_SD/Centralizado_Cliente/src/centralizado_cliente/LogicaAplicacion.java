@@ -8,8 +8,8 @@ import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
 
 /**
- * Clase que implementa la lógica de la aplicación para el tópico Algoritmo
- * Centralizado - Cliente..
+ * Clase que implementa la lógica de la aplicación para el tópico Exclusión
+ * Mutua: Algoritmo Centralizado - Cliente.
  * @author Héctor Sam.
  */
 public class LogicaAplicacion {
