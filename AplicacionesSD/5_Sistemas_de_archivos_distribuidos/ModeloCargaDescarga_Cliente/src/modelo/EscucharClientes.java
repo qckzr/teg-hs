@@ -10,8 +10,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author sam
+ * Clase que permite escuchar los mensajes enviados por otros hosts o por los 
+ * agentes de configuración.
+ * @author Héctor Sam
  */
 public class EscucharClientes extends Thread{
     
@@ -45,34 +46,44 @@ public class EscucharClientes extends Thread{
     }
     
     
-
+    /**
+     * Constructor de la clase, se recibe la clase lógica y librería de mensajes
+     * para llamar a sus métodos.
+     * @param logicaAplicacion La lógica de la aplicación.
+     * @param libreriaMensajes La librería de mensajes.
+     */
     public EscucharClientes(LogicaAplicacion logicaAplicacion, LibreriaMensajes libreriaMensajes) {
         this.logicaAplicacion = logicaAplicacion;
         this.libreriaMensajes = libreriaMensajes;
     }
     
- 
+    
+    /**
+     * Método que permite chequea si se han recibido mensajes en la librería
+     * de mensajes.
+     */
     @Override
     public void run(){
         
         while (control){
             
-            
-            if (libreriaMensajes.ultimoMensaje()!=null){
-                Mensaje mensaje= libreriaMensajes.ultimoMensaje();
+            if (libreriaMensajes.ultimoMensaje() != null){
                 try {
+                    Mensaje mensaje= libreriaMensajes.ultimoMensaje();
                     logicaAplicacion.verificarMensajeRecibido(mensaje);
+                    libreriaMensajes.eliminarMensaje(mensaje);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(EscucharClientes.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                libreriaMensajes.eliminarMensaje(mensaje);
-      
             }
             
         }
     }
     
-    
+    /**
+     * Método que permite eliminar el hilo de ejecución.
+     * @return True.
+     */
     public boolean kill(){
         control = false;
         return true;

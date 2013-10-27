@@ -11,8 +11,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author sam
+ * Clase que permite esperar por el archivo enviado por el servidor al momento
+ * de realizar la solicitud.
+ * @author Héctor Sam
  */
 public class EsperaArchivo extends Thread{
     
@@ -26,7 +27,8 @@ public class EsperaArchivo extends Thread{
             serverSocket = new ServerSocket(logicaAplicacion.getPuerto());
             this.logicaAplicacion = logicaAplicacion;
         } catch (IOException ex) {
-            Logger.getLogger(EsperaArchivo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EsperaArchivo.class.getName()).
+                    log(Level.SEVERE, null, ex);
         }
     }
     
@@ -42,128 +44,103 @@ public class EsperaArchivo extends Thread{
     
     public final void iniciar(){
         try {
-            if (serverSocket == null)
+            if (serverSocket == null) {
                 serverSocket = new ServerSocket(logicaAplicacion.getPuerto());
-            else if (serverSocket.isClosed())
+            } else if (serverSocket.isClosed()) {
                 serverSocket = new ServerSocket(logicaAplicacion.getPuerto());
+            }
         } catch (IOException ex) {
-        //    Logger.getLogger(EsperaArchivo.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     
-    
-     public void escucha()
-    {
-        try
-        {
-            // Se abre el socket servidor
-       
-
-            // Se espera un cliente
-            Socket cliente = serverSocket.accept();
-
-   
-
-            // Cuando se cierre el socket, esta opci�n hara que el cierre se
-            // retarde autom�ticamente hasta 10 segundos dando tiempo al cliente
-            // a leer los datos.
+    /**
+     * Método que permite escuchar por las peticiones de un cliente.
+     */
+    public void escucha(){
+        
+        Socket cliente;
+        ObjectInputStream ois;
+        Object mensaje;
+        try {
+           
+            cliente = serverSocket.accept();
             cliente.setSoLinger(true, 10);
 
-            // Se lee el mensaje de petici�n de fichero del cliente.
-            ObjectInputStream ois = new ObjectInputStream(cliente
+            ois = new ObjectInputStream(cliente
                     .getInputStream());
-            Object mensaje = ois.readObject();
+            mensaje = ois.readObject();
             
-            // Si el mensaje es de petici�n de fichero
-            if (mensaje instanceof MensajeDameFichero)
-            {
-                // Se muestra en pantalla el fichero pedido y se envia
+            if (mensaje instanceof MensajeDameFichero) {
                 enviaFichero(((MensajeDameFichero) mensaje).nombreFichero,
                         new ObjectOutputStream(cliente.getOutputStream()));
                 logicaAplicacion.eliminarArchivo();
-            }
-            else
-            {
-                // Si no es el mensaje esperado, se avisa y se sale todo.
+            } else {
+                
                 System.err.println (
                         "Mensaje no esperado "+mensaje.getClass().getName());
             }
             
-            // Cierre de sockets 
             cliente.close();
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Env�a el fichero indicado a trav�s del ObjectOutputStream indicado.
-     * @param fichero Nombre de fichero
-     * @param oos ObjectOutputStream por el que enviar el fichero
+     * Método que envía el archivo solicitado�a través del ObjectOutputStream
+     * indicado.
+     * @param fichero Nombre del archivo
+     * @param oos ObjectOutputStream por el que se enviará el archivo
      */
-    private void enviaFichero(String fichero, ObjectOutputStream oos)
-    {
-        try
-        {
-            boolean enviadoUltimo=false;
-            // Se abre el fichero.
-            FileInputStream fis = new FileInputStream(fichero);
-            
-            // Se instancia y rellena un mensaje de envio de fichero
-            MensajeTomaFichero mensaje = new MensajeTomaFichero();
+    private void enviaFichero(String fichero, ObjectOutputStream oos) {
+        boolean enviadoUltimo;
+        FileInputStream fis;
+        MensajeTomaFichero mensaje;
+        int leidos;
+        try {
+            enviadoUltimo = false;
+            fis = new FileInputStream(fichero);
+            mensaje = new MensajeTomaFichero();
             mensaje.nombreFichero = fichero;
-            
-            // Se leen los primeros bytes del fichero en un campo del mensaje
-            int leidos = fis.read(mensaje.contenidoFichero);
-            
-            // Bucle mientras se vayan leyendo datos del fichero
-            while (leidos > -1)
-            {
+            leidos = fis.read(mensaje.contenidoFichero);
+
+            while (leidos > -1) {
                 
-                // Se rellena el n�mero de bytes leidos
                 mensaje.bytesValidos = leidos;
                 
-                // Si no se han leido el m�ximo de bytes, es porque el fichero
-                // se ha acabado y este es el �ltimo mensaje
-                if (leidos < MensajeTomaFichero.LONGITUD_MAXIMA)
-                {
+                if (leidos < MensajeTomaFichero.LONGITUD_MAXIMA) {
                     mensaje.ultimoMensaje = true;
-                    enviadoUltimo=true;
-                }
-                else
+                    enviadoUltimo = true;
+                } else {
                     mensaje.ultimoMensaje = false;
+                }
                 
-                // Se env�a por el socket
                 oos.writeObject(mensaje);
-                
-                // Si es el �ltimo mensaje, salimos del bucle.
-                if (mensaje.ultimoMensaje)
+                if (mensaje.ultimoMensaje) {
                     break;
+                }
                 
-                // Se crea un nuevo mensaje
                 mensaje = new MensajeTomaFichero();
                 mensaje.nombreFichero = fichero;
-                
-                // y se leen sus bytes.
                 leidos = fis.read(mensaje.contenidoFichero);
             }
             
-            if (enviadoUltimo==false)
-            {
+            if (enviadoUltimo == false) {
                 mensaje.ultimoMensaje=true;
                 mensaje.bytesValidos=0;
                 oos.writeObject(mensaje);
             }
-            // Se cierra el ObjectOutputStream
             oos.close();
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
     
+    /**
+     * Método que permite eliminar el hilo de ejecución.
+     */
     public void kill(){
         control = true;
     }

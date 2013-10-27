@@ -8,8 +8,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author sam
+ * Clase que permite contar una cantidad de segundos específica.
+ * @author Héctor Sam
  */
 public class Tiempo extends Thread{
     
@@ -25,7 +25,9 @@ public class Tiempo extends Thread{
     }
     
     
-    
+    /**
+     * Método que permite contar cada segundo que transcurre.
+     */
     @Override
     public void run(){
         
@@ -34,7 +36,8 @@ public class Tiempo extends Thread{
                 segundos++;
                 this.sleep(1000);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Tiempo.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Tiempo.class.getName()).
+                        log(Level.SEVERE, null, ex);
             }
             
         }
