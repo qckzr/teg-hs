@@ -48,7 +48,10 @@ public class LogicaAplicacionTest {
     @Test
     public void testEnviarMensaje_0args() {
         System.out.println("enviarMensaje");
-        LogicaAplicacion instance = null;
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        libreriaMensajes.agregarIpDestino("localhost");
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                libreriaMensajes, new DatosAplicacion("1","1"),1337,"localhost");
         boolean expResult = false;
         boolean result = instance.enviarMensaje();
         assertEquals(expResult, result);
@@ -62,7 +65,8 @@ public class LogicaAplicacionTest {
         System.out.println("enviarMensaje");
         String mensaje = "";
         int tipo = 0;
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), new DatosAplicacion("1","1"),1337,"localhost");
         boolean expResult = false;
         boolean result = instance.enviarMensaje(mensaje, tipo);
         assertEquals(expResult, result);
@@ -74,9 +78,10 @@ public class LogicaAplicacionTest {
     @Test
     public void testEvaluarMensaje() {
         System.out.println("evaluarMensaje");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        Mensaje mensaje = new Mensaje("localhost","192.168.1.191:1337");
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337,"localhost");
+        boolean expResult = true;
         boolean result = instance.evaluarMensaje(mensaje);
         assertEquals(expResult, result);
     }

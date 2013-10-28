@@ -48,9 +48,10 @@ public class LogicaAplicacionTest {
     @Test
     public void testEvaluarMensaje() {
         System.out.println("evaluarMensaje");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        Mensaje mensaje = new Mensaje("localhost","holamund0");
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337);
+        boolean expResult = true;
         boolean result = instance.evaluarMensaje(mensaje);
         assertEquals(expResult, result);
     }
@@ -61,10 +62,11 @@ public class LogicaAplicacionTest {
     @Test
     public void testEnviarMensajeRespuesta() {
         System.out.println("enviarMensajeRespuesta");
-        Mensaje mensaje = null;
+        Mensaje mensaje = new Mensaje("localhost","holamund0");
         int opcion = 0;
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337);
+        boolean expResult = true;
         boolean result = instance.enviarMensajeRespuesta(mensaje, opcion);
         assertEquals(expResult, result);
     }

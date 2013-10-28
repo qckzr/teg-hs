@@ -169,7 +169,9 @@ public class LogicaAplicacion {
             if (!comprobarConexionGrupo(nodo)){
                 nodosCaidos.add(nodo);
             } else {
-                libreriaMensajes.enviarMensaje(mensaje, nodo);
+                if (libreriaMensajes.enviarMensaje(mensaje, nodo) == false){
+                    return false;
+                }
             }
  
         }

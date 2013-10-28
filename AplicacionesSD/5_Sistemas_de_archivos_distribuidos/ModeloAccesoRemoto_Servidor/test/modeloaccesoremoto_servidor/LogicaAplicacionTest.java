@@ -48,8 +48,9 @@ public class LogicaAplicacionTest {
     @Test
     public void testEscribirArchivo() {
         System.out.println("escribirArchivo");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
+        Mensaje mensaje = new Mensaje("localhost","holamund0");
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337);
         boolean expResult = false;
         boolean result = instance.escribirArchivo(mensaje);
         assertEquals(expResult, result);
@@ -61,7 +62,8 @@ public class LogicaAplicacionTest {
     @Test
     public void testLeerArchivo() {
         System.out.println("leerArchivo");
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337);
         boolean expResult = false;
         boolean result = instance.leerArchivo();
         assertEquals(expResult, result);

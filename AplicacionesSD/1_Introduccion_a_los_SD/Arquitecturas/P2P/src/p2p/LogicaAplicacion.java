@@ -19,13 +19,7 @@ public class LogicaAplicacion {
     private DatosAplicacion datosAplicacion;
     private String nodoSiguiente;
 
-    public static LogicaAplicacion getInstancia() {
-        return instancia;
-    }
-
-    public static void setInstancia(LogicaAplicacion instancia) {
-        LogicaAplicacion.instancia = instancia;
-    }
+    
 
     public LibreriaMensajes getLibreriaMensajes() {
         return libreriaMensajes;

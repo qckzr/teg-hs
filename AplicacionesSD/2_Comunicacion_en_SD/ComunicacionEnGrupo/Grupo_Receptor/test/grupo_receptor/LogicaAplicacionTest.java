@@ -48,7 +48,9 @@ public class LogicaAplicacionTest {
     @Test
     public void testEnviarPresenciaEmisor() {
         System.out.println("enviarPresenciaEmisor");
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), new DatosAplicacion("asd","1"),
+                1337,"localhost");
         boolean expResult = false;
         boolean result = instance.enviarPresenciaEmisor();
         assertEquals(expResult, result);

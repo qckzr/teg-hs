@@ -48,8 +48,9 @@ public class LogicaAplicacionTest {
     @Test
     public void testRecibirMensaje() {
         System.out.println("recibirMensaje");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
+        Mensaje mensaje = new Mensaje("localhost","holamund0");
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337,"localhost");
         boolean expResult = false;
         boolean result = instance.recibirMensaje(mensaje);
         assertEquals(expResult, result);
@@ -61,8 +62,9 @@ public class LogicaAplicacionTest {
     @Test
     public void testEscribirArchivo() {
         System.out.println("escribirArchivo");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
+        Mensaje mensaje = new Mensaje("localhost","holamund0");
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337,"localhost");
         boolean expResult = false;
         boolean result = instance.escribirArchivo(mensaje);
         assertEquals(expResult, result);
@@ -74,7 +76,8 @@ public class LogicaAplicacionTest {
     @Test
     public void testLeerArchivo() {
         System.out.println("leerArchivo");
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337,"localhost");
         boolean expResult = false;
         boolean result = instance.leerArchivo();
         assertEquals(expResult, result);
@@ -86,10 +89,11 @@ public class LogicaAplicacionTest {
     @Test
     public void testSolicitarArchivo() {
         System.out.println("solicitarArchivo");
-        String fichero = "";
-        String servidor = "";
-        int puerto = 0;
-        LogicaAplicacion instance = null;
+        String fichero = "archivo";
+        String servidor = "localhost";
+        int puerto = 1337;
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337,"localhost");
         boolean expResult = false;
         boolean result = instance.solicitarArchivo(fichero, servidor, puerto);
         assertEquals(expResult, result);
@@ -101,7 +105,8 @@ public class LogicaAplicacionTest {
     @Test
     public void testEliminarArchivo() {
         System.out.println("eliminarArchivo");
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337,"localhost");
         boolean expResult = false;
         boolean result = instance.eliminarArchivo();
         assertEquals(expResult, result);
@@ -113,7 +118,8 @@ public class LogicaAplicacionTest {
     @Test
     public void testExisteArchivo() {
         System.out.println("existeArchivo");
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337,"localhost");
         boolean expResult = false;
         boolean result = instance.existeArchivo();
         assertEquals(expResult, result);

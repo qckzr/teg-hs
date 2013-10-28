@@ -51,7 +51,8 @@ public class LogicaAplicacionTest {
         System.out.println("conectarse");
         String ip = "";
         int puerto = 0;
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337,"localhost");
         boolean expResult = false;
         boolean result = instance.conectarse(ip, puerto);
         assertEquals(expResult, result);
@@ -65,7 +66,8 @@ public class LogicaAplicacionTest {
     public void testHashArchivo() {
         System.out.println("hashArchivo");
         String archivo = "";
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337,"localhost");
         String expResult = "";
         String result = instance.hashArchivo(archivo);
         assertEquals(expResult, result);
@@ -79,7 +81,8 @@ public class LogicaAplicacionTest {
     public void testRetornarArchivo() {
         System.out.println("retornarArchivo");
         String mensaje = "";
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337, "localhost");
         String expResult = "";
         String result = instance.retornarArchivo(mensaje);
         assertEquals(expResult, result);

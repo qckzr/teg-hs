@@ -7,8 +7,6 @@
 package test;
 
 import Libreria.LibreriaMensajes;
-import Libreria.Mensaje;
-import java.rmi.registry.Registry;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -50,7 +48,9 @@ public class LogicaAplicacionTest {
     public void testIniciarCliente() {
         System.out.println("iniciarCliente");
         boolean expResult = false;
-        boolean result = LogicaAplicacion.iniciarCliente();
+        LogicaAplicacion logicaAplicacion = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(expResult), null, 1337,"localhost");
+        boolean result = logicaAplicacion.iniciarCliente();
         assertEquals(expResult, result);
 
     }
@@ -61,8 +61,9 @@ public class LogicaAplicacionTest {
     @Test
     public void testMensaje() {
         System.out.println("mensaje");
-        String mensaje = "";
-        LogicaAplicacion instance = null;
+        String mensaje = "holamund0";
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337, "localhost");
         boolean expResult = false;
         boolean result = instance.mensaje(mensaje);
         assertEquals(expResult, result);

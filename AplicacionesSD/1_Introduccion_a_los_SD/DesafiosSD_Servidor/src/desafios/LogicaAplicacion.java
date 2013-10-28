@@ -88,9 +88,12 @@ public class LogicaAplicacion {
 
 
 
-    public static LogicaAplicacion dameLogica(){
-        if (instancia == null)
-            instancia = new LogicaAplicacion(null, null,0);
+    public static LogicaAplicacion getInstance(LibreriaMensajes libreriaMensajes, 
+            DatosAplicacion datosAplicacion,int puertoAgente){
+        if (instancia == null){
+            instancia = new LogicaAplicacion(libreriaMensajes,
+                    datosAplicacion, puertoAgente);
+        }
         return instancia;     
     }
     

@@ -49,8 +49,9 @@ public class LogicaAplicacionTest {
     @Test
     public void testRecibirMensaje() {
         System.out.println("recibirMensaje");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
+        Mensaje mensaje = new Mensaje("localhost","holamund0");
+        LogicaAplicacion instance = LogicaAplicacion.instancia(
+                new LibreriaMensajes(true), null, 1337);
         boolean expResult = false;
         boolean result = instance.recibirMensaje(mensaje);
         assertEquals(expResult, result);
@@ -63,7 +64,8 @@ public class LogicaAplicacionTest {
     @Test
     public void testEnviarMensaje_0args() {
         System.out.println("enviarMensaje");
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.instancia(
+                new LibreriaMensajes(true), null, 1337);
         boolean expResult = false;
         boolean result = instance.enviarMensaje();
         assertEquals(expResult, result);
@@ -77,7 +79,8 @@ public class LogicaAplicacionTest {
     public void testEnviarMensaje_String() {
         System.out.println("enviarMensaje");
         String mensaje = "";
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.instancia(
+                new LibreriaMensajes(true), null, 1337);
         boolean expResult = false;
         boolean result = instance.enviarMensaje(mensaje);
         assertEquals(expResult, result);
@@ -90,26 +93,18 @@ public class LogicaAplicacionTest {
     @Test
     public void testEvaluarMensaje() {
         System.out.println("evaluarMensaje");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        Mensaje mensaje = new Mensaje("localhost","2:holamund0");
+        LogicaAplicacion instance = LogicaAplicacion.instancia(
+                new LibreriaMensajes(true), null, 1337);
+        DatosAplicacion datosAplicacion = new DatosAplicacion("1","2");
+        instance.setDatosAplicacion(datosAplicacion);
+        boolean expResult = true;
         boolean result = instance.evaluarMensaje(mensaje);
         assertEquals(expResult, result);
         
     }
 
-    /**
-     * Test of agregarNodos method, of class LogicaAplicacion.
-     */
-    @Test
-    public void testAgregarNodos() {
-        System.out.println("agregarNodos");
-        String nodosMenores = "";
-        String nodosMayores = "";
-        LogicaAplicacion instance = null;
-        instance.agregarNodos(nodosMenores, nodosMayores);
-        
-    }
+   
 
     /**
      * Test of validarNodo method, of class LogicaAplicacion.
@@ -117,8 +112,9 @@ public class LogicaAplicacionTest {
     @Test
     public void testValidarNodo() {
         System.out.println("validarNodo");
-        String ip = "";
-        LogicaAplicacion instance = null;
+        String ip = "loclahost";
+        LogicaAplicacion instance = LogicaAplicacion.instancia(
+                new LibreriaMensajes(true), null, 1337);
         boolean expResult = false;
         boolean result = instance.validarNodo(ip);
         assertEquals(expResult, result);
@@ -131,7 +127,8 @@ public class LogicaAplicacionTest {
     @Test
     public void testEliminarNodosCaidos() {
         System.out.println("eliminarNodosCaidos");
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.instancia(
+                new LibreriaMensajes(true), null, 1337);
         boolean expResult = false;
         boolean result = instance.eliminarNodosCaidos();
         assertEquals(expResult, result);

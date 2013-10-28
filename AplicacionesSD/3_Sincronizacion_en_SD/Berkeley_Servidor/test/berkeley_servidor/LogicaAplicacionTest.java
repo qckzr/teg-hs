@@ -6,7 +6,7 @@
 
 package berkeley_servidor;
 
-import Libreria.Mensaje;
+import Libreria.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -47,9 +47,11 @@ public class LogicaAplicacionTest {
     @Test
     public void testAgregarNodo() {
         System.out.println("agregarNodo");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        Mensaje mensaje = new Mensaje("localhost", null);
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                libreriaMensajes, null, 1337,5000);
+        boolean expResult = true;
         boolean result = instance.agregarNodo(mensaje);
         assertEquals(expResult, result);
     }
@@ -60,9 +62,11 @@ public class LogicaAplicacionTest {
     @Test
     public void testAgregarHora() {
         System.out.println("agregarHora");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        Mensaje mensaje = new Mensaje(null, null);
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                libreriaMensajes, null, 1337,5000);
+        boolean expResult = true;
         boolean result = instance.agregarHora(mensaje);
         assertEquals(expResult, result);
 
@@ -74,8 +78,10 @@ public class LogicaAplicacionTest {
     @Test
     public void testComprobarPromedio() {
         System.out.println("comprobarPromedio");
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                libreriaMensajes, null, 1337,5000);
+        boolean expResult = true;
         boolean result = instance.comprobarPromedio();
         assertEquals(expResult, result);
     }

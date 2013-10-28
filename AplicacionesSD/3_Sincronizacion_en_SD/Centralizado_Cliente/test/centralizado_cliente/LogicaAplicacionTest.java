@@ -48,8 +48,9 @@ public class LogicaAplicacionTest {
     @Test
     public void testVerificarMensaje() {
         System.out.println("verificarMensaje");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
+        Mensaje mensaje = new Mensaje("","");
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337, "localhost");
         boolean expResult = false;
         boolean result = instance.verificarMensaje(mensaje);
         assertEquals(expResult, result);

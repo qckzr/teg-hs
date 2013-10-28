@@ -49,6 +49,40 @@ public class LogicaAplicacion {
         }
         return instancia;
     }
+
+    public LibreriaMensajes getLibreriaMensajes() {
+        return libreriaMensajes;
+    }
+
+    public void setLibreriaMensajes(LibreriaMensajes libreriaMensajes) {
+        this.libreriaMensajes = libreriaMensajes;
+    }
+
+    public int getPuertoAgente() {
+        return puertoAgente;
+    }
+
+    public void setPuertoAgente(int puertoAgente) {
+        this.puertoAgente = puertoAgente;
+    }
+
+    public DatosAplicacion getDatosAplicacion() {
+        return datosAplicacion;
+    }
+
+    public void setDatosAplicacion(DatosAplicacion datosAplicacion) {
+        this.datosAplicacion = datosAplicacion;
+    }
+
+    public ArrayList<String> getRegionCriticaOcupada() {
+        return regionCriticaOcupada;
+    }
+
+    public void setRegionCriticaOcupada(ArrayList<String> regionCriticaOcupada) {
+        this.regionCriticaOcupada = regionCriticaOcupada;
+    }
+    
+    
     
     /**
      * Método que permite chequear el mensaje recibido para decidir si pertenece

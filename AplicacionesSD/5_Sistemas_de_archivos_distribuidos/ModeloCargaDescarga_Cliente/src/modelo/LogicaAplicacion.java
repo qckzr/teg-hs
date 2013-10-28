@@ -185,6 +185,10 @@ public class LogicaAplicacion {
                 Logger.getLogger(LogicaAplicacion.class.getName()).
                         log(Level.SEVERE, null, ex);
                 return  false;
+            } catch (NullPointerException ex){
+                Logger.getLogger(LogicaAplicacion.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return  false;
             }
         }
          libreriaMensajes.enviarMensaje("Se ha escrito en "

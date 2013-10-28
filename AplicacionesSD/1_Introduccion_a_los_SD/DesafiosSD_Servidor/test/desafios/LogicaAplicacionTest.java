@@ -51,7 +51,8 @@ public class LogicaAplicacionTest {
         System.out.println("enviaFichero");
         String fichero = "";
         ObjectOutputStream oos = null;
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.getInstance(
+                new LibreriaMensajes(true), null, 1337);
         boolean expResult = false;
         boolean result = instance.enviaFichero(fichero, oos);
         assertEquals(expResult, result);
@@ -65,7 +66,8 @@ public class LogicaAplicacionTest {
         System.out.println("enviarHash");
         String archivo = "";
         ObjectOutputStream objectOutputStream = null;
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.getInstance(
+                new LibreriaMensajes(true), null, 1337);
         boolean expResult = false;
         boolean result = instance.enviarHash(archivo, objectOutputStream);
         assertEquals(expResult, result);

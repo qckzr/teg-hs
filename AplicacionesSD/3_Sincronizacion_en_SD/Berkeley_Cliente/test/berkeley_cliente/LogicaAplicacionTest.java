@@ -49,7 +49,10 @@ public class LogicaAplicacionTest {
     public void testEnviarMensaje() {
         System.out.println("enviarMensaje");
         String mensaje = "";
-        LogicaAplicacion instance = null;
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                libreriaMensajes, new DatosAplicacion("1","1"),
+                1337,"localhost");
         boolean expResult = false;
         boolean result = instance.enviarMensaje(mensaje);
         assertEquals(expResult, result);
@@ -61,8 +64,11 @@ public class LogicaAplicacionTest {
     @Test
     public void testSincronizarReloj() {
         System.out.println("sincronizarReloj");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
+        Mensaje mensaje = new Mensaje(null,"");
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                libreriaMensajes, new DatosAplicacion("1","1"),
+                1337,"localhost");
         boolean expResult = false;
         boolean result = instance.sincronizarReloj(mensaje);
         assertEquals(expResult, result);

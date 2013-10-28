@@ -5,8 +5,8 @@
 package ldap_servidor;
 
 /**
- *
- * @author sam
+ * Clase que permite almacenar los datos de un cliente del servidor de nombres.
+ * @author Héctor Sam
  */
 public class Cliente {
     
@@ -18,7 +18,8 @@ public class Cliente {
     private Cliente manager;
     private Dominio dominio;
 
-    public Cliente(String givenName, String sn, String telephoneNumber, String mail, Cliente manager,Dominio dominio) {
+    public Cliente(String givenName, String sn, String telephoneNumber,
+            String mail, Cliente manager,Dominio dominio) {
         this.cn = givenName+" "+sn;
         this.givenName = givenName;
         this.sn = sn;

@@ -48,13 +48,13 @@ public class LogicaAplicacionTest {
     @Test
     public void testEnviarMensajeRespuesta() {
         System.out.println("enviarMensajeRespuesta");
-        Mensaje mensajeRecibido = null;
-        LogicaAplicacion instance = null;
+        Mensaje mensajeRecibido = new Mensaje(null, null);
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        LogicaAplicacion instance = LogicaAplicacion.getInstance(
+                libreriaMensajes, null, 2000);
         boolean expResult = false;
         boolean result = instance.enviarMensajeRespuesta(mensajeRecibido);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     

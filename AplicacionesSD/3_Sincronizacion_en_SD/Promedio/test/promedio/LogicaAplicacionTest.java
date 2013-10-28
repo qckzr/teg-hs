@@ -50,9 +50,11 @@ public class LogicaAplicacionTest {
     @Test
     public void testEnviarMensaje_String_String() {
         System.out.println("enviarMensaje");
-        String mensaje = "";
-        String ip = "";
-        LogicaAplicacion instance = null;
+        String mensaje = "asd";
+        String ip = "localhost";
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia
+        (libreriaMensajes, null, 1337, 5000);
         boolean expResult = false;
         boolean result = instance.enviarMensaje(mensaje, ip);
         assertEquals(expResult, result);
@@ -64,8 +66,10 @@ public class LogicaAplicacionTest {
     @Test
     public void testEnviarMensaje_0args() {
         System.out.println("enviarMensaje");
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia
+        (libreriaMensajes, null, 1337, 5000);
+        boolean expResult = true;
         boolean result = instance.enviarMensaje();
         assertEquals(expResult, result);
     }
@@ -76,8 +80,12 @@ public class LogicaAplicacionTest {
     @Test
     public void testSincronizarReloj() {
         System.out.println("sincronizarReloj");
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia
+        (libreriaMensajes, null, 1337, 5000);
+        instance.setHorasRecibidas(new ArrayList<Date>());
+        instance.getHorasRecibidas().add(new Date());
+        boolean expResult = true;
         boolean result = instance.sincronizarReloj();
         assertEquals(expResult, result);
     }
@@ -88,9 +96,11 @@ public class LogicaAplicacionTest {
     @Test
     public void testAgregarHora() {
         System.out.println("agregarHora");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        Mensaje mensaje = new Mensaje(null, null);
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia
+        (libreriaMensajes, null, 1337, 5000);
+        boolean expResult = true;
         boolean result = instance.agregarHora(mensaje);
         assertEquals(expResult, result);
     }

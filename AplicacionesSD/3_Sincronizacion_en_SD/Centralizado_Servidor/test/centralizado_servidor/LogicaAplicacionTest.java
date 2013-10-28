@@ -48,8 +48,12 @@ public class LogicaAplicacionTest {
     @Test
     public void testVerificarRegion() {
         System.out.println("verificarRegion");
-        String mensaje = "";
-        LogicaAplicacion instance = null;
+        String mensaje = "2:asd";
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                libreriaMensajes, null, 2000);
+       instance.getRegionCriticaOcupada().add("localhost");
+        
         boolean expResult = false;
         boolean result = instance.verificarRegion(mensaje);
         assertEquals(expResult, result);
@@ -63,8 +67,10 @@ public class LogicaAplicacionTest {
     @Test
     public void testResponderNodo() {
         System.out.println("responderNodo");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
+        Mensaje mensaje = new Mensaje("123","2:asd");
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia
+        (libreriaMensajes, null, 1337);
         boolean expResult = false;
         boolean result = instance.responderNodo(mensaje);
         assertEquals(expResult, result);

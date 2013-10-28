@@ -48,8 +48,10 @@ public class LogicaAplicacionTest {
     @Test
     public void testComprobarConexionGrupo() {
         System.out.println("comprobarConexionGrupo");
-        String ipHost = "";
-        LogicaAplicacion instance = null;
+        String ipHost = "localhost";
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                libreriaMensajes, null, 2000);
         boolean expResult = false;
         boolean result = instance.comprobarConexionGrupo(ipHost);
         assertEquals(expResult, result);
@@ -62,8 +64,11 @@ public class LogicaAplicacionTest {
     public void testEnviarMensaje() {
         System.out.println("enviarMensaje");
         String mensaje = "";
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                libreriaMensajes, null, 2000);
+        instance.getNodosGrupo().add("localhost");
+        boolean expResult = true;
         boolean result = instance.enviarMensaje(mensaje);
         assertEquals(expResult, result);
 
@@ -75,8 +80,14 @@ public class LogicaAplicacionTest {
     @Test
     public void testEvaluarMensaje() {
         System.out.println("evaluarMensaje");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
+        Mensaje mensaje = new Mensaje("127.0.0.1","holamund0");
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        libreriaMensajes.agregarIpDestino("localhost");
+        libreriaMensajes.agregarIpDestino("localhost");
+        libreriaMensajes.agregarIpDestino("localhost");
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                libreriaMensajes, null, 2000);
+        instance.setLibreriaMensajes(libreriaMensajes);
         boolean expResult = false;
         boolean result = instance.evaluarMensaje(mensaje);
         assertEquals(expResult, result);

@@ -13,6 +13,7 @@ import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.security.AccessControlException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -214,7 +215,11 @@ public class LogicaAplicacion {
             Logger.getLogger(LogicaAplicacion.class.getName()).
                     log(Level.SEVERE, null, ex);
             return  false;
-        } 
+        } catch (AccessControlException ex){
+            Logger.getLogger(LogicaAplicacion.class.getName()).
+                    log(Level.SEVERE, null, ex);
+            return  false;
+        }
         
     }
     

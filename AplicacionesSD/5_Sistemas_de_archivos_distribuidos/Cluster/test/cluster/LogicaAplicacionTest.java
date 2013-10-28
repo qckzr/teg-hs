@@ -49,10 +49,11 @@ public class LogicaAplicacionTest {
     @Test
     public void testSolicitarArchivo() {
         System.out.println("solicitarArchivo");
-        String fichero = "";
-        String ip = "";
-        int puerto = 0;
-        LogicaAplicacion instance = null;
+        String fichero = "archivo";
+        String ip = "localhost";
+        int puerto = 1337;
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337);
         boolean expResult = false;
         boolean result = instance.solicitarArchivo(fichero, ip, puerto);
         assertEquals(expResult, result);

@@ -10,7 +10,7 @@ import javax.jws.soap.SOAPBinding;
 
 /**
  *
- * @author sam
+ * @author Héctor Sam.
  */
 
 @WebService

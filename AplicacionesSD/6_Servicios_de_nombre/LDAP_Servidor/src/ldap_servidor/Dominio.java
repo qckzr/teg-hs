@@ -7,8 +7,8 @@ package ldap_servidor;
 import java.util.ArrayList;
 
 /**
- *
- * @author sam
+ * Clase que permite almacenar la información referente a un dominio específico.
+ * @author Héctor Sam
  */
 public class Dominio {
     

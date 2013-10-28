@@ -48,7 +48,7 @@ public class LogicaAplicacionTest {
     @Test
     public void testIniciarServidor() {
         System.out.println("iniciarServidor");
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = LogicaAplicacion.iniciarServidor();
         assertEquals(expResult, result);
 

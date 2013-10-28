@@ -49,10 +49,11 @@ public class LogicaAplicacionTest {
     @Test
     public void testSolicitarArchivo() {
         System.out.println("solicitarArchivo");
-        String fichero = "";
-        String servidor = "";
-        int puerto = 0;
-        LogicaAplicacion instance = null;
+        String fichero = "archivo1";
+        String servidor = "localhost";
+        int puerto = 1337;
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337);
         boolean expResult = false;
         boolean result = instance.solicitarArchivo(fichero, servidor, puerto);
         assertEquals(expResult, result);
@@ -64,8 +65,12 @@ public class LogicaAplicacionTest {
     @Test
     public void testEsperarArchivos() {
         System.out.println("esperarArchivos");
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                new LibreriaMensajes(true), null, 1337);
+        instance.getNodos().add("localhost");
+        instance.getNodos().add("localhost");
+        instance.getNodos().add("localhost");
+        boolean expResult = true;
         boolean result = instance.esperarArchivos();
         assertEquals(expResult, result);
     }

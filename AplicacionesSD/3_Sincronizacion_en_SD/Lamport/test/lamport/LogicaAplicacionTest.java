@@ -48,9 +48,12 @@ public class LogicaAplicacionTest {
     @Test
     public void testEvaluarMarca() {
         System.out.println("evaluarMarca");
-        String marcaRecibida = "";
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        String marcaRecibida = "+10";
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        libreriaMensajes.agregarIpDestino("localhost");
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(libreriaMensajes,
+                new DatosAplicacion("1","1"),1337,"192.168.1.192","");
+        boolean expResult = true;
         boolean result = instance.evaluarMarca(marcaRecibida);
         assertEquals(expResult, result);
     }
@@ -61,9 +64,13 @@ public class LogicaAplicacionTest {
     @Test
     public void testEnviarMarca_String() {
         System.out.println("enviarMarca");
-        String marcaActual = "";
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        String marcaActual = "1337";
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        libreriaMensajes.agregarIpDestino("localhost");
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(libreriaMensajes,
+                new DatosAplicacion("1", "1"),1337,"192.168.1.192","");
+        
+        boolean expResult = true;
         boolean result = instance.enviarMarca(marcaActual);
         assertEquals(expResult, result);
     }
@@ -74,7 +81,11 @@ public class LogicaAplicacionTest {
     @Test
     public void testEnviarMarca_0args() {
         System.out.println("enviarMarca");
-        LogicaAplicacion instance = null;
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        libreriaMensajes.agregarIpDestino("localhost");
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(libreriaMensajes,
+                new DatosAplicacion("1", "1"),1337,"192.168.1.192","");
+        
         boolean expResult = false;
         boolean result = instance.enviarMarca();
         assertEquals(expResult, result);

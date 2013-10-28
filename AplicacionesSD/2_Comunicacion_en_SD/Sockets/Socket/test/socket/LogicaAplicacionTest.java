@@ -8,6 +8,7 @@ package socket;
 
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -51,7 +52,8 @@ public class LogicaAplicacionTest {
         int opcion = 0;
         String idNodo = "";
         String mensajeRecibido = "";
-        LogicaAplicacion instance = null;
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(false);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(libreriaMensajes, null, opcion);
         boolean expResult = false;
         boolean result = instance.enviarMensajeNodo(opcion, idNodo, mensajeRecibido);
         assertEquals(expResult, result);
@@ -66,8 +68,9 @@ public class LogicaAplicacionTest {
         System.out.println("agregarDestinatario");
         String id = "";
         String ip = "";
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(false);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(libreriaMensajes, null, 2000);
+        boolean expResult = true;
         boolean result = instance.agregarDestinatario(id, ip);
         assertEquals(expResult, result);
     }
@@ -79,7 +82,9 @@ public class LogicaAplicacionTest {
     public void testBuscarIpNodo() {
         System.out.println("buscarIpNodo");
         String id = "";
-        LogicaAplicacion instance = null;
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(false);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                libreriaMensajes, null, 2000);
         String expResult = "";
         String result = instance.buscarIpNodo(id);
         assertEquals(expResult, result);
@@ -91,9 +96,15 @@ public class LogicaAplicacionTest {
     @Test
     public void testEvaluarMensaje() {
         System.out.println("evaluarMensaje");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        Mensaje mensaje = new Mensaje("192.168.1.191","Respuesta_");
+        mensaje.setIpOrigen("localhost");
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes();
+        libreriaMensajes.agregarIpDestino("localhost");
+        
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                libreriaMensajes, null, 2000);
+        
+        boolean expResult = true;
         boolean result = instance.evaluarMensaje(mensaje);
         assertEquals(expResult, result);
     }

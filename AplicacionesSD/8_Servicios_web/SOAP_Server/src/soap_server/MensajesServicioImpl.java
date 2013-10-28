@@ -8,7 +8,7 @@ import javax.jws.WebService;
 
 /**
  *
- * @author sam
+ * @author Héctor Sam.
  */
 
 @WebService(endpointInterface = "soap_server.MensajesServicio")

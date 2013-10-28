@@ -101,6 +101,40 @@ public class LogicaAplicacion {
     public void setLibreriaMensajes(LibreriaMensajes libreriaMensajes) {
         this.libreriaMensajes = libreriaMensajes;
     }
+
+    public int getPuertoAgente() {
+        return puertoAgente;
+    }
+
+    public void setPuertoAgente(int puertoAgente) {
+        this.puertoAgente = puertoAgente;
+    }
+
+    public DatosAplicacion getDatosAplicacion() {
+        return datosAplicacion;
+    }
+
+    public void setDatosAplicacion(DatosAplicacion datosAplicacion) {
+        this.datosAplicacion = datosAplicacion;
+    }
+
+    public EsperaMensaje getEsperaMensaje() {
+        return esperaMensaje;
+    }
+
+    public void setEsperaMensaje(EsperaMensaje esperaMensaje) {
+        this.esperaMensaje = esperaMensaje;
+    }
+
+    public ArrayList<String> getNodosCaidos() {
+        return nodosCaidos;
+    }
+
+    public void setNodosCaidos(ArrayList<String> nodosCaidos) {
+        this.nodosCaidos = nodosCaidos;
+    }
+    
+    
     
     
     /**

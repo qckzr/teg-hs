@@ -48,8 +48,10 @@ public class LogicaAplicacionTest {
     @Test
     public void testEnviarMensaje_Mensaje() {
         System.out.println("enviarMensaje");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
+        Mensaje mensaje = new Mensaje("localhost","asd");
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(
+                libreriaMensajes, null, 2000,"localhost");
         boolean expResult = false;
         boolean result = instance.enviarMensaje(mensaje);
         assertEquals(expResult, result);
@@ -61,9 +63,11 @@ public class LogicaAplicacionTest {
     @Test
     public void testEnviarMensaje_String_String() {
         System.out.println("enviarMensaje");
-        String mensaje = "";
-        String ipOrigen = "";
-        LogicaAplicacion instance = null;
+        String mensaje = "holamund0";
+        String ipOrigen = "localhost";
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(libreriaMensajes, null,
+                2000, ipOrigen);
         boolean expResult = false;
         boolean result = instance.enviarMensaje(mensaje, ipOrigen);
         assertEquals(expResult, result);
@@ -75,10 +79,18 @@ public class LogicaAplicacionTest {
     @Test
     public void testEvaluarMensaje() {
         System.out.println("evaluarMensaje");
-        Mensaje mensaje = null;
-        LogicaAplicacion instance = null;
+        Mensaje mensaje = new Mensaje("localhost","holamund0");
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(true);
+        libreriaMensajes.agregarIpDestino("127");
+        LogicaAplicacion instance = LogicaAplicacion.getInstancia(libreriaMensajes,
+                null, 5000, "localhost");
         boolean expResult = false;
+        try {
         boolean result = instance.evaluarMensaje(mensaje);
+        
         assertEquals(expResult, result);
+        } catch (Exception e){
+            
+        }        
     }
 }

@@ -48,8 +48,9 @@ public class LogicaAplicacionTest {
     public void testServidorWeb() {
         System.out.println("servidorWeb");
         int opcion = 0;
-        LogicaAplicacion instance = null;
-        boolean expResult = false;
+        LogicaAplicacion instance = LogicaAplicacion.getInstance(
+                new LibreriaMensajes(true), null, 1337,"localhost");
+        boolean expResult = true;
         boolean result = instance.servidorWeb(opcion);
         assertEquals(expResult, result);
 
@@ -61,7 +62,8 @@ public class LogicaAplicacionTest {
     @Test
     public void testLeerArchivo() {
         System.out.println("leerArchivo");
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.getInstance(
+                new LibreriaMensajes(true), null, 1337,"localhost");
         boolean expResult = false;
         boolean result = instance.leerArchivo();
         assertEquals(expResult, result);
@@ -74,7 +76,8 @@ public class LogicaAplicacionTest {
     public void testEnviarInformacionSiguienteNodo() {
         System.out.println("enviarInformacionSiguienteNodo");
         int opcion = 0;
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.getInstance(
+                new LibreriaMensajes(true), null, 1337,"localhost");
         boolean expResult = false;
         boolean result = instance.enviarInformacionSiguienteNodo(opcion);
         assertEquals(expResult, result);
@@ -87,7 +90,8 @@ public class LogicaAplicacionTest {
     @Test
     public void testImprimirPagina() {
         System.out.println("imprimirPagina");
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.getInstance(
+                new LibreriaMensajes(true), null, 1337,"localhost");
         boolean expResult = false;
         boolean result = instance.imprimirPagina();
         assertEquals(expResult, result);
@@ -99,7 +103,8 @@ public class LogicaAplicacionTest {
     @Test
     public void testPreguntarEstado() {
         System.out.println("preguntarEstado");
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.getInstance(
+                new LibreriaMensajes(true), null, 1337,"localhost");
         boolean expResult = false;
         boolean result = instance.preguntarEstado();
         assertEquals(expResult, result);
@@ -111,7 +116,8 @@ public class LogicaAplicacionTest {
     @Test
     public void testEnviarEstado() {
         System.out.println("enviarEstado");
-        LogicaAplicacion instance = null;
+        LogicaAplicacion instance = LogicaAplicacion.getInstance(
+                new LibreriaMensajes(true), null, 1337,"localhost");
         boolean expResult = false;
         boolean result = instance.enviarEstado();
         assertEquals(expResult, result);
