@@ -31,6 +31,7 @@ public class LogicaAplicacion {
     private String nodo3 = "";
     private String[] vectorFinal;
     private boolean corrupto = false;
+    private int tiempoHilo = 0;
     
 
     private LogicaAplicacion(LibreriaMensajes libreriaMensajes,
@@ -152,6 +153,16 @@ public class LogicaAplicacion {
     public void setCorrupto(boolean corrupto) {
         this.corrupto = corrupto;
     }
+
+    public int getTiempoHilo() {
+        return tiempoHilo;
+    }
+
+    public void setTiempoHilo(int tiempoHilo) {
+        this.tiempoHilo = tiempoHilo;
+    }
+    
+    
     
     
     
@@ -447,7 +458,7 @@ public class LogicaAplicacion {
                 corrupto = true;
                 
             }
-            Thread.sleep(5000);
+            Thread.sleep(tiempoHilo);
             if (opcion == 1){
                 for (String string : nodos) {
                     libreriaMensajes.enviarMensaje("id:", string);

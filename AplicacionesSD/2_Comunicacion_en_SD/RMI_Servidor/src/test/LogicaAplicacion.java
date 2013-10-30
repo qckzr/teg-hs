@@ -124,9 +124,8 @@ public class LogicaAplicacion {
                  System.out.println("Se ha recibido el mensaje: \""
                          +mensaje.getMensaje()+"\" proveniente del host: "
                          +mensaje.getIpOrigen());
-                 libreriaMensajes.enviarMensaje("Se ha recibido el mensaje: \""
-                         +mensaje.getMensaje()+"\" proveniente del host: "
-                         +mensaje.getIpOrigen());
+                 libreriaMensajes.enviarMensaje(
+                         mensaje.getMensaje());
                  
             }
         };

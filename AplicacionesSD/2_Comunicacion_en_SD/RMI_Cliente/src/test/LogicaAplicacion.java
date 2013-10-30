@@ -189,12 +189,18 @@ public class LogicaAplicacion {
             switch (mensaje){
                 case "hora":  System.out.println(mensajesRemotos.horaActual());
                     libreriaMensajes.enviarMensaje(mensajesRemotos.horaActual());
+                    libreriaMensajes.enviarMensaje("Invocando el Método Hora"
+                            + "Remotamente ",ipServidor);
                     return  true;
                 case "fecha": System.out.println(mensajesRemotos.fechaActual());
                     libreriaMensajes.enviarMensaje(mensajesRemotos.fechaActual());
+                    libreriaMensajes.enviarMensaje("Invocando el Método Fecha"
+                            + "Remotamente ",ipServidor);
                     return  true;
                 case "saludo": System.out.println(mensajesRemotos.saludos());
                     libreriaMensajes.enviarMensaje(mensajesRemotos.saludos());
+                    libreriaMensajes.enviarMensaje("Invocando el Método Saludo"
+                            + "Remotamente ",ipServidor);
                     return  true;
                 default:
                     System.out.println("Opcion no valida");

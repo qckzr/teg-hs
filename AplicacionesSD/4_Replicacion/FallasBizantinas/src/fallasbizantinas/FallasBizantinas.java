@@ -26,6 +26,7 @@ public class FallasBizantinas {
         logicaAplicacion.agregarNodo(args[4]);
         logicaAplicacion.agregarNodo(args[5]);
         logicaAplicacion.agregarNodo(args[6]);
+        logicaAplicacion.setTiempoHilo(Integer.valueOf(args[7]));
         escucharMensajes.start();
         logicaAplicacion.iniciar(Integer.valueOf(args[1]));
     }
