@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package test;
+package rmi;
 
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
@@ -14,6 +14,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.security.AccessControlException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -182,25 +183,30 @@ public class LogicaAplicacion {
      */
     public boolean mensaje(String mensaje){
         MensajesRemotos mensajesRemotos;
+        ArrayList<String> mensajes;
+        String instruccion = mensaje.substring(0,mensaje.indexOf(":"));
+        String complemento = mensaje.substring(mensaje.indexOf(":")+1,
+                mensaje.length());
         try {
           
             mensajesRemotos = (MensajesRemotos) 
                   Naming.lookup("//"+ipServidor+"/"+lookUp);  
-            switch (mensaje){
-                case "hora":  System.out.println(mensajesRemotos.horaActual());
-                    libreriaMensajes.enviarMensaje(mensajesRemotos.horaActual());
-                    libreriaMensajes.enviarMensaje("Invocando el Método Hora "
-                            + "Remotamente ",ipServidor);
+            switch (instruccion){
+                case "listar":  mensajes = mensajesRemotos.listarMensajes();
+                                libreriaMensajes.enviarMensaje("Invocando el "
+                                        + "Método Listar Remotamente",ipServidor);
+                                listarMensajes(mensajes);
+                    
                     return  true;
-                case "fecha": System.out.println(mensajesRemotos.fechaActual());
-                    libreriaMensajes.enviarMensaje(mensajesRemotos.fechaActual());
-                    libreriaMensajes.enviarMensaje("Invocando el Método Fecha "
-                            + "Remotamente ",ipServidor);
+                case "agregar": mensajesRemotos.agregarMensaje(complemento);
+                    libreriaMensajes.enviarMensaje("Se agrego el mensaje: "+complemento);
+                    libreriaMensajes.enviarMensaje("Invocando el Método Agregar "
+                            + "Mensaje Remotamente ",ipServidor);
                     return  true;
-                case "saludo": System.out.println(mensajesRemotos.saludos());
-                    libreriaMensajes.enviarMensaje(mensajesRemotos.saludos());
-                    libreriaMensajes.enviarMensaje("Invocando el Método Saludo "
-                            + "Remotamente ",ipServidor);
+                case "eliminar": System.out.println(mensajesRemotos.eliminarMensajes());
+                    libreriaMensajes.enviarMensaje("Se elimino la lista de mensajes");
+                    libreriaMensajes.enviarMensaje("Invocando el Método Eliminar "
+                            + "Mensajes Remotamente ",ipServidor);
                     return  true;
                 default:
                     System.out.println("Opcion no valida");
@@ -227,6 +233,22 @@ public class LogicaAplicacion {
             return  false;
         }
         
+    }
+    
+    
+    /**
+     * Método que permite imprimir la lista de mensajes obtenida del nodo servidor.
+     * @param mensajes La lista de mensajes a imprimir.
+     */
+    public void listarMensajes(ArrayList<String> mensajes){
+        if (mensajes.size() == 0){
+            libreriaMensajes.enviarMensaje("Lista vacia");
+        } else {
+            libreriaMensajes.enviarMensaje("Contenido de la lista: ");
+            for (String mensaje : mensajes) {
+                libreriaMensajes.enviarMensaje(mensaje);
+            }
+        }
     }
     
   

@@ -410,7 +410,10 @@ Se tiene un ejecutable servidor que posee dominios y usuarios asociados y un eje
 4. Los dominios por defectos son: ucab.edu con los usuarios: Hector Sam, Aileen Posadas, Daniel Sam <br/>
 ibm.com con los usuarios: Juan Rodriguez, Jessica Motta, Cristobal Gimon y Dany Esteves <br/>',22); /* 22 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
-VALUES (S_APLICACIONES.NEXTVAL,'RMI',TO_DATE('22/09/2013','DD/MM/YYYY'),' ',23); /* 23 */
+VALUES (S_APLICACIONES.NEXTVAL,'RMI',TO_DATE('22/09/2013','DD/MM/YYYY'),'
+Se tiene dos (2) aplicaciones cliente y servidor. <br/>
+1. El servidor posee los metodos: listar mensajes,agregar mensaje y eliminar lista <br/>
+2. Para enviar mensajes al servidor se escribe uno de los siguientes mensajes desde el cliente: listar: , agregar:mensaje_a_agregar o eliminar: <br/>  ',23); /* 23 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'EJB',TO_DATE('22/09/2013','DD/MM/YYYY'),'
 Se tiene un ejecutable cliente que permite enviar mensajes a un servlet que contiene los beans de sesion con y sin estado <br/>
@@ -449,168 +452,169 @@ VALUES (S_EJECUTABLES.NEXTVAL,'AgenteConfiguracion.jar','CLIENTE','ejecutables/'
 
 
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'CaracteristicasSD_Servidor1.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',1,1);/* 1 */
+VALUES (S_EJECUTABLES.NEXTVAL,'CaracteristicasSD_Servidor1.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',1,1);/* 1 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'CaracteristicasSD_Servidor2.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',1,2); /* 2 */
+VALUES (S_EJECUTABLES.NEXTVAL,'CaracteristicasSD_Servidor2.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',1,2); /* 2 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'CaracteristicasSD_Cliente.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',1,3); /* 3 */
+VALUES (S_EJECUTABLES.NEXTVAL,'CaracteristicasSD_Cliente.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',1,3); /* 3 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'DesafiosSD_Servidor.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',2,1); /* 4 */
+VALUES (S_EJECUTABLES.NEXTVAL,'DesafiosSD_Servidor.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',2,1); /* 4 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'DesafiosSD_Cliente1.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',2,2); /* 5 */
+VALUES (S_EJECUTABLES.NEXTVAL,'DesafiosSD_Cliente1.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',2,2); /* 5 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'DesafiosSD_Cliente2.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',2,3); /* 6 */
+VALUES (S_EJECUTABLES.NEXTVAL,'DesafiosSD_Cliente2.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',2,3); /* 6 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Arquitectura_C_S_Servidor.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',3,1); /* 7 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Arquitectura_C_S_Servidor.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',3,1); /* 7 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Arquitectura_C_S_Cliente1.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',3,2); /* 8 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Arquitectura_C_S_Cliente1.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',3,2); /* 8 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Arquitectura_C_S_Cliente2.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',3,3); /* 9 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Arquitectura_C_S_Cliente2.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',3,3); /* 9 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'P2P1.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',4,1); /* 10 */
+VALUES (S_EJECUTABLES.NEXTVAL,'P2P1.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',4,1); /* 10 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'P2P2.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',4,2); /* 11 */
+VALUES (S_EJECUTABLES.NEXTVAL,'P2P2.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',4,2); /* 11 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'P2P3.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',4,3); /* 12 */
+VALUES (S_EJECUTABLES.NEXTVAL,'P2P3.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',4,3); /* 12 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'P2P4.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',4,4); /* 13 */
+VALUES (S_EJECUTABLES.NEXTVAL,'P2P4.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',4,4); /* 13 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Socket1.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',5,1); /* 14 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Socket1.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',5,1); /* 14 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Socket2.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',5,2); /* 15 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Socket2.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',5,2); /* 15 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Socket3.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',5,3); /* 16 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Socket3.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',5,3); /* 16 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Socket4.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',5,4); /* 17 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Socket4.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',5,4); /* 17 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'RMI_Servidor1.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',6,1); /* 18 */
+VALUES (S_EJECUTABLES.NEXTVAL,'RMI_Servidor1.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',6,1); /* 18 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'RMI_Cliente1.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',6,2); /* 19 */
+VALUES (S_EJECUTABLES.NEXTVAL,'RMI_Cliente1.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',6,2); /* 19 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Grupo_Emisor.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',7,1); /* 20 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Grupo_Emisor.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',7,1); /* 20 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Grupo_Receptor1.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',7,2); /* 21 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Grupo_Receptor1.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',7,2); /* 21 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Grupo_Receptor2.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',7,3); /* 22 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Grupo_Receptor2.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',7,3); /* 22 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Grupo_Receptor3.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',7,4); /* 23 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Grupo_Receptor3.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',7,4); /* 23 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Lamport1.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',8,1); /* 24 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Lamport1.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',8,1); /* 24 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Lamport2.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',8,2); /* 25 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Lamport2.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',8,2); /* 25 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Lamport3.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',8,3); /* 26 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Lamport3.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',8,3); /* 26 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Lamport4.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',8,4); /* 27 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Lamport4.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',8,4); /* 27 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Cristian_Servidor.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',9,1); /* 28 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Cristian_Servidor.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',9,1); /* 28 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Cristian_Cliente.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',9,2); /* 29 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Cristian_Cliente.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',9,2); /* 29 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Berkeley_Servidor.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',10,1); /* 30 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Berkeley_Servidor.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',10,1); /* 30 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Berkeley_Cliente1.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',10,2); /* 31 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Berkeley_Cliente1.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',10,2); /* 31 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Berkeley_Cliente2.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',10,3); /* 32 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Berkeley_Cliente2.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',10,3); /* 32 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Berkeley_Cliente3.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',10,4); /* 33 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Berkeley_Cliente3.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',10,4); /* 33 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Promedio1.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',11,1); /* 34 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Promedio1.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',11,1); /* 34 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Promedio2.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',11,2); /* 35 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Promedio2.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',11,2); /* 35 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Promedio3.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',11,3); /* 36 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Promedio3.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',11,3); /* 36 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Promedio4.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',11,4); /* 37 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Promedio4.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',11,4); /* 37 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Centralizado_Servidor.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',12,1); /* 38 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Centralizado_Servidor.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',12,1); /* 38 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Centralizado_Cliente1.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',12,2); /* 39 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Centralizado_Cliente1.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',12,2); /* 39 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Centralizado_Cliente2.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',12,3); /* 40 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Centralizado_Cliente2.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',12,3); /* 40 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Centralizado_Cliente3.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',12,4); /* 41 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Centralizado_Cliente3.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',12,4); /* 41 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Distribuido1.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',13,1); /* 42 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Distribuido1.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',13,1); /* 42 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Distribuido2.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',13,2); /* 43 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Distribuido2.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',13,2); /* 43 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Distribuido3.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',13,3); /* 44 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Distribuido3.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',13,3); /* 44 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Distribuido4.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',13,4); /* 45 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Distribuido4.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',13,4); /* 45 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Grandulon1.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',14,1); /* 46 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Grandulon1.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',14,1); /* 46 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Grandulon2.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',14,2); /* 47 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Grandulon2.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',14,2); /* 47 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Grandulon3.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',14,3); /* 48 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Grandulon3.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',14,3); /* 48 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Grandulon4.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',14,4); /* 49 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Grandulon4.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',14,4); /* 49 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Anillo1.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',15,1); /* 50 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Anillo1.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',15,1); /* 50 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Anillo2.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',15,2); /* 51 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Anillo2.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',15,2); /* 51 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Anillo3.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',15,3); /* 52 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Anillo3.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',15,3); /* 52 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Anillo4.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',15,4); /* 53 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Anillo4.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',15,4); /* 53 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Tipos_De_Fallas_Servidor.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',16,1); /* 54 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Tipos_De_Fallas_Servidor.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',16,1); /* 54 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Tipos_De_Fallas_Cliente.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',16,2); /* 55 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Tipos_De_Fallas_Cliente.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',16,2); /* 55 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'FallasBizantinas1.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',17,1); /* 56 */
+VALUES (S_EJECUTABLES.NEXTVAL,'FallasBizantinas1.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',17,1); /* 56 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'FallasBizantinas2.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',17,2); /* 57 */
+VALUES (S_EJECUTABLES.NEXTVAL,'FallasBizantinas2.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',17,2); /* 57 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'FallasBizantinas3.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',17,3); /* 58 */
+VALUES (S_EJECUTABLES.NEXTVAL,'FallasBizantinas3.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',17,3); /* 58 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'FallasBizantinas4.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',17,4); /* 59 */
+VALUES (S_EJECUTABLES.NEXTVAL,'FallasBizantinas4.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',17,4); /* 59 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'ModeloAccesoRemoto_Servidor.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',18,1); /* 60 */
+VALUES (S_EJECUTABLES.NEXTVAL,'ModeloAccesoRemoto_Servidor.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',18,1); /* 60 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'ModeloAccesoRemoto_Cliente.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',18,2); /* 61 */
+VALUES (S_EJECUTABLES.NEXTVAL,'ModeloAccesoRemoto_Cliente.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',18,2); /* 61 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'ModeloCargaDescarga_Servidor.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',19,1); /* 62 */
+VALUES (S_EJECUTABLES.NEXTVAL,'ModeloCargaDescarga_Servidor.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',19,1); /* 62 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'ModeloCargaDescarga_Cliente1.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',19,2); /* 63 */
+VALUES (S_EJECUTABLES.NEXTVAL,'ModeloCargaDescarga_Cliente1.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',19,2); /* 63 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'ModeloCargaDescarga_Cliente2.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',19,3); /* 64 */
+VALUES (S_EJECUTABLES.NEXTVAL,'ModeloCargaDescarga_Cliente2.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',19,3); /* 64 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Cluster1.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',20,1); /* 65 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Cluster1.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',20,1); /* 65 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Cluster2.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',20,2); /* 66 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Cluster2.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',20,2); /* 66 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Cluster3.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',20,3); /* 67 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Cluster3.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',20,3); /* 67 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'Cluster_Cliente.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',20,4); /* 68 */
+VALUES (S_EJECUTABLES.NEXTVAL,'Cluster_Cliente.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',20,4); /* 68 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'DNS_Servidor.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',21,1); /* 69 */
+VALUES (S_EJECUTABLES.NEXTVAL,'DNS_Servidor.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',21,1); /* 69 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'DNS_Cliente.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',21,2); /* 70 */
+VALUES (S_EJECUTABLES.NEXTVAL,'DNS_Cliente.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',21,2); /* 70 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'LDAP_Servidor.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',22,1); /* 71 */
+VALUES (S_EJECUTABLES.NEXTVAL,'LDAP_Servidor.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',22,1); /* 71 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO) 
-VALUES (S_EJECUTABLES.NEXTVAL,'LDAP_Cliente.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',22,2); /* 72 */
+VALUES (S_EJECUTABLES.NEXTVAL,'LDAP_Cliente.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',22,2); /* 72 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'RMI_Servidor2.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',23,1); /* 73 */
+VALUES (S_EJECUTABLES.NEXTVAL,'RMI_Servidor2.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',23,1); /* 73 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'RMI_Cliente2.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',23,2); /* 74 */
+VALUES (S_EJECUTABLES.NEXTVAL,'RMI_Cliente2.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',23,2); /* 74 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'EJB.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',24,2); /* 75 */
+VALUES (S_EJECUTABLES.NEXTVAL,'EJB.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',24,2); /* 75 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'SOAP_Server.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',25,1); /* 76 */
+VALUES (S_EJECUTABLES.NEXTVAL,'SOAP_Server.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',25,1); /* 76 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'SOAP_Client.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',25,2); /* 77 */
+VALUES (S_EJECUTABLES.NEXTVAL,'SOAP_Client.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',25,2); /* 77 */
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'REST_Cliente.jar','CLIENTE','/Users/hectorsam/Desktop/ejecutables/',26,2); /* 78 */
+VALUES (S_EJECUTABLES.NEXTVAL,'REST_Cliente.jar','CLIENTE','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',26,2); /* 78 */
+
 
 
 
 
 /*
 INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,RUTA_EJECUTABLE,ID_APLICACION,ID_NODO)
-VALUES (S_EJECUTABLES.NEXTVAL,'.jar','SERVIDOR','/Users/hectorsam/Desktop/ejecutables/',,);
+VALUES (S_EJECUTABLES.NEXTVAL,'.jar','SERVIDOR','/Users/hectorsam/teg-hs/ServidorCentral/ejecutables/',,);
 */
 /* EJECUTABLES */
 
@@ -832,7 +836,7 @@ VALUES (S_PARAMETROS.NEXTVAL,'Id Nodo 3','3',17);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Ip Nodo 3','192.168.1.193',17);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
-VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','RMI_Servidor',18);
+VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','RMI_Servidor1',18);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Numero Nodo','1',18);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
@@ -840,7 +844,7 @@ VALUES (S_PARAMETROS.NEXTVAL,'Ip Servidor Central','192.168.1.199',18);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Puerto Agente','2000',18);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
-VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','RMI_Cliente',19);
+VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','RMI_Cliente1',19);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Numero Nodo','2',19);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
@@ -1444,7 +1448,7 @@ VALUES (S_PARAMETROS.NEXTVAL,'Puerto Agente','2000',72);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Ip Servidor','192.168.1.191',72);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
-VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','RMI_Servidor',73);
+VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','RMI_Servidor2',73);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Numero Nodo','1',73);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
@@ -1452,7 +1456,7 @@ VALUES (S_PARAMETROS.NEXTVAL,'Ip Servidor Central','192.168.1.199',73);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Puerto Agente','2000',73);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
-VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','RMI_Cliente',74);
+VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','RMI_Cliente2',74);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Numero Nodo','2',74);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
@@ -1499,6 +1503,7 @@ INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Puerto Agente','2000',78);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Ip Servidor','192.168.1.191',78);
+
 
 /*
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
@@ -1648,6 +1653,12 @@ INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
 VALUES (S_ESCENARIOS.NEXTVAL,'Consultar','Al enviar el mensaje search y el nombre del usuario se podrá visualizar la informacion perteneciente al usuario (datos personales)',22,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
 VALUES (S_ESCENARIOS.NEXTVAL,'Eliminar','Al enviar el mensaje delete y el nombre del usuario, entonces el servidor localiza al usuario y lo elimina del dominio',22,NULL);
+INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
+VALUES (S_ESCENARIOS.NEXTVAL,'Listar Mensajes','Si se envia el mensaje "listar:" se muestra el contenido de la lista remota',23,NULL);
+INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
+VALUES (S_ESCENARIOS.NEXTVAL,'Agregar Mensajes','Si se envia el mensaje "agregar:MensajeAagregar" agregar una cadena de caracteres a la lista remota. ',23,NULL);
+INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
+VALUES (S_ESCENARIOS.NEXTVAL,'Eliminar','Si se envia el mensaje "eliminar:" se vacia la lista de mensajes remota ',23,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
 VALUES (S_ESCENARIOS.NEXTVAL,'Bean con estado (stateful)','Al enviar el mensaje2 (apellido) vacio el servlet responde con la frase: Se borro lo que escribi, indicando que fue null el campo del apellido',24,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)

@@ -12,7 +12,7 @@
     </filter-class>
     <init-param>
         <param-name>avoid-urls</param-name>
-        <param-value>index.jsp,topicos.jsp,aplicaciones.jsp,Aplicacion,MostrarEscenarioServlet,scripts,escenario.jsp,MonitoreoServlet,TerminarAplicacionServlet,informacionAgente.jsp,InformacionAgenteServlet,css,GenerarPreguntaServlet,archivos/,images/</param-value>
+        <param-value>index.jsp,topicos.jsp,aplicaciones.jsp,Aplicacion,MostrarEscenarioServlet,scripts,escenario.jsp,MonitoreoServlet,TerminarAplicacionServlet,informacionAgente.jsp,InformacionAgenteServlet,css,GenerarPreguntaServlet,archivos/,images/,test.jsp,test</param-value>
     </init-param>
 </filter>
 <filter-mapping>

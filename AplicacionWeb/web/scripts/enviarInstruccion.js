@@ -25,6 +25,7 @@
       $('#'+id+'.detener').attr("disabled", true);
       $('#'+id+'.enviar').attr("disabled", true);
       $('#mensaje'+id).attr("disabled", true);
+      $('#'+id+'.monitoreo').empty();
       $.post('CicloDeVidaServlet',{idEjecutable:id,instruccion:"detener"},function(responseText) { 
                         return;
                     }); 
@@ -32,7 +33,7 @@
    $(".enviar").click(function(){
       var id = this.id;
       var mensaje = $("#mensaje"+id).val();
-      if (mensaje!=""){
+      if (mensaje !=""){
             $("#mensaje"+id).val("");
             $.post('CicloDeVidaServlet',{idEjecutable:id,instruccion:"enviar",mensaje:mensaje},function(responseText) { 
                 alert("Se envió el mensaje: "+mensaje+" al nodo con el ejecutable: "+id);
@@ -49,6 +50,7 @@
        var id = this.id;
        $('#'+id+'.detener').removeAttr("disabled");
        $('#'+id+'.enviar').removeAttr("disabled");
+       $('#'+id+'.iniciar').attr("disabled", true);
        $('#mensaje'+id).removeAttr("disabled");
        $.post('CicloDeVidaServlet',{idEjecutable:id,instruccion:"iniciar"},function(responseText) { 
         
@@ -62,6 +64,7 @@
       $('.detener').attr("disabled", true);
       $('.enviar').attr("disabled", true);
       $('.mensaje').attr("disabled", true);
+      $('.monitoreo').empty();
       $.post('CicloDeVidaServlet',{instruccion:"eliminarTodo"},function(responseText) { 
                         alert("Se eliminó todo el ambiente");
                        return;

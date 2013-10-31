@@ -10,7 +10,7 @@ package model;
  */
 public class Directorios {
     
-    private String directorioEjecutables = "/Users/hectorsam/Desktop/ejecutables";
+    private String directorioEjecutables = "/Users/hectorsam/teg-hs/ServidorCentral/ejecutables";
     private String directorioImagenesEscenarios = "/Users/hectorsam/teg-hs/AplicacionWeb/web/images/escenarios/";
     private String directorioImagenesTopico = "/Users/hectorsam/teg-hs/AplicacionWeb/web/images/topicos";
 

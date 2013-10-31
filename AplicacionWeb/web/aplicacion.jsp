@@ -25,7 +25,7 @@
       <!--  <link rel="stylesheet" type="text/css" href="styles/console.css" />
         <link rel="stylesheet" type="text/css" href="styles/general.css">
         <link rel="stylesheet" type="text/css" href="styles/estilos-extras.css">
-        <link rel="stylesheet" type="text/css" href="css/teg-theme/jquery-ui-1.10.3.custom.css"> -->
+        <link rel="stylesheet" type="text/css" href="css/teg-theme/jquery-ui-1.10.3.custom.css">-->
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/footer.css">
         <link rel="stylesheet" type="text/css" href="css/console.css">
@@ -43,7 +43,8 @@
                      $("#archivoPreguntas a").click(function(){
                          var child = $("#preguntasPdf");
                         $("#archivoPreguntas").removeChild(child);
-                    }); 
+                    });
+                    
 
         });
         
@@ -71,8 +72,27 @@
    window.setTimeout( botton2, 4000 );
    window.setTimeout( botton3, 7000 );
    window.setTimeout( botton4, 10000 );
+
+  
    
               });
+               $(function() {
+                    $( "#datos" ).accordion();
+                });
+/*
+                jQuery('#contenido') //set for html for jsfiddle, but should be 'body'
+              .bind(
+               'click',
+               function(e){
+            if(
+             jQuery('#asd').dialog('isOpen')
+             && !jQuery(e.target).is('.ui-dialog, a')
+             && !jQuery(e.target).closest('.ui-dialog').length
+            ){
+             jQuery('#asd').dialog('close');
+            }
+               }
+              ); */
 
             
 
@@ -88,28 +108,29 @@
        	             <div class="row-fluid">
             		<div id="titulo" class="span12"><h1 class="text-center">${nombre}</h1></div>
             		<div id="informacionAplicacion" class="span9">
-			     <dl> 
-                		<dt>Fecha Creación:</dt> <dd><p class="text-justify">${fecha_actualizacion}</p></dd>
- 				<dt>Descripción Tópico:</dt> <dd><p class="text-justify">${descripcionTopico}
+                            <div id="datos"> 
+                                <h3>Fecha Creación</h3> <div><p class="text-justify">${fecha_actualizacion}</p></div>
+                                <h3>Descripción Tópico</h3> <div><p class="text-justify" id="descripcion">${descripcionTopico}
                                         <c:set var="string1" value="${imagenTopico}" />
    <c:if test="${fn:length(string1)>0}">
        <img src="${imagenTopico}"/> 
    </c:if>
-<%--${imagenTopico}--%></p></dd>
-			                		<dt>Instrucciones:</dt>  <dd><p class="text-justify">${instrucciones}</p></dd>
-      			     </dl>
+</p></div>
+			                		<h3>Instrucciones</h3>  <div><p class="text-justify">${instrucciones}</p></div>
+      			     </div>
         		</div>
        
         		<div id="escenarios" class="span2">
             			<p class="text-center">Escenarios</p>
 		                 <c:set var="escenario" value="1"/><ul>
                 		<c:forEach var="row" items="${escenarios}">
-                        		<li><a href="#" class="linkEscenario text-center " id="${escenario}">Escenario ${escenario}</a></li>
+                        		<li><a href="#" class="linkEscenario text-center " id="${escenario}">${row[0]}</a></li>
                     			<form id="${escenario}">
                     				<input type="hidden" class="nombreEscenario"  id="${escenario}" value="${row[0]}"/>
                     				<input type="hidden" class="descripcionEscenario" id="${escenario}" value="${row[1]}"/>
 				                <input type="hidden" class="imagenEscenario" id="${escenario}" value="${row[2]}"/>
                     			</form>
+                                        <div id="asd"></div>
                     		 	<c:set var="escenario" value="${escenario + 1}" scope="page"/>
                 		</c:forEach></ul>
                                 <a href="#" id="preguntas">Generar Preguntas</a>
@@ -161,7 +182,7 @@
                                          </div>
                                     </div>
                             </div>
-                            <div class="monitoreo"></div>	
+                            <div class="monitoreo" id="${ejecutable[0]}"></div>	
                         </div>
                  </div>
                  
