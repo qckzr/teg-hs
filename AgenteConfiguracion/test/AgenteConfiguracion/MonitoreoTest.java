@@ -161,4 +161,18 @@ public class MonitoreoTest {
         assertEquals(expResult, result);
     }
     
+    /**
+     * Test of comprobarConexion method, of class Monitoreo.
+     */
+    @Test
+    public void testComprobarConexion() {
+        System.out.println("idProceso");
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(false);
+        libreriaMensajes.agregarIpDestino("192.168.1.199");
+        Monitoreo instance = new Monitoreo(libreriaMensajes);
+        boolean expResult = false;
+        boolean result = instance.comprobarConexion();
+        assertEquals(expResult, result);
+    }
+    
 }

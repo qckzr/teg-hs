@@ -7,6 +7,7 @@ import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
 import agente.InformacionAgente;
 import java.io.IOException;
+import java.net.Socket;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -175,11 +176,14 @@ public class GestionarInfraestructura extends Thread{
      */
     public boolean reenviarMensaje(InformacionAgente informacion){
         boolean retorno = false;
-        
-        if (libreria.enviarMensaje(informacion,"localhost",PUERTO_APP_WEB) == true){
+        if (comprobarConexion()){
+            if (libreria.enviarMensaje(informacion,"localhost",PUERTO_APP_WEB) == true){
             retorno = true;
+            }
         }
+        
         return retorno;
+        
     }
     
     
@@ -243,7 +247,7 @@ public class GestionarInfraestructura extends Thread{
         try {
             ResultSet rs = bd.consultar("SELECT VALOR FROM PARAMETROS WHERE "
                 + "ID_EJECUTABLE=(SELECT ID FROM EJECUTABLES WHERE NOMBRE='"
-                +nombreEjecutable+"') ");
+                +nombreEjecutable+"') ORDER BY ID ");
             while (rs.next()){
                 parametros = parametros+" "+rs.getString(1);
             }
@@ -371,7 +375,7 @@ public class GestionarInfraestructura extends Thread{
             if (libreria.ultimoMensajeAgente() != null){
                 InformacionAgente info = libreria.ultimoMensajeAgente();
                 reenviarMensaje(info);
-                insertarEnBd(info);
+            //    insertarEnBd(info);
                 libreria.eliminarMensaje(info);             
             }
             
@@ -432,7 +436,7 @@ public class GestionarInfraestructura extends Thread{
         
         else{
             reenviarMensaje(mensaje);
-            insertarEnBd(mensaje);
+          //  insertarEnBd(mensaje);
         }
     }
     
@@ -454,7 +458,7 @@ public class GestionarInfraestructura extends Thread{
             retorno = false;
         }
         idProceso  = texto.substring(texto.indexOf("<")+1, texto.length());
-        if (insertarE_N(idProceso) == false){
+        if (insertarInformacionEjecutable(idProceso) == false){
             retorno = false;
         }
         
@@ -517,11 +521,11 @@ public class GestionarInfraestructura extends Thread{
     }
     
     /**
-     * Método que permite insertar en la tabla ejecutable_nodo.
+     * Método que permite insertar en la tabla informacion_ejecutable.
      * @param idProceso El número de proceso del ejecutable actual.
      * @return True si se realizó la inserción. False en caso contrario.
      */
-    public boolean insertarE_N(String idProceso){
+    public boolean insertarInformacionEjecutable(String idProceso){
         Iterator iterator = nodos.iterator();
         boolean retorno = false;
         
@@ -534,7 +538,7 @@ public class GestionarInfraestructura extends Thread{
                             + "select id from ejecutables where nombre= "
                             + "'"+nodo.getNombreEjecutable()+"'").getString(1);
                     
-                    if (bd.ejecutarQuery("INSERT INTO E_N (FECHA_DEPLOY,"
+                    if (bd.ejecutarQuery("INSERT INTO INFORMACION_EJECUTABLE (FECHA_DEPLOY,"
                             + "HORA_DEPLOY,ID_PROCESO,ID_EJECUTABLE) VALUES"
                             + "(TO_DATE('"+nodo.getFecha()+"','dd/mm/yyyy'),"
                             + "TO_DATE('"+nodo.getHora()+"','HH24:MI:SS'),"
@@ -582,6 +586,24 @@ public class GestionarInfraestructura extends Thread{
      */
     public void kill(){
         control = false;
+    }
+    
+    /**
+     * Método que permite comprobar la conexion del servidor central para enviar
+     * la informacion.
+     * @return True si la conexion fue exitosa. False en caso contrario.
+     */
+    public boolean comprobarConexion(){
+        try {
+            Socket socket = new Socket(ipModuloMonitoreo,
+                    PUERTO_APP_WEB);
+            socket.close();
+            return true;
+        } catch (IOException ex) {
+           // Logger.getLogger(Monitoreo.class.getName()).
+           //         log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
     
     

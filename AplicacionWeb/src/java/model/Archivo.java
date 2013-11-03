@@ -37,6 +37,7 @@ public class Archivo extends Thread{
     private ArrayList<String> nombresArchivoMensajes;
     private ArrayList<String> nombresArchivoAgentes;
     String idAplicacion="";
+    private ConexionBD conexionBD;
 
     public Archivo(String ruta,ArrayList<String> nombresArchivoMensajes,ArrayList<String> nombresArchivoAgentes, int port, String idAplicacion) {
         libreriaMensajes = new LibreriaMensajes(port);
@@ -46,6 +47,7 @@ public class Archivo extends Thread{
         this.nombresArchivoAgentes = nombresArchivoAgentes;
         this.idAplicacion = idAplicacion;
         crearArchivo(ruta);
+        conexionBD = new ConexionBD();
     }
     
     
@@ -55,7 +57,7 @@ public class Archivo extends Thread{
         
         while (control){
             
-            if (libreriaMensajes.ultimoMensaje()!=null){
+            if (libreriaMensajes.ultimoMensaje() != null){
                
                     Mensaje mensaje = libreriaMensajes.ultimoMensaje();
                     System.out.println("mensaje recibido: "+mensaje.getMensaje());
@@ -173,14 +175,14 @@ public class Archivo extends Thread{
     }
     
     public String retornarNodo(String ipOrigen){
+        String idNodo = "";
         try {
-            ConexionBD conexionBD = new ConexionBD();
             ResultSet rs = conexionBD.consultarRegistro("select id from nodos where ip='"+ipOrigen+"'");
-            return rs.getString(1);
+            idNodo = rs.getString(1);
         } catch (SQLException ex) {
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "";
+        return idNodo;
         
     }
     

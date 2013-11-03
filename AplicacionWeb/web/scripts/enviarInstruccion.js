@@ -1,6 +1,5 @@
  $(document).ready(function() {
    $(".informacion").click(function(){
-      
         var aplicacionActiva = $("#ejecutable"+this.id+" .informacion .aplicacionActiva").val();
         var idProceso = $("#ejecutable"+this.id+" .informacion .idProceso").val();
         var memoriaDisponible = $("#ejecutable"+this.id+" .informacion .memoriaDisponible").val();

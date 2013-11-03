@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 public class Monitoreo extends Thread{
     
     private boolean control=true;
-    private static int TIEMPO_SLEEP = 5000;
+    private static int TIEMPO_SLEEP = 10000;
     private LibreriaMensajes libreria;
     private String intefaz;
     
@@ -74,8 +74,9 @@ public class Monitoreo extends Thread{
         
         while (control){
             try {
-               
-                enviarInformacion();    
+               if (comprobarConexion()) {
+                    enviarInformacion();    
+               }
                 Monitoreo.sleep(TIEMPO_SLEEP);
                 
             } catch (InterruptedException ex) {
@@ -330,7 +331,7 @@ public class Monitoreo extends Thread{
             
             while ((line = input.readLine()) != null) {
                 
-                if (line.contains("java -jar Agente")){
+                if (line.contains("java -jar /home/pi/Desktop/Agente")){
                   id = line.substring(0,5);
                   for (int i = 0; i < id.length(); i++) {
                     if (id.charAt(i)!=' '){
@@ -347,6 +348,27 @@ public class Monitoreo extends Thread{
             err.printStackTrace();
         }
         return id;
+    }
+    
+    
+    /**
+     * Método que permite comprobar la conexion del servidor central para enviar
+     * la informacion.
+     * @return True si la conexion fue exitosa. False en caso contrario.
+     */
+    public boolean comprobarConexion(){
+        try {
+            Socket socket = new Socket(libreria.getIpDestino().get(0),
+                    LibreriaMensajes.getPuerto());
+            socket.close();
+            Socket socket1 = new Socket("localhost",LibreriaMensajes.getPuerto());
+            socket1.close();
+            return true;
+        } catch (IOException ex) {
+           // Logger.getLogger(Monitoreo.class.getName()).
+           //         log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
     
 }

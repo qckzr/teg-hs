@@ -8,10 +8,11 @@
                 $("#ejecutable1 .monitoreo").append(responseText);
                 var $cont = $('#ejecutable1 .monitoreo');
                 $cont[0].scrollTop = $cont[0].scrollHeight;
-                return;
+                
 
            
             });
+            var nodo1 = $("#ejecutable1 #1").val();
             $.post('MonitoreoServlet',{nodo:nodo1,tipo:0},function(responseText){
                $("#ejecutable1 .informacion").html(responseText);
                
@@ -23,12 +24,13 @@
                     $("#ejecutable2 .monitoreo").append(responseText);
                     var $cont = $('#ejecutable2 .monitoreo');
                 $cont[0].scrollTop = $cont[0].scrollHeight;
-                    return;
+                    
             });
-            $.post('MonitoreoServlet',{nodo:nodo1,tipo:0},function(responseText){
+            $.post('MonitoreoServlet',{nodo:nodo2,tipo:0},function(responseText){
                $("#ejecutable2 .informacion").html(responseText);
                
             });
+          
             
             
         }
@@ -38,12 +40,13 @@
                     $("#ejecutable3 .monitoreo").append(responseText);
                     var $cont = $('#ejecutable3 .monitoreo');
                 $cont[0].scrollTop = $cont[0].scrollHeight;
-                    return;
+                    
             });
-            $.post('MonitoreoServlet',{nodo:nodo1,tipo:0},function(responseText){
+            $.post('MonitoreoServlet',{nodo:nodo3,tipo:0},function(responseText){
                $("#ejecutable3 .informacion").html(responseText);
                
             });
+           
             
             
         }
@@ -53,16 +56,18 @@
                     $("#ejecutable4 .monitoreo").append(responseText);
                     var $cont = $('#ejecutable4 .monitoreo');
                 $cont[0].scrollTop = $cont[0].scrollHeight;
-                    return;
+                    
             }); 
             
-            $.post('MonitoreoServlet',{nodo:nodo1,tipo:0},function(responseText){
+            $.post('MonitoreoServlet',{nodo:nodo4,tipo:0},function(responseText){
                $("#ejecutable4 .informacion").html(responseText);
                
             });
+          
             
             
         }
+        return;
         
       
       },5000);

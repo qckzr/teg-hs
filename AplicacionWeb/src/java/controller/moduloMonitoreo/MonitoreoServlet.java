@@ -93,7 +93,6 @@ public class MonitoreoServlet extends HttpServlet {
                       out.println("<input type=\"hidden\" class=\"procesosActivos\" value=\""+procesosActivos+"\" />");
                       out.println("<input type=\"hidden\" class=\"puertosDisponibles\" value=\""+puertosDisponibles+"\" />");
                       out.println("<input type=\"hidden\" class=\"usoCpu\" value=\""+usoCpu+"\" />");
-                            
 
                 }
                 
@@ -102,7 +101,7 @@ public class MonitoreoServlet extends HttpServlet {
                   
         
         } catch (JDOMException ex) {
-        //    Logger.getLogger(MonitoreoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MonitoreoServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {            
             out.close();
         }

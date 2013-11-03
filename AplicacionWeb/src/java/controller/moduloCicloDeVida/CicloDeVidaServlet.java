@@ -82,6 +82,7 @@ public class CicloDeVidaServlet extends HttpServlet {
                         break;
                     }
                 };
+                conexionBD.desconectar();
             }
             
         } catch (SQLException ex) {

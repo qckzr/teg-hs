@@ -189,8 +189,8 @@
                      <div class="row-fluid">
 			<div id="botones${ejec}" class="span12 offset2 form-inline">
                             <sql:query dataSource="${localSource}" var="result" 
-				sql="select e.nombre, e.pathscript from eventos e where e.id in (select e.id_evento from e_e e where e.id_ejecutable=${ejecutable[0]})"/>
-                            <input type="button" class="informacion button btn" id="${ejecutable[0]}" value="Informacion"/>
+				sql="select e.nombre, e.pathscript from eventos e where e.id in (select e.id_evento from ejecutable_evento e where e.id_ejecutable=${ejecutable[0]})"/>
+                            <input type="button" class="informacion button btn" id="${ejecutable[3]}" value="Informacion"/>
                             <c:forEach var="row" items="${result.rows}">
                                 <c:set var="evento1" value="INICIAR"/> 
                                 <c:set var="evento2" value="DETENER"/>

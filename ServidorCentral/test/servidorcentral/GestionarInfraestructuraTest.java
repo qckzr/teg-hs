@@ -231,7 +231,7 @@ public class GestionarInfraestructuraTest {
         GestionarInfraestructura instance = new GestionarInfraestructura(new 
             LibreriaMensajes(false),"hector","passw0rd","1521","192.168.1.200");
         boolean expResult = false;
-        boolean result = instance.insertarE_N(idProceso);
+        boolean result = instance.insertarInformacionEjecutable(idProceso);
         assertEquals(expResult, result);
     }
 
@@ -246,6 +246,20 @@ public class GestionarInfraestructuraTest {
             LibreriaMensajes(false),"hector","passw0rd","1521","192.168.1.200");
         NodoActivo expResult = null;
         NodoActivo result = instance.buscarNodo(ipNodo);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of comprarConexion method, of class GestionarInfraestructura.
+     */
+    @Test
+    public void testComprobarConexion() {
+        System.out.println("buscarNodo");
+        String ipNodo = "192.168.1.191";
+        GestionarInfraestructura instance = new GestionarInfraestructura(new 
+            LibreriaMensajes(false),"hector","passw0rd","1521","192.168.1.200");
+        boolean expResult = false;
+        boolean result = instance.comprobarConexion();
         assertEquals(expResult, result);
     }
 
