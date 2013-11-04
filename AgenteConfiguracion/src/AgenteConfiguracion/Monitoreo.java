@@ -357,7 +357,7 @@ public class Monitoreo extends Thread{
      * @return True si la conexion fue exitosa. False en caso contrario.
      */
     public boolean comprobarConexion(){
-        try {
+        try {      
             Socket socket = new Socket(libreria.getIpDestino().get(0),
                     LibreriaMensajes.getPuerto());
             socket.close();
@@ -365,8 +365,9 @@ public class Monitoreo extends Thread{
             socket1.close();
             return true;
         } catch (IOException ex) {
-           // Logger.getLogger(Monitoreo.class.getName()).
-           //         log(Level.SEVERE, null, ex);
+            System.out.println("Puerto cerrado...");
+//            Logger.getLogger(Monitoreo.class.getName()).
+//                    log(Level.SEVERE, null, ex);
             return false;
         }
     }

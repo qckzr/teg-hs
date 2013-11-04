@@ -43,30 +43,82 @@ public class IniciarSesion extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-            String iniciar = request.getParameter("sesion");
-            if (iniciar.contentEquals("iniciar")){
-                ConexionBD conexionBD = new ConexionBD();
-                String usuario = request.getParameter("usuario");
-                String password = request.getParameter("password");
-                ResultSet rs = conexionBD.consultarRegistro("SELECT NOMBRE,APELLIDO FROM USUARIOS WHERE CORREO='"+usuario+"' AND CONTRASENA='"+password+"'");
-                if (rs!=null){
-                    HttpSession session=  request.getSession(true);
-                    session.setAttribute("nombre",rs.getString(1));
-                    session.setAttribute("apellido",rs.getString(2));
-                    out.println("Usuario logueado");
-                }
-                else
-                out.println("Usuario o password invalido");
-            }
-            else{
-                HttpSession session=  request.getSession();
-                session.invalidate(); 
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+              validarUsuario(request, out);
+//            String iniciar = request.getParameter("sesion");
+//            if (iniciar.contentEquals("iniciar")){
+//                ConexionBD conexionBD = new ConexionBD();
+//                String usuario = request.getParameter("usuario");
+//                String password = request.getParameter("password");
+//                ResultSet rs = conexionBD.consultarRegistro("SELECT NOMBRE,APELLIDO FROM USUARIOS WHERE CORREO='"+usuario+"' AND CONTRASENA='"+password+"'");
+//                if (rs!=null){
+//                    HttpSession session=  request.getSession(true);
+//                    session.setAttribute("nombre",rs.getString(1));
+//                    session.setAttribute("apellido",rs.getString(2));
+//                    out.println("Usuario logueado");
+//                }
+//                else
+//                out.println("Usuario o password invalido");
+//            }
+//            else{
+//                HttpSession session=  request.getSession();
+//                session.invalidate(); 
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
         } finally {            
             out.close();
         }
+    }
+    
+    /**
+     * Método que permite validar los datos de un usuario para acceder al módulo
+     * de gestión.
+     * @param request La petición HTTP con los datos del usuario.
+     * @param out Donde se imprimirá si el usuario fue logueado o no.
+     * @return True si los datos son correctos. False en caso contrario o si hubo
+     * error.
+     */
+    public boolean validarUsuario(HttpServletRequest request, PrintWriter out){
+        ConexionBD conexionBD;
+        String usuario;
+        String password;
+        ResultSet resultSet;
+        HttpSession session;
+        String iniciar;
+        if (request != null) {
+            try {
+                iniciar = request.getParameter("sesion");
+                if (iniciar.contentEquals("iniciar")){
+                    conexionBD = new ConexionBD();
+                    usuario = request.getParameter("usuario");
+                    password = request.getParameter("password");
+                    resultSet = conexionBD.consultarRegistro(
+                            "SELECT NOMBRE,APELLIDO FROM USUARIOS WHERE"
+                            + " CORREO='"+usuario+"' AND CONTRASENA='"+password+"'");
+                    if (resultSet != null){
+                            session =  request.getSession(true);
+                            session.setAttribute("nombre",resultSet.getString(1));
+                            session.setAttribute("apellido",resultSet.getString(2));
+                            out.println("Usuario logueado");
+                            
+                    } else {
+                        out.println("Usuario o password invalido");
+                        return false;
+                    }
+                    conexionBD.desconectar();
+                } else{
+                    session=  request.getSession();
+                    session.invalidate(); 
+                }
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(IniciarSesion.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+    }
+        return false;
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

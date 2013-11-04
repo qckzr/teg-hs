@@ -1,20 +1,29 @@
  $(document).ready(function() {
    $(".informacion").click(function(){
-        var aplicacionActiva = $("#ejecutable"+this.id+" .informacion .aplicacionActiva").val();
-        var idProceso = $("#ejecutable"+this.id+" .informacion .idProceso").val();
-        var memoriaDisponible = $("#ejecutable"+this.id+" .informacion .memoriaDisponible").val();
-        var numeroNodo = $("#ejecutable"+this.id+" .informacion .numeroNodo").val();
-        var procesosActivos = $("#ejecutable"+this.id+" .informacion .procesosActivos").val();
-        var puertosDisponibles = $("#ejecutable"+this.id+" .informacion .puertosDisponibles").val();
-        var usoCpu = $("#ejecutable"+this.id+" .informacion .usoCpu").val();
-        var direccionIp = $("#ejecutable"+this.id+" .informacion .direccionIp").val();
+        var aplicacionActiva = $("#ejecutable"+this.id+"\
+                .informacion .aplicacionActiva").val();
+        var idProceso = $("#ejecutable"+this.id+" \n\
+                .informacion .idProceso").val();
+        var memoriaDisponible = $("#ejecutable"+this.id+" \n\
+                .informacion .memoriaDisponible").val();
+        var numeroNodo = $("#ejecutable"+this.id+" \n\
+                .informacion .numeroNodo").val();
+        var procesosActivos = $("#ejecutable"+this.id+" \n\
+                .informacion .procesosActivos").val();
+        var puertosDisponibles = $("#ejecutable"+this.id+" \n\
+                .informacion .puertosDisponibles").val();
+        var usoCpu = $("#ejecutable"+this.id+" \n\
+                .informacion .usoCpu").val();
+        var direccionIp = $("#ejecutable"+this.id+" \n\
+                .informacion .direccionIp").val();
         $.post('InformacionAgenteServlet',{aplicacionActiva:aplicacionActiva,
             idProceso:idProceso,memoriaDisponible:memoriaDisponible,
             numeroNodo:numeroNodo,procesosActivos:procesosActivos,
-            puertosDisponibles:puertosDisponibles,usoCpu:usoCpu,direccionIp:direccionIp},function(responseText) { 
+            puertosDisponibles:puertosDisponibles,usoCpu:usoCpu,
+            direccionIp:direccionIp},function(responseText) { 
 
-            var win = window.open("","","width=300,height=500");
-            win.document.write(responseText);
+                var win = window.open("","","width=300,height=500");
+                win.document.write(responseText);
          });
    });
    $(".detener").click(function(){
@@ -25,17 +34,20 @@
       $('#'+id+'.enviar').attr("disabled", true);
       $('#mensaje'+id).attr("disabled", true);
       $('#'+id+'.monitoreo').empty();
-      $.post('CicloDeVidaServlet',{idEjecutable:id,instruccion:"detener"},function(responseText) { 
+      $.post('CicloDeVidaServlet',{idEjecutable:id,instruccion:"detener"},
+                function(responseText) { 
                         return;
                     }); 
    });
    $(".enviar").click(function(){
       var id = this.id;
       var mensaje = $("#mensaje"+id).val();
-      if (mensaje !=""){
+      if (mensaje != ""){
             $("#mensaje"+id).val("");
-            $.post('CicloDeVidaServlet',{idEjecutable:id,instruccion:"enviar",mensaje:mensaje},function(responseText) { 
-                alert("Se envió el mensaje: "+mensaje+" al nodo con el ejecutable: "+id);
+            $.post('CicloDeVidaServlet',{idEjecutable:id,instruccion:"enviar",
+                mensaje:mensaje},function(responseText) { 
+                        alert("Se envió el mensaje: "+mensaje+" \n\
+                        al nodo con el ejecutable: "+id);
                 
                 return;
        
@@ -51,7 +63,8 @@
        $('#'+id+'.enviar').removeAttr("disabled");
        $('#'+id+'.iniciar').attr("disabled", true);
        $('#mensaje'+id).removeAttr("disabled");
-       $.post('CicloDeVidaServlet',{idEjecutable:id,instruccion:"iniciar"},function(responseText) { 
+       $.post('CicloDeVidaServlet',{idEjecutable:id,instruccion:"iniciar"},
+            function(responseText) { 
         
                         return;
                     }); 
@@ -64,7 +77,8 @@
       $('.enviar').attr("disabled", true);
       $('.mensaje').attr("disabled", true);
       $('.monitoreo').empty();
-      $.post('CicloDeVidaServlet',{instruccion:"eliminarTodo"},function(responseText) { 
+      $.post('CicloDeVidaServlet',{instruccion:"eliminarTodo"},
+                function(responseText) { 
                         alert("Se eliminó todo el ambiente");
                        return;
        

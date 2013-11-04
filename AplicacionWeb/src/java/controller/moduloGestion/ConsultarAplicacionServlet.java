@@ -20,8 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
 
 /**
- *
- * @author hector
+ * Clase que permite obtener la información correspondiente a una aplicación
+ * seleccionada por el usuario.
+ * @author Héctor Sam
  */
 @WebServlet(name = "ConsultarAplicacionServlet", urlPatterns = {"/ConsultarAplicacionServlet"})
 public class ConsultarAplicacionServlet extends HttpServlet {
@@ -44,30 +45,73 @@ public class ConsultarAplicacionServlet extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-             ConexionBD conexion = new ConexionBD();
-            String id = request.getParameter("aplicaciones");
-            ResultSet rs = conexion.consultarRegistro("SELECT NOMBRE,to_date(fecha_actualizacion,'DD/MM/YYYY'),INSTRUCCIONES, ID_TOPICO FROM aplicaciones WHERE ID="+id);
-            request.setAttribute("nombre",rs.getString(1));
-            request.setAttribute("fecha_actualizacion",rs.getString(2));
-            request.setAttribute("instrucciones",rs.getString(3));
-            ResultSet aplicacion = conexion.consultarRegistro("Select nombre from topicos where id="+rs.getString(4));
-            request.setAttribute("topico",aplicacion.getString(1));
-            ResultSet escenarios = conexion.consultar("select nombre, descripcion from escenarios where id_aplicacion="+id);
-            ArrayList<String[]> listaEscenarios = new ArrayList<String[]>();
-            while (escenarios.next()){
-                String[] escenario = new String[2];
-                escenario[0] = escenarios.getString(1);
-                escenario[1] = escenarios.getString(2);
-                listaEscenarios.add(escenario);
-            }
-            request.setAttribute("escenarios",listaEscenarios);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("aplicaciones/consultarAplicacion2.jsp");
-            dispatcher.forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarAplicacionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                enviarInformacion(request, response);
         } finally {            
             out.close();
         }
+    }
+    
+    
+    /**
+     * Método que permite enviar los datos pertenecientes a una aplicación.
+     * @param request La petición HTTP con el id de la aplicación.
+     * @param response La respuesta HTTP con los datos de la aplicación.
+     * @return True si los datos fueron enviados. False en caso contrario.
+     */
+    public boolean enviarInformacion(HttpServletRequest request,
+            HttpServletResponse response){
+        ConexionBD conexion;
+        String id;
+        ResultSet resultSet;
+        ResultSet aplicacion;
+        ResultSet escenarios;
+        ArrayList<String[]> listaEscenarios;
+        String[] escenario;
+        RequestDispatcher dispatcher;
+        if ((request != null) &&(response != null)){
+            try {
+                conexion = new ConexionBD();
+                id = request.getParameter("aplicaciones");
+                resultSet = conexion.consultarRegistro("SELECT NOMBRE,to_date"
+                        + "(fecha_actualizacion,'DD/MM/YYYY'),"
+                        + "INSTRUCCIONES, ID_TOPICO FROM aplicaciones WHERE ID="+id);
+                request.setAttribute("nombre",resultSet.getString(1));
+                request.setAttribute("fecha_actualizacion",resultSet.getString(2));
+                request.setAttribute("instrucciones",resultSet.getString(3));
+                aplicacion = conexion.consultarRegistro(
+                        "Select nombre from topicos where id="+resultSet.getString(4));
+                request.setAttribute("topico",aplicacion.getString(1));
+                escenarios = conexion.consultar("select nombre, descripcion "
+                        + "from escenarios where id_aplicacion="+id);
+                listaEscenarios = new ArrayList<String[]>();
+                while (escenarios.next()){
+                    escenario = new String[2];
+                    escenario[0] = escenarios.getString(1);
+                    escenario[1] = escenarios.getString(2);
+                    listaEscenarios.add(escenario);
+                }
+                request.setAttribute("escenarios",listaEscenarios);
+                dispatcher = request.getRequestDispatcher("aplicaciones/"
+                        + "consultarAplicacion2.jsp");
+                dispatcher.forward(request, response);
+                conexion.desconectar();
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsultarAplicacionServlet.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            } catch (ServletException ex) {
+                Logger.getLogger(ConsultarAplicacionServlet.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            } catch (IOException ex) {
+                Logger.getLogger(ConsultarAplicacionServlet.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

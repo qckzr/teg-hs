@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 import model.Directorios;
 
 /**
- *
- * @author sam
+ * Clase que permite restringir el acceso a ciertas páginas de la infraestructura.
+ * @author Héctor Sam
  */
 
 public class FiltroUsuario implements Filter {
@@ -36,15 +36,17 @@ public class FiltroUsuario implements Filter {
         HttpSession session = request.getSession();
         Boolean AcceptedRequest = false;
 
-		if (session.getAttribute("nombre") ==null){
+		if (session.getAttribute("nombre") == null){
                     for(String u : urlList){
                         if(request.getServletPath().contains(u)){
                             AcceptedRequest = true;
                             break;
                         }
                     }
-			if(!AcceptedRequest)
-                            response.sendRedirect(request.getContextPath()+"/index.jsp");
+			if(!AcceptedRequest) {
+                            response.sendRedirect(request.getContextPath()
+                                    +"/index.jsp");
+                        }
                 }
 
         chain.doFilter(req, res);

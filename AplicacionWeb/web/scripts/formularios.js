@@ -6,7 +6,7 @@
                 $('.formularios').hide();
                 $("#results").html(data);
     });
-    return false; // prevent normal submit
+    return false; 
 });
     });
     

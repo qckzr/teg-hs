@@ -5,14 +5,18 @@
 package model;
 
 /**
- *
- * @author sam
+ * Clase que permite obtener los diferentes directorios para almacenar los
+ * archivos que subirá el usuario.
+ * @author Héctor Sam
  */
 public class Directorios {
     
-    private String directorioEjecutables = "/Users/hectorsam/teg-hs/ServidorCentral/ejecutables";
-    private String directorioImagenesEscenarios = "/Users/hectorsam/teg-hs/AplicacionWeb/web/images/escenarios/";
-    private String directorioImagenesTopico = "/Users/hectorsam/teg-hs/AplicacionWeb/web/images/topicos";
+    private String directorioEjecutables = "/Users/hectorsam/teg-hs/"
+            + "ServidorCentral/ejecutables";
+    private String directorioImagenesEscenarios = "/Users/hectorsam/teg-hs/"
+            + "AplicacionWeb/web/images/escenarios/";
+    private String directorioImagenesTopico = "/Users/hectorsam/teg-hs/"
+            + "AplicacionWeb/web/images/topicos";
 
     public Directorios() {
     }

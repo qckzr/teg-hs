@@ -7,8 +7,9 @@ package model;
 import java.util.ArrayList;
 
 /**
- *
- * @author sam
+ * Clase que permite guardar la información de una determinada pregunta
+ * perteneciente a un tópico.
+ * @author Héctor Sam.
  */
 public class Preguntas {
     
@@ -64,6 +65,10 @@ public class Preguntas {
         respuestas.add(opcion);
     }
     
+    /**
+     * Método que permite imprimir las respuestas asociadas a una pregunta.
+     * @return 
+     */
     public String imprimirRespuestas(){
         String respuesta = "";
         for (String string : respuestas) {

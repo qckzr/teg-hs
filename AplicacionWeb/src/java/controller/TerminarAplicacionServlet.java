@@ -4,13 +4,8 @@
  */
 package controller;
 
-import Libreria.LibreriaMensajes;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author sam
+ * Clase que contiene un método de eliminar el puerto de escucha de los mensajes
+ * del servidor central. 
+ * @author Héctor Sam
  */
 @WebServlet(name = "TerminarAplicacionServlet", urlPatterns = {"/TerminarAplicacionServlet"})
 public class TerminarAplicacionServlet extends HttpServlet {
@@ -38,37 +34,36 @@ public class TerminarAplicacionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-       // LibreriaMensajes libreriaMensajes = new LibreriaMensajes(5001);
        
         try {
             /*
              * TODO output your page here. You may use following sample code.
              */
             eliminarPuerto();
-     //       libreriaMensajes.getHiloDeEscucha().kill();
-            //libreriaMensajes.enviarMensaje("eliminarTodos_", "localhost");
-             
-         //   libreriaMensajes.enviarMensaje("~_Eliminar","localhost",5000); 
-            
+
         } finally {            
             
-         //       libreriaMensajes.getHiloDeEscucha().kill();
-           //    LibreriaMensajes.getHiloDeEscucha().kill();
                out.close();
          
         }
     }
     
-    public void eliminarPuerto(){
+    /**
+     * Método que permite ejecutar un archivo .jar para eliminar el puerto de 
+     * escucha "5000" al cambiar de aplicación de sistema distribuido.
+     * @return True si se logró ejecutar .jar. False en caso
+     * contrario.
+     */
+    public boolean eliminarPuerto(){
+        String root;
         try {
-            String root = getServletContext().getRealPath("/");
-            
+            root = getServletContext().getRealPath("/");
             Process p = Runtime.getRuntime().exec("java -jar "+root.substring(0,
                     root.indexOf("build/"))+"archivos/JavaApplication1.jar");
-            
-            
+            return true;
         } catch (Exception err) {
             err.printStackTrace();
+            return false;
         }
     }
 

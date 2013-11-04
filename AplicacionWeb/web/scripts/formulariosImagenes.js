@@ -1,11 +1,11 @@
  $(document).ready(function() {
      
      $("#checkboxImagen").click(function(){
-        if($("#imagen").val()=="true")
+        if($("#imagen").val() == "true") {
             $("#imagen").val("false");
-        
-        else
+        } else {
             $("#imagen").val("true");
+        }
      });
  
         
@@ -19,8 +19,7 @@
                     $('.formularios').hide();
                     $("#results").html(data);
                });
-           }
-            else{
+           } else{
                 
                 $.post($(this).attr("action"), $(this).serialize(), function(data) {
                     $('.formularios').hide();
@@ -34,6 +33,6 @@
            
                
     
-    return false; // prevent normal submit
+    return false;
 });
     });

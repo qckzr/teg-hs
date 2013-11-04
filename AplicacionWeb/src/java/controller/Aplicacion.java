@@ -21,12 +21,135 @@ import model.ConexionBD;
 import model.Archivo;
 
 /**
- *
- * @author sam
+ * Clase que permite ejecutar una aplicación de sistemas distribuido 
+ * seleccionada por el usuario.
+ * @author Héctor Sam
  */
 @WebServlet(name = "Aplicacion", urlPatterns = {"/Aplicacion"})
 public class Aplicacion extends HttpServlet {
+    
+    private static final int PUERTO_ESCUCHA = 5000;
+    private String idAplicacion;
+    private ConexionBD conexionBD = new ConexionBD();
+    private ArrayList<String[]> escenarios = new ArrayList<String[]>();
+    private String idTopico;
+    private ResultSet datosAplicacion;
+    private ResultSet escenariosAplicacion;
+    private ResultSet topicoAplicacion;
+    private ResultSet ejecutablesAplicacion;
+    private ArrayList<String[]> ejecutables = new ArrayList<>();
+    private ArrayList<String> archivoMensajes = new ArrayList<>();
+    private ArrayList<String> archivoAgentes = new ArrayList<>();
+    private String descripcion = "";
+    private String rutaImagen = "";
 
+    public String getIdAplicacion() {
+        return idAplicacion;
+    }
+
+    public void setIdAplicacion(String idAplicacion) {
+        this.idAplicacion = idAplicacion;
+    }
+
+    public ConexionBD getConexionBD() {
+        return conexionBD;
+    }
+
+    public void setConexionBD(ConexionBD conexionBD) {
+        this.conexionBD = conexionBD;
+    }
+
+    public ArrayList<String[]> getEscenarios() {
+        return escenarios;
+    }
+
+    public void setEscenarios(ArrayList<String[]> escenarios) {
+        this.escenarios = escenarios;
+    }
+
+    public String getIdTopico() {
+        return idTopico;
+    }
+
+    public void setIdTopico(String idTopico) {
+        this.idTopico = idTopico;
+    }
+
+    public ResultSet getDatosAplicacion() {
+        return datosAplicacion;
+    }
+
+    public void setDatosAplicacion(ResultSet datosAplicacion) {
+        this.datosAplicacion = datosAplicacion;
+    }
+
+    public ResultSet getEscenariosAplicacion() {
+        return escenariosAplicacion;
+    }
+
+    public void setEscenariosAplicacion(ResultSet escenariosAplicacion) {
+        this.escenariosAplicacion = escenariosAplicacion;
+    }
+
+    public ResultSet getTopicoAplicacion() {
+        return topicoAplicacion;
+    }
+
+    public void setTopicoAplicacion(ResultSet topicoAplicacion) {
+        this.topicoAplicacion = topicoAplicacion;
+    }
+
+    public ResultSet getEjecutablesAplicacion() {
+        return ejecutablesAplicacion;
+    }
+
+    public void setEjecutablesAplicacion(ResultSet ejecutablesAplicacion) {
+        this.ejecutablesAplicacion = ejecutablesAplicacion;
+    }
+
+    public ArrayList<String[]> getEjecutables() {
+        return ejecutables;
+    }
+
+    public void setEjecutables(ArrayList<String[]> ejecutables) {
+        this.ejecutables = ejecutables;
+    }
+
+    public ArrayList<String> getArchivoMensajes() {
+        return archivoMensajes;
+    }
+
+    public void setArchivoMensajes(ArrayList<String> archivoMensajes) {
+        this.archivoMensajes = archivoMensajes;
+    }
+
+    public ArrayList<String> getArchivoAgentes() {
+        return archivoAgentes;
+    }
+
+    public void setArchivoAgentes(ArrayList<String> archivoAgentes) {
+        this.archivoAgentes = archivoAgentes;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
+    }
+
+    
+    
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -41,22 +164,64 @@ public class Aplicacion extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        String root;
         try {
             /*
              * TODO output your page here. You may use following sample code.
              */
+          
+            idAplicacion = request.getParameter("aplicacion");  
+            idTopico = request.getParameter("idTopico");
+            obtenerDatos(idAplicacion);
+            root = getServletContext().getRealPath("/");  
+            guardarDatos();
+            iniciarEscuchaMensajes(root);
+            enviarDatos(request, response);
+        }  finally {    
+            conexionBD.desconectar();
+            out.close();
+        }
+    }
+    
+    
+    /**
+     * Método que permite obtener la informaciónproveniente de la base de datos
+     * perteneciente a la aplicación seleccionada.
+     * @param idAplicacion El id de la aplicación seleccionada.
+     * @return True si se pudo obtener la información de la base de datos.
+     * False si hubo error.
+     */
+    public boolean obtenerDatos(String idAplicacion){
+        
+        try {
+            datosAplicacion = conexionBD.consultarRegistro("SELECT NOMBRE,"
+                    + "FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO FROM "
+                    + "APLICACIONES WHERE ID="+idAplicacion);
+            escenariosAplicacion = conexionBD.consultar("SELECT NOMBRE,"
+                    + "DESCRIPCION,IMAGEN FROM "
+                    + "ESCENARIOS WHERE ID_APLICACION="+idAplicacion);
+	    topicoAplicacion = conexionBD.consultar("SELECT DESCRIPCION,"
+                    + "RUTA_IMAGEN FROM TOPICOS "
+                    + "WHERE ID="+datosAplicacion.getString(4));
+            ejecutablesAplicacion = conexionBD.consultar("SELECT ID,NOMBRE,"
+                    + "TIPO,ID_NODO FROM EJECUTABLES "
+                    + "WHERE ID_APLICACION="+idAplicacion);
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(Aplicacion.class.getName()).
+                    log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    /**
+     * Método que permite guardar los datos de la aplicación a ejecutar incluyendo
+     * los ejecutables, escenarios e información del tópico.
+     * @return True si se pudo guardar la información. False en caso contrario.
+     */
+    public boolean guardarDatos(){
+        try {
             
-            ConexionBD conexionBD = new ConexionBD();
-            String idAplicacion = request.getParameter("aplicacion");
-            String idTopico = request.getParameter("idTopico");
-            ResultSet resultSet = conexionBD.consultarRegistro("SELECT NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO FROM APLICACIONES WHERE ID="+idAplicacion);
-            ResultSet escenariosAplicacion = conexionBD.consultar("SELECT NOMBRE,DESCRIPCION,IMAGEN FROM ESCENARIOS WHERE ID_APLICACION="+idAplicacion);
-	    ResultSet topicoAplicacion = conexionBD.consultar("SELECT DESCRIPCION,RUTA_IMAGEN FROM TOPICOS WHERE ID="+resultSet.getString(4));
-            ResultSet ejecutablesAplicacion = conexionBD.consultar("SELECT ID,NOMBRE,TIPO,ID_NODO FROM EJECUTABLES WHERE ID_APLICACION="+idAplicacion);
-            ArrayList<String[]> escenarios = new ArrayList<String[]>();
-            String root = getServletContext().getRealPath("/");
-            String descripcion = "";
-            String rutaImagen = "";
             while(topicoAplicacion.next()){
                 descripcion = topicoAplicacion.getString(1);
                 rutaImagen = topicoAplicacion.getString(2);
@@ -70,9 +235,7 @@ public class Aplicacion extends HttpServlet {
                 escenario[2] = escenariosAplicacion.getString(3);
                 escenarios.add(escenario);
             }
-            ArrayList<String[]> ejecutables = new ArrayList<String[]>();
-            ArrayList<String> archivoMensajes = new ArrayList<>();
-            ArrayList<String> archivoAgentes = new ArrayList<>();
+            
             while (ejecutablesAplicacion.next()){
                 String [] ejecutable = new String[4];
                 ejecutable[0] = ejecutablesAplicacion.getString(1);
@@ -84,26 +247,67 @@ public class Aplicacion extends HttpServlet {
                 archivoAgentes.add("agente"+ejecutable[3]+".xml");
                
             }
-            Archivo archivo = new Archivo(root.substring(0,
-                    root.indexOf("build/"))+"archivos/",archivoMensajes,
-                    archivoAgentes,5000,idAplicacion);
-                archivo.start();
-            request.setAttribute("nombre",resultSet.getString(1));
-            request.setAttribute("fecha_actualizacion", resultSet.getString(2));
-            request.setAttribute("instrucciones", resultSet.getString(3));
-            request.setAttribute("escenarios",escenarios);
-            request.setAttribute("ejecutables",ejecutables);
-            request.setAttribute("idTopico", idTopico);
-            request.setAttribute("idAplicacion",idAplicacion);
-	    request.setAttribute("descripcionTopico",descripcion);
-	    request.setAttribute("imagenTopico",rutaImagen);
-           RequestDispatcher dispatcher = request.getRequestDispatcher("aplicacion.jsp");
-            dispatcher.forward(request, response);
+            return true;
         } catch (SQLException ex) {
-            Logger.getLogger(Aplicacion.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {            
-            out.close();
+            Logger.getLogger(Aplicacion.class.getName()).
+                    log(Level.SEVERE, null, ex);
+            return false;
         }
+    }
+    
+    /**
+     * Método que permite iniciar el hilo de escucha de los mensajes provenientes
+     * del servidor central.
+     * @param ruta La ruta donde se encuentran los archivos para recibir los 
+     * mensajes.
+     */
+    public void iniciarEscuchaMensajes(String ruta){
+        Archivo archivo = new Archivo(ruta.substring(0,
+                    ruta.indexOf("build/"))+"archivos/",archivoMensajes,
+                    archivoAgentes,PUERTO_ESCUCHA,idAplicacion);
+            archivo.start();
+        
+    }
+    
+    /**
+     * Método que permite enviar los datos de la aplicación a la página principal.
+     * @param request La petición HTTP que contiene los datos.
+     * @param response La respuesta HTTP donde se enviarán los datos.
+     * @return True si se pudo enviar los datos. False en caso contrario.
+     */
+    public boolean enviarDatos(HttpServletRequest request,
+            HttpServletResponse response){
+        RequestDispatcher dispatcher;
+        if ((request != null) && (response != null)){
+            try {
+                request.setAttribute("nombre",datosAplicacion.getString(1));
+                request.setAttribute("fecha_actualizacion", datosAplicacion.getString(2));
+                request.setAttribute("instrucciones", datosAplicacion.getString(3));
+                request.setAttribute("escenarios",escenarios);
+                request.setAttribute("ejecutables",ejecutables);
+                request.setAttribute("idTopico", idTopico);
+                request.setAttribute("idAplicacion",idAplicacion);
+                request.setAttribute("descripcionTopico",descripcion);
+                request.setAttribute("imagenTopico",rutaImagen);
+                dispatcher = request.getRequestDispatcher("aplicacion.jsp");
+                dispatcher.forward(request, response);
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(Aplicacion.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            } catch (ServletException ex) {
+                Logger.getLogger(Aplicacion.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            } catch (IOException ex) {
+                Logger.getLogger(Aplicacion.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
+        
     }
     
     

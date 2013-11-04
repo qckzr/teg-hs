@@ -7,8 +7,7 @@ function validarUnicaRespuesta(check){
                         checkBox.value = "NULL";
                         check.value ="'SI'";
                         return;
-                        }
-                        
+                        } 
                 }
                 check.value="'SI'";
                 return;

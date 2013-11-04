@@ -8,7 +8,7 @@
                     win.document.write(data);
                });
     
-    return false; // prevent normal submit
+    return false;
 });
     });
 

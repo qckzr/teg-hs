@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,56 +39,82 @@ public class CicloDeVidaServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(false);
         try {
-            /*
-             * TODO output your page here. You may use following sample code.
-             */
-            
-            String instruccion = request.getParameter("instruccion");
-            if (instruccion.contentEquals("eliminarTodo"))
+//            /*
+//             * TODO output your page here. You may use following sample code.
+//             */
+//            
+              evaluarInstruccion(request);
+        
+        } finally {            
+            out.close();
+        }
+    }
+    
+    /**
+     * Método que permite evaluar la instrucción enviada por el usuario para 
+     * dirigirla al servidor central.
+     * @param request La peticion HTTP que contiene la instrucción a enviar.
+     * @return True si la instrucción fue enviada. False en caso contrario.
+     */
+    public boolean evaluarInstruccion(HttpServletRequest request) {
+        LibreriaMensajes libreriaMensajes = new LibreriaMensajes(false);
+        String instruccion;
+        String idEjecutable;
+        ConexionBD conexionBD;
+        ResultSet resultSet;
+        String mensaje;
+        String enviar;
+        
+        if (request != null){
+            try {
+            instruccion = request.getParameter("instruccion");
+            if (instruccion.contentEquals("eliminarTodo")) {
                 libreriaMensajes.enviarMensaje("eliminarTodos>",ipServidorCentral);
-                
+            } else{
+                idEjecutable = request.getParameter("idEjecutable");
             
-            else{
-                String idEjecutable = request.getParameter("idEjecutable");
-            
-                ConexionBD conexionBD = new ConexionBD();
-           
+                conexionBD = new ConexionBD();
                 switch (instruccion){
                     case "detener":  {
-                        ResultSet rs = conexionBD.consultarRegistro("SELECT E.NOMBRE,"
-                        + " N.IP FROM NODOS N,EJECUTABLES E WHERE N.ID=E.ID_NODO AND E.ID="+idEjecutable);
-                        libreriaMensajes.enviarMensaje("eliminar>"+rs.getString(1)+":"+rs.getString(2),ipServidorCentral);
+                        resultSet = conexionBD.consultarRegistro("SELECT E.NOMBRE,"
+                        + " N.IP FROM NODOS N,EJECUTABLES E WHERE N.ID=E.ID_NODO"
+                                + " AND E.ID="+idEjecutable);
+                        libreriaMensajes.enviarMensaje("eliminar>"
+                                +resultSet.getString(1)+":"
+                                +resultSet.getString(2),ipServidorCentral);
                         break;
                     }
                     case "enviar":  {
-                        String mensaje = request.getParameter("mensaje");
-                        ResultSet rs = conexionBD.consultarRegistro("SELECT "
-                        + " N.IP FROM NODOS N,EJECUTABLES E WHERE N.ID=E.ID_NODO AND E.ID="+idEjecutable);
-                        String enviar = "mensajeNodo>"+mensaje+":"+rs.getString(1);
-                        if (libreriaMensajes.enviarMensaje(enviar,ipServidorCentral)==true)
-                            System.out.println("TRUE");
-                        else
-                            System.out.println("FALSE");
+                        mensaje = request.getParameter("mensaje");
+                        resultSet = conexionBD.consultarRegistro("SELECT "
+                        + " N.IP FROM NODOS N,EJECUTABLES E WHERE N.ID="
+                                + "E.ID_NODO AND E.ID="+idEjecutable);
+                        enviar = "mensajeNodo>"+mensaje+":"+resultSet.getString(1);
+                        libreriaMensajes.enviarMensaje(enviar,ipServidorCentral);
                         break;
                     }
                     case "iniciar":{
-                        ResultSet rs = conexionBD.consultarRegistro("SELECT E.NOMBRE,"
-                        + " N.IP FROM NODOS N,EJECUTABLES E WHERE N.ID=E.ID_NODO AND E.ID="+idEjecutable);
-                        libreriaMensajes.enviarMensaje("ejecutar>"+rs.getString(1)+":"+rs.getString(2),ipServidorCentral);
+                        resultSet = conexionBD.consultarRegistro("SELECT E.NOMBRE,"
+                        + " N.IP FROM NODOS N,EJECUTABLES E WHERE N.ID="
+                                + "E.ID_NODO AND E.ID="+idEjecutable);
+                        libreriaMensajes.enviarMensaje("ejecutar>"
+                                +resultSet.getString(1)+":"
+                                +resultSet.getString(2),ipServidorCentral);
                         break;
                     }
                 };
                 conexionBD.desconectar();
+                return true;
+            }
+            } catch (SQLException exception){
+                return false;
             }
             
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        } finally {            
-          //  libreriaMensajes.getHiloDeEscucha().kill();
-            out.close();
+       
         }
+        return false;
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
