@@ -19,12 +19,15 @@ import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
 
 /**
- *
- * @author hector
+ * Clase que permite obtener la información perteneciente a un nodo.
+ * @author Héctor Sam
  */
 @WebServlet(name = "EliminarNodoServlet1", urlPatterns = {"/EliminarNodoServlet1"})
 public class EliminarNodoServlet1 extends HttpServlet {
 
+    private ConexionBD conexion;
+    private String id;
+    private ResultSet rs;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -43,20 +46,84 @@ public class EliminarNodoServlet1 extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-            ConexionBD conexion = new ConexionBD();
-            String id = request.getParameter("nodos");
-            ResultSet rs = conexion.consultarRegistro("SELECT IP,NOMBRE_USUARIO,CONTRASENA FROM NODOS WHERE ID="+id);
-            request.setAttribute("ip",rs.getString(1));
-            request.setAttribute("nombre",rs.getString(2));
-            request.setAttribute("contrasena",rs.getString(3));
-            request.setAttribute("id",id);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("nodos/eliminarNodo2.jsp");
-            dispatcher.forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarEjecutableServlet1.class.getName()).log(Level.SEVERE, null, ex);
+            obtenerInformacion(request);
+            ejecutarQuery(request);
+            enviarInformacion(request, response);
         } finally {            
             out.close();
         }
+    }
+    
+    /**
+     * Método que permite obtener la información correspondiente a un nodo.
+     * @param request La petición HTTP con el id del nodo.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean obtenerInformacion(HttpServletRequest request){
+        if (request != null) {
+            
+            conexion = new ConexionBD();
+            id = request.getParameter("nodos");
+            return true;
+             
+        }
+        return false;
+    }
+    
+    /**
+     * Método que permite ejecutar el query con la información perteneciente
+     * a un nodo.
+     * @param request La petición HTTP con la información del nodo.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean ejecutarQuery(HttpServletRequest request){
+        
+        if (request != null) {
+            
+                rs = conexion.consultarRegistro("SELECT IP,NOMBRE_USUARIO,"
+                        + "CONTRASENA FROM NODOS WHERE ID="+id);
+                return true;
+            
+        }
+        return false;
+    }
+    
+    
+    /**
+     * Método que permite enviar la información correspondiente al nodo
+     * a eliminar..
+     * @param request La petición HTTP que contendrá la información.
+     * @param response La respuesta HTTP donde se redirigirá la información.
+     * @return True si la información fue enviada. False en caso contrario.
+     */
+    public boolean enviarInformacion (HttpServletRequest request,
+            HttpServletResponse response){
+        RequestDispatcher dispatcher; 
+        if ((request != null) && (response != null) ){
+            try {
+                request.setAttribute("ip",rs.getString(1));
+                request.setAttribute("nombre",rs.getString(2));
+                request.setAttribute("contrasena",rs.getString(3));
+                request.setAttribute("id",id);
+                dispatcher = request.getRequestDispatcher("nodos/eliminarNodo2.jsp");
+                dispatcher.forward(request, response);
+                conexion.desconectar();
+                return true;
+             } catch (ServletException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (IOException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (SQLException ex) {
+                Logger.getLogger(EliminarAplicacionServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

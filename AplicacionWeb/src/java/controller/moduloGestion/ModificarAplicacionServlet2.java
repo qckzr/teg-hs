@@ -5,6 +5,7 @@
 package controller.moduloGestion;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,12 +30,26 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
- *
- * @author sam
+ * Clase que permite modificar una aplicación de la base de datos a través del
+ * módulo de gestión.
+ * @author Héctor Sam
  */
 @WebServlet(name = "ModificarAplicacionServlet2", urlPatterns = {"/ModificarAplicacionServlet2"})
 public class ModificarAplicacionServlet2 extends HttpServlet {
 
+    private Directorios directorio = new Directorios();
+    private String nombre = "";
+    private String fecha_actualizacion = "";
+    private String instrucciones = "";
+    private String id =  "";
+    private String idTopico = "";
+    private ArrayList<String> nombreEscenarios = new ArrayList<>();
+    private ArrayList<String> descripcionEscenarios = new ArrayList<>();
+    private ArrayList<String> imagenes = new ArrayList<>();
+    private ArrayList<String> idEscenarios = new ArrayList<>();
+    private ConexionBD conexionBD = new ConexionBD();
+    private ResultSet aplicacion;
+    private ResultSet escenario;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -53,104 +68,205 @@ public class ModificarAplicacionServlet2 extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-            Directorios directorio = new Directorios();
-            String nombre ="";
-            String fecha_actualizacion="";
-            String instrucciones = "";
-            String id = "";
-            String idTopico ="";
-            String cantidadEscenarios = "";
-            ArrayList<String> nombreEscenarios = new ArrayList<>();
-            ArrayList<String> descripcionEscenarios = new ArrayList<>();
-            ArrayList<String> imagenes = new ArrayList<>();
-            ArrayList<String> idEscenarios = new ArrayList<>();
-
-            File seshdir = new File(directorio.getDirectorioImagenesEscenarios());
-            if (!seshdir.exists()) {
-            seshdir.mkdirs();
-            }
-            FileItemFactory factory = new DiskFileItemFactory();
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            List<FileItem> items = null;
-            try {
-                items = upload.parseRequest(request);
-            } catch (FileUploadException ex) {
-                Logger.getLogger(CrearEjecutableServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
- 
-      for (FileItem diskFileItem : items) {
-
-        if (diskFileItem.isFormField()) {
-            switch (diskFileItem.getFieldName()){
-                case "nombre": nombre = diskFileItem.getString();
-                                    break;
-                case "instrucciones": instrucciones = diskFileItem.getString();
-                                break;
-                case "fecha_actualizacion": fecha_actualizacion = diskFileItem.getString();
-                    break;
-                case "id": id = diskFileItem.getString();
-                    break;
-                case "topicos": idTopico = diskFileItem.getString();
-                    break;    
-                default:{
-                    if (diskFileItem.getFieldName().contains("escenario"))
-                       nombreEscenarios.add(diskFileItem.getString());
-                    else if (diskFileItem.getFieldName().contains("descripcion"))
-                        descripcionEscenarios.add(diskFileItem.getString());
-                    else if (diskFileItem.getFieldName().contains("idEscenario"))
-                        idEscenarios.add(diskFileItem.getString());
-                }
-                       
-            };
-        
-        }
-        else{
-            if (!diskFileItem.getString().isEmpty()){
-                byte[] fileBytes = diskFileItem.get();
-                File file = new File(seshdir, diskFileItem.getName());
-                imagenes.add("'"+directorio.getDirectorioImagenesEscenarios()+"/"+diskFileItem.getName()+"'");
-                FileOutputStream fileOutputStream = new FileOutputStream(file);
-                fileOutputStream.write(fileBytes);
-                fileOutputStream.flush();
-            }
-            else imagenes.add("NULL");
-        }
-      } 
-            ConexionBD conexionBD = new ConexionBD();
-            ResultSet aplicacion = conexionBD.consultarRegistro("SELECT NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO FROM APLICACIONES WHERE ID="+id);
-            if (!aplicacion.getString(1).contentEquals(nombre))
-                conexionBD.ejecutarQuery("UPDATE APLICACIONES SET NOMBRE='"+nombre+"' WHERE ID="+id);
-            if (!aplicacion.getString(2).contentEquals(fecha_actualizacion))
-                conexionBD.ejecutarQuery("UPDATE APLICACIONES SET FECHA_ACTUALIZACION=TO_DATE('"+fecha_actualizacion+"','DD-MM-YYYY') WHERE ID="+id);
-            if (!aplicacion.getString(3).contentEquals(instrucciones))
-                conexionBD.ejecutarQuery("UPDATE APLICACIONES SET INSTRUCCIONES='"+instrucciones+"' WHERE ID="+id);
-            if (!aplicacion.getString(4).contentEquals(idTopico))
-                conexionBD.ejecutarQuery("UPDATE APLICACIONES SET ID_TOPICO="+idTopico+" WHERE ID="+id);
-            for (int i = 0; i < Integer.valueOf(nombreEscenarios.size()); i++) {
-                
-                ResultSet escenario = conexionBD.consultarRegistro("SELECT NOMBRE,DESCRIPCION,IMAGEN FROM ESCENARIOS WHERE ID="+idEscenarios.get(i));
-                if (!escenario.getString(1).contentEquals(nombreEscenarios.get(i)))
-                    conexionBD.ejecutarQuery("UPDATE ESCENARIOS SET NOMBRE='"+nombreEscenarios.get(i)+"' WHERE ID="+idEscenarios.get(i));
-                if (!escenario.getString(2).contentEquals(descripcionEscenarios.get(i)))
-                    conexionBD.ejecutarQuery("UPDATE ESCENARIOS SET DESCRIPCION='"+descripcionEscenarios.get(i)+"' WHERE ID="+idEscenarios.get(i));
-                if (escenario.getString(3)==null && !imagenes.get(i).contentEquals("NULL"))
-                        conexionBD.ejecutarQuery("UPDATE ESCENARIOS SET IMAGEN="+imagenes.get(i)+" WHERE ID="+idEscenarios.get(i));
-                else if ( !imagenes.get(i).contentEquals("NULL") && !escenario.getString(3).contentEquals(imagenes.get(i)))
-                    conexionBD.ejecutarQuery("UPDATE ESCENARIOS SET IMAGEN="+imagenes.get(i)+" WHERE ID="+idEscenarios.get(i));
-                    
-                
-            }
-            
-            request.setAttribute("mensaje","Se modificó la aplicacion");     
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
-            dispatcher.forward(request, response);
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(CrearEjecutableServlet.class.getName()).log(Level.SEVERE, null, ex);
+            obtenerInformacion(request);
+            ejecutarQuery(request);
+            enviarInformacion(request, response);
         
         } finally {            
             out.close();
         }
+    }
+    
+    /**
+     * Método que permite obtener la información correspondiente a una aplicación.
+     * @param request La petición HTTP con los datos de la aplicación.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean obtenerInformacion(HttpServletRequest request){
+        File seshdir;
+        FileItemFactory factory;
+        ServletFileUpload upload;
+        List<FileItem> items = null;
+        FileOutputStream fileOutputStream = null;
+        byte[] fileBytes;
+        File file;
+        if (request != null) {
+            
+            conexionBD = new ConexionBD();
+            seshdir = new File(directorio.getDirectorioImagenesEscenarios());
+            if (!seshdir.exists()) {
+                seshdir.mkdirs();
+            }
+            factory = new DiskFileItemFactory();
+            upload = new ServletFileUpload(factory);
+            try {
+                items = upload.parseRequest(request);
+            } catch (FileUploadException ex) {
+                Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                        log(Level.SEVERE, null, ex);
+            }
+ 
+            for (FileItem diskFileItem : items) {
+
+                if (diskFileItem.isFormField()) {
+                    switch (diskFileItem.getFieldName()){
+                        case "nombre": 
+                            nombre = diskFileItem.getString();
+                            break;
+                        case "instrucciones": 
+                            instrucciones = diskFileItem.getString();
+                            break;
+                        case "fecha_actualizacion": 
+                            fecha_actualizacion = diskFileItem.getString();
+                            break;
+                        case "id": 
+                            id = diskFileItem.getString();
+                            break;
+                        case "topicos": 
+                            idTopico = diskFileItem.getString();
+                            break;    
+                        default:{
+                            if (diskFileItem.getFieldName().contains("escenario")) {
+                                nombreEscenarios.add(diskFileItem.getString());
+                            } else if (diskFileItem.getFieldName().contains("descripcion")){
+                                descripcionEscenarios.add(diskFileItem.getString());
+                            } else if (diskFileItem.getFieldName().contains("idEscenario")) {
+                                idEscenarios.add(diskFileItem.getString());
+                            }
+                        }
+                       
+                    };
+        
+                } else{
+                    if (!diskFileItem.getString().isEmpty()){
+                      
+                        try {
+                            fileBytes = diskFileItem.get();
+                            file = new File(seshdir, diskFileItem.getName());
+                            imagenes.add("'"+directorio.
+                                    getDirectorioImagenesEscenarios()
+                                    +"/"+diskFileItem.getName()+"'");
+                            fileOutputStream = new FileOutputStream(file);
+                            fileOutputStream.write(fileBytes);
+                            fileOutputStream.flush();
+                            fileOutputStream.close();
+                        } catch (FileNotFoundException ex) {
+                                Logger.getLogger(ModificarAplicacionServlet2.
+                                        class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
+                                Logger.getLogger(ModificarAplicacionServlet2.
+                                        class.getName()).log(Level.SEVERE, null, ex);
+                        } 
+
+                    } else  {
+                        imagenes.add("NULL");
+                    }
+            }
+            
+            }
+      
+        return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Método que permite ejecutar el query con la información perteneciente
+     * a una aplicación.
+     * @param request La petición HTTP con la información de la aplicación.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean ejecutarQuery(HttpServletRequest request){
+        
+        if (request != null) {
+            try {
+               aplicacion = conexionBD.consultarRegistro("SELECT NOMBRE,"
+                       + "FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO "
+                       + "FROM APLICACIONES WHERE ID="+id);
+                if (!aplicacion.getString(1).contentEquals(nombre)){
+                    conexionBD.ejecutarQuery("UPDATE APLICACIONES "
+                            + "SET NOMBRE='"+nombre+"' WHERE ID="+id);
+                }
+                if (!aplicacion.getString(2).contentEquals(fecha_actualizacion)){
+                    conexionBD.ejecutarQuery("UPDATE APLICACIONES "
+                            + "SET FECHA_ACTUALIZACION=TO_DATE('"+fecha_actualizacion+"'"
+                            + ",'DD-MM-YYYY') WHERE ID="+id);
+                }
+                if (!aplicacion.getString(3).contentEquals(instrucciones)) {
+                    conexionBD.ejecutarQuery("UPDATE APLICACIONES "
+                            + "SET INSTRUCCIONES='"+instrucciones+"' WHERE ID="+id);
+                }
+                if (!aplicacion.getString(4).contentEquals(idTopico)) {
+                    conexionBD.ejecutarQuery("UPDATE APLICACIONES "
+                            + "SET ID_TOPICO="+idTopico+" WHERE ID="+id);
+                }
+                for (int i = 0; i < Integer.valueOf(nombreEscenarios.size()); i++) {
+                
+                    escenario = conexionBD.consultarRegistro("SELECT "
+                         + "NOMBRE,DESCRIPCION,IMAGEN FROM ESCENARIOS "
+                         + "WHERE ID="+idEscenarios.get(i));
+                    if (!escenario.getString(1).contentEquals(nombreEscenarios.get(i))) {
+                        conexionBD.ejecutarQuery("UPDATE ESCENARIOS "
+                                + "SET NOMBRE='"+nombreEscenarios.get(i)+"' "
+                                + "WHERE ID="+idEscenarios.get(i));
+                    }
+                    if (!escenario.getString(2).contentEquals(descripcionEscenarios.get(i))) {
+                        conexionBD.ejecutarQuery("UPDATE ESCENARIOS "
+                                + "SET DESCRIPCION='"+descripcionEscenarios.get(i)+"' "
+                                + "WHERE ID="+idEscenarios.get(i));
+                    }
+                    if ( (escenario.getString(3) == null) && (!imagenes.get(i).contentEquals("NULL"))){
+                        conexionBD.ejecutarQuery("UPDATE ESCENARIOS "
+                                + "SET IMAGEN="+imagenes.get(i)+" "
+                                + "WHERE ID="+idEscenarios.get(i));
+                    } else if ( (!imagenes.get(i).contentEquals("NULL")) 
+                            && (!escenario.getString(3).contentEquals(imagenes.get(i)))){
+                        conexionBD.ejecutarQuery("UPDATE ESCENARIOS "
+                                + "SET IMAGEN="+imagenes.get(i)+" "
+                                + "WHERE ID="+idEscenarios.get(i));
+                    }
+                    
+                
+            }
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(ModificarAplicacionServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+            }
+           
+        }
+        return false;
+    }
+    
+    
+    /**
+     * Método que permite enviar la información correspondiente indicando que la
+     * aplicación fue modificada.
+     * @param request La petición HTTP que contendrá la información.
+     * @param response La respuesta HTTP donde se redirigirá la información.
+     * @return True si la información fue enviada. False en caso contrario.
+     */
+    public boolean enviarInformacion (HttpServletRequest request,
+            HttpServletResponse response){
+        RequestDispatcher dispatcher; 
+        if ((request != null) && (response != null) ){
+            try {
+                request.setAttribute("mensaje","Se modificó la aplicacion");     
+                dispatcher = request.getRequestDispatcher("/respuesta.jsp");
+                dispatcher.forward(request, response);
+                conexionBD.desconectar();
+                return true;
+             } catch (ServletException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (IOException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } 
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -27,6 +27,81 @@ import model.ConexionBD;
 @WebServlet(name = "ConsultarEjecutableServlet1", urlPatterns = {"/ConsultarEjecutableServlet1"})
 public class ConsultarEjecutableServlet1 extends HttpServlet {
 
+    private ConexionBD conexion;
+    private String id;
+    private ResultSet rs;
+    private ResultSet parametros;
+    ResultSet aplicacion;
+    private ArrayList<String[]> listaParametros;
+    private String[] parametro;
+    private RequestDispatcher dispatcher;
+
+    public ConexionBD getConexion() {
+        return conexion;
+    }
+
+    public void setConexion(ConexionBD conexion) {
+        this.conexion = conexion;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public ResultSet getRs() {
+        return rs;
+    }
+
+    public void setRs(ResultSet rs) {
+        this.rs = rs;
+    }
+
+    public ResultSet getParametros() {
+        return parametros;
+    }
+
+    public void setParametros(ResultSet parametros) {
+        this.parametros = parametros;
+    }
+
+    public ResultSet getAplicacion() {
+        return aplicacion;
+    }
+
+    public void setAplicacion(ResultSet aplicacion) {
+        this.aplicacion = aplicacion;
+    }
+
+    public ArrayList<String[]> getListaParametros() {
+        return listaParametros;
+    }
+
+    public void setListaParametros(ArrayList<String[]> listaParametros) {
+        this.listaParametros = listaParametros;
+    }
+
+    public String[] getParametro() {
+        return parametro;
+    }
+
+    public void setParametro(String[] parametro) {
+        this.parametro = parametro;
+    }
+
+    public RequestDispatcher getDispatcher() {
+        return dispatcher;
+    }
+
+    public void setDispatcher(RequestDispatcher dispatcher) {
+        this.dispatcher = dispatcher;
+    }
+    
+    
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -45,12 +120,46 @@ public class ConsultarEjecutableServlet1 extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
+            buscarInformacion(request);
             enviarInformacion(request, response);
         } finally {            
             out.close();
         }
     }
     
+    /**
+     * Método que permite buscar la información correspondiente a un ejecutable.
+     * @param request La petición HTTP con el id del ejecutable.
+     * @return True si la información pudo ser buscada. False en caso contrario.
+     */
+    public boolean buscarInformacion(HttpServletRequest request){
+        if (request != null){
+        try {
+            conexion = new ConexionBD();
+            id = request.getParameter("ejecutables");
+            rs = conexion.consultarRegistro("SELECT NOMBRE,TIPO,RUTA_EJECUTABLE,"
+                    + " ID_APLICACION FROM EJECUTABLES WHERE ID="+id);
+            aplicacion = conexion.consultarRegistro("Select nombre "
+                    + "from aplicaciones where id="+rs.getString(4));
+            listaParametros = new ArrayList<String[]>();
+             parametros = conexion.consultar("select nombre, valor "
+                        + "from parametros where id_ejecutable="+id);
+            while (parametros.next()){
+                parametro = new String[2];
+                parametro[0] = parametros.getString(1);
+                parametro[1] = parametros.getString(2);
+                listaParametros.add(parametro);
+            }
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultarEjecutableServlet1.
+                    class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
+        }
+        return false;
+    }
     
     /**
      * Método que permite enviar la información correspondiente a un ejecutable.
@@ -60,34 +169,13 @@ public class ConsultarEjecutableServlet1 extends HttpServlet {
      */
     public boolean enviarInformacion(HttpServletRequest request,
             HttpServletResponse response){
-        ConexionBD conexion;
-        String id;
-        ResultSet rs;
-        ResultSet parametros;
-        ArrayList<String[]> listaParametros;
-        String[] parametro;
-        RequestDispatcher dispatcher;
+      
         if ((request != null) &&(response != null)){
             try {
-                conexion = new ConexionBD();
-                id = request.getParameter("ejecutables");
-                rs = conexion.consultarRegistro("SELECT NOMBRE,TIPO,RUTA_EJECUTABLE,"
-                        + " ID_APLICACION FROM EJECUTABLES WHERE ID="+id);
                 request.setAttribute("nombre",rs.getString(1));
                 request.setAttribute("tipo",rs.getString(2));
                 request.setAttribute("ruta_ejecutable",rs.getString(3));
-                ResultSet aplicacion = conexion.consultarRegistro("Select nombre "
-                        + "from aplicaciones where id="+rs.getString(4));
                 request.setAttribute("aplicacion",aplicacion.getString(1));
-                parametros = conexion.consultar("select nombre, valor "
-                        + "from parametros where id_ejecutable="+id);
-                listaParametros = new ArrayList<String[]>();
-                while (parametros.next()){
-                    parametro = new String[2];
-                    parametro[0] = parametros.getString(1);
-                    parametro[1] = parametros.getString(2);
-                    listaParametros.add(parametro);
-                }
                 request.setAttribute("parametros",listaParametros);
                 dispatcher = request.getRequestDispatcher(
                         "ejecutables/consultarEjecutable2.jsp");

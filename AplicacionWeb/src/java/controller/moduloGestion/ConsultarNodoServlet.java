@@ -20,12 +20,17 @@ import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
 
 /**
- *
- * @author hector
+ * Clase que permite enviar la información correspondiente a un nodo particular.
+ * @author Héctor Sam
  */
 @WebServlet(name = "ConsultarNodoServlet", urlPatterns = {"/ConsultarNodoServlet"})
 public class ConsultarNodoServlet extends HttpServlet {
 
+    private RequestDispatcher dispatcher;
+    private String id;
+    private ResultSet rs;
+    private ConexionBD conexion;
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -44,19 +49,64 @@ public class ConsultarNodoServlet extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-           ConexionBD conexion = new ConexionBD();
-            String id = request.getParameter("nodos");
-            ResultSet rs = conexion.consultarRegistro("SELECT IP,NOMBRE_USUARIO,CONTRASENA FROM NODOS WHERE ID="+id);
-            request.setAttribute("ip",rs.getString(1));
-            request.setAttribute("nombre",rs.getString(2));
-            request.setAttribute("contrasena",rs.getString(3));
-            RequestDispatcher dispatcher = request.getRequestDispatcher("nodos/consultarNodo2.jsp");
-            dispatcher.forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarEjecutableServlet1.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {            
+            buscarInformacion(request);
+            enviarInformacion(request, response);
+        }  finally {            
             out.close();
         }
+    }
+    
+    /**
+     * Método que permite buscar la información correspondiente a un nodo.
+     * @param request La petición HTTP con el id del nodo.
+     * @return True si se pudo buscar la información. False en caso contrario.
+     */
+    public boolean buscarInformacion(HttpServletRequest request) {
+        
+        if (request != null){
+            conexion = new ConexionBD();
+            id = request.getParameter("nodos");
+            rs = conexion.consultarRegistro("SELECT IP,NOMBRE_USUARIO,"
+                    + "CONTRASENA FROM NODOS WHERE ID="+id);
+            return true;
+        }
+            return false;
+    }
+    
+    /**
+     * Método que permite enviar la información correspondiente a la solicitud
+     * del usuario.
+     * @param request La peticion HTTP con la solicitud del usuario.
+     * @param response La respuesta HTTP con la información solicitada.
+     * @return True si se pudo enviar. False en caso contrario.
+     */
+    public boolean enviarInformacion(HttpServletRequest request,
+            HttpServletResponse response) {
+       
+        if ( (request != null) && (response != null)){
+            try {
+                request.setAttribute("ip",rs.getString(1));
+                request.setAttribute("nombre",rs.getString(2));
+                request.setAttribute("contrasena",rs.getString(3));
+                dispatcher = request.getRequestDispatcher("nodos/consultarNodo2.jsp");
+                dispatcher.forward(request, response);
+                conexion.desconectar();
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsultarNodoServlet.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            } catch (ServletException ex) {
+                Logger.getLogger(ConsultarNodoServlet.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            } catch (IOException ex) {
+                Logger.getLogger(ConsultarNodoServlet.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

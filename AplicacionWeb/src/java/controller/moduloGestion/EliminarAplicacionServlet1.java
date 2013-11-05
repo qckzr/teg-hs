@@ -20,12 +20,19 @@ import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
 
 /**
- *
- * @author hector
+ * Clase que permite obtener la información perteneciente a una aplicación.
+ * @author Héctor Sam
  */
 @WebServlet(name = "EliminarAplicacionServlet1", urlPatterns = {"/EliminarAplicacionServlet1"})
 public class EliminarAplicacionServlet1 extends HttpServlet {
-
+    
+    private ConexionBD conexion;
+    private String id;
+    private ResultSet rs;
+    private ResultSet aplicacion;
+    private ResultSet escenarios;
+    private ArrayList<String[]> listaEscenarios;
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -44,31 +51,103 @@ public class EliminarAplicacionServlet1 extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-            ConexionBD conexion = new ConexionBD();
-            String id = request.getParameter("aplicaciones");
-            ResultSet rs = conexion.consultarRegistro("SELECT NOMBRE,to_date(fecha_actualizacion,'DD/MM/YYYY'),INSTRUCCIONES, ID_TOPICO FROM aplicaciones WHERE ID="+id);
-            request.setAttribute("nombre",rs.getString(1));
-            request.setAttribute("fecha_actualizacion",rs.getString(2));
-            request.setAttribute("instrucciones",rs.getString(3));
-            ResultSet aplicacion = conexion.consultarRegistro("Select nombre from topicos where id="+rs.getString(4));
-            request.setAttribute("topico",aplicacion.getString(1));
-            ResultSet escenarios = conexion.consultar("select nombre, descripcion from escenarios where id_aplicacion="+id);
-            ArrayList<String[]> listaEscenarios = new ArrayList<String[]>();
-            while (escenarios.next()){
-                String[] escenario = new String[2];
-                escenario[0] = escenarios.getString(1);
-                escenario[1] = escenarios.getString(2);
-                listaEscenarios.add(escenario);
-            }
-            request.setAttribute("escenarios",listaEscenarios);
-            request.setAttribute("id", id);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("aplicaciones/eliminarAplicacion2.jsp");
-            dispatcher.forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarAplicacionServlet.class.getName()).log(Level.SEVERE, null, ex);
+            obtenerInformacion(request);
+            ejecutarQuery(request);
+            enviarInformacion(request, response);
         } finally {            
             out.close();
         }
+    }
+    
+    /**
+     * Método que permite obtener la información correspondiente a una aplicación.
+     * @param request La petición HTTP con el id de la aplicación.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean obtenerInformacion(HttpServletRequest request){
+        if (request != null) {
+            
+            conexion = new ConexionBD();
+            id = request.getParameter("aplicaciones");
+            listaEscenarios = new ArrayList<String[]>();
+            
+                return true;
+             
+        }
+        return false;
+    }
+    
+    /**
+     * Método que permite ejecutar el query con la información perteneciente
+     * a una aplicación.
+     * @param request La petición HTTP con la información de la aplicación.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean ejecutarQuery(HttpServletRequest request){
+        String[] escenario;
+        if (request != null) {
+            try {
+                rs = conexion.consultarRegistro("SELECT NOMBRE,to_date"
+                        + "(fecha_actualizacion,'DD/MM/YYYY'),INSTRUCCIONES, "
+                        + "ID_TOPICO FROM aplicaciones WHERE ID="+id);
+                aplicacion = conexion.consultarRegistro("Select nombre "
+                        + "from topicos where id="+rs.getString(4));
+                escenarios = conexion.consultar("select nombre, "
+                        + "descripcion from escenarios where id_aplicacion="+id);
+                while (escenarios.next()){
+                    escenario = new String[2];
+                    escenario[0] = escenarios.getString(1);
+                    escenario[1] = escenarios.getString(2);
+                    listaEscenarios.add(escenario);
+                }
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(EliminarAplicacionServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
+    }
+    
+    
+    /**
+     * Método que permite enviar la información correspondiente a la aplicación
+     * a eliminar..
+     * @param request La petición HTTP que contendrá la información.
+     * @param response La respuesta HTTP donde se redirigirá la información.
+     * @return True si la información fue enviada. False en caso contrario.
+     */
+    public boolean enviarInformacion (HttpServletRequest request,
+            HttpServletResponse response){
+        RequestDispatcher dispatcher; 
+        if ((request != null) && (response != null) ){
+            try {
+                request.setAttribute("nombre",rs.getString(1));
+                request.setAttribute("fecha_actualizacion",rs.getString(2));
+                request.setAttribute("instrucciones",rs.getString(3));
+                request.setAttribute("topico",aplicacion.getString(1));
+                request.setAttribute("escenarios",listaEscenarios);
+                request.setAttribute("id", id);
+                dispatcher = request.getRequestDispatcher("aplicaciones/eliminarAplicacion2.jsp");
+                dispatcher.forward(request, response);
+                conexion.desconectar();
+                return true;
+             } catch (ServletException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (IOException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (SQLException ex) {
+                Logger.getLogger(EliminarAplicacionServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

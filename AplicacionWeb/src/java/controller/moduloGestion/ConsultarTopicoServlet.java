@@ -19,12 +19,16 @@ import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
 
 /**
- *
- * @author hector
+ * Clase que permite obtener los datos de un tópico.
+ * @author Héctor Sam
  */
 @WebServlet(name = "ConsultarTopicoServlet", urlPatterns = {"/ConsultarTopicoServlet"})
 public class ConsultarTopicoServlet extends HttpServlet {
 
+    private String id;
+    private ConexionBD conexionBD;
+    private ResultSet rs;
+    private ResultSet rs2;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -43,22 +47,72 @@ public class ConsultarTopicoServlet extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-            String id = request.getParameter("topicos");
-             ConexionBD conexion = new ConexionBD();
-             ResultSet rs = conexion.consultarRegistro("SELECT * FROM TOPICOS WHERE ID="+id);
-             request.setAttribute("id",id);
-             request.setAttribute("nombre",rs.getString(2));
-             request.setAttribute("categoria",rs.getString(3));
-             request.setAttribute("descripcion",rs.getString(4));
-             ResultSet rs2 = conexion.consultarRegistro("Select nombre, apellido from usuarios where id="+rs.getString(5));
-             request.setAttribute("usuario",rs2.getString(1)+" "+rs2.getString(2));
-             RequestDispatcher dispatcher = request.getRequestDispatcher("topicos/consultarTopico2.jsp");
-            dispatcher.forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(EliminarTopicoServlet1.class.getName()).log(Level.SEVERE, null, ex);
+            buscarInformacion(request);
+            enviarInformacion(request, response);
         } finally {            
             out.close();
         }
+    }
+    
+    /**
+     * Método que permite buscar la información correspondiente a un tópico.
+     * @param request La petición HTTP con el id del tópico.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean buscarInformacion(HttpServletRequest request){
+        if (request != null) {
+            try {
+                id = request.getParameter("topicos");
+                conexionBD = new ConexionBD();
+                rs = conexionBD.consultarRegistro("SELECT * FROM TOPICOS WHERE ID="+id);
+                rs2 = conexionBD.consultarRegistro("Select nombre, apellido "
+                        + "from usuarios where id="+rs.getString(5));
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsultarTopicoServlet.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Método que permite enviar la información correspondiente a un tópico.
+     * @param request La petición HTTP que contendrá la información.
+     * @param response La respuesta HTTP donde se redirigirá la información.
+     * @return True si la información fue enviada. False en caso contrario.
+     */
+    public boolean enviarInformacion (HttpServletRequest request,
+            HttpServletResponse response) {
+        RequestDispatcher dispatcher; 
+        if ( (request != null) && (response != null)){
+            try {
+               request.setAttribute("id",id);
+               request.setAttribute("nombre",rs.getString(2));
+               request.setAttribute("categoria",rs.getString(3));
+               request.setAttribute("descripcion",rs.getString(4));
+               request.setAttribute("usuario",rs2.getString(1)+" "+rs2.getString(2));
+               dispatcher = request.getRequestDispatcher("topicos/consultarTopico2.jsp");
+               dispatcher.forward(request, response);
+               conexionBD.desconectar();
+               return true;
+           } catch (SQLException ex) {
+               Logger.getLogger(ConsultarTopicoServlet.class.getName()).
+                       log(Level.SEVERE, null, ex);
+               return false;
+           } catch (ServletException ex) {
+               Logger.getLogger(ConsultarTopicoServlet.class.getName()).
+                       log(Level.SEVERE, null, ex);
+               return false;
+           } catch (IOException ex) {
+               Logger.getLogger(ConsultarTopicoServlet.class.getName()).
+                       log(Level.SEVERE, null, ex);
+               return false;
+           }
+        }
+        return false;
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

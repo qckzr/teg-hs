@@ -19,12 +19,15 @@ import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
 
 /**
- *
- * @author hector
+ * Clase que permite obtener la información perteneciente a un usuario.
+ * @author Héctor Sam
  */
 @WebServlet(name = "ModificarUsuarioServlet1", urlPatterns = {"/ModificarUsuarioServlet1"})
 public class ModificarUsuarioServlet1 extends HttpServlet {
 
+    ConexionBD conexion;
+    String id;
+    ResultSet rs;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -43,22 +46,83 @@ public class ModificarUsuarioServlet1 extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-           
-          ConexionBD conexion = new ConexionBD();
-          ResultSet rs = conexion.consultarRegistro("SELECT * FROM USUARIOS WHERE ID ="+request.getParameter("usuarios"));
-          request.setAttribute("nombre", rs.getString(2));
-          request.setAttribute("apellido", rs.getString(3));
-          request.setAttribute("correo", rs.getString(4));
-          request.setAttribute("contrasena", rs.getString(5));
-          request.setAttribute("id", rs.getString(1));
-          RequestDispatcher dispatcher = request.getRequestDispatcher("usuarios/modificarUsuario2.jsp");
-            dispatcher.forward(request, response);
-          
-        } catch (SQLException ex) {
-            Logger.getLogger(ModificarUsuarioServlet1.class.getName()).log(Level.SEVERE, null, ex);
+            obtenerInformacion(request);
+            ejecutarQuery(request);
+            enviarInformacion(request, response);
         } finally {            
             out.close();
         }
+    }
+    
+    /**
+     * Método que permite obtener la información correspondiente a un usuario.
+     * @param request La petición HTTP con el id del usuario.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean obtenerInformacion(HttpServletRequest request){
+        if (request != null) {
+            
+            conexion = new ConexionBD();
+            id = request.getParameter("usuarios");
+            return true;
+             
+        }
+        return false;
+    }
+    
+    /**
+     * Método que permite ejecutar el query con la información perteneciente
+     * a un usuario.
+     * @param request La petición HTTP con la información del usuario.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean ejecutarQuery(HttpServletRequest request){
+        
+        if (request != null) {
+           
+            rs = conexion.consultarRegistro("SELECT * FROM USUARIOS WHERE ID ="+id);
+            return true;
+        }
+        return false;
+    }
+    
+    
+    /**
+     * Método que permite enviar la información correspondiente del usuario
+     * a modificar..
+     * @param request La petición HTTP que contendrá la información.
+     * @param response La respuesta HTTP donde se redirigirá la información.
+     * @return True si la información fue enviada. False en caso contrario.
+     */
+    public boolean enviarInformacion (HttpServletRequest request,
+            HttpServletResponse response){
+        RequestDispatcher dispatcher; 
+        if ((request != null) && (response != null) ){
+            try {
+                request.setAttribute("nombre", rs.getString(2));
+                request.setAttribute("apellido", rs.getString(3));
+                request.setAttribute("correo", rs.getString(4));
+                request.setAttribute("contrasena", rs.getString(5));
+                request.setAttribute("id", rs.getString(1));
+                dispatcher = request.getRequestDispatcher("usuarios/modificarUsuario2.jsp");
+                dispatcher.forward(request, response);
+                conexion.desconectar();
+                return true;
+             } catch (ServletException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (IOException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (SQLException ex) {
+                Logger.getLogger(EliminarAplicacionServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -20,12 +20,18 @@ import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
 
 /**
- *
- * @author hector
+ * Clase que permite obtener la información perteneciente a un ejecutable.
+ * @author Héctor Sam
  */
 @WebServlet(name = "EliminarEjecutableServlet1", urlPatterns = {"/EliminarEjecutableServlet1"})
 public class EliminarEjecutableServlet1 extends HttpServlet {
 
+    private ConexionBD conexion;
+    private String id;
+    private ResultSet rs;
+    private ResultSet aplicacion;
+    private ResultSet parametros;
+    private ArrayList<String[]> listaParametros;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -44,32 +50,104 @@ public class EliminarEjecutableServlet1 extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-           
-            ConexionBD conexion = new ConexionBD();
-            String id = request.getParameter("ejecutables");
-            ResultSet rs = conexion.consultarRegistro("SELECT NOMBRE,TIPO,RUTA_EJECUTABLE, ID_APLICACION FROM EJECUTABLES WHERE ID="+id);
-            request.setAttribute("nombre",rs.getString(1));
-            request.setAttribute("tipo",rs.getString(2));
-            request.setAttribute("ruta_ejecutable",rs.getString(3));
-            ResultSet aplicacion = conexion.consultarRegistro("Select nombre from aplicaciones where id="+rs.getString(4));
-            request.setAttribute("aplicacion",aplicacion.getString(1));
-            ResultSet parametros = conexion.consultar("select nombre, valor from parametros where id_ejecutable="+id);
-            ArrayList<String[]> listaParametros = new ArrayList<String[]>();
-            while (parametros.next()){
-                String[] parametro = new String[2];
-                parametro[0] = parametros.getString(1);
-                parametro[1] = parametros.getString(2);
-                listaParametros.add(parametro);
-            }
-            request.setAttribute("parametros",listaParametros);
-            request.setAttribute("id",id);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("ejecutables/eliminarEjecutable2.jsp");
-            dispatcher.forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarEjecutableServlet1.class.getName()).log(Level.SEVERE, null, ex);
+            obtenerInformacion(request);
+            ejecutarQuery(request);
+            enviarInformacion(request, response);
+
         } finally {            
             out.close();
         }
+    }
+    
+    /**
+     * Método que permite obtener la información correspondiente a un ejecutable.
+     * @param request La petición HTTP con el id del ejecutable.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean obtenerInformacion(HttpServletRequest request){
+        if (request != null) {
+            
+            conexion = new ConexionBD();
+            id = request.getParameter("ejecutables");
+            listaParametros = new ArrayList<String[]>();
+            
+            return true;
+             
+        }
+        return false;
+    }
+    
+    /**
+     * Método que permite ejecutar el query con la información perteneciente
+     * a un ejecutable.
+     * @param request La petición HTTP con la información del ejecutable.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean ejecutarQuery(HttpServletRequest request){
+        String[] parametro;
+        if (request != null) {
+            try {
+                rs = conexion.consultarRegistro("SELECT NOMBRE,TIPO,"
+                        + "RUTA_EJECUTABLE, ID_APLICACION FROM EJECUTABLES "
+                        + "WHERE ID="+id);
+                aplicacion = conexion.consultarRegistro("Select nombre "
+                        + " from aplicaciones where id="+rs.getString(4));
+                parametros = conexion.consultar("select nombre, valor "
+                        + "from parametros where id_ejecutable="+id);
+                while (parametros.next()){
+                    parametro = new String[2];
+                    parametro[0] = parametros.getString(1);
+                    parametro[1] = parametros.getString(2);
+                    listaParametros.add(parametro);
+                }
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(EliminarAplicacionServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
+    }
+    
+    
+    /**
+     * Método que permite enviar la información correspondiente del ejecutable
+     * a eliminar..
+     * @param request La petición HTTP que contendrá la información.
+     * @param response La respuesta HTTP donde se redirigirá la información.
+     * @return True si la información fue enviada. False en caso contrario.
+     */
+    public boolean enviarInformacion (HttpServletRequest request,
+            HttpServletResponse response){
+        RequestDispatcher dispatcher; 
+        if ((request != null) && (response != null) ){
+            try {
+                request.setAttribute("nombre",rs.getString(1));
+                request.setAttribute("tipo",rs.getString(2));
+                request.setAttribute("ruta_ejecutable",rs.getString(3));
+                request.setAttribute("aplicacion",aplicacion.getString(1));
+                request.setAttribute("parametros",listaParametros);
+                request.setAttribute("id",id);
+                dispatcher = request.getRequestDispatcher("ejecutables/eliminarEjecutable2.jsp");
+                dispatcher.forward(request, response);
+                conexion.desconectar();
+                return true;
+             } catch (ServletException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (IOException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (SQLException ex) {
+                Logger.getLogger(EliminarAplicacionServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

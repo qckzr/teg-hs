@@ -55,6 +55,19 @@ public class ConsultarEjecutableServlet1Test {
         boolean result = instance.enviarInformacion(request, response);
         assertEquals(expResult, result);
     }
+    
+     /**
+     * Test of buscarInformacion method, of class ConsultarEjecutableServlet1.
+     */
+    @Test
+    public void testBuscarInformacion() {
+        System.out.println("enviarInformacion");
+        HttpServletRequest request = null;
+        ConsultarEjecutableServlet1 instance = new ConsultarEjecutableServlet1();
+        boolean expResult = false;
+        boolean result = instance.buscarInformacion(request);
+        assertEquals(expResult, result);
+    }
 
     
     

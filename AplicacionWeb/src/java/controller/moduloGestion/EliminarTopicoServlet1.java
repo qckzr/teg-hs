@@ -19,12 +19,16 @@ import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
 
 /**
- *
+ * Clase que permite obtener la información perteneciente a un tópico.
  * @author hector
  */
 @WebServlet(name = "EliminarTopicoServlet1", urlPatterns = {"/EliminarTopicoServlet1"})
 public class EliminarTopicoServlet1 extends HttpServlet {
 
+    private String id;
+    private ConexionBD conexion;
+    private ResultSet rs;
+    private ResultSet rs2;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -43,22 +47,90 @@ public class EliminarTopicoServlet1 extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-              String id = request.getParameter("topicos");
-             ConexionBD conexion = new ConexionBD();
-             ResultSet rs = conexion.consultarRegistro("SELECT * FROM TOPICOS WHERE ID="+id);
-             request.setAttribute("id",id);
-             request.setAttribute("nombre",rs.getString(2));
-             request.setAttribute("categoria",rs.getString(3));
-             request.setAttribute("descripcion",rs.getString(4));
-             ResultSet rs2 = conexion.consultarRegistro("Select nombre, apellido from usuarios where id="+rs.getString(5));
-             request.setAttribute("usuario",rs2.getString(1)+" "+rs2.getString(2));
-             RequestDispatcher dispatcher = request.getRequestDispatcher("topicos/eliminarTopico2.jsp");
-            dispatcher.forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(EliminarTopicoServlet1.class.getName()).log(Level.SEVERE, null, ex);
+            obtenerInformacion(request);
+            ejecutarQuery(request);
+            enviarInformacion(request, response);
         } finally {            
             out.close();
         }
+    }
+    
+     /**
+     * Método que permite obtener la información correspondiente a un tópico.
+     * @param request La petición HTTP con el id del tópico.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean obtenerInformacion(HttpServletRequest request){
+        if (request != null) {
+            
+            id = request.getParameter("topicos");
+            conexion = new ConexionBD();
+            return true;
+             
+        }
+        return false;
+    }
+    
+    /**
+     * Método que permite ejecutar el query con la información perteneciente
+     * a un tópico.
+     * @param request La petición HTTP con la información del tópico.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean ejecutarQuery(HttpServletRequest request){
+        
+        if (request != null) {
+            try {
+                rs = conexion.consultarRegistro("SELECT * FROM TOPICOS WHERE ID="+id);
+                rs2 = conexion.consultarRegistro("Select nombre, apellido "
+                        + "from usuarios where id="+rs.getString(5));
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(EliminarAplicacionServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
+    }
+    
+    
+    /**
+     * Método que permite enviar la información correspondiente al tópico
+     * a eliminar..
+     * @param request La petición HTTP que contendrá la información.
+     * @param response La respuesta HTTP donde se redirigirá la información.
+     * @return True si la información fue enviada. False en caso contrario.
+     */
+    public boolean enviarInformacion (HttpServletRequest request,
+            HttpServletResponse response){
+        RequestDispatcher dispatcher; 
+        if ((request != null) && (response != null) ){
+            try {
+                request.setAttribute("id",id);
+                request.setAttribute("nombre",rs.getString(2));
+                request.setAttribute("categoria",rs.getString(3));
+                request.setAttribute("descripcion",rs.getString(4));
+                request.setAttribute("usuario",rs2.getString(1)+" "+rs2.getString(2));
+                conexion.desconectar();
+                dispatcher = request.getRequestDispatcher("topicos/eliminarTopico2.jsp");
+                dispatcher.forward(request, response);
+                return true;
+             } catch (ServletException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (IOException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (SQLException ex) {
+                Logger.getLogger(EliminarAplicacionServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

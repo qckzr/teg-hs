@@ -26,6 +26,64 @@ import model.ConexionBD;
 @WebServlet(name = "ConsultarPreguntaServlet1", urlPatterns = {"/ConsultarPreguntaServlet1"})
 public class ConsultarPreguntaServlet1 extends HttpServlet {
 
+    private ConexionBD conexionBD;
+    private String idPregunta;
+    private ArrayList<String[]> preguntas;
+    private ResultSet resultSet;
+    private ResultSet resultSet1;
+    private String[] pregunta;
+    
+
+    public ConexionBD getConexionBD() {
+        return conexionBD;
+    }
+
+    public void setConexionBD(ConexionBD conexionBD) {
+        this.conexionBD = conexionBD;
+    }
+
+    public String getIdPregunta() {
+        return idPregunta;
+    }
+
+    public void setIdPregunta(String idPregunta) {
+        this.idPregunta = idPregunta;
+    }
+
+    public ArrayList<String[]> getPreguntas() {
+        return preguntas;
+    }
+
+    public void setPreguntas(ArrayList<String[]> preguntas) {
+        this.preguntas = preguntas;
+    }
+
+    public ResultSet getResultSet() {
+        return resultSet;
+    }
+
+    public void setResultSet(ResultSet resultSet) {
+        this.resultSet = resultSet;
+    }
+
+    public ResultSet getResultSet1() {
+        return resultSet1;
+    }
+
+    public void setResultSet1(ResultSet resultSet1) {
+        this.resultSet1 = resultSet1;
+    }
+
+    public String[] getPregunta() {
+        return pregunta;
+    }
+
+    public void setPregunta(String[] pregunta) {
+        this.pregunta = pregunta;
+    }
+    
+    
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -44,27 +102,85 @@ public class ConsultarPreguntaServlet1 extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-            ConexionBD conexionBD = new ConexionBD();
-            String idPregunta = request.getParameter("preguntas");
-            ResultSet rs = conexionBD.consultarRegistro("SELECT p.id, p.enunciado, t.nombre FROM preguntas p,topicos t where p.id_topico=t.id and p.id="+idPregunta);
-            ResultSet rs2 = conexionBD.consultar("select opcion,correcta from respuestas where id_pregunta="+idPregunta);
-            ArrayList<String[]> preguntas = new ArrayList<String[]>();
-            while (rs2.next()){
-                String[] pregunta = new String[2];
-                pregunta[0] = rs2.getString(1);
-                pregunta[1] = rs2.getString(2);
-                preguntas.add(pregunta);
-            }
-            request.setAttribute("enunciado", rs.getString(2));
-            request.setAttribute("topico", rs.getString(3));
-            request.setAttribute("preguntas", preguntas);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("preguntas/consultarPregunta2.jsp");
-            dispatcher.forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarPreguntaServlet1.class.getName()).log(Level.SEVERE, null, ex);
+            buscarInformacion(request);
+            enviarInformacion(request, response);
         } finally {            
             out.close();
         }
+    }
+    
+    
+    /**
+     * Método que permite obtener la información correspondiente a una pregunta
+     * solicitada por el usuario.
+     * @param request La petición HTTP con la pregunta a buscar.
+     * @return True si se pudo obtener la información. False en caso contrario.
+     */
+    public boolean buscarInformacion(HttpServletRequest request) {
+          
+        if (request != null){
+            try {
+                conexionBD = new ConexionBD();
+                
+                idPregunta = request.getParameter("preguntas");
+                resultSet = conexionBD.consultarRegistro("SELECT p.id, p.enunciado,"
+                        + " t.nombre FROM preguntas p,topicos t where "
+                        + "p.id_topico=t.id and p.id="+idPregunta);
+                resultSet1 = conexionBD.consultar("select opcion,correcta "
+                        + "from respuestas where id_pregunta="+idPregunta);
+                preguntas = new ArrayList<String[]>();
+                while (resultSet1.next()){
+                    pregunta = new String[2];
+                    pregunta[0] = resultSet1.getString(1);
+                    pregunta[1] = resultSet1.getString(2);
+                    preguntas.add(pregunta);
+                }
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsultarPreguntaServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Método que permite enviar la información de una pregunta solicitada por 
+     * el usuario.
+     * @param request La petición HTTP con la pregunta a buscar.
+     * @param response La respuesta HTTP con la información solicitada.
+     * @return True si la información se pudo enviar. False en caso contrario
+     */
+    public boolean enviarInformacion(HttpServletRequest request,
+            HttpServletResponse response) {
+        
+        RequestDispatcher dispatcher;
+        if ( (request != null) && (response !=null)){
+            try {
+              
+                request.setAttribute("enunciado", resultSet.getString(2));
+                request.setAttribute("topico", resultSet.getString(3));
+                request.setAttribute("preguntas", preguntas);
+                dispatcher = request.getRequestDispatcher("preguntas/consultarPregunta2.jsp");
+                dispatcher.forward(request, response);
+                conexionBD.desconectar();
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsultarPreguntaServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            } catch (ServletException ex) {
+                Logger.getLogger(ConsultarPreguntaServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            } catch (IOException ex) {
+                Logger.getLogger(ConsultarPreguntaServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

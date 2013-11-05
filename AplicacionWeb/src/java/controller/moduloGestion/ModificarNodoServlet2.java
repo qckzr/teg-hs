@@ -19,12 +19,19 @@ import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
 
 /**
- *
- * @author hector
+ * Clase que permite modificar un nodo de la base de datos a través del
+ * módulo de gestión.
+ * @author Héctor Sam
  */
 @WebServlet(name = "ModificarNodoServlet2", urlPatterns = {"/ModificarNodoServlet2"})
 public class ModificarNodoServlet2 extends HttpServlet {
 
+    private ConexionBD conexion;
+    private String id;
+    private String ip;
+    private String usuario;
+    private String contrasena;
+    private ResultSet rs;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -43,29 +50,96 @@ public class ModificarNodoServlet2 extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-              ConexionBD conexion = new ConexionBD();
-            String id = request.getParameter("id");
-            String ip = request.getParameter("ip");
-            String usuario = request.getParameter("usuario");
-            String contrasena = request.getParameter("contrasena");
-           
-            ResultSet rs = conexion.consultarRegistro("SELECT * FROM nodos WHERE ID="+id);
-            
-            if (!rs.getString(2).contentEquals(ip))
-                conexion.ejecutarQuery("UPDATE nodos SET ip='"+ip+"' WHERE ID="+id);
-            if (!rs.getString(3).contentEquals("usuario"))
-                conexion.ejecutarQuery("UPDATE nodos SET nombre_usuario='"+usuario+"' WHERE ID="+id);
-            if (!rs.getString(4).contentEquals(contrasena))
-                    conexion.ejecutarQuery("UPDATE nodos SET contrasena='"+contrasena+"' WHERE ID="+id);
-            
-             request.setAttribute("mensaje","Nodo Modificado");
-           RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
-            dispatcher.forward(request, response);    
-        } catch (SQLException ex) {
-            Logger.getLogger(ModificarNodoServlet2.class.getName()).log(Level.SEVERE, null, ex);
+            obtenerInformacion(request);
+            ejecutarQuery(request);
+            enviarInformacion(request, response);
         } finally {            
             out.close();
         }
+    }
+    
+    /**
+     * Método que permite obtener la información correspondiente a un nodo.
+     * @param request La petición HTTP con los datos del nodo.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean obtenerInformacion(HttpServletRequest request){
+        if (request != null) {
+            
+            conexion = new ConexionBD();
+            id = request.getParameter("id");
+            ip = request.getParameter("ip");
+            usuario = request.getParameter("usuario");
+            contrasena = request.getParameter("contrasena");
+            return true;
+             
+        }
+        return false;
+    }
+    
+    /**
+     * Método que permite ejecutar el query con la información perteneciente
+     * a un nodo.
+     * @param request La petición HTTP con la información del nodo.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean ejecutarQuery(HttpServletRequest request){
+        
+        if (request != null) {
+            try {
+                rs = conexion.consultarRegistro("SELECT * FROM nodos WHERE ID="+id);
+                if (!rs.getString(2).contentEquals(ip)) {
+                    conexion.ejecutarQuery("UPDATE nodos "
+                            + "SET ip='"+ip+"' WHERE ID="+id);
+                }
+                if (!rs.getString(3).contentEquals("usuario")) {
+                    conexion.ejecutarQuery("UPDATE nodos "
+                            + "SET nombre_usuario='"+usuario+"' WHERE ID="+id);
+                }
+                if (!rs.getString(4).contentEquals(contrasena)) {
+                    conexion.ejecutarQuery("UPDATE nodos "
+                            + "SET contrasena='"+contrasena+"' WHERE ID="+id);
+                }
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(ModificarNodoServlet2.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
+    }
+    
+    
+    /**
+     * Método que permite enviar la información correspondiente del nodo
+     * a modificar..
+     * @param request La petición HTTP que contendrá la información.
+     * @param response La respuesta HTTP donde se redirigirá la información.
+     * @return True si la información fue enviada. False en caso contrario.
+     */
+    public boolean enviarInformacion (HttpServletRequest request,
+            HttpServletResponse response){
+        RequestDispatcher dispatcher; 
+        if ((request != null) && (response != null) ){
+            try {
+                
+                request.setAttribute("mensaje","Nodo Modificado");
+                dispatcher = request.getRequestDispatcher("/respuesta.jsp");
+                dispatcher.forward(request, response);
+                conexion.desconectar();
+                return true;
+             } catch (ServletException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (IOException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } 
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -20,12 +20,17 @@ import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
 
 /**
- *
- * @author sam
+ * Clase que permite obtener la información perteneciente a una pregunta.
+ * @author Héctor Sam
  */
 @WebServlet(name = "ModificarPreguntaServlet1", urlPatterns = {"/ModificarPreguntaServlet1"})
 public class ModificarPreguntaServlet1 extends HttpServlet {
 
+    private ConexionBD conexionBD;
+    private String idPregunta;
+    private ResultSet rs;
+    private ResultSet rs2;
+    private ArrayList<String[]> preguntas;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -44,31 +49,99 @@ public class ModificarPreguntaServlet1 extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-           ConexionBD conexionBD = new ConexionBD();
-            String idPregunta = request.getParameter("preguntas");
-            String idRespuestaCorrecta="";
-            ResultSet rs = conexionBD.consultarRegistro("SELECT p.id, p.enunciado, t.id FROM preguntas p,topicos t where p.id_topico=t.id and p.id="+idPregunta);
-            ResultSet rs2 = conexionBD.consultar("select opcion,correcta,id from respuestas where id_pregunta="+idPregunta);
-            ArrayList<String[]> preguntas = new ArrayList<String[]>();
-            while (rs2.next()){
-                String[] pregunta = new String[3];
-                pregunta[0] = rs2.getString(1);
-                pregunta[1] = rs2.getString(2);
-                pregunta[2] = rs2.getString(3);
-                
-                preguntas.add(pregunta);
-            }
-            request.setAttribute("enunciado", rs.getString(2));
-            request.setAttribute("topico", rs.getString(3));
-            request.setAttribute("preguntas", preguntas);
-            request.setAttribute("id", idPregunta);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("preguntas/modificarPregunta2.jsp");
-            dispatcher.forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(EliminarPreguntaServlet1.class.getName()).log(Level.SEVERE, null, ex);
+            obtenerInformacion(request);
+            ejecutarQuery(request);
+            enviarInformacion(request, response);
         } finally {            
             out.close();
         }
+    }
+    
+    /**
+     * Método que permite obtener la información correspondiente a una pregunta.
+     * @param request La petición HTTP con el id de la pregunta.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean obtenerInformacion(HttpServletRequest request){
+        if (request != null) {
+            
+            conexionBD = new ConexionBD();
+            idPregunta = request.getParameter("preguntas");
+            preguntas = new ArrayList<String[]>();
+            return true;
+             
+        }
+        return false;
+    }
+    
+    /**
+     * Método que permite ejecutar el query con la información perteneciente
+     * a una pregunta.
+     * @param request La petición HTTP con la información de la pregunta.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean ejecutarQuery(HttpServletRequest request){
+        String[] pregunta;
+        if (request != null) {
+            try {
+                rs = conexionBD.consultarRegistro("SELECT p.id, p.enunciado, t.id "
+                        + "FROM preguntas p,topicos t where p.id_topico=t.id "
+                        + "and p.id="+idPregunta);
+                rs2 = conexionBD.consultar("select opcion,correcta,id "
+                        + "from respuestas where id_pregunta="+idPregunta);
+                while (rs2.next()){
+                    pregunta = new String[3];
+                    pregunta[0] = rs2.getString(1);
+                    pregunta[1] = rs2.getString(2);
+                    pregunta[2] = rs2.getString(3);
+                    preguntas.add(pregunta);
+                }
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(ModificarPreguntaServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
+    }
+    
+    
+    /**
+     * Método que permite enviar la información correspondiente de la pregunta
+     * a modificar..
+     * @param request La petición HTTP que contendrá la información.
+     * @param response La respuesta HTTP donde se redirigirá la información.
+     * @return True si la información fue enviada. False en caso contrario.
+     */
+    public boolean enviarInformacion (HttpServletRequest request,
+            HttpServletResponse response){
+        RequestDispatcher dispatcher; 
+        if ((request != null) && (response != null) ){
+            try {
+                request.setAttribute("enunciado", rs.getString(2));
+                request.setAttribute("topico", rs.getString(3));
+                request.setAttribute("preguntas", preguntas);
+                request.setAttribute("id", idPregunta);
+                dispatcher = request.getRequestDispatcher("preguntas/modificarPregunta2.jsp");
+                dispatcher.forward(request, response);
+                conexionBD.desconectar();
+                return true;
+             } catch (ServletException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (IOException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (SQLException ex) {
+                Logger.getLogger(EliminarAplicacionServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

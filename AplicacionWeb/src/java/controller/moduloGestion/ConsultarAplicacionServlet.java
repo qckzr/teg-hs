@@ -27,6 +27,80 @@ import model.ConexionBD;
 @WebServlet(name = "ConsultarAplicacionServlet", urlPatterns = {"/ConsultarAplicacionServlet"})
 public class ConsultarAplicacionServlet extends HttpServlet {
 
+    private ConexionBD conexion;
+    private String id;
+    private ResultSet resultSet;
+    private ResultSet aplicacion;
+    private ResultSet escenarios;
+    private ArrayList<String[]> listaEscenarios;
+    private String[] escenario;
+    private RequestDispatcher dispatcher;
+
+    public ConexionBD getConexion() {
+        return conexion;
+    }
+
+    public void setConexion(ConexionBD conexion) {
+        this.conexion = conexion;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public ResultSet getResultSet() {
+        return resultSet;
+    }
+
+    public void setResultSet(ResultSet resultSet) {
+        this.resultSet = resultSet;
+    }
+
+    public ResultSet getAplicacion() {
+        return aplicacion;
+    }
+
+    public void setAplicacion(ResultSet aplicacion) {
+        this.aplicacion = aplicacion;
+    }
+
+    public ResultSet getEscenarios() {
+        return escenarios;
+    }
+
+    public void setEscenarios(ResultSet escenarios) {
+        this.escenarios = escenarios;
+    }
+
+    public ArrayList<String[]> getListaEscenarios() {
+        return listaEscenarios;
+    }
+
+    public void setListaEscenarios(ArrayList<String[]> listaEscenarios) {
+        this.listaEscenarios = listaEscenarios;
+    }
+
+    public String[] getEscenario() {
+        return escenario;
+    }
+
+    public void setEscenario(String[] escenario) {
+        this.escenario = escenario;
+    }
+
+    public RequestDispatcher getDispatcher() {
+        return dispatcher;
+    }
+
+    public void setDispatcher(RequestDispatcher dispatcher) {
+        this.dispatcher = dispatcher;
+    }
+    
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -45,12 +119,48 @@ public class ConsultarAplicacionServlet extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
+                buscarInformacion(request);
                 enviarInformacion(request, response);
         } finally {            
             out.close();
         }
     }
     
+    /**
+     * Método que permite buscar la información correspondiente en base de datos.
+     * @param request La petición con el id de la aplicación a buscar.
+     * @return True si se logró obtener los datos de la aplicación. False en 
+     * caso contrario.
+     */
+    public boolean buscarInformacion(HttpServletRequest request){
+        if (request != null){
+            try {
+                conexion = new ConexionBD();
+                id = request.getParameter("aplicaciones");
+                resultSet = conexion.consultarRegistro("SELECT NOMBRE,to_date"
+                        + "(fecha_actualizacion,'DD/MM/YYYY'),"
+                        + "INSTRUCCIONES, ID_TOPICO FROM aplicaciones WHERE ID="+id);
+                aplicacion = conexion.consultarRegistro(
+                        "Select nombre from topicos where id="+resultSet.getString(4));
+                escenarios = conexion.consultar("select nombre, descripcion "
+                            + "from escenarios where id_aplicacion="+id);
+                listaEscenarios = new ArrayList<String[]>();
+                while (escenarios.next()){
+                        escenario = new String[2];
+                        escenario[0] = escenarios.getString(1);
+                        escenario[1] = escenarios.getString(2);
+                        listaEscenarios.add(escenario);
+                    }
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsultarAplicacionServlet.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
+        
+    }
     
     /**
      * Método que permite enviar los datos pertenecientes a una aplicación.
@@ -60,36 +170,14 @@ public class ConsultarAplicacionServlet extends HttpServlet {
      */
     public boolean enviarInformacion(HttpServletRequest request,
             HttpServletResponse response){
-        ConexionBD conexion;
-        String id;
-        ResultSet resultSet;
-        ResultSet aplicacion;
-        ResultSet escenarios;
-        ArrayList<String[]> listaEscenarios;
-        String[] escenario;
-        RequestDispatcher dispatcher;
+
         if ((request != null) &&(response != null)){
             try {
-                conexion = new ConexionBD();
-                id = request.getParameter("aplicaciones");
-                resultSet = conexion.consultarRegistro("SELECT NOMBRE,to_date"
-                        + "(fecha_actualizacion,'DD/MM/YYYY'),"
-                        + "INSTRUCCIONES, ID_TOPICO FROM aplicaciones WHERE ID="+id);
+
                 request.setAttribute("nombre",resultSet.getString(1));
                 request.setAttribute("fecha_actualizacion",resultSet.getString(2));
                 request.setAttribute("instrucciones",resultSet.getString(3));
-                aplicacion = conexion.consultarRegistro(
-                        "Select nombre from topicos where id="+resultSet.getString(4));
                 request.setAttribute("topico",aplicacion.getString(1));
-                escenarios = conexion.consultar("select nombre, descripcion "
-                        + "from escenarios where id_aplicacion="+id);
-                listaEscenarios = new ArrayList<String[]>();
-                while (escenarios.next()){
-                    escenario = new String[2];
-                    escenario[0] = escenarios.getString(1);
-                    escenario[1] = escenarios.getString(2);
-                    listaEscenarios.add(escenario);
-                }
                 request.setAttribute("escenarios",listaEscenarios);
                 dispatcher = request.getRequestDispatcher("aplicaciones/"
                         + "consultarAplicacion2.jsp");

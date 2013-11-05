@@ -20,12 +20,18 @@ import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
 
 /**
- *
- * @author hector
+ * Clase que permite obtener la información perteneciente a un tópico.
+ * @author Héctor Sam
  */
 @WebServlet(name = "ModificarTopicoServlet1", urlPatterns = {"/ModificarTopicoServlet1"})
 public class ModificarTopicoServlet1 extends HttpServlet {
 
+    private String id;
+    private ConexionBD conexion;
+    private ResultSet rs;
+    private ResultSet rs2;
+    private ArrayList<String[]> usuarios;
+    private ArrayList<String> categorias;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -44,42 +50,109 @@ public class ModificarTopicoServlet1 extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-             String id = request.getParameter("topicos");
-             ConexionBD conexion = new ConexionBD();
-             ResultSet rs = conexion.consultarRegistro("SELECT * FROM TOPICOS WHERE ID="+id);
-             request.setAttribute("id",id);
-             request.setAttribute("nombre",rs.getString(2));
-             request.setAttribute("categoria",rs.getString(3));
-             request.setAttribute("descripcion",rs.getString(4));
-             request.setAttribute("imagen",rs.getString(6));
-             ResultSet rs2 = conexion.consultar("Select id, nombre, apellido from usuarios");
-             request.setAttribute("idUsuario",rs.getString(5));
-             ArrayList<String[]> usuarios = new ArrayList<String[]>();
-             while (rs2.next()){
-                 String [] usuario = new String[3];
-                 usuario[0] = rs2.getString(1);
-                 usuario[1] = rs2.getString(2);
-                 usuario[2] = rs2.getString(3);
-                 usuarios.add(usuario);
-             }
-             ArrayList<String> categorias = new ArrayList<String>();
-             categorias.add("INTRODUCCION A LOS SISTEMAS DISTRIBUIDOS");
-             categorias.add("COMUNICACION EN SISTEMAS DISTRIBUIDOS");
-             categorias.add("SINCRONIZACION EN AMBIENTES DISTRIBUIDOS");
-             categorias.add("REPLICACION");
-             categorias.add("SISTEMAS DE ARCHIVOS DISTRIBUIDOS");
-             categorias.add("SERVICIOS DE NOMBRE");
-             categorias.add("OBJETOS DISTRIBUIDOS");
-             categorias.add("SERVICIOS WEB");
-             request.setAttribute("categorias",categorias);
-             request.setAttribute("usuarios", usuarios);
-             RequestDispatcher dispatcher = request.getRequestDispatcher("topicos/modificarTopico2.jsp");
-            dispatcher.forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ModificarTopicoServlet1.class.getName()).log(Level.SEVERE, null, ex);
+            obtenerInformacion(request);
+            ejecutarQuery(request);
+            enviarInformacion(request, response);
         } finally {            
             out.close();
         }
+    }
+    
+    /**
+     * Método que permite obtener la información correspondiente a un tópico.
+     * @param request La petición HTTP con el id del tópico.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean obtenerInformacion(HttpServletRequest request){
+        if (request != null) {
+            
+            id = request.getParameter("topicos");
+            conexion = new ConexionBD();
+            usuarios = new ArrayList<String[]>();
+            categorias = new ArrayList<String>();
+            categorias.add("INTRODUCCION A LOS SISTEMAS DISTRIBUIDOS");
+            categorias.add("COMUNICACION EN SISTEMAS DISTRIBUIDOS");
+            categorias.add("SINCRONIZACION EN AMBIENTES DISTRIBUIDOS");
+            categorias.add("REPLICACION");
+            categorias.add("SISTEMAS DE ARCHIVOS DISTRIBUIDOS");
+            categorias.add("SERVICIOS DE NOMBRE");
+            categorias.add("OBJETOS DISTRIBUIDOS");
+            categorias.add("SERVICIOS WEB");
+            return true;
+             
+        }
+        return false;
+    }
+    
+    /**
+     * Método que permite ejecutar el query con la información perteneciente
+     * a un tópico.
+     * @param request La petición HTTP con la información del tópico.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean ejecutarQuery(HttpServletRequest request){
+        String [] usuario;
+        if (request != null) {
+            try {           
+                rs = conexion.consultarRegistro("SELECT * FROM TOPICOS WHERE ID="+id);
+                rs2 = conexion.consultar("Select id, nombre, apellido from usuarios");
+                while (rs2.next()){
+                    usuario = new String[3];
+                    usuario[0] = rs2.getString(1);
+                    usuario[1] = rs2.getString(2);
+                    usuario[2] = rs2.getString(3);
+                    usuarios.add(usuario);
+                }
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(ModificarTopicoServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
+    }
+    
+    
+    /**
+     * Método que permite enviar la información correspondiente del tópico
+     * a modificar..
+     * @param request La petición HTTP que contendrá la información.
+     * @param response La respuesta HTTP donde se redirigirá la información.
+     * @return True si la información fue enviada. False en caso contrario.
+     */
+    public boolean enviarInformacion (HttpServletRequest request,
+            HttpServletResponse response){
+        RequestDispatcher dispatcher; 
+        if ((request != null) && (response != null) ){
+            try {
+                request.setAttribute("id",id);
+                request.setAttribute("nombre",rs.getString(2));
+                request.setAttribute("categoria",rs.getString(3));
+                request.setAttribute("descripcion",rs.getString(4));
+                request.setAttribute("imagen",rs.getString(6));
+                request.setAttribute("idUsuario",rs.getString(5));
+                request.setAttribute("categorias",categorias);
+                request.setAttribute("usuarios", usuarios);
+                dispatcher = request.getRequestDispatcher("topicos/modificarTopico2.jsp");
+                dispatcher.forward(request, response);
+                conexion.desconectar();
+                return true;
+             } catch (ServletException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (IOException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (SQLException ex) {
+                Logger.getLogger(EliminarAplicacionServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -6,6 +6,8 @@ package controller.moduloGestion;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,12 +17,15 @@ import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
 
 /**
- *
- * @author hector
+ * Clase que permite eliminar un ejecutable de la base de datos a través del
+ * módulo de gestión.
+ * @author Héctor Sam
  */
 @WebServlet(name = "EliminarEjecutableServlet2", urlPatterns = {"/EliminarEjecutableServlet2"})
 public class EliminarEjecutableServlet2 extends HttpServlet {
 
+    private ConexionBD conexionBD;
+    private String id;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -39,15 +44,75 @@ public class EliminarEjecutableServlet2 extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-            ConexionBD conexionBD = new ConexionBD();
-            if (conexionBD.ejecutarQuery("DELETE FROM EJECUTABLES WHERE ID="+request.getParameter("id"))){
-                request.setAttribute("mensaje","Ejecutable Eliminado");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/respuesta.jsp");
-                dispatcher.forward(request, response);  
-            }
+            obtenerInformacion(request);
+            ejecutarQuery(request);
+            enviarInformacion(request, response);
+
         } finally {            
             out.close();
         }
+    }
+    
+    /**
+     * Método que permite obtener la información correspondiente a un ejecutable.
+     * @param request La petición HTTP con el id del ejecutable.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean obtenerInformacion(HttpServletRequest request){
+        if (request != null) {
+            
+                conexionBD = new ConexionBD();
+                id = request.getParameter("id");
+                return true;
+             
+        }
+        return false;
+    }
+    
+    /**
+     * Método que permite ejecutar el query con la información perteneciente
+     * a un ejecutable para su eliminación.
+     * @param request La petición HTTP con la información del ejecutable.
+     * @return True si el ejecutable fue eliminado. False en caso contrario.
+     */
+    public boolean ejecutarQuery(HttpServletRequest request){
+        
+        if (request != null) {
+            conexionBD.ejecutarQuery("DELETE FROM EJECUTABLES WHERE ID="+id);
+            return true;
+        }
+        return false;
+    }
+    
+    
+    /**
+     * Método que permite enviar la información correspondiente indicando que el
+     * ejecutable fue eliminado.
+     * @param request La petición HTTP que contendrá la información.
+     * @param response La respuesta HTTP donde se redirigirá la información.
+     * @return True si la información fue enviada. False en caso contrario.
+     */
+    public boolean enviarInformacion (HttpServletRequest request,
+            HttpServletResponse response){
+        RequestDispatcher dispatcher; 
+        if ((request != null) && (response != null) ){
+            try {
+                    request.setAttribute("mensaje","Ejecutable Eliminado");
+                    dispatcher = request.getRequestDispatcher("/respuesta.jsp");
+                    dispatcher.forward(request, response);  
+                    conexionBD.desconectar();
+                    return true;
+             } catch (ServletException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             } catch (IOException ex) {
+                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
+                         log(Level.SEVERE, null, ex);
+                 return false;
+             }
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

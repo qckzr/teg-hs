@@ -20,12 +20,19 @@ import model.ConexionBD;
 import model.Directorios;
 
 /**
- *
- * @author hector
+ * Clase que permite crear una aplicación.
+ * @author Héctor Sam
  */
 @WebServlet(name = "CrearAplicacionServlet", urlPatterns = {"/CrearAplicacionServlet"})
 public class CrearAplicacionServlet extends HttpServlet {
 
+    private ConexionBD conexionBD;
+    private String nombre;
+    private String instrucciones;
+    private String idTopico;
+    private ArrayList<String> idEscenarios;
+    private String cantidadEscenarios;
+    private String idAplicacion;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -44,37 +51,104 @@ public class CrearAplicacionServlet extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-            ConexionBD conexionBD = new ConexionBD();
-             String nombre =request.getParameter("nombre");
-            String instrucciones = request.getParameter("instrucciones");
-            String idTopico = request.getParameter("topicos");
-            ArrayList<String> idEscenarios = new ArrayList<>();
-            String cantidadEscenarios = request.getParameter("cantidadEscenarios");
-            conexionBD.ejecutarQuery("INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)"
-                    + " VALUES (S_APLICACIONES.NEXTVAL,'"+nombre+"',TO_DATE(SYSDATE,'DD/MM/YYYY'),'"+instrucciones+"',"+idTopico+")");
-            String idAplicacion  = conexionBD.consultarRegistro("Select id from aplicaciones where nombre='"+nombre+"'").getString(1);
-            for (int i = 1; i < Integer.valueOf(cantidadEscenarios); i++) {
-                String nombreEscenario = request.getParameter("escenario"+i);
-                String descripcionEscenario = request.getParameter("descripcion"+i);
-                String imagen = "NULL";
-                conexionBD.ejecutarQuery("INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)"
-                        + "VALUES(S_ESCENARIOS.NEXTVAL,'"+nombreEscenario+"','"+descripcionEscenario+"',"+idAplicacion+","+imagen+")");
-                idEscenarios.add(conexionBD.consultarRegistro("SELECT ID FROM ESCENARIOS WHERE NOMBRE='"+nombreEscenario+"'").getString(1));
-                
-            }
-            
-            request.setAttribute("tipoArchivo","escenario");
-            request.setAttribute("escenarios", cantidadEscenarios);
-            request.setAttribute("idEscenarios",idEscenarios);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/subirArchivo.jsp");
-            dispatcher.forward(request, response);
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(CrearEjecutableServlet.class.getName()).log(Level.SEVERE, null, ex);
-        
+            obtenerInformacion(request);
+            ejecutarQuery(request);
+            enviarInformacion(request, response);
+
         } finally {            
             out.close();
         }
+    }
+    
+    /**
+     * Método que permite obtener la información correspondiente a una aplicación.
+     * @param request La petición HTTP con el id del tópico.
+     * @return True si la información fue obtenida. False en caso contrario.
+     */
+    public boolean obtenerInformacion(HttpServletRequest request){
+        if (request != null){
+            conexionBD = new ConexionBD();
+            nombre =request.getParameter("nombre");
+            instrucciones = request.getParameter("instrucciones");
+            idTopico = request.getParameter("topicos");
+            idEscenarios = new ArrayList<>();
+            cantidadEscenarios = request.getParameter("cantidadEscenarios");
+            return true;
+        }
+        return false;
+        
+    }
+    
+    /**
+     * Método que permite ejecutar el query con la información perteneciente
+     * a una aplicación.
+     * @param request La petición HTTP con la información de la aplicación.
+     * @return True si la aplicacion fue agregada. False en caso contrario.
+     */
+    public boolean ejecutarQuery (HttpServletRequest request){
+        String nombreEscenario; 
+        String descripcionEscenario;
+        String imagen;
+        if (request != null){
+            try { 
+               conexionBD.ejecutarQuery("INSERT INTO APLICACIONES "
+                     + "(ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)"
+                        + " VALUES (S_APLICACIONES.NEXTVAL,'"+nombre+"',"
+                     + "TO_DATE(SYSDATE,'DD/MM/YYYY'),'"+instrucciones+"',"+idTopico+")");
+                idAplicacion  = conexionBD.consultarRegistro("Select id from "
+                        + "aplicaciones where nombre='"+nombre+"'").getString(1);
+                    for (int i = 1; i < Integer.valueOf(cantidadEscenarios); i++) {
+                        nombreEscenario = request.getParameter("escenario"+i);
+                        descripcionEscenario = request.getParameter("descripcion"+i);
+                        imagen = "NULL";
+                        conexionBD.ejecutarQuery("INSERT INTO ESCENARIOS (ID,NOMBRE,"
+                            + "DESCRIPCION,ID_APLICACION,IMAGEN) VALUES(S_ESCENARIOS.NEXTVAL,"
+                            + "'"+nombreEscenario+"','"+descripcionEscenario+"',"+idAplicacion+","+imagen+")");
+                        idEscenarios.add(conexionBD.consultarRegistro(
+                                "SELECT ID FROM ESCENARIOS WHERE NOMBRE='"
+                                +nombreEscenario+"'").getString(1));
+                }
+                    return true;
+           } catch (SQLException ex) {
+                    Logger.getLogger(CrearAplicacionServlet.class.getName()).
+                            log(Level.SEVERE, null, ex);
+                    return false;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Método que permite enviar la información correspondiente a los escenarios
+     * de una aplicación.
+     * @param request La petición HTTP que contendrá la información.
+     * @param response La respuesta HTTP donde se redirigirá la información.
+     * @return True si la información fue enviada. False en caso contrario.
+     */
+    public boolean enviarInformacion(HttpServletRequest request,
+            HttpServletResponse response){
+        RequestDispatcher dispatcher;
+        if ((request != null) && (response != null) ){
+            try {
+                request.setAttribute("tipoArchivo","escenario");
+                request.setAttribute("escenarios", cantidadEscenarios);
+                request.setAttribute("idEscenarios",idEscenarios);
+
+                dispatcher = request.getRequestDispatcher("/subirArchivo.jsp");
+                dispatcher.forward(request, response);
+                conexionBD.desconectar();
+                return true;
+            } catch (ServletException ex) {
+                Logger.getLogger(CrearAplicacionServlet.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            } catch (IOException ex) {
+                Logger.getLogger(CrearAplicacionServlet.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
