@@ -30,16 +30,16 @@ public class Aplicacion extends HttpServlet {
     
     private static final int PUERTO_ESCUCHA = 5000;
     private String idAplicacion;
-    private ConexionBD conexionBD = new ConexionBD();
-    private ArrayList<String[]> escenarios = new ArrayList<String[]>();
+    private ConexionBD conexionBD;
+    private ArrayList<String[]> escenarios;
     private String idTopico;
     private ResultSet datosAplicacion;
     private ResultSet escenariosAplicacion;
     private ResultSet topicoAplicacion;
     private ResultSet ejecutablesAplicacion;
-    private ArrayList<String[]> ejecutables = new ArrayList<>();
-    private ArrayList<String> archivoMensajes = new ArrayList<>();
-    private ArrayList<String> archivoAgentes = new ArrayList<>();
+    private ArrayList<String[]> ejecutables;
+    private ArrayList<String> archivoMensajes;
+    private ArrayList<String> archivoAgentes;
     private String descripcion = "";
     private String rutaImagen = "";
 
@@ -172,6 +172,10 @@ public class Aplicacion extends HttpServlet {
           
             idAplicacion = request.getParameter("aplicacion");  
             idTopico = request.getParameter("idTopico");
+            escenarios = new ArrayList<String[]>();
+            ejecutables = new ArrayList<>();
+            archivoMensajes = new ArrayList<>();
+            archivoAgentes = new ArrayList<>();
             obtenerDatos(idAplicacion);
             root = getServletContext().getRealPath("/");  
             guardarDatos();
@@ -194,6 +198,7 @@ public class Aplicacion extends HttpServlet {
     public boolean obtenerDatos(String idAplicacion){
         
         try {
+            conexionBD = new ConexionBD();
             datosAplicacion = conexionBD.consultarRegistro("SELECT NOMBRE,"
                     + "FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO FROM "
                     + "APLICACIONES WHERE ID="+idAplicacion);
@@ -220,6 +225,8 @@ public class Aplicacion extends HttpServlet {
      * @return True si se pudo guardar la información. False en caso contrario.
      */
     public boolean guardarDatos(){
+        String[] escenario;
+        String [] ejecutable;
         try {
             
             while(topicoAplicacion.next()){
@@ -229,7 +236,7 @@ public class Aplicacion extends HttpServlet {
             
             
             while (escenariosAplicacion.next()){
-                String[] escenario = new String[3];
+                escenario = new String[3];
                 escenario[0] = escenariosAplicacion.getString(1);
                 escenario[1] = escenariosAplicacion.getString(2);
                 escenario[2] = escenariosAplicacion.getString(3);
@@ -237,7 +244,7 @@ public class Aplicacion extends HttpServlet {
             }
             
             while (ejecutablesAplicacion.next()){
-                String [] ejecutable = new String[4];
+                ejecutable = new String[4];
                 ejecutable[0] = ejecutablesAplicacion.getString(1);
                 ejecutable[1] = ejecutablesAplicacion.getString(2);
                 ejecutable[2] = ejecutablesAplicacion.getString(3);
