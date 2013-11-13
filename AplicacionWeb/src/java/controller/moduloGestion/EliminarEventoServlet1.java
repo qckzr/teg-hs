@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -20,22 +19,15 @@ import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
 
 /**
- * Clase que permite agregar un ejecutable a la base de datos a través del módulo
- * de Gestión.
+ * Clase que permite obtener la información perteneciente a un evento.
  * @author Héctor Sam
  */
-@WebServlet(name = "CrearEjecutableServlet", urlPatterns = {"/CrearEjecutableServlet"})
-public class CrearEjecutableServlet extends HttpServlet {
+@WebServlet(name = "EliminarEventoServlet1", urlPatterns = {"/EliminarEventoServlet1"})
+public class EliminarEventoServlet1 extends HttpServlet {
 
-     private String nombreEjecutable;
-     private String tipo;
-     private String idAplicacion;
-     private String cantidadParametros;
-     private String idNodo;
-     private ConexionBD conexionBD;
-     private String idEjecutable;
-     private String evento;
-     private ResultSet eventos;
+    private ConexionBD conexion;
+    private String id;
+    private ResultSet rs;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -57,86 +49,49 @@ public class CrearEjecutableServlet extends HttpServlet {
             obtenerInformacion(request);
             ejecutarQuery(request);
             enviarInformacion(request, response);
-
         } finally {            
             out.close();
         }
     }
     
     /**
-     * Método que permite obtener la información correspondiente a un ejecutable.
-     * @param request La petición HTTP con el id de la aplicación.
+     * Método que permite obtener la información correspondiente a un evento.
+     * @param request La petición HTTP con el id del evento.
      * @return True si la información fue obtenida. False en caso contrario.
      */
     public boolean obtenerInformacion(HttpServletRequest request){
         if (request != null) {
-            try {
-                 nombreEjecutable = "";
-                 tipo = request.getParameter("tipoEjecutable");
-                 idAplicacion = request.getParameter("aplicacion");
-                 cantidadParametros = request.getParameter("cantidadParametros");
-                 idNodo = request.getParameter("nodos");
-                 conexionBD = new ConexionBD();
-                 eventos = conexionBD.consultar("SELECT * FROM EVENTOS ORDER BY ID");
-                 nombreEjecutable = conexionBD.consultarRegistro("select to_char"
-                         + "(sysdate,'DD/MM/YYYY HH24:MI:SS') from dual").getString(1);
-                 
-                 return true;
-             } catch (SQLException ex) {
-                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
-                         log(Level.SEVERE, null, ex);
-                 return false;
-             }
+            
+            conexion = new ConexionBD();
+            id = request.getParameter("eventos");
+            return true;
+             
         }
         return false;
     }
     
     /**
      * Método que permite ejecutar el query con la información perteneciente
-     * a un ejecutable.
-     * @param request La petición HTTP con la información del ejecutable.
-     * @return True si el ejecutable fue agregado. False en caso contrario.
+     * a un evento.
+     * @param request La petición HTTP con la información del evento.
+     * @return True si la información fue obtenida. False en caso contrario.
      */
     public boolean ejecutarQuery(HttpServletRequest request){
-        String nombreParametro;
-        String valorParametro;
+        
         if (request != null) {
-            try {
-                conexionBD.ejecutarQuery("INSERT INTO EJECUTABLES (ID,NOMBRE,TIPO,"
-                        + "RUTA_EJECUTABLE,ID_APLICACION,ID_NODO) VALUES "
-                        + "(S_EJECUTABLES.NEXTVAL,'"+nombreEjecutable+"','"+tipo+"',"
-                        + "'"+nombreEjecutable+"',"+idAplicacion+","+idNodo+")");
-                idEjecutable  = conexionBD.consultarRegistro("Select id from "
-                        + "ejecutables where nombre='"+nombreEjecutable+"'").getString(1);
-                for (int i = 1; i <  Integer.valueOf(cantidadParametros); i++) {
-                    nombreParametro = request.getParameter("nombreParametro"+i);
-                    valorParametro = request.getParameter("parametro"+i);
-                    conexionBD.ejecutarQuery("INSERT INTO PARAMETROS (ID,NOMBRE,"
-                            + "VALOR,ID_EJECUTABLE) VALUES(S_PARAMETROS.NEXTVAL,'"
-                            +nombreParametro +"','"+valorParametro+"',"+idEjecutable+")");
-                }
-                while (eventos.next()){
-                    evento = request.getParameter("evento"+eventos.getString(1));
-                    if (evento.contentEquals("true")){
-                        conexionBD.ejecutarQuery("INSERT INTO EJECUTABLE_EVENTO "
-                                + "(ID_EJECUTABLE,ID_EVENTO) VALUES"
-                                + " ("+idEjecutable+","+eventos.getString(1)+")");
-                    }
-                }
+            
+                rs = conexion.consultarRegistro("SELECT * FROM EVENTOS "
+                        + "WHERE ID ="+id);
                 return true;
-            } catch (SQLException ex) {
-                Logger.getLogger(CrearEjecutableServlet.class.getName()).
-                        log(Level.SEVERE, null, ex);
-                return false;
-            }
+           
         }
         return false;
     }
     
     
     /**
-     * Método que permite enviar la información correspondiente al ejecutable
-     * de una aplicación.
+     * Método que permite enviar la información correspondiente del evento
+     * a eliminar..
      * @param request La petición HTTP que contendrá la información.
      * @param response La respuesta HTTP donde se redirigirá la información.
      * @return True si la información fue enviada. False en caso contrario.
@@ -146,13 +101,13 @@ public class CrearEjecutableServlet extends HttpServlet {
         RequestDispatcher dispatcher; 
         if ((request != null) && (response != null) ){
             try {
-                 request.setAttribute("tipoArchivo", "ejecutable");
-                 request.setAttribute("ejecutables",1);
-                 request.setAttribute("ejecutable", idEjecutable);
-                 dispatcher = request.getRequestDispatcher("/subirArchivo.jsp");
-                 dispatcher.forward(request, response);
-                 conexionBD.desconectar();
-                 return true;
+                request.setAttribute("nombre", rs.getString(2));
+                request.setAttribute("path", rs.getString(3));
+                request.setAttribute("id", rs.getString(1));
+                dispatcher = request.getRequestDispatcher("eventos/eliminarEvento2.jsp");
+                dispatcher.forward(request, response);
+                conexion.desconectar();
+                return true;
              } catch (ServletException ex) {
                  Logger.getLogger(CrearEjecutableServlet.class.getName()).
                          log(Level.SEVERE, null, ex);
@@ -161,7 +116,11 @@ public class CrearEjecutableServlet extends HttpServlet {
                  Logger.getLogger(CrearEjecutableServlet.class.getName()).
                          log(Level.SEVERE, null, ex);
                  return false;
-             }
+             } catch (SQLException ex) {
+                Logger.getLogger(EliminarAplicacionServlet1.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
         }
         return false;
     }

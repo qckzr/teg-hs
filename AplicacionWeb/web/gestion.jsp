@@ -80,6 +80,14 @@
                     <li><a id="consultarNodo" href="#">Consultar</a></li>
                 </ul>
             </li>
+            <li class="dropdown divider-vertical"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Eventos <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a id="crearEvento" href="#">Crear</a></li>
+                    <li><a id="modificarEvento" href="#">Modificar</a></li>
+                    <li><a id="eliminarEvento" href="#">Eliminar</a></li>
+                    <li><a id="consultarEvento" href="#">Consultar</a></li>
+                </ul>
+            </li>
             </ul>
             <ul class="nav pull-right">
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">${sessionScope.nombre} ${sessionScope.apellido}<b class="caret"></b></a>

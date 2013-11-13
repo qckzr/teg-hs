@@ -17,6 +17,7 @@
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script src="scripts/formulariosArchivos.js"></script>
         <script src="scripts/ejecutableNodos.js"></script>
+        <script src="scripts/checkboxEventos.js"></script>
     </head>
     <body>
         <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/CrearEjecutableServlet">
@@ -51,6 +52,23 @@
                     <div class="controls">
                         <span name="node" id="node">
 
+                        </span>
+                    </div>
+            </div>
+                        <div class="control-group">
+                <label class="control-label">Eventos:</label>
+                    <div class="controls">
+                        <span name="eventos" id="eventos">
+                        <sql:query dataSource="${localSource}" 
+	           sql="SELECT id,nombre FROM eventos" 
+	           var="result" />
+        
+                    <c:forEach var="row" items="${result.rows}">
+           
+                        <label>${row.nombre} <input type="checkbox" 
+                                 class="checkboxEvento" id="${row.id}"/></label>
+                                 <input type="hidden" name="evento${row.id}" id="evento${row.id}" value="false"/>
+	</c:forEach>
                         </span>
                     </div>
             </div>

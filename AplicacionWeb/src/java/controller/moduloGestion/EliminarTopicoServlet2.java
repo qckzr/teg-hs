@@ -4,8 +4,11 @@
  */
 package controller.moduloGestion;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -26,6 +29,7 @@ public class EliminarTopicoServlet2 extends HttpServlet {
 
     private ConexionBD conexion;
     private String id;
+    private ResultSet rs;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -76,10 +80,23 @@ public class EliminarTopicoServlet2 extends HttpServlet {
      * @return True si el tópico fue eliminado. False en caso contrario.
      */
     public boolean ejecutarQuery(HttpServletRequest request){
-        
+        File file;
         if (request != null) {
-            conexion.ejecutarQuery("DELETE FROM TOPICOS WHERE ID="+id);
-            return true;
+            try {
+                rs = conexion.consultarRegistro("SELECT NVL(RUTA_IMAGEN,'NULL')"
+                        + "FROM TOPICOS WHERE ID="+id);
+                if (!rs.getString(1).contains("NULL")){
+                    file = new File(rs.getString(1));
+                    file.delete();
+                }
+                conexion.ejecutarQuery("DELETE FROM TOPICOS WHERE ID="+id);
+                
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(EliminarTopicoServlet2.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
         }
         return false;
     }

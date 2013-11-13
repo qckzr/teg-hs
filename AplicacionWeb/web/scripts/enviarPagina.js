@@ -77,7 +77,18 @@ $(document).ready(function(){
                 
             case 'consultarNodo':
                 return 'nodos/consultarNodo1.jsp';
+            
+            case 'crearEvento':
+                return 'eventos/crearEvento.jsp';
                 
+            case 'modificarEvento':
+                return 'eventos/modificarEvento1.jsp';
+                
+            case 'eliminarEvento':
+                return 'eventos/eliminarEvento1.jsp';
+                
+            case 'consultarEvento':
+                return 'eventos/consultarEvento1.jsp';    
                 
                 
         }   

@@ -112,6 +112,7 @@ public class EliminarTopicoServlet1 extends HttpServlet {
                 request.setAttribute("categoria",rs.getString(3));
                 request.setAttribute("descripcion",rs.getString(4));
                 request.setAttribute("usuario",rs2.getString(1)+" "+rs2.getString(2));
+                request.setAttribute("imagen",rs.getString(6));
                 conexion.desconectar();
                 dispatcher = request.getRequestDispatcher("topicos/eliminarTopico2.jsp");
                 dispatcher.forward(request, response);

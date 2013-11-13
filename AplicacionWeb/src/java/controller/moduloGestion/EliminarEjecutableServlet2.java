@@ -4,8 +4,11 @@
  */
 package controller.moduloGestion;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -26,6 +29,7 @@ public class EliminarEjecutableServlet2 extends HttpServlet {
 
     private ConexionBD conexionBD;
     private String id;
+    private ResultSet rs;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -76,10 +80,19 @@ public class EliminarEjecutableServlet2 extends HttpServlet {
      * @return True si el ejecutable fue eliminado. False en caso contrario.
      */
     public boolean ejecutarQuery(HttpServletRequest request){
-        
+        File file;
         if (request != null) {
-            conexionBD.ejecutarQuery("DELETE FROM EJECUTABLES WHERE ID="+id);
-            return true;
+            try {
+                rs = conexionBD.consultarRegistro("SELECT RUTA_EJECUTABLE, NOMBRE FROM EJECUTABLES WHERE ID="+id);
+                file = new File(rs.getString(1)+"/"+rs.getString(2));
+                file.delete();
+                conexionBD.ejecutarQuery("DELETE FROM EJECUTABLES WHERE ID="+id);
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(EliminarEjecutableServlet2.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
         }
         return false;
     }

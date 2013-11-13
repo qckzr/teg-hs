@@ -25,6 +25,7 @@
                  <dt>Categoria:</dt> <dd><p class="text-justify">${categoria}</p></dd>
                  <dt>Descripcion:</dt> <dd><p class="text-justify">${descripcion}</p></dd>
                  <dt>Usuario:</dt> <dd><p class="text-justify">${usuario}</p></dd>
+                 <dt>Imagen:</dt> <dd><p class="text-justify">${imagen}</p></dd>
             </dl>
              </div>
              </div>

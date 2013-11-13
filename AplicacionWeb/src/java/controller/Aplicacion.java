@@ -227,11 +227,14 @@ public class Aplicacion extends HttpServlet {
     public boolean guardarDatos(){
         String[] escenario;
         String [] ejecutable;
+        String ruta;
         try {
             
             while(topicoAplicacion.next()){
                 descripcion = topicoAplicacion.getString(1);
-                rutaImagen = topicoAplicacion.getString(2);
+                ruta = topicoAplicacion.getString(2);
+                if (ruta != null)
+                    rutaImagen = ruta.substring(ruta.indexOf("images/"));
             }
             
             

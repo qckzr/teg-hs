@@ -4,7 +4,6 @@
  */
 package controller.moduloGestion;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -20,15 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
 
 /**
- * Clase que permite eliminar una aplicación de la base de datos a través del
- * módulo de gestión.
+ * Clase que permite obtener los datos de un evento.
  * @author Héctor Sam
  */
-@WebServlet(name = "EliminarAplicacionServlet2", urlPatterns = {"/EliminarAplicacionServlet2"})
-public class EliminarAplicacionServlet2 extends HttpServlet {
+@WebServlet(name = "ConsultarEventoServlet", urlPatterns = {"/ConsultarEventoServlet"})
+public class ConsultarEventoServlet extends HttpServlet {
 
     private ConexionBD conexionBD;
-    private String id;
     private ResultSet rs;
     /**
      * Processes requests for both HTTP
@@ -48,90 +45,59 @@ public class EliminarAplicacionServlet2 extends HttpServlet {
             /*
              * TODO output your page here. You may use following sample code.
              */
-            obtenerInformacion(request);
-            ejecutarQuery(request);
+            buscarInformacion(request);
             enviarInformacion(request, response);
-
         } finally {            
             out.close();
         }
     }
     
     /**
-     * Método que permite obtener la información correspondiente a un nodo.
-     * @param request La petición HTTP con los datos del nodo.
+     * Método que permite buscar la información correspondiente a un evento.
+     * @param request La petición HTTP con el id del evento.
      * @return True si la información fue obtenida. False en caso contrario.
      */
-    public boolean obtenerInformacion(HttpServletRequest request){
-        if (request != null) {
-            
-                conexionBD = new ConexionBD();
-                id = request.getParameter("id");
-                return true;
-             
+    public boolean buscarInformacion(HttpServletRequest request){
+        if (request != null){ 
+            conexionBD = new ConexionBD();
+            rs = conexionBD.consultarRegistro("SELECT * FROM EVENTOS "
+                 + "WHERE ID ="+request.getParameter("eventos"));
+         return true;
         }
         return false;
     }
     
     /**
-     * Método que permite ejecutar el query con la información perteneciente
-     * a un nodo para su eliminación.
-     * @param request La petición HTTP con la información del nodo.
-     * @return True si el nodo fue eliminado. False en caso contrario.
-     */
-    public boolean ejecutarQuery(HttpServletRequest request){
-        File file;
-        if (request != null) {
-            try {
-                rs = conexionBD.consultar("SELECT NVL(IMAGEN,'NULL') FROM ESCENARIOS "
-                        + "WHERE ID_APLICACION="+id);
-                do{
-                   if (!rs.getString(1).contains("NULL")){
-                       file = new File(rs.getString(1));
-                       file.delete();
-                   } 
-                }while (rs.next());
-                conexionBD.ejecutarQuery("DELETE FROM "
-                        + "ESCENARIOS WHERE ID_APLICACION="+id);
-                conexionBD.ejecutarQuery("DELETE FROM "
-                        + "APLICACIONES WHERE ID="+id);
-                return true;
-            } catch (SQLException ex) {
-                Logger.getLogger(EliminarAplicacionServlet2.class.getName()).
-                        log(Level.SEVERE, null, ex);
-                return false;
-            }
-        }
-        return false;
-    }
-    
-    
-    /**
-     * Método que permite enviar la información correspondiente indicando que la
-     * aplicación fue eliminada.
+     * Método que permite enviar la información correspondiente a un evento.
      * @param request La petición HTTP que contendrá la información.
      * @param response La respuesta HTTP donde se redirigirá la información.
      * @return True si la información fue enviada. False en caso contrario.
      */
-    public boolean enviarInformacion (HttpServletRequest request,
+    public boolean enviarInformacion(HttpServletRequest request,
             HttpServletResponse response){
-        RequestDispatcher dispatcher; 
-        if ((request != null) && (response != null) ){
+        RequestDispatcher dispatcher;
+        if ( (request != null) && (response != null)){
             try {
-                    request.setAttribute("mensaje","Aplicacion Eliminada");
-                    dispatcher = request.getRequestDispatcher("/respuesta.jsp");
-                    dispatcher.forward(request, response);  
-                    conexionBD.desconectar();
-                    return true;
-             } catch (ServletException ex) {
-                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
-                         log(Level.SEVERE, null, ex);
-                 return false;
-             } catch (IOException ex) {
-                 Logger.getLogger(CrearEjecutableServlet.class.getName()).
-                         log(Level.SEVERE, null, ex);
-                 return false;
-             }
+                request.setAttribute("nombre", rs.getString(2));
+                request.setAttribute("path", rs.getString(3));
+                request.setAttribute("id", rs.getString(1));
+                dispatcher = request.getRequestDispatcher("eventos/consultarEvento2.jsp");
+                dispatcher.forward(request, response);
+                conexionBD.desconectar();
+                return true;
+            } catch (ServletException ex) {
+                Logger.getLogger(ConsultarEventoServlet.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            } catch (IOException ex) {
+                Logger.getLogger(ConsultarEventoServlet.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsultarEventoServlet.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                return false;
+            }
         }
         return false;
     }
