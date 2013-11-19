@@ -42,6 +42,7 @@ public class Aplicacion extends HttpServlet {
     private ArrayList<String> archivoAgentes;
     private String descripcion = "";
     private String rutaImagen = "";
+    private String nombreTopico = "";
 
     public String getIdAplicacion() {
         return idAplicacion;
@@ -200,13 +201,13 @@ public class Aplicacion extends HttpServlet {
         try {
             conexionBD = new ConexionBD();
             datosAplicacion = conexionBD.consultarRegistro("SELECT NOMBRE,"
-                    + "FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO FROM "
+                    + "TO_CHAR(FECHA_ACTUALIZACION,'DD/MM/YYYY'),INSTRUCCIONES,ID_TOPICO FROM "
                     + "APLICACIONES WHERE ID="+idAplicacion);
             escenariosAplicacion = conexionBD.consultar("SELECT NOMBRE,"
                     + "DESCRIPCION,IMAGEN FROM "
                     + "ESCENARIOS WHERE ID_APLICACION="+idAplicacion);
 	    topicoAplicacion = conexionBD.consultar("SELECT DESCRIPCION,"
-                    + "RUTA_IMAGEN FROM TOPICOS "
+                    + "RUTA_IMAGEN,NOMBRE FROM TOPICOS "
                     + "WHERE ID="+datosAplicacion.getString(4));
             ejecutablesAplicacion = conexionBD.consultar("SELECT ID,NOMBRE,"
                     + "TIPO,ID_NODO FROM EJECUTABLES "
@@ -233,6 +234,7 @@ public class Aplicacion extends HttpServlet {
             while(topicoAplicacion.next()){
                 descripcion = topicoAplicacion.getString(1);
                 ruta = topicoAplicacion.getString(2);
+                nombreTopico = topicoAplicacion.getString(3);
                 if (ruta != null)
                     rutaImagen = ruta.substring(ruta.indexOf("images/"));
             }
@@ -290,7 +292,7 @@ public class Aplicacion extends HttpServlet {
         RequestDispatcher dispatcher;
         if ((request != null) && (response != null)){
             try {
-                request.setAttribute("nombre",datosAplicacion.getString(1));
+                request.setAttribute("nombre",nombreTopico);
                 request.setAttribute("fecha_actualizacion", datosAplicacion.getString(2));
                 request.setAttribute("instrucciones", datosAplicacion.getString(3));
                 request.setAttribute("escenarios",escenarios);

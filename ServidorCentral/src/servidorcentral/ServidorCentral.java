@@ -22,8 +22,7 @@ public class ServidorCentral {
             // TODO code application logic here
             
             libreria = new LibreriaMensajes();
-            //GestionarInfraestructura gestion = new GestionarInfraestructura(libreria,"hector","passw0rd","1521","192.168.1.200" );
-            GestionarInfraestructura gestion = new GestionarInfraestructura(libreria,"hector","passw0rd","1521","192.168.1.200" );
+            GestionarInfraestructura gestion = new GestionarInfraestructura(libreria,args[0],args[1],args[2],args[3]);
             gestion.start();
             
     }

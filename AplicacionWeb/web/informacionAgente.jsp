@@ -11,16 +11,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script>function closeWin() { window.close(); }</script>"
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     </head>
     <body>
-        <p>Aplicacion Activa: ${aplicacionActiva}
-        <p>Direccion ip: ${direccionIp}</p>
-        <p>Id Proceso: ${idProceso}</p>
-    <p> Memoria Disponible: ${memoriaDisponible}</p>
-<p>Numero de Nodo: ${numeroNodo}</p>
-<p>Procesos Activos: ${procesosActivos}</p>
-<p>Puertos Disponibles: ${puertosDisponibles}</p>
-<p>Uso de Cpu: ${usoCpu}</p>
-<input type="button" value="Cerrar" onclick="closeWin()"/>
+        <h4 class="text-center page-header">Informacion del Agente</h4>
+        <dl class="dl-horizontal"> 
+            <dt>Aplicacion Activa:</dt> <dd>${aplicacionActiva}</dd>
+            <dt>Direccion ip:</dt> <dd>${direccionIp}</dd>
+            <dt>Id Proceso:</dt> <dd>${idProceso}</dd>
+    <dt> Memoria Disponible:</dt> <dd>${memoriaDisponible}</dd>
+<dt>Numero de Nodo:</dt> <dd>${numeroNodo}</dd>
+<dt>Procesos Activos:</dt> <dd>${procesosActivos}</dd>
+<dt>Puertos Disponibles:</dt> <dd>${puertosDisponibles}</dd>
+<dt>Uso de Cpu:</dt> <dd>${usoCpu}</dd>
+        </dl>
+        <div class="text-center">
+        <input type="button" value="Cerrar"  class="btn text-center"onclick="closeWin()"/>
+        </div>
     </body>
 </html>

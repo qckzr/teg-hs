@@ -6,8 +6,8 @@ package controller;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -56,10 +56,11 @@ public class GenerarPreguntaServlet extends HttpServlet {
              */
             idTopico = request.getParameter("idTopico");
             generarPdf(idTopico,root);
-            out.println("<a href=\"/AplicacionWeb/archivos/preguntas.pdf\" "
+            out.println("<a href=\"/AplicacionWeb/preguntas.pdf\" "
                     + "target=\"_blank\" id=\"preguntasPdf\">Descargar</a>");
-        } finally {            
             out.close();
+        } finally {            
+        
         }
     }
     
@@ -138,24 +139,23 @@ public class GenerarPreguntaServlet extends HttpServlet {
      * Método que permite generar un pdf de preguntas a partir de un tópico
      * específico.
      * @param idTopico El id del tópico al que pertenecen las preguntas.
+     * @param ruta La ruta donde se encontrará el archivo
      * @return True si el archivo fue generado con éxito. False en caso contrario.
      */
     public boolean generarPdf(String idTopico,String ruta){
-        Document documento = new Document();
+        Document documento = new Document(PageSize.A4, 50, 50, 50, 50);
         ArrayList<Preguntas> preguntas = generarPregunta(idTopico);
-        
         int contador = 1;
         try {
-            documento.setPageSize(new Rectangle(400, 400));
             PdfWriter.getInstance(documento, new FileOutputStream(ruta+
-                    "archivos/preguntas.pdf"));
+                    "/preguntas.pdf"));
             documento.open();
-            documento.add(new Paragraph("PREGUNTAS"));
+            documento.add(new Paragraph("Preguntas de estudio: \n\n"));
             for (Preguntas pregunta : preguntas){
                 documento.add( new Paragraph (String.valueOf(contador+":  "
                         + ""+pregunta.getEnunciado()+"\n")));
                 documento.add(new Paragraph(pregunta.imprimirRespuestas()));
-                documento.add(new Paragraph("-------------\n"));
+                documento.add(new Paragraph("\n"));
                 contador++;
             }
             documento.close();

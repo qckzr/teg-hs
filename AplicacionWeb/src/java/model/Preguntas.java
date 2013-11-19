@@ -71,8 +71,15 @@ public class Preguntas {
      */
     public String imprimirRespuestas(){
         String respuesta = "";
+        char[] opciones = new char[4];
+        opciones[0] = 'a';
+        opciones[1] = 'b';
+        opciones[2] = 'c';
+        opciones[3] = 'd';
+        int i = 0;
         for (String string : respuestas) {
-            respuesta = respuesta + " "+string;
+            respuesta = respuesta+opciones[i]+". "+string+" \n";
+            i++;
         }
         return respuesta;
     }

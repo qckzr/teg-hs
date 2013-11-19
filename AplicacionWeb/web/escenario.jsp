@@ -9,15 +9,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Escenario: ${nombre}</title>
         <script>function closeWin() { window.close(); }</script>"
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     </head>
     <body>
-        <div id="nombre"><p>${nombre}</p></div>
-        <div id="descripcion"><p>${descripcion}</p></div>
-        <div id="imagen"><img src="${imagen}"/></div> 
-          
-            <input type="button" value="Cerrar" onclick="closeWin()"/>
+        <h3 id="nombre" class="text-center page-header"><p>${nombre}</p></h3>
+        <dl class="dl"> 
+            <dt>Descripcion </dt><dd><p id="descripcion" class="text-justify">${descripcion}</p></dd>
+            <dt id="imagen"></dt><dd><img src="${imagen}"/></dd> 
+        </dl>  
+        <input type="button" value="Cerrar" class="btn text-center" onclick="closeWin()"/>
        
     </body>
 </html>

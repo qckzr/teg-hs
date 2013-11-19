@@ -208,7 +208,7 @@ Los usos mas comunes  son la asignacion de nombres  de dominio a direcciones IP 
 correo electronico  de cada dominio. <br/>
 Componentes:
 <ol><li>Clientes DNS: programa cliente DNS que se ejecuta en la computadora del usuario y que genera peticiones DNS de 
-resolucion de nombres  a un servidor DNS (Por ejemplo: ¿Que direccion IP corresponde a nombre.dominio?).</li>
+resolucion de nombres  a un servidor DNS (Por ejemplo: Que direccion IP corresponde a nombre.dominio?).</li>
 <li>Servidores DNS: Contestan las peticiones de los clientes. Los servidores recursivos tienen la capacidad de 
 reenviar la peticion a otro servidor si no disponen de la direccion solicitada.</li></ol>',1,NULL); /* 21 */
 INSERT INTO TOPICOS (ID,NOMBRE,CATEGORIA,DESCRIPCION,ID_USUARIO,RUTA_IMAGEN)
@@ -1534,13 +1534,13 @@ VALUES (S_PARAMETROS.NEXTVAL,'','',);
 
 /* ESCENARIOS */
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Leer Archivo','Cuando se envie el mensaje "leer:" el servidor mostrara el contenido del archivo. Logrando comprobar la comparticion de recursos',1,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Leer Archivo','Cuando se envie el mensaje <leer:> el servidor mostrara el contenido del archivo. Logrando comprobar la comparticion de recursos',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Iniciar Servidor Web','Cuando se envie el mensaje "iniciar_servidor:" la aplicacion servidor iniciara el servidor web. Logrando comprobar la apertura (openness).',1,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Iniciar Servidor Web','Cuando se envie el mensaje <iniciar_servidor:> la aplicacion servidor iniciara el servidor web. Logrando comprobar la apertura (openness).',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Pagina de Prueba','Cuando se envie el mensaje "pagina:" el servidor mostrara la pagina de prueba. ',1,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Pagina de Prueba','Cuando se envie el mensaje <pagina:> el servidor mostrara la pagina de prueba. ',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Detener Servidor Web','Cuando se envie el mensaje "detener_servidor:" el servidor dentendra el servidor web del sistema.',1,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Detener Servidor Web','Cuando se envie el mensaje <detener_servidor:> el servidor dentendra el servidor web del sistema.',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
 VALUES (S_ESCENARIOS.NEXTVAL,'Escalabilidad','Al tener dos servidores corriendo, se comprueba la escalabilidad de los sistemas distribuidos',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
@@ -1648,7 +1648,7 @@ VALUES (S_ESCENARIOS.NEXTVAL,'Agregar Sitio','Se pueden agregar nuevos sitios al
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
 VALUES (S_ESCENARIOS.NEXTVAL,'Agregar','Si se envia el mensaje add seguido de la informacion adecuada, entonces el servidor almacenara el usuario en el dominio correspondiente ',22,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Consultar','Al enviar el mensaje search y el nombre del usuario se podrá visualizar la informacion perteneciente al usuario (datos personales)',22,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Consultar','Al enviar el mensaje search y el nombre del usuario se podra visualizar la informacion perteneciente al usuario (datos personales)',22,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
 VALUES (S_ESCENARIOS.NEXTVAL,'Eliminar','Al enviar el mensaje delete y el nombre del usuario, entonces el servidor localiza al usuario y lo elimina del dominio',22,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
@@ -1929,19 +1929,19 @@ VALUES(S_PREGUNTAS.NEXTVAL,'enunciado9',1);
 
 */
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿En que casos se puede aplicar la apertura (openess) en los sistemas distribuidos?',2); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En que casos se puede aplicar la apertura (openess) en los sistemas distribuidos?',2); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'De las siguientes opciones, ¿Cual es la más importante para la comparticion de recursos?',2);/*2*/
+VALUES(S_PREGUNTAS.NEXTVAL,'De las siguientes opciones, Cual es la mas importante para la comparticion de recursos?',2);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'La concurrencia es:',2);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si el sistema es escalable entonces permite:',2);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Como se podria obtener tolerancia a fallos a nivel de software?',2);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Como se podria obtener tolerancia a fallos a nivel de software?',2);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si en un sistema distribuido un nodo se cae, El usuario deberia:',2);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Se puede compartir recursos entre dos clientes?',2);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Se puede compartir recursos entre dos clientes?',2);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si se agrega un nuevo disco duro a un servidor esto podria generar: ',2);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
@@ -1953,13 +1953,13 @@ VALUES(S_PREGUNTAS.NEXTVAL,'Si se usan sockets SSL se puede: ',3); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Un sistema escalable no permite: ',3);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Como se podria enmascarar un fallo del sistema?',3);/*3*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Como se podria enmascarar un fallo del sistema?',3);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'En que casos la concurrencia no aplica: ',3);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'A nivel de aplicacion, ¿Como se puede simular concurrencia?',3);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'A nivel de aplicacion, Como se puede simular concurrencia?',3);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿La transparencia beneficia al cliente?',3);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'La transparencia beneficia al cliente?',3);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Hash md5 es una tecnica para: ',3);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
@@ -1975,111 +1975,111 @@ VALUES(S_PREGUNTAS.NEXTVAL,'Si se cae el servidor que ocurre: ',4);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si la comunicacion entre el cliente y el servidor es interrumpida entonces: ',4);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Un nodo puede ser cliente y servidor al mismo tiempo?',4);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Un nodo puede ser cliente y servidor al mismo tiempo?',4);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿El servidor puede solicitar algun recurso del cliente?',4);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'El servidor puede solicitar algun recurso del cliente?',4);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'El modelo cliente - servidor posee el protocolo: ',4);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿El servidor puede atender a un unico cliente en un tiempo determinado?',4);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'El servidor puede atender a un unico cliente en un tiempo determinado?',4);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estas no es una caracteristica del cliente?',4);/*8*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estas no es una caracteristica del cliente?',4);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estas no es una caracteristica del servidor?',4);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estas no es una caracteristica del servidor?',4);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'Si en una peticion cliente - servidor se pierda conexion, ¿Que puede ocurrir?',4);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Si en una peticion cliente - servidor se pierda conexion, Que puede ocurrir?',4);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'En arquitectura P2P los nodos se comportan como: ',5); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'La topologia de los nodos para la aplicacion P2P es:',5);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Como son llamados los nodos en P2P?',5);/*3*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Como son llamados los nodos en P2P?',5);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si un nodo se cae en P2P que ocurre: ',5);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'El modelo de arquitectura P2P es de tipo:',5);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estos no requiere de una red P2P?',5);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estos no requiere de una red P2P?',5);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'Si se cae un nodo mientras estaba enviando informacion. ¿Que ocurre cuando se levanta?',5);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Si se cae un nodo mientras estaba enviando informacion. Que ocurre cuando se levanta?',5);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'En una aplicacion P2P el metodo de comunicacion debe ser: ',5);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Los nodos en P2P son dedicados?',5);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Los nodos en P2P son dedicados?',5);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Administrar una red P2P en comparacion con el modelo cliente / servidor es:',5);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'En java, ¿que se requiere para crear un socket?',1); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En java, que se requiere para crear un socket?',1); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿El puerto al que se conecta el cliente es el mismo de respuesta del servidor?',1);/*2*/
+VALUES(S_PREGUNTAS.NEXTVAL,'El puerto al que se conecta el cliente es el mismo de respuesta del servidor?',1);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que se requiere para que un servidor pueda abrir un socket de escucha?',1);/*3*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que se requiere para que un servidor pueda abrir un socket de escucha?',1);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Se puede compartir puertos en un mismo host?',1);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Se puede compartir puertos en un mismo host?',1);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que cantidad de procesos pueden enviar mensajes a un puerto?',1);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que cantidad de procesos pueden enviar mensajes a un puerto?',1);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estos no es un protocolo para sockets?',1);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estos no es un protocolo para sockets?',1);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cuantos puertos se encuentran disponibles en una maquina',1);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cuantos puertos se encuentran disponibles en una maquina',1);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si se cierra el socket de escucha del servidor entonces:',1);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'Si en medio de una transferencia el socket se cierra, ¿Que pasa con el recurso?',1);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Si en medio de una transferencia el socket se cierra, Que pasa con el recurso?',1);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Se puede abrir un puerto varias veces en un mismo host?',1);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Como se llaman los objetos que brindan sus metodos a otros objetos?',6); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Como se llaman los objetos que brindan sus metodos a otros objetos?',6); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿El objeto remoto debe ser instanciado antes de ser invocado?',6);/*2*/
+VALUES(S_PREGUNTAS.NEXTVAL,'El objeto remoto debe ser instanciado antes de ser invocado?',6);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'Aparte de una interfaz, ¿Con que otra estructura se pueden invocar metodos remotos?',6);/*3*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Aparte de una interfaz, Con que otra estructura se pueden invocar metodos remotos?',6);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿La invocacion de metodos puede realizarse localmente?',6);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'La invocacion de metodos puede realizarse localmente?',6);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estos no es un identificador de los objetos remotos?',6);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estos no es un identificador de los objetos remotos?',6);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Se pueden tener objetos dentro de los objetos remotos?',6);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Se pueden tener objetos dentro de los objetos remotos?',6);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Como pueden ser llamados a los procesos que alojan objetos remotos?',6);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Como pueden ser llamados a los procesos que alojan objetos remotos?',6);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que significan las siglas JVRMI?',6);/*8*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que significan las siglas JVRMI?',6);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que se debe declarar antes de empezar a invocar metodos remotamente?',6);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que se debe declarar antes de empezar a invocar metodos remotamente?',6);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Como se llama el protocolo utilizado por JRMI?',6);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Como se llama el protocolo utilizado por JRMI?',6);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual es la propiedad fundamental de todo grupo?',7); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual es la propiedad fundamental de todo grupo?',7); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Un proceso puede ser miembro de varios grupos a la vez?',7);/*2*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Un proceso puede ser miembro de varios grupos a la vez?',7);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estos no es un tipo de transmision?',7);/*3*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estos no es un tipo de transmision?',7);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estos no es un tipo de grupo?',7);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estos no es un tipo de grupo?',7);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'En Uni-transmision, ¿Que elementos no existen?',7);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En Uni-transmision, Que elementos no existen?',7);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'En un grupo de companeros, ¿Que ocurre si un proceso falla?',7);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En un grupo de companeros, Que ocurre si un proceso falla?',7);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Los grupos jerarquicos poseen coordinador?',7);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Los grupos jerarquicos poseen coordinador?',7);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'Si el emisor del grupo se cae, ¿Que sucede?',7);/*8*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Si el emisor del grupo se cae, Que sucede?',7);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'En los grupos de companeros, ¿Quien toma las deciciones?',7);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En los grupos de companeros, Quien toma las deciciones?',7);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'Si un proceso trabajador se cae, ¿El grupo puede seguir funcionando?',7);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Si un proceso trabajador se cae, El grupo puede seguir funcionando?',7);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿La sincronizacion de relojes debe ser absoluta segun Lamport?',8); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'La sincronizacion de relojes debe ser absoluta segun Lamport?',8); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿El orden en que ocurren los eventos es importante?',8);/*2*/
+VALUES(S_PREGUNTAS.NEXTVAL,'El orden en que ocurren los eventos es importante?',8);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que significa la expresion a -> b?',8);/*3*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que significa la expresion a -> b?',8);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si A ocurre antes que B entonces el tiempo de A debe ser:',8);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'El tiempo de los relojes siempre tiene que ir:',8);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cuanto se debe sumar al hacer correciones al reloj?',8);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cuanto se debe sumar al hacer correciones al reloj?',8);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Una marca de reloj es:',8);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
@@ -2087,49 +2087,49 @@ VALUES(S_PREGUNTAS.NEXTVAL,'Si se cae el nodo que posee el mensaje con la marca 
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Las marcas de reloj se sincronizan solo si: ',8);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿La hora exacta en la que fueron creados los procesos importa?',8);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'La hora exacta en la que fueron creados los procesos importa?',8);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'En el algoritmo de Cristian, ¿Quienes se quieren sincronizar?',9); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En el algoritmo de Cristian, Quienes se quieren sincronizar?',9); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Quienes envian su hora actual?',9);/*2*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Quienes envian su hora actual?',9);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que significa "o" en la formula del algoritmo de Cristian?',9);/*3*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que significa "o" en la formula del algoritmo de Cristian?',9);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que significa la "p" en la formula del algoritmo de Cristian?',9);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que significa la "p" en la formula del algoritmo de Cristian?',9);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'T0 tiene el valor de:',9);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'T1 tiene el valor de: ',9);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que ocurre si al enviar el tiempo del cliente el servidor se cae?',9);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que ocurre si al enviar el tiempo del cliente el servidor se cae?',9);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Es eficiente utilizar el algoritmo de Cristian en redes donde existe mucho retraso?',9);/*8*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Es eficiente utilizar el algoritmo de Cristian en redes donde existe mucho retraso?',9);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cuantos servidores se necesitan como minimo para la sincronizacion de relojes utilizando el algoritmo de Cristian?',9);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cuantos servidores se necesitan como minimo para la sincronizacion de relojes utilizando el algoritmo de Cristian?',9);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'Si no existe servidor, ¿Es posible realizar la sincronizacion?',9);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Si no existe servidor, Es posible realizar la sincronizacion?',9);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿El cliente envia la hora al servidor para sincronizarse?',10); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'El cliente envia la hora al servidor para sincronizarse?',10); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'El servidor debe calcular la hora en base a:',10);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Al calcular la hora el servidor le indica a todos los nodos:',10);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que se requiere en el servidor para realizar el muestreo de las horas de los nodos constantemente?',10);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que se requiere en el servidor para realizar el muestreo de las horas de los nodos constantemente?',10);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si se cae el servidor ocurre:',10);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'Si se cae un nodo cliente, ¿Se pueden sincronizar los nodos restantes?',10);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Si se cae un nodo cliente, Se pueden sincronizar los nodos restantes?',10);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual es el minimo de servidores necesarios para sincronizar los relojes mediante el algoritmo de Berkeley? ',10);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual es el minimo de servidores necesarios para sincronizar los relojes mediante el algoritmo de Berkeley? ',10);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'En el algoritmo de Berkeley el servidor es:',10);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si existe alta latencia entre el envio de la hora y la respuesta entonces:',10);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿La cantidad de nodos clientes es relevante para sincronizarse con el servidor?',10);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'La cantidad de nodos clientes es relevante para sincronizarse con el servidor?',10);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿De que tipo es el algoritmo con promedio?',11); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'De que tipo es el algoritmo con promedio?',11); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Los intervalos del algoritmo son de longitud:',11);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
@@ -2141,195 +2141,195 @@ VALUES(S_PREGUNTAS.NEXTVAL,'El nodo al calcular su tiempo debe enviarselo a: ',1
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si el nodo no recibe el mensaje de los demas nodos entonces:',11);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'Si se cae un nodo del sistema, ¿Los demas nodos pueden sincronizarse? ',11);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Si se cae un nodo del sistema, Los demas nodos pueden sincronizarse? ',11);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Es necesario que exista un servidor central para controlar los relojes de cada nodo?',11);/*8*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Es necesario que exista un servidor central para controlar los relojes de cada nodo?',11);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'El intervalo de sincronizacion puede: ',11);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si se cae el nodo luego de enviar su tiempo entonces: ',11);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que se principalmente antes de acceder a una region critica en el algoritmo centralizado?',12); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que se principalmente antes de acceder a una region critica en el algoritmo centralizado?',12); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Para que un proceso le envia mensajes al coordinador?',12);/*2*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Para que un proceso le envia mensajes al coordinador?',12);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si la region solicitada no se encuentra ocupada el coordinador envia al solicitante: ',12);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de sistema distribuido: ¿Un proceso puede quedarse indefinidamente en una region critica?',12);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de sistema distribuido: Un proceso puede quedarse indefinidamente en una region critica?',12);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que ocurre si el coordinador se cae?',12);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que ocurre si el coordinador se cae?',12);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que ocurre si se cae un nodo del sistema que no es coodinador?',12);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que ocurre si se cae un nodo del sistema que no es coodinador?',12);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de sistema distribuido del algoritmo centralizado: ¿Que ocurre si un nodo quiere acceder a una region critica ocupada?',12);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de sistema distribuido del algoritmo centralizado: Que ocurre si un nodo quiere acceder a una region critica ocupada?',12);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Puede existir mas de un coordinador en el algoritmo centralizado?',12);/*8*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Puede existir mas de un coordinador en el algoritmo centralizado?',12);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que debe hacer el proceso al salirse de una region critica?',12);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que debe hacer el proceso al salirse de una region critica?',12);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Se puede acceder a la region critica de un mismo nodo?',12);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Se puede acceder a la region critica de un mismo nodo?',12);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Existe nodo coordinador en el algoritmo distribuido?',13); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Existe nodo coordinador en el algoritmo distribuido?',13); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Al solicitar acceder a una region critica se envia a si mismo la solicitud?',13);/*2*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Al solicitar acceder a una region critica se envia a si mismo la solicitud?',13);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si se recibe un mensaje de solicitud de region critica y no se quiere entrar a ella se envia: ',13);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que contesta un nodo ocupando una region critica a los nodos que quieren acceder a ella ?',13);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que contesta un nodo ocupando una region critica a los nodos que quieren acceder a ella ?',13);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si un nodo recibe una solicitud de region critica y este quiere acceder a ella entonces: ',13);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cuando un proceso puede entrar a una region critica?',13);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cuando un proceso puede entrar a una region critica?',13);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que ocurre cuando se termina de utilizar una region critica por un nodo?',13);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que ocurre cuando se termina de utilizar una region critica por un nodo?',13);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Un nodo puede acceder a su propia region critica?',13);/*8*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Un nodo puede acceder a su propia region critica?',13);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estos atributos no se envian al enviar el mensaje de solicitud de region critica a los demas nodos?',13);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estos atributos no se envian al enviar el mensaje de solicitud de region critica a los demas nodos?',13);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si se cae un nodo entonces:',13);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Se requiere de un coordinador en el algoritmo de grandulon?',14); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Se requiere de un coordinador en el algoritmo de grandulon?',14); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Cuando el coordinador no responde que se debe hacer:',14);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si se envia un mensaje de coordinador y nadie responde entonces:',14);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que ocurre cuando alguien responde al mensaje de coordinador?',14);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que ocurre cuando alguien responde al mensaje de coordinador?',14);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'En el algoritmo de grandulon: ¿Gana siempre el proceso mayor?',14);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En el algoritmo de grandulon: Gana siempre el proceso mayor?',14);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que ocurre si se levanta un nodo que estaba inactivo?',14);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que ocurre si se levanta un nodo que estaba inactivo?',14);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Todos los nodos en grandulon deben enviar mensajes de eleccion?',14);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Todos los nodos en grandulon deben enviar mensajes de eleccion?',14);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si se cae la red entre los nodos entonces: ',14);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual es el cantidad minima de nodos que deben existir para probar el algoritmo de grandulon?',14);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual es el cantidad minima de nodos que deben existir para probar el algoritmo de grandulon?',14);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Un nodo puede enviar un mensaje de eleccion a si mismo?',14);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Un nodo puede enviar un mensaje de eleccion a si mismo?',14);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Los procesos deben conocer el orden del siguiente nodo?',15); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Los procesos deben conocer el orden del siguiente nodo?',15); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cuando se envia el mensaje de eleccion?',15);/*2*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cuando se envia el mensaje de eleccion?',15);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estos se envia al enviar un mensaje de eleccion?',15);/*3*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estos se envia al enviar un mensaje de eleccion?',15);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Se puede enviar el mensaje de eleccion a un nodo particular?',15);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Se puede enviar el mensaje de eleccion a un nodo particular?',15);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si se pierde la conexion entre dos nodos entonces: ',15);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que cantidad minima de nodos se requieren para utilizar el algoritmo de anillo?',15);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que cantidad minima de nodos se requieren para utilizar el algoritmo de anillo?',15);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Al elegirse el coordinador se envia un mensaje: ',15);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de sistema distribuido del algoritmo de anillo: ¿Que ocurre si se cae un nodo?',15);/*8*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de sistema distribuido del algoritmo de anillo: Que ocurre si se cae un nodo?',15);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cuantos coordinador pueden existir en el sistema?',15);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cuantos coordinador pueden existir en el sistema?',15);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que se requiere para enviar los mensajes de eleccion?',15);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que se requiere para enviar los mensajes de eleccion?',15);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Una falla no puede ser causada por:',16); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'La disponibilidad se define por:',16);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que significa confiabilidad?',16);/*3*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que significa confiabilidad?',16);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'La seguridad ocurre cuando: ',16);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que es el mantenimiento?',16);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que es el mantenimiento?',16);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estas no es una clasificacion de tolerancia a fallas?',16);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estas no es una clasificacion de tolerancia a fallas?',16);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Las fallas transitorias pueden ocurrir varias veces?',16);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Las fallas transitorias pueden ocurrir varias veces?',16);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Una falla permanente significa: ',16);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Las fallas intermitentes ocurren solo una vez?',16);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Las fallas intermitentes ocurren solo una vez?',16);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estos no es un tipo de falla?',16);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estos no es un tipo de falla?',16);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cuantos procesos deben estar fucionando correctamente?',17); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cuantos procesos deben estar fucionando correctamente?',17); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que envian los nodos a los otros nodos en la aplicacion de fallas bizantinas?',17);/*2*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que envian los nodos a los otros nodos en la aplicacion de fallas bizantinas?',17);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Al recibir el resultado de los demas nodos  se almacena en:',17);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿El vector de un nodo se transfiere a los demas incompleto?',17);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'El vector de un nodo se transfiere a los demas incompleto?',17);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si se reciben los demas vectores entonces: ',17);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Como se marca el elemento que no posee mayoria?',17);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Como se marca el elemento que no posee mayoria?',17);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si se cae un nodo en la aplicacion de fallas bizantinas entonces: ',17);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si se cae la red entonces: ',17);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿El proceso infectado puede enviar un mismo valor a dos procesos?',17);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'El proceso infectado puede enviar un mismo valor a dos procesos?',17);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de fallas bizantinas: ¿Cuantos nodos pueden estar infectados?',17);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de fallas bizantinas: Cuantos nodos pueden estar infectados?',17);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿El modelo de acceso remoto ofrece acceso a un sistema de archivo gestionado por un servidor local?',18); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'El modelo de acceso remoto ofrece acceso a un sistema de archivo gestionado por un servidor local?',18); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Los clientes conocen la ubicacion de los archivos?',18);/*2*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Los clientes conocen la ubicacion de los archivos?',18);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿A traves de que mecanismo se interactua con el sistema de archivos? ',18);/*3*/
+VALUES(S_PREGUNTAS.NEXTVAL,'A traves de que mecanismo se interactua con el sistema de archivos? ',18);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de modelo acceso remoto: ¿Se puede escribir en el archivo en cualquier momento?',18);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de modelo acceso remoto: Se puede escribir en el archivo en cualquier momento?',18);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de modelo acceso remoto: ¿Se puede eliminar el archivo?',18);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de modelo acceso remoto: Se puede eliminar el archivo?',18);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si se cae el servidor entonces: ',18);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de modelo acceso remoto: ¿Dos nodos pueden escribir al mismo tiempo en el archivo?',18);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de modelo acceso remoto: Dos nodos pueden escribir al mismo tiempo en el archivo?',18);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que ventaja proporciona el modelo acceso remoto?',18);/*8*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que ventaja proporciona el modelo acceso remoto?',18);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿El requiere de espacio en el disco para escribir en el archivo?',18);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'El requiere de espacio en el disco para escribir en el archivo?',18);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de modelo acceso remoto: ¿Se puede leer el archivo desde dos nodos al mismo tiempo?',18);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de modelo acceso remoto: Se puede leer el archivo desde dos nodos al mismo tiempo?',18);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿El cliente puede escribir en el archivo?',19); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'El cliente puede escribir en el archivo?',19); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Al terminar con el archivo que se debe hacer?',19);/*2*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Al terminar con el archivo que se debe hacer?',19);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Dos clientes pueden acceder al mismo archivo?',19);/*3*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Dos clientes pueden acceder al mismo archivo?',19);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿El acceso del archivo se realiza en el cliente o en el servidor?',19);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'El acceso del archivo se realiza en el cliente o en el servidor?',19);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿El servidor envia una copia del archivo o envia el archivo original?',19);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'El servidor envia una copia del archivo o envia el archivo original?',19);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Si se cae el servidor entonces: ',19);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿El servidor debe poder escribir o leer en el archivo?',19);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'El servidor debe poder escribir o leer en el archivo?',19);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿El cliente debe poseer espacio suficiente para alojar el archivo descargado?',19);/*8*/
+VALUES(S_PREGUNTAS.NEXTVAL,'El cliente debe poseer espacio suficiente para alojar el archivo descargado?',19);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'Supongamos que tenemos un archivo muy grande y que el cliente desea leer su contenido, ¿Que modelo es mas eficiente?',19);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Supongamos que tenemos un archivo muy grande y que el cliente desea leer su contenido, Que modelo es mas eficiente?',19);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'A nivel del servidor, ¿Cual modelo es mas complicado de implementar?',19);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'A nivel del servidor, Cual modelo es mas complicado de implementar?',19);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual es la idea basica en los sistemas de archivo basados en cluster?',20); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual es la idea basica en los sistemas de archivo basados en cluster?',20); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que tipo de estructura se requiere para almacenar los archivos?',20);/*2*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que tipo de estructura se requiere para almacenar los archivos?',20);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cuando la distribucion de archivos no es una manera efectiva?',20);/*3*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cuando la distribucion de archivos no es una manera efectiva?',20);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estas no es un tipo distribucion de archivos?',20);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estas no es un tipo distribucion de archivos?',20);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de sistemas de archivos basados en cluster: ¿Cual de los dos es mas rapido: Archivo por partes o archivo completo?',20);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de sistemas de archivos basados en cluster: Cual de los dos es mas rapido: Archivo por partes o archivo completo?',20);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de sistemas de archivos basados en cluster: Si se cae uno de los servidores entonces: ',20);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Es necesario dividir un archivo pequeno y distribuirlo en los nodos? ',20);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Es necesario dividir un archivo pequeno y distribuirlo en los nodos? ',20);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿La transferencia del archivo por partes se ejecuta en paralelo?',20);/*8*/
+VALUES(S_PREGUNTAS.NEXTVAL,'La transferencia del archivo por partes se ejecuta en paralelo?',20);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que ocurre si la red falla mientras se transfiere los archivos?',20);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que ocurre si la red falla mientras se transfiere los archivos?',20);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual es el minimo de servidores que deben existir para que se pueda dividir un archivo en partes?',20);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual es el minimo de servidores que deben existir para que se pueda dividir un archivo en partes?',20);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que significa las siglas DNS?',21); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que significa las siglas DNS?',21); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'El DNS posee una estructura de tipo:',21);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
@@ -2339,47 +2339,47 @@ VALUES(S_PREGUNTAS.NEXTVAL,'Un servidor DNS posee: ',21);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'El uso mas comun de los DNS es:',21);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Para que se usaba el archivo hosts en las maquinas?',21);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Para que se usaba el archivo hosts en las maquinas?',21);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estos no es un componente de DNS: ',21);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estos no es un tipo de servidor DNS: ',21);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de DNS: ¿Que ocurre si se cae el servidor?',21);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En la aplicacion de DNS: Que ocurre si se cae el servidor?',21);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'Por lo general ¿Cuantos DNS se tienen configurado en las computadoras?',21);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Por lo general Cuantos DNS se tienen configurado en las computadoras?',21);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que significan las siglas de LDAP?',22); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que significan las siglas de LDAP?',22); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'LDAP es:',22);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿LDAP permite el acceso a un servicio de directorio ordenado y centralizado para buscar informacion?',22);/*3*/
+VALUES(S_PREGUNTAS.NEXTVAL,'LDAP permite el acceso a un servicio de directorio ordenado y centralizado para buscar informacion?',22);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿LDAP es considerado una base de datos?',22);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'LDAP es considerado una base de datos?',22);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que es un directorio?',22);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que es un directorio?',22);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Un directorio no posee:',22);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'El puerto por defecto en LDAP es:',22);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estas no es una operacion de LDAP?',22);/*8*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estas no es una operacion de LDAP?',22);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Una entrada consta de:',22);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Las entradas poseen un identificador unico?',22);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Las entradas poseen un identificador unico?',22);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estas no es una caracteristica fundamental de un objeto?',23); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estas no es una caracteristica fundamental de un objeto?',23); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Los metodos de un objeto se ponen a traves de: ',23);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que es el proxy en objetos distribuidos?',23);/*3*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que es el proxy en objetos distribuidos?',23);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'El skeleton es:',23);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estos no es un tipo de invocacion?',23);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estos no es un tipo de invocacion?',23);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿En las invocaciones dinamicas se requiere conocer la interfaz del objeto? ',23);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En las invocaciones dinamicas se requiere conocer la interfaz del objeto? ',23);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'En la invocacion estatica si se cambian las interfaces entonces: ',23);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
@@ -2387,49 +2387,49 @@ VALUES(S_PREGUNTAS.NEXTVAL,'La clonacion de un objeto remoto local se traduce en
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Clonar objetos en objetos distribuidos es:',23);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Los parametros en RMI deben ser serializables?',23);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Los parametros en RMI deben ser serializables?',23);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Un objeto EJB es: ',24); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿El servidor debe permitir separar la funcionalidad de la aplicacion de la funcionalidad orientada al sistema?',24);/*2*/
+VALUES(S_PREGUNTAS.NEXTVAL,'El servidor debe permitir separar la funcionalidad de la aplicacion de la funcionalidad orientada al sistema?',24);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estas no es una operacion valida de los servidores de EJB?',24);/*3*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estas no es una operacion valida de los servidores de EJB?',24);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estos no es un servicio en EJB?',24);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estos no es un servicio en EJB?',24);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estos no es un tipo de EJB?',24);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estos no es un tipo de EJB?',24);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estos no es un tipo de Bean de sesion?',24);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estos no es un tipo de Bean de sesion?',24);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estas no es una forma de acceder a un bean con sesion?',24);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estas no es una forma de acceder a un bean con sesion?',24);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿En los beans de sesion sin estado se almacenan datos especificos obtenidos durante la conexion con el cliente?',24);/*8*/
+VALUES(S_PREGUNTAS.NEXTVAL,'En los beans de sesion sin estado se almacenan datos especificos obtenidos durante la conexion con el cliente?',24);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Se pueden acceder concurrentemente a los objetos almacenados en beans sin estado?',24);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Se pueden acceder concurrentemente a los objetos almacenados en beans sin estado?',24);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Los EJB dirigidos por mensajes utilizan _____ para el envio de mensajes',24);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Las siglas WSDL significan?',25); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Las siglas WSDL significan?',25); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'El  WSDL es una interfaz: ',25);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Para que se utiliza la interfaz WSDL?',25);/*3*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Para que se utiliza la interfaz WSDL?',25);/*3*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cuantas secciones posee el documento WSDL?',25);/*4*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cuantas secciones posee el documento WSDL?',25);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que significan las siglas SOAP?',25);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que significan las siglas SOAP?',25);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estos no es un elemento de los mensajes SOAP?',25);/*6*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estos no es un elemento de los mensajes SOAP?',25);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'El servicio expone su funcionalidad similar a:',25);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Los desarrolladores deben formar su propio vocabulario de nombres y verbos?',25);/*8*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Los desarrolladores deben formar su propio vocabulario de nombres y verbos?',25);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Se requiere que los clientes posean el WSDL para realizar las peticiones?',25);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Se requiere que los clientes posean el WSDL para realizar las peticiones?',25);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estas no puede ser un tipo de peticion valida en SOAP?',25);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estas no puede ser un tipo de peticion valida en SOAP?',25);/*10*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Que significan las siglas REST?',26); /*1*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Que significan las siglas REST?',26); /*1*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'REST es una tecnica de:',26);/*2*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
@@ -2437,30 +2437,30 @@ VALUES(S_PREGUNTAS.NEXTVAL,'Las peticiones REST se hacen a traves de: ',26);/*3*
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'REST es un protocolo:',26);/*4*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Cual de estas no es una operacion definida en REST?',26);/*5*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Cual de estas no es una operacion definida en REST?',26);/*5*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
 VALUES(S_PREGUNTAS.NEXTVAL,'Los recursos en REST se identifican a traves de:',26);/*6*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Como se navega  entre los recursos REST?',26);/*7*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Como se navega  entre los recursos REST?',26);/*7*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Los recursos poseen su propio identificador?',26);/*8*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Los recursos poseen su propio identificador?',26);/*8*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Existen operaciones FIND en http?',26);/*9*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Existen operaciones FIND en http?',26);/*9*/
 INSERT INTO PREGUNTAS (ID,ENUNCIADO,ID_TOPICO) 
-VALUES(S_PREGUNTAS.NEXTVAL,'¿Una peticion GET en REST solo puede devolver un valor?',26);/*10*/
+VALUES(S_PREGUNTAS.NEXTVAL,'Una peticion GET en REST solo puede devolver un valor?',26);/*10*/
 
 
 
 
 
 INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA)
-VALUES (S_RESPUESTAS.NEXTVAL,'Dos máquinas se encienden al mismo tiempo',1,NULL); /*1*/
+VALUES (S_RESPUESTAS.NEXTVAL,'Dos maquinas se encienden al mismo tiempo',1,NULL); /*1*/
 INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA)
 VALUES (S_RESPUESTAS.NEXTVAL,'En el servidor se habilita el servicio de FTP',1,'SI');/*2*/
 INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA)
 VALUES (S_RESPUESTAS.NEXTVAL,'Se cae un nodo',1,NULL);/*3*/
 INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA)
-VALUES (S_RESPUESTAS.NEXTVAL,'Falla la conexión de red',1,NULL);/*4*/
+VALUES (S_RESPUESTAS.NEXTVAL,'Falla la conexion de red',1,NULL);/*4*/
 INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA)
 VALUES (S_RESPUESTAS.NEXTVAL,'La red entre el servidor y los clientes',2,'SI'); /*1*/
 INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA)
@@ -2472,7 +2472,7 @@ VALUES (S_RESPUESTAS.NEXTVAL,'El nombre del recurso',2,NULL);/*4*/
 INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA)
 VALUES (S_RESPUESTAS.NEXTVAL,'Cantidad de nodos en el sistema',3,NULL); /*1*/
 INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA)
-VALUES (S_RESPUESTAS.NEXTVAL,'Cantidad de procesos en una máquina',3,NULL);/*2*/
+VALUES (S_RESPUESTAS.NEXTVAL,'Cantidad de procesos en una maquina',3,NULL);/*2*/
 INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA)
 VALUES (S_RESPUESTAS.NEXTVAL,'Cantidad de usuarios accediendo al mismo recurso',3,'SI');/*3*/
 INSERT INTO RESPUESTAS (ID,OPCION,ID_PREGUNTA,CORRECTA)

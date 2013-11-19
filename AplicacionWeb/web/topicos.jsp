@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Topicos Sistemas Distribuidos</title>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script  type="text/javascript" src="scripts/jquery-ui-1.10.3.custom.js"></script>
         <!--<link rel="stylesheet" type="text/css" href="styles/general.css">
@@ -39,7 +39,10 @@
         <div id="contenido">
             <div class="container-fluid">
                 <div id="main" class="row-fluid">
-                <div id="titulo" class="span12"><h1 class="text-center page-header">Topicos Disponibles</h1></div>
+                <div id="titulo" class="span12 page-header" align="center">
+                    <img src="images/banner_.jpg"/>
+                    <h2 class="text-center"> Topicos Disponibles</h2>
+                </div>
        <div class="row-fluid">
            <div class="span12">
                     <div class="span2">

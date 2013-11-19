@@ -13,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Monitoreo y Control</title>
+        <title>Aplicacion Sistemas Distribuidos</title>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script  type="text/javascript" src="scripts/jquery-ui-1.10.3.custom.js"></script>
         <script type="text/javascript" src="scripts/enviarInstruccion.js"></script>
@@ -108,8 +108,8 @@
        	             <div class="row-fluid">
             		<div id="titulo" class="span12"><h1 class="text-center">${nombre}</h1></div>
             		<div id="informacionAplicacion" class="span9">
-                            <div id="datos"> 
-                                <h3>Fecha Creación</h3> <div><p class="text-justify">${fecha_actualizacion}</p></div>
+                            <h3>Fecha Creación</h3> <div><p class="text-justify">${fecha_actualizacion}</p></div>
+                            <div id="datos">     
                                 <h3>Descripción Tópico</h3> <div><p class="text-justify" id="descripcion">${descripcionTopico}
                                         <c:set var="string1" value="${imagenTopico}" />
    <c:if test="${fn:length(string1)>0}">
@@ -121,7 +121,7 @@
         		</div>
        
         		<div id="escenarios" class="span2">
-            			<p class="text-center">Escenarios</p>
+            			<h3 class="text-center">Escenarios</h3>
 		                 <c:set var="escenario" value="1"/><ul>
                 		<c:forEach var="row" items="${escenarios}">
                         		<li><a href="#" class="linkEscenario text-center " id="${escenario}">${row[0]}</a></li>
@@ -133,7 +133,7 @@
                                         <div id="asd"></div>
                     		 	<c:set var="escenario" value="${escenario + 1}" scope="page"/>
                 		</c:forEach></ul>
-                                <a href="#" id="preguntas">Generar Preguntas</a>
+                                <a href="#" id="preguntas" class="btn text-center">Generar Preguntas</a>
                                 <div id="archivoPreguntas"></div>
             		</div>
          </div>
@@ -231,7 +231,7 @@
 			<ul class="pager">
 			<li class="previous">
 				<a href="#" class="volver">&larr; Regresar</a>
-                                <input type="button"  id="eliminarTodo" value="Eliminar Todos"/>
+                                <input type="button"  id="eliminarTodo" class="btn" value="Eliminar Todos"/>
                                 
 			</li>
 			</ul>

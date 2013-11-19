@@ -17,8 +17,8 @@
         <script type="text/javascript" src="scripts/bootstrap.js"></script>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/footer.css">
-        <link rel="stylesheet" type="text/css" href="css/adicionales.css">
-      <!--  <link rel="stylesheet" type="text/css" href="css/teg-theme/jquery-ui-1.10.3.custom.css">
+       <!--   <link rel="stylesheet" type="text/css" href="css/adicionales.css">
+      <link rel="stylesheet" type="text/css" href="css/teg-theme/jquery-ui-1.10.3.custom.css">
         <link rel="stylesheet" type="text/css" href="styles/estilos-extras.css">
         <link rel="stylesheet" type="text/css" href="styles/general.css"> -->
        
@@ -31,17 +31,25 @@
   </script>
     </head>
     <body>
+       
         <div id="contenido" class="container-fluid" >
             <div id="main" class="row-fluid">
-            <div id="titulo" class="span12"><h1 class="text-center page-header">Infraestructura Tecnológica con Fines Educativos Sobre Sistemas Distribuidos v1.0</h1></div>
+                
+            <div id="titulo" class="span12 page-header" align="center">
+                <img src="images/banner_.jpg"/>
+                <!-- <h1 class="text-center">Infraestructura Tecnológica con Fines Educativos Sobre Sistemas Distribuidos v1.0</h1> -->
+                
+            </div>
 
-          <div class="row-fluid">
-                 <div id="menu" class="pull-left">
-            <a  class="btn btn-large btn-primary btn-block" href="topicos.jsp">Tópicos</a>
-            <a  class="btn btn-large btn-primary btn-block" href="gestion.jsp">Gestión</a>
-        </div>
-            <div id="infoUsuario" class="span1 offset1 pull-left">
-            <div class="content">
+          <div class="row-fluid pull-left">
+                 
+            <a  class="btn btn-large btn-primary btn-block span4" href="topicos.jsp">Tópicos</a>
+                 
+            
+            <a  class="btn btn-large btn-primary btn-block span4" href="gestion.jsp">Gestión</a>
+        
+          
+            <div class="content span4">
 
                 <fieldset> 
                             <legend>Login:</legend>
@@ -61,15 +69,7 @@
 </c:choose>
                          </fieldset>
                    
-                    
-<%--                                 </c:when>
-                                <c:otherwise> --%>
 
-               
-<%--                                </c:otherwise>
-
-                </c:choose> --%>
- 
 
     
             
