@@ -12,7 +12,7 @@
         <title>JSP Page</title>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/scripts/formulariosImagenes.js"></script>
-       <!-- <script  src="${pageContext.request.contextPath}/scripts/formularios.js"></script> -->
+       
           <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     </head>
     <body>

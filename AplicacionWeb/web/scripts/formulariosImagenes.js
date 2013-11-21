@@ -13,7 +13,7 @@
         $('.formularios').submit(function() {
         
             var imagen = $("#imagen").val();
-           if (imagen.value == "false"){
+           if ($("#imagen").val() == "false"){
                 $.post($(this).attr("action"), $(this).serialize(), function(data) {
                     
                     $('.formularios').hide();

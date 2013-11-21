@@ -4,15 +4,11 @@
  */
 package controller.moduloGestion;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -22,12 +18,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
-import model.Directorios;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  * Clase que permite modificar una aplicación de la base de datos a través del
@@ -37,7 +27,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 @WebServlet(name = "ModificarAplicacionServlet2", urlPatterns = {"/ModificarAplicacionServlet2"})
 public class ModificarAplicacionServlet2 extends HttpServlet {
 
-    private Directorios directorio = new Directorios();
+   // private Directorios directorio = new Directorios();
     private String nombre = "";
     private String fecha_actualizacion = "";
     private String instrucciones = "";
@@ -45,7 +35,7 @@ public class ModificarAplicacionServlet2 extends HttpServlet {
     private String idTopico = "";
     private ArrayList<String> nombreEscenarios = new ArrayList<>();
     private ArrayList<String> descripcionEscenarios = new ArrayList<>();
-    private ArrayList<String> imagenes = new ArrayList<>();
+ //   private ArrayList<String> imagenes = new ArrayList<>();
     private ArrayList<String> idEscenarios = new ArrayList<>();
     private ConexionBD conexionBD = new ConexionBD();
     private ResultSet aplicacion;
@@ -83,91 +73,99 @@ public class ModificarAplicacionServlet2 extends HttpServlet {
      * @return True si la información fue obtenida. False en caso contrario.
      */
     public boolean obtenerInformacion(HttpServletRequest request){
-        File seshdir;
-        FileItemFactory factory;
-        ServletFileUpload upload;
-        List<FileItem> items = null;
-        FileOutputStream fileOutputStream = null;
-        byte[] fileBytes;
-        File file;
+//        File seshdir;
+//        FileItemFactory factory;
+//        ServletFileUpload upload;
+//        List<FileItem> items = null;
+//        FileOutputStream fileOutputStream = null;
+//        byte[] fileBytes;
+//        File file;
+        String cantidadEscenarios = request.getParameter("cantidadEscenarios");
         if (request != null) {
             
             conexionBD = new ConexionBD();
-            seshdir = new File(directorio.getDirectorioImagenesEscenarios());
-            if (!seshdir.exists()) {
-                seshdir.mkdirs();
-            }
-            factory = new DiskFileItemFactory();
-            upload = new ServletFileUpload(factory);
-            try {
-                items = upload.parseRequest(request);
-            } catch (FileUploadException ex) {
-                Logger.getLogger(CrearEjecutableServlet.class.getName()).
-                        log(Level.SEVERE, null, ex);
-            }
+//            seshdir = new File(directorio.getDirectorioImagenesEscenarios());
+//            if (!seshdir.exists()) {
+//                seshdir.mkdirs();
+//            }
+//            factory = new DiskFileItemFactory();
+//            upload = new ServletFileUpload(factory);
+//            try {
+//                items = upload.parseRequest(request);
+//            } catch (FileUploadException ex) {
+//                Logger.getLogger(CrearEjecutableServlet.class.getName()).
+//                        log(Level.SEVERE, null, ex);
+//            }
  
-            for (FileItem diskFileItem : items) {
+        //    for (FileItem diskFileItem : items) {
 
-                if (diskFileItem.isFormField()) {
-                    switch (diskFileItem.getFieldName()){
-                        case "nombre": 
-                            nombre = diskFileItem.getString();
-                            break;
-                        case "instrucciones": 
-                            instrucciones = diskFileItem.getString();
-                            break;
-                        case "fecha_actualizacion": 
-                            fecha_actualizacion = diskFileItem.getString();
-                            break;
-                        case "id": 
-                            id = diskFileItem.getString();
-                            break;
-                        case "topicos": 
-                            idTopico = diskFileItem.getString();
-                            break;    
-                        default:{
-                            if (diskFileItem.getFieldName().contains("escenario")) {
-                                nombreEscenarios.add(diskFileItem.getString());
-                            } else if (diskFileItem.getFieldName().contains("descripcion")){
-                                descripcionEscenarios.add(diskFileItem.getString());
-                            } else if (diskFileItem.getFieldName().contains("idEscenario")) {
-                                idEscenarios.add(diskFileItem.getString());
-                            }
-                        }
-                       
-                    };
-        
-                } else{
-                    if (!diskFileItem.getString().isEmpty()){
-                      
-                        try {
-                            fileBytes = diskFileItem.get();
-                            file = new File(seshdir, diskFileItem.getName());
-                            imagenes.add("'"+directorio.
-                                    getDirectorioImagenesEscenarios()
-                                    +"/"+diskFileItem.getName()+"'");
-                            fileOutputStream = new FileOutputStream(file);
-                            fileOutputStream.write(fileBytes);
-                            fileOutputStream.flush();
-                            fileOutputStream.close();
-                        } catch (FileNotFoundException ex) {
-                                Logger.getLogger(ModificarAplicacionServlet2.
-                                        class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (IOException ex) {
-                                Logger.getLogger(ModificarAplicacionServlet2.
-                                        class.getName()).log(Level.SEVERE, null, ex);
-                        } 
-
-                    } else  {
-                        imagenes.add("NULL");
-                    }
-            }
+//                if (diskFileItem.isFormField()) {
+//                    switch (diskFileItem.getFieldName()){
+//                        case "nombre": 
+                            nombre = request.getParameter("nombre");
+//                            break;
+//                        case "instrucciones": 
+                            instrucciones = request.getParameter("instrucciones");
+//                            break;
+//                        case "fecha_actualizacion": 
+                            fecha_actualizacion = request.getParameter("fecha_actualizacion");
+//                            break;
+//                        case "id": 
+                            id = request.getParameter("id");
+//                            break;
+//                        case "topicos": 
+                            idTopico = request.getParameter("topicos");
+//                            break;    
+//                        default:{
+                            for (int i = 1; i < Integer.valueOf(cantidadEscenarios); i++) {
+                                nombreEscenarios.add(request.getParameter("escenario"+i));
+                                descripcionEscenarios.add(request.getParameter("descripcion"+i));
+                                idEscenarios.add(request.getParameter("idEscenario"+i));
             
+                            }
+//                            if (diskFileItem.getFieldName().contains("escenario")) {
+//                                nombreEscenarios.add(diskFileItem.getString());
+                      //      } else if (diskFileItem.getFieldName().contains("descripcion")){
+//                                descripcionEscenarios.add(diskFileItem.getString());
+                        //    } else if (diskFileItem.getFieldName().contains("idEscenario")) {
+//                                idEscenarios.add(diskFileItem.getString());
+                          //  }
+                       // }
+                       
+                   // };
+        
+               // } else{
+                  //  if (!diskFileItem.getString().isEmpty()){
+                      
+//                        try {
+//                            fileBytes = diskFileItem.get();
+//                            file = new File(seshdir, diskFileItem.getName());
+//                            imagenes.add("'"+directorio.
+//                                    getDirectorioImagenesEscenarios()
+//                                    +"/"+diskFileItem.getName()+"'");
+//                            fileOutputStream = new FileOutputStream(file);
+//                            fileOutputStream.write(fileBytes);
+//                            fileOutputStream.flush();
+//                            fileOutputStream.close();
+//                        } catch (FileNotFoundException ex) {
+//                                Logger.getLogger(ModificarAplicacionServlet2.
+//                                        class.getName()).log(Level.SEVERE, null, ex);
+//                        } catch (IOException ex) {
+//                                Logger.getLogger(ModificarAplicacionServlet2.
+//                                        class.getName()).log(Level.SEVERE, null, ex);
+//                        } 
+
+                  //  } else  {
+               //         imagenes.add("NULL");
+                   // }
+      
+            
+                        return true;
             }
       
-        return true;
-        }
         return false;
+      //  }
+      //  return false;
     }
     
     /**
@@ -215,16 +213,16 @@ public class ModificarAplicacionServlet2 extends HttpServlet {
                                 + "SET DESCRIPCION='"+descripcionEscenarios.get(i)+"' "
                                 + "WHERE ID="+idEscenarios.get(i));
                     }
-                    if ( (escenario.getString(3) == null) && (!imagenes.get(i).contentEquals("NULL"))){
-                        conexionBD.ejecutarQuery("UPDATE ESCENARIOS "
-                                + "SET IMAGEN="+imagenes.get(i)+" "
-                                + "WHERE ID="+idEscenarios.get(i));
-                    } else if ( (!imagenes.get(i).contentEquals("NULL")) 
-                            && (!escenario.getString(3).contentEquals(imagenes.get(i)))){
-                        conexionBD.ejecutarQuery("UPDATE ESCENARIOS "
-                                + "SET IMAGEN="+imagenes.get(i)+" "
-                                + "WHERE ID="+idEscenarios.get(i));
-                    }
+//                    if ( (escenario.getString(3) == null) && (!imagenes.get(i).contentEquals("NULL"))){
+//                        conexionBD.ejecutarQuery("UPDATE ESCENARIOS "
+//                                + "SET IMAGEN="+imagenes.get(i)+" "
+//                                + "WHERE ID="+idEscenarios.get(i));
+//                    } else if ( (!imagenes.get(i).contentEquals("NULL")) 
+//                            && (!escenario.getString(3).contentEquals(imagenes.get(i)))){
+//                        conexionBD.ejecutarQuery("UPDATE ESCENARIOS "
+//                                + "SET IMAGEN="+imagenes.get(i)+" "
+//                                + "WHERE ID="+idEscenarios.get(i));
+//                    }
                     
                 
             }

@@ -89,74 +89,80 @@ public class ModificarEjecutableServlet2 extends HttpServlet {
         FileOutputStream fileOutputStream = null;
         byte[] fileBytes;
         File file;
+        
         if (request != null) {
             
-            seshdir = new File(directorio.getDirectorioEjecutables());
-            if (!seshdir.exists()) {
-                    seshdir.mkdirs();
-            }
-            factory = new DiskFileItemFactory();
-            upload = new ServletFileUpload(factory);
-            try {
-                items = upload.parseRequest(request);
-            } catch (FileUploadException ex) {
-                Logger.getLogger(CrearEjecutableServlet.class.getName()).
-                        log(Level.SEVERE, null, ex);
-            }
+//            seshdir = new File(directorio.getDirectorioEjecutables());
+//            if (!seshdir.exists()) {
+//                    seshdir.mkdirs();
+//            }
+//            factory = new DiskFileItemFactory();
+//            upload = new ServletFileUpload(factory);
+//            try {
+//                items = upload.parseRequest(request);
+//            } catch (FileUploadException ex) {
+//                Logger.getLogger(CrearEjecutableServlet.class.getName()).
+//                        log(Level.SEVERE, null, ex);
+//            }
  
-            for (FileItem diskFileItem : items) {
+            //for (FileItem diskFileItem : items) {
 
-                if (diskFileItem.isFormField()) {
-                    switch (diskFileItem.getFieldName()){
-                        case "tipo": 
-                            tipo = diskFileItem.getString();
-                            break;
-                        case "aplicaciones": 
-                            aplicacion = diskFileItem.getString();
-                            break;
-                        case "cantidadParametros": 
-                            cantidadParametros = diskFileItem.getString();
-                            break;
-                        case "id": 
-                            id = diskFileItem.getString();
-                            break;
-                        default:{
-                            if (diskFileItem.getFieldName().contains("nombreParametro")) {
-                                nombreParametros.add(diskFileItem.getString());
-                            } else if (diskFileItem.getFieldName().contains("valorParametro")) {
-                                valorParametros.add(diskFileItem.getString());
-                            } else if (diskFileItem.getFieldName().contains("idParametro")) {
-                                idParametros.add(diskFileItem.getString());
-                            }
-                        }
+                //if (diskFileItem.isFormField()) {
+                    //switch (diskFileItem.getFieldName()){
+                        //case "tipo": 
+                            tipo = request.getParameter("tipo");
+                          //  break;
+                        //case "aplicaciones": 
+                            aplicacion = request.getParameter("aplicaciones");
+                          //  break;
+                        //case "cantidadParametros": 
+                            cantidadParametros = request.getParameter("cantidadParametros");;
+                          //  break;
+                        //case "id": 
+                            id = request.getParameter("id");
+                          //  break;
+                        //default:{
+                           // if (diskFileItem.getFieldName().contains("nombreParametro")) {
+                            for (int i = 1; i <= Integer.valueOf(cantidadParametros); i++) {
+                                nombreParametros.add(request.getParameter("nombreParametro"+i));
+                                valorParametros.add(request.getParameter("valorParametro"+i));
+                                idParametros.add(request.getParameter("idParametro"+i));
+            }
+                                
+                           // } else if (diskFileItem.getFieldName().contains("valorParametro")) {
+                                
+                         //   } else if (diskFileItem.getFieldName().contains("idParametro")) {
+                                
+                       //     }
+                     //   }
                        
-                    };
+                   // };
         
-                } else{
-                        if (!diskFileItem.getString().isEmpty()){
-                            try {
-                                fileBytes = diskFileItem.get();
-                                file = new File(seshdir, diskFileItem.getName());
-                                rutaEjecutable = "'"+directorio.
-                                        getDirectorioEjecutables()+"/"+
-                                        diskFileItem.getName()+"'";
-                                fileOutputStream = new FileOutputStream(file);
-                                fileOutputStream.write(fileBytes);
-                                fileOutputStream.flush();
-                                nombreEjecutable = diskFileItem.getName();
-                            } catch (FileNotFoundException ex) {
-                                Logger.getLogger(ModificarEjecutableServlet2.
-                                        class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (IOException ex) {
-                                Logger.getLogger(ModificarEjecutableServlet2.
-                                        class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
-                        else{
-                            rutaEjecutable= "NULL";
-                        }
-                }
-            } 
+//                } else{
+//                        if (!diskFileItem.getString().isEmpty()){
+//                            try {
+//                                fileBytes = diskFileItem.get();
+//                                file = new File(seshdir, diskFileItem.getName());
+//                                rutaEjecutable = "'"+directorio.
+//                                        getDirectorioEjecutables()+"/"+
+//                                        diskFileItem.getName()+"'";
+//                                fileOutputStream = new FileOutputStream(file);
+//                                fileOutputStream.write(fileBytes);
+//                                fileOutputStream.flush();
+//                                nombreEjecutable = diskFileItem.getName();
+//                            } catch (FileNotFoundException ex) {
+//                                Logger.getLogger(ModificarEjecutableServlet2.
+//                                        class.getName()).log(Level.SEVERE, null, ex);
+//                            } catch (IOException ex) {
+//                                Logger.getLogger(ModificarEjecutableServlet2.
+//                                        class.getName()).log(Level.SEVERE, null, ex);
+//                            }
+//                        }
+//                        else{
+//                            rutaEjecutable= "NULL";
+//                        }
+//                }
+////            } 
       
         return true;
         }
@@ -184,14 +190,14 @@ public class ModificarEjecutableServlet2 extends HttpServlet {
                     conexionBD.ejecutarQuery("UPDATE EJECUTABLES "
                             + "SET ID_APLICACION="+aplicacion+" WHERE ID="+id);
                 }
-                if (!rutaEjecutable.contentEquals("NULL")){
-                    conexionBD.ejecutarQuery("UPDATE EJECUTABLES "
-                            + "SET RUTA_EJECUTABLE="+rutaEjecutable+" WHERE ID="+id);
-                    conexionBD.ejecutarQuery("UPDATE EJECUTABLES "
-                            + "SET NOMBRE='"+nombreEjecutable+"' WHERE ID="+id);
-                }
-           
-                for (int i = 0; i <= Integer.valueOf(cantidadParametros); i++) {
+//                if (!rutaEjecutable.contentEquals("NULL")){
+//                    conexionBD.ejecutarQuery("UPDATE EJECUTABLES "
+//                            + "SET RUTA_EJECUTABLE="+rutaEjecutable+" WHERE ID="+id);
+//                    conexionBD.ejecutarQuery("UPDATE EJECUTABLES "
+//                            + "SET NOMBRE='"+nombreEjecutable+"' WHERE ID="+id);
+//                }
+                System.out.println(cantidadParametros);
+                for (int i = 0; i < Integer.valueOf(cantidadParametros); i++) {
                     parametro = conexionBD.consultarRegistro(""
                             + "SELECT NOMBRE,VALOR FROM PARAMETROS "
                             + "WHERE ID="+idParametros.get(i));

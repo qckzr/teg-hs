@@ -17,7 +17,7 @@
         <script src="scripts/formularios.js"></script>
     </head>
     <body>
-        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarEjecutableServlet2" enctype="multipart/form-data">
+        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarEjecutableServlet2" >
               <h1 class="text-center pull-left page-header">Modificar Ejecutable</h1>
              <div class="row-fluid pull-left">
             <div class="control-group">
@@ -49,12 +49,7 @@
                            <input type="text" value="${ruta_ejecutable}"disabled class="span6"/>
                        </div>
                    </div>
-                    <div class="control-group">
-                        <label class="control-label">Nuevo Ejecutable: </label>
-                        <div class="controls">
-                            <input type="file" name="ejecutable"/>
-                        </div>
-                    </div>
+                    
             <div class="control-group">
                 <label class="control-label">Aplicacion: </label>
                 <div class="controls">
@@ -79,8 +74,9 @@
             </div>
             <h2 class="text-center pull-left  page-header">Parametros: </h2>
                 <div class="row-fluid pull-left">
-             <c:forEach var="row" items="${parametros}">
                     <c:set var="cantidadParametros" value="1"/>
+             <c:forEach var="row" items="${parametros}">
+                    
                     <div class="control-group">
                         <label class="control-label">Nombre: </label>
                         <div class="controls">
@@ -94,7 +90,7 @@
                         </div>
                     
                     <input type="hidden" value="${row[2]}" name="idParametro${cantidadParametros}"/>
-                    <c:set var="cantidadEscenarios" value="${cantidadParametros + 1}" scope="page"/>
+                    <c:set var="cantidadParametros" value="${cantidadParametros + 1}" scope="page"/>
                     </div>
             </c:forEach>
                     </div>
@@ -102,7 +98,7 @@
                     
                         <input type="Submit" value="Enviar" class="btn"/>
             <input type="hidden" value="${id}" name="id"/>
-            <input type="hidden" value="${cantidadParametros}" name="cantidadParametros"/>
+            <input type="hidden" value="${cantidadParametros -1}" name="cantidadParametros"/>
                     </div>
              </div>
         </form>

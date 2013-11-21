@@ -4,14 +4,10 @@
  */
 package controller.moduloGestion;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -22,11 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.ConexionBD;
 import model.Directorios;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  * Clase que permite modificar un tópico de la base de datos a través del
@@ -37,7 +28,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 public class ModificarTopicoServlet2 extends HttpServlet {
 
     private ConexionBD conexion;
-    private Directorios directorio = new Directorios();
+//    private Directorios directorio = new Directorios();
     private String id = "";
     private String imagen = "";
     private String nombre = "";
@@ -78,71 +69,71 @@ public class ModificarTopicoServlet2 extends HttpServlet {
      * @return True si la información fue obtenida. False en caso contrario.
      */
     public boolean obtenerInformacion(HttpServletRequest request){
-        File seshdir;
-        FileItemFactory factory;
-        ServletFileUpload upload;
-        List<FileItem> items = null;
-        FileOutputStream fileOutputStream = null;
-        byte[] fileBytes;
-        File file;
+//        File seshdir;
+//        FileItemFactory factory;
+//        ServletFileUpload upload;
+//        List<FileItem> items = null;
+//        FileOutputStream fileOutputStream = null;
+//        byte[] fileBytes;
+//        File file;
         if (request != null) {
-            seshdir = new File(directorio.getDirectorioImagenesTopico());
-            if (!seshdir.exists()) {
-                seshdir.mkdirs();
-            }
-            factory = new DiskFileItemFactory();
-            upload = new ServletFileUpload(factory);
-            try {
-                items = upload.parseRequest(request);
-            } catch (FileUploadException ex) {
-                Logger.getLogger(CrearEjecutableServlet.class.getName()).
-                        log(Level.SEVERE, null, ex);
-            }
+//            seshdir = new File(directorio.getDirectorioImagenesTopico());
+//            if (!seshdir.exists()) {
+//                seshdir.mkdirs();
+//            }
+//            factory = new DiskFileItemFactory();
+//            upload = new ServletFileUpload(factory);
+//            try {
+//                items = upload.parseRequest(request);
+//            } catch (FileUploadException ex) {
+//                Logger.getLogger(CrearEjecutableServlet.class.getName()).
+//                        log(Level.SEVERE, null, ex);
+//            }
  
-            for (FileItem diskFileItem : items) {
+            //for (FileItem diskFileItem : items) {
 
-                if (diskFileItem.isFormField()) {
-                    switch (diskFileItem.getFieldName()){
-                        case "nombre": 
-                            nombre = diskFileItem.getString();
-                            break;
-                        case "categoriaFinal": 
-                            categoria = diskFileItem.getString();
-                            break;
-                        case "descripcion": 
-                            descripcion = diskFileItem.getString();
-                            break;
-                        case "id": 
-                            id = diskFileItem.getString();
-                            break;
-                        case "usuarios": 
-                            idUsuario = diskFileItem.getString();
-                            break;            
-                    };
-        
-                } else{
-                    if (!diskFileItem.getString().isEmpty()){
-                        try {
-                            fileBytes = diskFileItem.get();
-                            file = new File(seshdir, diskFileItem.getName());
-                            imagen = "'"+directorio.getDirectorioImagenesTopico()
-                                    +"/"+diskFileItem.getName()+"'";
-                            fileOutputStream = new FileOutputStream(file);
-                            fileOutputStream.write(fileBytes);
-                            fileOutputStream.flush();
-                        } catch (FileNotFoundException ex) {
-                            Logger.getLogger(ModificarTopicoServlet2.class.
-                                    getName()).log(Level.SEVERE, null, ex);
-                        } catch (IOException ex) {
-                            Logger.getLogger(ModificarTopicoServlet2.class.
-                                    getName()).log(Level.SEVERE, null, ex);
-                        }
-            
-                    } else {
-                            imagen= "NULL";
-                    }
-                }
-            } 
+                //if (diskFileItem.isFormField()) {
+                    //switch (diskFileItem.getFieldName()){
+                        //case "nombre": 
+                            nombre = request.getParameter("nombre");
+                          //  break;
+                        //case "categoriaFinal": 
+                            categoria = request.getParameter("categoriaFinal");
+                          //  break;
+                        //case "descripcion": 
+                            descripcion = request.getParameter("descripcion");
+                          //  break;
+                        //case "id": 
+                            id = request.getParameter("id");
+                          //  break;
+                        //case "usuarios": 
+                            idUsuario = request.getParameter("usuarios");
+//                            break;            
+//                    };
+//        
+//                } else{
+//                    if (!diskFileItem.getString().isEmpty()){
+//                        try {
+//                            fileBytes = diskFileItem.get();
+//                            file = new File(seshdir, diskFileItem.getName());
+//                            imagen = "'"+directorio.getDirectorioImagenesTopico()
+//                                    +"/"+diskFileItem.getName()+"'";
+//                            fileOutputStream = new FileOutputStream(file);
+//                            fileOutputStream.write(fileBytes);
+//                            fileOutputStream.flush();
+//                        } catch (FileNotFoundException ex) {
+//                            Logger.getLogger(ModificarTopicoServlet2.class.
+//                                    getName()).log(Level.SEVERE, null, ex);
+//                        } catch (IOException ex) {
+//                            Logger.getLogger(ModificarTopicoServlet2.class.
+//                                    getName()).log(Level.SEVERE, null, ex);
+//                        }
+//            
+//                    } else {
+//                            imagen= "NULL";
+//                    }
+//                }
+//            } 
             
       
         return true;

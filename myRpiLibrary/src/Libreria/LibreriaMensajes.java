@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 public final  class LibreriaMensajes {
 
     private final static int PUERTO = 1337;
-    private final static int MENSAJES_MAXIMOS = 5;
+    private int mensajes_maximos = 5;
     private static EscucharMensajes hiloDeEscucha;
     private ArrayList<String> ipDestino;
     private String ipOrigen;
@@ -38,6 +38,8 @@ public final  class LibreriaMensajes {
      * a que se le puede enviar mensajes. Se obtiene la dirección ip local a 
      * través del método obtenerIp.
      */
+    
+    
     public LibreriaMensajes(){
         
         
@@ -120,6 +122,16 @@ public final  class LibreriaMensajes {
     public void setMensajesAgente(ArrayList<InformacionAgente> mensajesAgente) {
         this.mensajesAgente = mensajesAgente;
     }
+
+    public int getMensajes_maximos() {
+        return mensajes_maximos;
+    }
+
+    public void setMensajes_maximos(int mensajes_maximos) {
+        this.mensajes_maximos = mensajes_maximos;
+    }
+    
+    
     
     
     
@@ -462,9 +474,9 @@ public final  class LibreriaMensajes {
      */
     public boolean agregarMensajeRecibido(Mensaje mensaje){
         
-        if (mensajesRecibidos.size()<=MENSAJES_MAXIMOS)
+        if (mensajesRecibidos.size() <= mensajes_maximos)
             
-            if (mensajesRecibidos.size()==MENSAJES_MAXIMOS){
+            if (mensajesRecibidos.size() == mensajes_maximos){
                 mensajesRecibidos.remove(0);
                 mensajesRecibidos.add(mensaje);
                 return true;
@@ -488,9 +500,9 @@ public final  class LibreriaMensajes {
     public boolean agregarMensajeRecibido(InformacionAgente informacionAgente){
         boolean retorno = false;
         
-        if (mensajesAgente.size() <= MENSAJES_MAXIMOS){
+        if (mensajesAgente.size() <= mensajes_maximos){
             
-            if (mensajesAgente.size() == MENSAJES_MAXIMOS){
+            if (mensajesAgente.size() == mensajes_maximos){
                 mensajesAgente.remove(0);
                 mensajesAgente.add(informacionAgente);
                 retorno = true;

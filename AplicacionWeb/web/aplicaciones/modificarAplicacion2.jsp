@@ -17,7 +17,7 @@
         <script src="scripts/formularios.js"></script>
     </head>
     <body>
-        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarAplicacionServlet2" enctype="multipart/form-data">
+        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarAplicacionServlet2">
             <h1 class="text-center pull-left page-header">Modificar Aplicación</h1>
              <div class="row-fluid pull-left">
             <div class="control-group">
@@ -84,11 +84,6 @@
                                 <p>${escenario[2]}</p>
                             </div>
 
-                            
-                                <label class="control-label">Nueva Imagen:</label>
-                                <div class="controls">
-                                    <input type="file" name="imagen${cantidadEscenarios}"  />
-                                </div>
                             </div>
                     <c:set var="cantidadEscenarios" value="${cantidadEscenarios + 1}" scope="page"/>
                     
@@ -96,6 +91,7 @@
                 </div>
                     <div class="controls pull-left">
                         <input type="hidden" value="${id}" name="id"/>
+                        <input type="hidden" value="${cantidadEscenarios}" name="cantidadEscenarios"/>
                         <input type="submit" value="Enviar" class="btn"/>   
                     </div>
             </div>

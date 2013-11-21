@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class Monitoreo extends Thread{
     
-    private boolean control=true;
+    private boolean control = true;
     private static int TIEMPO_SLEEP = 10000;
     private LibreriaMensajes libreria;
     private String intefaz;

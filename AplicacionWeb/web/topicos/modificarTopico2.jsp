@@ -17,7 +17,7 @@
         <script src="scripts/formularios.js"></script>
     </head>
     <body>
-        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarTopicoServlet2" enctype="multipart/form-data">
+        <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarTopicoServlet2">
              <h1 class="text-center pull-left page-header">Modificar Topico</h1>           
              <div class="row-fluid pull-left">
                 
@@ -53,9 +53,7 @@
             </div>
                 <div class="control-group">
                     <label class="control-label" for="imagen">Imagen: ${imagen}</label>
-                    <div class="controls">
-                        <input type="file" name="imagen"/>
-                    </div>
+                    
                 </div>
                     <div class="control-group">
                         <label class="control-label" for="usuarios">Usuario:</label>
