@@ -426,7 +426,7 @@ INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'REST',TO_DATE('22/09/2013','DD/MM/YYYY'),'
 Se tiene un ejecutable servidor que posee los metodos de saludo, fecha y hora  alojado en el servidor glassfish y un ejecutable cliente que puede consumirlos <br/>
 1. Los servicios disponibles para consumir son: hora,fecha y mensaje. <br/>
-2. Para consumir un servicio enviar el mensaje: "hora:", "fecha:" o "mensaje:mensajeAenviar" <br/>
+2. Para consumir un servicio enviar el mensaje: "hora:", "fecha:" o "mensaje:" <br/>
 3. Los metodos a consumir se encuentran en la direccion: http://192.168.1.191:8080/REST_Servidor/resources/hora <br/>
 http://192.168.1.191:8080/REST_Servidor/resources/fecha y http://192.168.1.191:8080/REST_Servidor/resources/saludo <br/>  ',26); /* 26 */
 

@@ -106,6 +106,7 @@ public class LogicaAplicacion {
      */
     public void enviarId(String ipServidor){
         libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),ipServidor);
+        libreriaMensajes.enviarMensaje("Ejecutable inicializado");
     }
     
     /**

@@ -286,7 +286,7 @@ public class Monitoreo extends Thread{
             Logger.getLogger(Monitoreo.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (libreria.ultimoMensaje() != null){
-            aplicacion = "Aplicacion: "+libreria.ultimoMensaje().getMensaje();
+            aplicacion = libreria.ultimoMensaje().getMensaje();
         }
         return aplicacion;
         
@@ -308,7 +308,7 @@ public class Monitoreo extends Thread{
                     log(Level.SEVERE, null, ex);
         }
         if (libreria.ultimoMensaje() != null){
-            numeroNodo = "Nodo #: "+libreria.ultimoMensaje().getMensaje();
+            numeroNodo = libreria.ultimoMensaje().getMensaje();
         }
         return  numeroNodo;
         

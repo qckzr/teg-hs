@@ -79,20 +79,7 @@
                $(function() {
                     $( "#datos" ).accordion();
                 });
-/*
-                jQuery('#contenido') //set for html for jsfiddle, but should be 'body'
-              .bind(
-               'click',
-               function(e){
-            if(
-             jQuery('#asd').dialog('isOpen')
-             && !jQuery(e.target).is('.ui-dialog, a')
-             && !jQuery(e.target).closest('.ui-dialog').length
-            ){
-             jQuery('#asd').dialog('close');
-            }
-               }
-              ); */
+
 
             
 
@@ -107,6 +94,15 @@
             	<div id="main">
        	             <div class="row-fluid">
             		<div id="titulo" class="span12"><h1 class="text-center">${nombre}</h1></div>
+                        <div class="span12">
+			<ul class="pager">
+			<li class="previous">
+				<a href="#" class="volver">&larr; Regresar</a>
+                               
+                                
+			</li>
+			</ul>
+		    </div>
             		<div id="informacionAplicacion" class="span9">
                             <h3>Fecha Creación</h3> <div><p class="text-justify">${fecha_actualizacion}</p></div>
                             <div id="datos">     
@@ -230,7 +226,7 @@
                     <div class="span12">
 			<ul class="pager">
 			<li class="previous">
-				<a href="#" class="volver">&larr; Regresar</a>
+			<!--	<a href="#" class="volver">&larr; Regresar</a> -->
                                 <input type="button"  id="eliminarTodo" class="btn" value="Eliminar Todos"/>
                                 
 			</li>

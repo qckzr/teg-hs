@@ -4,6 +4,7 @@
  */
 package controller;
 
+import Libreria.LibreriaMensajes;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -58,6 +59,8 @@ public class TerminarAplicacionServlet extends HttpServlet {
         String root;
         try {
             root = getServletContext().getRealPath("/");
+            LibreriaMensajes libreriaMensajes = new LibreriaMensajes(false);
+            libreriaMensajes.enviarMensaje("eliminarTodos>","localhost");
             Process p = Runtime.getRuntime().exec("java -jar "+root.substring(0,
                     root.indexOf("build/"))+"archivos/JavaApplication1.jar");
             return true;

@@ -18,8 +18,10 @@
         <dl class="dl"> 
             <dt>Descripcion </dt><dd><p id="descripcion" class="text-justify">${descripcion}</p></dd>
             <dt id="imagen"></dt><dd><img src="${imagen}"/></dd> 
-        </dl>  
-        <input type="button" value="Cerrar" class="btn text-center" onclick="closeWin()"/>
+        </dl> 
+        <div class="row-fluid">
+            <input type="button" value="Cerrar" class="btn text-center offset5" onclick="closeWin()"/>
+        </div>
        
     </body>
 </html>

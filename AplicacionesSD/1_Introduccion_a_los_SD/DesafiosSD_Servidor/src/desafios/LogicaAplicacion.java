@@ -7,7 +7,6 @@ package desafios;
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
 import java.io.*;
-import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
@@ -135,6 +134,7 @@ public class LogicaAplicacion {
     public void enviarId(String ipServidor){
         libreriaMensajes.enviarMensaje("id<"+datosAplicacion.getIdProceso(),
                 ipServidor);
+        libreriaMensajes.enviarMensaje("Ejecutable inicializado");
     }
     
     /**

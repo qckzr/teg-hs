@@ -24,5 +24,6 @@ public class SOAP_Client {
         logicaAplicacion.enviarId(args[2]);
         EscucharClientes escucharMensajes = new EscucharClientes(logicaAplicacion, libreriaMensajes);
         escucharMensajes.start();
+        logicaAplicacion.iniciar(args[4]);
     }
 }

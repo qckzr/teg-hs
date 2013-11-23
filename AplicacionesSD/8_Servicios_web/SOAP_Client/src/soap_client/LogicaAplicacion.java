@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+import javax.xml.ws.WebServiceException;
 import soap_server.MensajesServicio;
 
 /**
@@ -27,6 +28,8 @@ public class LogicaAplicacion {
     private URL url;
     private Service service;
     private MensajesServicio mensajesServicio;
+    private String ipServidor;
+    private boolean conexionServidor = false;
     
 
     private LogicaAplicacion(LibreriaMensajes libreriaMensajes,
@@ -34,8 +37,7 @@ public class LogicaAplicacion {
         this.libreriaMensajes = libreriaMensajes;
         this.datosAplicacion = datosAplicacion;
         this.puertoAgente = puertoAgente;
-        iniciar(ipServidor);
-        
+        this.ipServidor = ipServidor;
         
     }
 
@@ -146,6 +148,7 @@ public class LogicaAplicacion {
     public void enviarId(String ipServidor){
         libreriaMensajes.enviarMensaje("id<"+datosAplicacion.
                 getIdProceso(),ipServidor);
+        libreriaMensajes.enviarMensaje("Ejecutable inicializado");
     }
     
     /**
@@ -155,30 +158,37 @@ public class LogicaAplicacion {
      * @return True si se envió una instrucción valida. False en caso contrario.
      */
     public boolean evaluarMensaje(Mensaje mensaje){
-        libreriaMensajes.enviarMensaje("Mensaje recibido: "+mensaje.getMensaje());
-        String mensajeAconsumir;
-            if (mensaje.getMensaje().contains("mensaje:")){
-                mensajeAconsumir = mensaje.getMensaje().
-                        substring(mensaje.getMensaje().indexOf(":")+1);
-                System.out.println(mensajesServicio.getMensajeAsString(
-                        mensajeAconsumir));
-                libreriaMensajes.enviarMensaje(mensajesServicio.
-                        getMensajeAsString(mensajeAconsumir));
-                return true;
-            }
-            else if (mensaje.getMensaje().contains("hora:")){
-                System.out.println(mensajesServicio.getTimeAsString());
-                libreriaMensajes.enviarMensaje(mensajesServicio.getTimeAsString());
-                return true;
-            }
-            else if (mensaje.getMensaje().contains("fecha:")){
-                System.out.println(mensajesServicio.getDateAsString());
-                libreriaMensajes.enviarMensaje(mensajesServicio.getDateAsString());
-                return true;
-            }
-            else {
-                return false;
-            }
+        
+        if (conexionServidor == false){
+            iniciar(ipServidor);
+            evaluarMensaje(mensaje);
+            return false;
+        } else{
+            libreriaMensajes.enviarMensaje("Mensaje recibido: "+mensaje.getMensaje());
+            String mensajeAconsumir;
+                if (mensaje.getMensaje().contains("mensaje:")){
+                    mensajeAconsumir = mensaje.getMensaje().
+                            substring(mensaje.getMensaje().indexOf(":")+1);
+                    System.out.println(mensajesServicio.getMensajeAsString(
+                            mensajeAconsumir));
+                    libreriaMensajes.enviarMensaje(mensajesServicio.
+                            getMensajeAsString(mensajeAconsumir));
+                    return true;
+                }
+                else if (mensaje.getMensaje().contains("hora:")){
+                    System.out.println(mensajesServicio.getTimeAsString());
+                    libreriaMensajes.enviarMensaje(mensajesServicio.getTimeAsString());
+                    return true;
+                }
+                else if (mensaje.getMensaje().contains("fecha:")){
+                    System.out.println(mensajesServicio.getDateAsString());
+                    libreriaMensajes.enviarMensaje(mensajesServicio.getDateAsString());
+                    return true;
+                }
+                else {
+                    return false;
+                }
+        }
     }
     
     
@@ -193,10 +203,15 @@ public class LogicaAplicacion {
              qname = new QName("http://soap_server/", "MensajesServicioImplService");
              service = Service.create(url, qname);
              mensajesServicio = service.getPort(MensajesServicio.class);
-            
+             conexionServidor = true;
         } catch (MalformedURLException ex) {
             Logger.getLogger(LogicaAplicacion.class.getName()).
                     log(Level.SEVERE, null, ex);
+            conexionServidor = false;
+        } catch (WebServiceException ex){
+            Logger.getLogger(LogicaAplicacion.class.getName()).
+                    log(Level.SEVERE, null, ex);
+            conexionServidor = false;
         }
     }
     

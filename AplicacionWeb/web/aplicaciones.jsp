@@ -74,7 +74,7 @@
                          
            </div>
                         <div class="row-fluid">
-                            <input type="submit" class="btn span1 offset5" value="Enviar"/>
+                            <input type="submit" class="btn offset5" value="Enviar"/>
                         </div>
 		<!--</div> -->
                 <input type="hidden" id="count" value="${count}"/>

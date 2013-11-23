@@ -7,7 +7,6 @@ package modeloaccesoremoto_servidor;
 import Libreria.LibreriaMensajes;
 import Libreria.Mensaje;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -120,6 +119,7 @@ public class LogicaAplicacion {
     public void enviarId(String ipServidor){
         libreriaMensajes.enviarMensaje("id<"+datosAplicacion.
                 getIdProceso(),ipServidor);
+        libreriaMensajes.enviarMensaje("Ejecutable inicializado");
     }
     
     
