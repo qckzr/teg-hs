@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script src="scripts/escenariosAplicaciones.js"></script>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
         <script src="scripts/formulariosArchivos.js"></script>
         
     </head>

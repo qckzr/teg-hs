@@ -1,5 +1,6 @@
 $(document).ready(function(){
-        $('a').click( function() {         
+        $('a').click( function() {
+            $('#resultado').empty();
             $('#resultado').load(retornarPagina(this.id));   
             });
         });

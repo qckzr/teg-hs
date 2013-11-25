@@ -30,7 +30,7 @@ public class ModificarTopicoServlet2 extends HttpServlet {
     private ConexionBD conexion;
 //    private Directorios directorio = new Directorios();
     private String id = "";
-    private String imagen = "";
+   
     private String nombre = "";
     private String categoria = "";
     private String descripcion = "";
@@ -169,10 +169,6 @@ public class ModificarTopicoServlet2 extends HttpServlet {
                 if (!rs.getString(5).contentEquals(idUsuario)) {
                         conexion.ejecutarQuery("UPDATE TOPICOS "
                                 + "SET ID_USUARIO="+idUsuario+" WHERE ID="+id);
-                }
-                if (!imagen.contentEquals("NULL")) {
-                        conexion.ejecutarQuery("UPDATE TOPICOS "
-                                + "SET RUTA_IMAGEN="+imagen+" WHERE ID="+id);
                 }
                     return true;
             } catch (SQLException ex) {

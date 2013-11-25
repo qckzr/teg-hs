@@ -12,9 +12,15 @@
         <title>Gestion Topicos</title>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script type="text/javascript" src="scripts/enviarPagina.js"></script>
-        <script type="text/javascript" src="scripts/iniciarSesion.js"></script>      
+        <script type="text/javascript" src="scripts/iniciarSesion.js"></script>
+        
+        
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="css/footer.css">  
+        <link rel="stylesheet" type="text/css" href="css/footer.css">
+        <link rel="stylesheet" type="text/css" href="media/css/jquery.dataTables.css">
+        <style type="text/css" title="currentStyle">
+    @import "/DataTables/media/css/demo_table.css";
+</style>
    </head>
     <body>
         <div id="contenido"  >

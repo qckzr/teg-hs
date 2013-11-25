@@ -13,7 +13,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="media/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="scripts/convertirAdataTable.js"></script>
+        <script type="text/javascript" src="scripts/dataTableTopico.js"></script>
+        
         <script src="scripts/formularios.js"></script>
     </head>
     <body>
@@ -21,25 +25,34 @@
              <h1 class="text-center pull-left page-header">Consultar Topico</h1>           
              <div class="row-fluid pull-left">
                 
-            <div class="control-group">
-                <label class="control-label" for="topicos">Topicos:</label>
-                <div class="controls">
-                    <select name="topicos" class="span6">
-        
             
+        
+            <table id="tabla" class="display">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        
+                        <th>Categoria</th>
+                    </tr>
+                </thead>
+                <tbody>
             <sql:query dataSource="${localSource}" 
-	           sql="SELECT id, nombre, categoria FROM topicos" 
+	           sql="SELECT id, nombre, categoria FROM topicos order by id" 
 	           var="result" />
         
         <c:forEach var="row" items="${result.rows}">
-           
-            <option value="${row.id}">${row.categoria}: ${row.nombre} </option>
+            <tr>
+                <td><a href="#" id="${row.id}" class="idTopico">${row.nombre}</a></td>
+                <td>${row.categoria}</td>
+                <!--<option value="${row.id}">${row.categoria}: ${row.nombre} </option> -->
+            </tr>
 	</c:forEach>
-        </select>
-                </div>
-            </div>
+                </tbody>
+            </table>
+                
         <div class="controls">
-            <input type="submit" value="Enviar" class="btn"/>
+            <input type="submit" value="Enviar" class="btn" id="enviar"/>
+            <input type="hidden" name="topicos" id="topicos" value="0"/>
         </div>
              </div>
         </form>

@@ -14,10 +14,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script src="scripts/parametrosAplicaciones.js"></script>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
         <script src="scripts/formulariosArchivos.js"></script>
         <script src="scripts/ejecutableNodos.js"></script>
         <script src="scripts/checkboxEventos.js"></script>
+        
     </head>
     <body>
         <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/CrearEjecutableServlet">

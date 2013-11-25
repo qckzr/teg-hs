@@ -85,12 +85,13 @@ public class EliminarAplicacionServlet2 extends HttpServlet {
             try {
                 rs = conexionBD.consultar("SELECT NVL(IMAGEN,'NULL') FROM ESCENARIOS "
                         + "WHERE ID_APLICACION="+id);
-                do{
+                while (rs.next()) {
                    if (!rs.getString(1).contains("NULL")){
                        file = new File(rs.getString(1));
                        file.delete();
                    } 
-                }while (rs.next());
+                }
+               
                 conexionBD.ejecutarQuery("DELETE FROM "
                         + "ESCENARIOS WHERE ID_APLICACION="+id);
                 conexionBD.ejecutarQuery("DELETE FROM "
