@@ -39,14 +39,15 @@
                             $("#archivoPreguntas").html(responseText);
                             return;
                     });
-                    
-                     $("#archivoPreguntas a").click(function(){
-                         var child = $("#preguntasPdf");
-                        $("#archivoPreguntas").removeChild(child);
+                });
+                     $("#preguntasPdf").click(function(){
+                         //var child = $("#preguntasPdf");
+                        $("#archivoPreguntas").empty();
+                        alert("asd");
                     });
                     
 
-        });
+        
         
       
       
@@ -77,7 +78,7 @@
    
               });
                $(function() {
-                    $( "#datos" ).accordion();
+               //     $( "#datos" ).accordion();
                 });
 
 
@@ -93,7 +94,7 @@
 		
             	<div id="main">
        	             <div class="row-fluid">
-            		<div id="titulo" class="span12"><h1 class="text-center">${nombre}</h1></div>
+            		<div id="titulo" class="span12 page-header" align="center">    <img src="images/banner_.jpg"/><h1 class="text-center">${nombre}</h1></div>
                         <div class="span12">
 			<ul class="pager">
 			<li class="previous">
@@ -104,20 +105,50 @@
 			</ul>
 		    </div>
             		<div id="informacionAplicacion" class="span9">
-                            <h3>Fecha Creación</h3> <div><p class="text-justify">${fecha_actualizacion}</p></div>
-                            <div id="datos">     
-                                <h3>Descripción Tópico</h3> <div><p class="text-justify" id="descripcion">${descripcionTopico}
-                                        <c:set var="string1" value="${imagenTopico}" />
-   <c:if test="${fn:length(string1)>0}">
-       <img src="${imagenTopico}"/> 
-   </c:if>
-</p></div>
-			                		<h3>Instrucciones</h3>  <div><p class="text-justify">${instrucciones}</p></div>
+                <!--            <p>Fecha Creación</p> <div><p class="text-justify">${fecha_actualizacion}</p></div> -->
+                            <div class="accordion" id="accordion2">
+                                <div class="accordion-group">
+                                    <div class="accordion-heading">
+                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                                            Descripción Tópico
+                                        </a>
+                                    </div>
+                                    <div id="collapseOne" class="accordion-body collapse in">
+                                        <div class="accordion-inner">
+                                            ${descripcionTopico}
+                                            <c:set var="string1" value="${imagenTopico}" />
+                                            <c:if test="${fn:length(string1)>0}">
+                                                <img src="${imagenTopico}"/> 
+                                            </c:if>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-group">
+                                    <div class="accordion-heading">
+                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                                            Instrucciones
+                                        </a>
+                                    </div>
+                                    <div id="collapseTwo" class="accordion-body collapse">
+                                        <div class="accordion-inner">
+                                            ${instrucciones}
+                                        </div>
+                                    </div>
+                                </div>            
+                            
+                            </div>
+                           <!-- <div id="datos">     
+                                <h3></h3> <div><p class="text-justify" id="descripcion"> -->
+                           
+<!--</p></div> -->
+			   <!--             		<h3>Instrucciones</h3>  <div><p class="text-justify">${instrucciones}</p></div> -->
       			     </div>
-        		</div>
+        		<!--</div> -->
        
         		<div id="escenarios" class="span2">
-            			<h3 class="text-center">Escenarios</h3>
+                            <fieldset> 
+                            <legend>Escenarios</legend>
+            			<!--<h3 class="text-center">Escenarios</h3> -->
 		                 <c:set var="escenario" value="1"/><ul>
                 		<c:forEach var="row" items="${escenarios}">
                         		<li><a href="#" class="linkEscenario text-center " id="${escenario}">${row[0]}</a></li>
@@ -126,11 +157,16 @@
                     				<input type="hidden" class="descripcionEscenario" id="${escenario}" value="${row[1]}"/>
 				                <input type="hidden" class="imagenEscenario" id="${escenario}" value="${row[2]}"/>
                     			</form>
-                                        <div id="asd"></div>
+                                      <!--  <div id="asd"></div> -->
                     		 	<c:set var="escenario" value="${escenario + 1}" scope="page"/>
                 		</c:forEach></ul>
-                                <a href="#" id="preguntas" class="btn text-center">Generar Preguntas</a>
-                                <div id="archivoPreguntas"></div>
+                            </fieldset>
+                                <br/><br/><fieldset>
+                                    <legend>Preguntas</legend>
+                               <!-- <a href="#" id="preguntas" class="btn text-center">Generar Preguntas</a> -->
+                               <input type="button" id="preguntas" class="btn text-center" value="Generar Preguntas"/>
+                                <br/><br/><div id="archivoPreguntas"></div>
+                            </fieldset>
             		</div>
          </div>
                 <c:set var="ejec" value="1"/>

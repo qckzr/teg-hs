@@ -63,7 +63,7 @@
                     </div> -->
            </div>
                <div class="row-fluid">
-                   <table class="table table-bordered"><caption><p class="text-center">Aplicaciones Disponibles para: ${result.rows[0].topico} </p></caption><tr><td class="span1" >Apps:</td><td ><ul class="inline">
+                   <table class="table table-bordered"><caption><h3 class="text-center">Aplicaciones Disponibles para: ${result.rows[0].topico} </h3></caption><tr><td class="span1" >Aplicación:</td><td ><ul class="inline">
                  	 <c:forEach var="row" items="${result.rows}">
             
                            <li> <p><input type="checkbox" name="aplicacion${count}" id="aplicacion${count}" value="${row.id}" onclick="aplicacionSeleccionada(aplicacion${count})"/>  ${row.nombre} </p></li>

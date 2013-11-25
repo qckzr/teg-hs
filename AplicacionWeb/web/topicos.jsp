@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Topicos Sistemas Distribuidos</title>
+        <title>Tópicos Sistemas Distribuidos</title>
         <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
         <script  type="text/javascript" src="scripts/jquery-ui-1.10.3.custom.js"></script>
         <!--<link rel="stylesheet" type="text/css" href="styles/general.css">
@@ -41,7 +41,7 @@
                 <div id="main" class="row-fluid">
                 <div id="titulo" class="span12 page-header" align="center">
                     <img src="images/banner_.jpg"/>
-                    <h2 class="text-center"> Topicos Disponibles</h2>
+                    <h2 class="text-center"> Tópicos Disponibles</h2>
                 </div>
        <div class="row-fluid">
            <div class="span12">
@@ -136,7 +136,7 @@
                     </c:forEach></ul>
                     
             </div>
-                    <div id="apps"  ></div>              
+            <br/><br/><div id="apps"></div>              
         </div>
               
     </div>

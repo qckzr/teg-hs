@@ -37,25 +37,40 @@
                 
             <div id="titulo" class="span12 page-header" align="center">
                 <img src="images/banner_.jpg"/>
-                <!-- <h1 class="text-center">Infraestructura Tecnológica con Fines Educativos Sobre Sistemas Distribuidos v1.0</h1> -->
+                
                 
             </div>
 
           <div class="row-fluid pull-left">
-                 
-            <a  class="btn btn-large btn-primary btn-block span4" href="topicos.jsp">Tópicos</a>
-                 
-            
-            <a  class="btn btn-large btn-primary btn-block span4" href="gestion.jsp">Gestión</a>
-        
+              <div class="content span4">
+             <fieldset>    
+                 <legend>Tópicos de la materia</legend>
+                 <p>Selecciona esta opción para elegir un tópico y empezar a ejecutar aplicaciones de sistemas distribuidos utilizando Raspberry Pi</p>
+            <a  class="btn btn-large btn-primary btn-block " href="topicos.jsp">Tópicos</a>
+             </fieldset>
+              </div>
+              <div class="content span4">
+            <fieldset> 
+                <legend>Operaciones en base de datos</legend>
+                <p class="text-justify">Selecciona esta opción para administrar la información referente a la infraestructura, se debe iniciar sesión para acceder</p>
+                <c:choose>
+                    <c:when test="${sessionScope.nombre == null}"> 
+                        <a  class="btn btn-large btn-primary btn-block disabled" >Módulo de Gestión</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a  class="btn btn-large btn-primary btn-block" href="gestion.jsp" >Módulo de Gestión</a>
+                    </c:otherwise>
+                </c:choose>
+            </fieldset>
+              </div>
           
             <div class="content span4">
 
                 <fieldset> 
-                            <legend>Login:</legend>
+                            <legend>Login</legend>
                     <c:choose>
                     <c:when test="${sessionScope.nombre == null}"> 
-                       
+                            <p class="text-justify">Permite iniciar sesión para acceder al móulo de gestión</p>
                             <label>Usuario:<input type="text" name="usuario" id="usuario" class="input" placeholder="usuario@ucab.edu.ve"/></label>
                             <label>Password:<input type="password" name="contrasena" id="contrasena" class="input" placeholder="password"/></label>
                             <input type="button" id="login" class="btn" value="Entrar"/> 
