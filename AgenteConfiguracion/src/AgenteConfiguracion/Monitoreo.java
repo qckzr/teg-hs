@@ -207,7 +207,7 @@ public class Monitoreo extends Thread{
                 i++;
             }
             input.close();
-            porcentajeCpu = String.valueOf(cpu);
+            porcentajeCpu = String.valueOf(cpu/2);
 
         } catch (Exception err) {
             err.printStackTrace();
@@ -265,7 +265,7 @@ public class Monitoreo extends Thread{
                 i++;
             }
              input.close();
-             puertos = "Puertos abiertos: \n"+puertos;
+             puertos = puertos;
         } catch (Exception err) {
             err.printStackTrace();
         } 

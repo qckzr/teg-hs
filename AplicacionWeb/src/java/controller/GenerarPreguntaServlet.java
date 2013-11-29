@@ -4,8 +4,10 @@
  */
 package controller;
 
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -146,11 +148,15 @@ public class GenerarPreguntaServlet extends HttpServlet {
         Document documento = new Document(PageSize.A4, 50, 50, 50, 50);
         ArrayList<Preguntas> preguntas = generarPregunta(idTopico);
         int contador = 1;
+      
         try {
             PdfWriter.getInstance(documento, new FileOutputStream(ruta+
                     "/preguntas.pdf"));
             documento.open();
+            Image image = Image.getInstance(ruta+"images/ucablogo.png");
+            documento.add(image);
             documento.add(new Paragraph("Preguntas de estudio: \n\n"));
+            
             for (Preguntas pregunta : preguntas){
                 documento.add( new Paragraph (String.valueOf(contador+":  "
                         + ""+pregunta.getEnunciado()+"\n")));
@@ -167,6 +173,9 @@ public class GenerarPreguntaServlet extends HttpServlet {
     }   catch (FileNotFoundException ex) {  
             Logger.getLogger(GenerarPreguntaServlet.class.getName()).
                     log(Level.SEVERE, null, ex);
+            return false;
+        } catch (IOException ex) {
+            Logger.getLogger(GenerarPreguntaServlet.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }  
     }

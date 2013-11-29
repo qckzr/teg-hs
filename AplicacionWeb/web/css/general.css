@@ -42,8 +42,14 @@ body{
     
 }
 
-
-
+#headers{
+   margin-left: 0;
+   margin-right: 0;
+   display: block;
+   min-width:100%;
+  text-align: center;   
+  color: white;
+}
 table {
     border: #000 solid; 
     padding-bottom: 10px;
@@ -355,6 +361,7 @@ h2{
  margin-top:10px;
  min-width:800px;
  border: 2px solid red;
+background-color:#104E8B;
  
 
 }

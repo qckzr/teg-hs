@@ -17,6 +17,7 @@
         <script type="text/javascript" src="scripts/bootstrap.js"></script>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/footer.css">
+        <link rel="stylesheet" type="text/css" href="styles/generalCss.css">
        <!--   <link rel="stylesheet" type="text/css" href="css/adicionales.css">
       <link rel="stylesheet" type="text/css" href="css/teg-theme/jquery-ui-1.10.3.custom.css">
         <link rel="stylesheet" type="text/css" href="styles/estilos-extras.css">
@@ -31,28 +32,31 @@
   </script>
     </head>
     <body>
-       
+        <div id="wrap">
         <div id="contenido" class="container-fluid" >
             <div id="main" class="row-fluid">
                 
-            <div id="titulo" class="span12 page-header" align="center">
-                <img src="images/banner_.jpg"/>
-                
-                
+            <div id="headers" class="page-header">
+               <img src="images/banner_ff.jpg"/> 
+               
             </div>
-
+               
           <div class="row-fluid pull-left">
-              <div class="content span4">
+               <div class="content span1">
+                </div>
+              <div class="content span3">
              <fieldset>    
                  <legend>Tópicos de la materia</legend>
-                 <p>Selecciona esta opción para elegir un tópico y empezar a ejecutar aplicaciones de sistemas distribuidos utilizando Raspberry Pi</p>
+                 <p>Selecciona esta opción para elegir un tópico y empezar a ejecutar aplicaciones de sistemas distribuidos utilizando Raspberry Pi</p><br/>
             <a  class="btn btn-large btn-primary btn-block " href="topicos.jsp">Tópicos</a>
              </fieldset>
               </div>
-              <div class="content span4">
+              <div class="content span1">
+                </div>
+              <div class="content span3">
             <fieldset> 
                 <legend>Operaciones en base de datos</legend>
-                <p class="text-justify">Selecciona esta opción para administrar la información referente a la infraestructura, se debe iniciar sesión para acceder</p>
+                <p class="text-justify">Selecciona esta opción para administrar la información referente a la infraestructura, se debe iniciar sesión para acceder</p><br/>
                 <c:choose>
                     <c:when test="${sessionScope.nombre == null}"> 
                         <a  class="btn btn-large btn-primary btn-block disabled" >Módulo de Gestión</a>
@@ -63,16 +67,17 @@
                 </c:choose>
             </fieldset>
               </div>
-          
-            <div class="content span4">
+          <div class="content span1">
+                </div>
+            <div class="content span2">
 
                 <fieldset> 
                             <legend>Login</legend>
                     <c:choose>
                     <c:when test="${sessionScope.nombre == null}"> 
                             <p class="text-justify">Permite iniciar sesión para acceder al móulo de gestión</p>
-                            <label>Usuario:<input type="text" name="usuario" id="usuario" class="input" placeholder="usuario@ucab.edu.ve"/></label>
-                            <label>Password:<input type="password" name="contrasena" id="contrasena" class="input" placeholder="password"/></label>
+                            <label>Usuario: </label><input type="text" name="usuario" id="usuario" class="input" placeholder="usuario@ucab.edu.ve"/>
+                            <label>Password:</label><input type="password" name="contrasena" id="contrasena" class="input" placeholder="password"/><br/>
                             <input type="button" id="login" class="btn" value="Entrar"/> 
                       
                      </c:when>
@@ -89,15 +94,18 @@
     
             
         </div>
-      
+       <div class="content span1">
+                </div>
      
       </div>
 
             </div>
 
         </div>
-<div id="push"></div>
+            <div id="push"></div>
         </div>
+
+        
 <div id="footer">
                 <div class="container">
       

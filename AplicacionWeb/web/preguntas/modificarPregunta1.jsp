@@ -22,7 +22,7 @@
     <body>
         <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarPreguntaServlet1">
               <h1 class="text-center pull-left page-header">Modificar Pregunta</h1>           
-             <div class="row-fluid pull-left">
+             <div class="row-fluid pull-left span10">
             <table id="tabla" class="display">
                 <thead>
                     <tr>

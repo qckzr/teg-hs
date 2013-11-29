@@ -22,7 +22,7 @@
             puertosDisponibles:puertosDisponibles,usoCpu:usoCpu,
             direccionIp:direccionIp},function(responseText) { 
 
-                var win = window.open("","","width=300,height=500");
+                var win = window.open("","","width=600,height=600");
                 win.document.write(responseText);
          });
    });

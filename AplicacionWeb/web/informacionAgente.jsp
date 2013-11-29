@@ -14,7 +14,13 @@
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     </head>
     <body>
-        <h4 class="text-center page-header">Informacion del Agente</h4>
+        
+         <div id="headers" >
+              <img src="images/banner_peq.jpg"/>  
+               <h4 class="text-center page-header">Informacion del Agente</h4>   
+         </div>
+        
+        
         <dl class="dl-horizontal"> 
             <dt>Aplicacion Activa:</dt> <dd>${aplicacionActiva}</dd>
             <dt>Direccion ip:</dt> <dd>${direccionIp}</dd>

@@ -23,11 +23,11 @@
     <body>
         <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ConsultarTopicoServlet">
              <h1 class="text-center pull-left page-header">Consultar Topico</h1>           
-             <div class="row-fluid pull-left">
+             <div class="row-fluid pull-left span10">
                 
             
         
-            <table id="tabla" class="display">
+                 <table id="tabla" class="display" >
                 <thead>
                     <tr>
                         <th>Nombre</th>

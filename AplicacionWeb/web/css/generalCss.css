@@ -1,0 +1,38 @@
+
+#headers{
+   margin-left: 0;
+   margin-right: 0;
+   display: block;
+   min-width:100%;
+  text-align: center;   
+  color: white;
+}
+
+
+
+#menus{
+ width:90%;
+ float:left;
+ padding:20px;
+ margin-top:10px;
+ min-width:800px;
+ border: 2px solid red;
+background-color:#104E8B;
+ 
+
+}
+#menus .dropdown{
+ float:left;
+ width:auto;
+
+}
+
+#menus .dropdown li{
+ width:150px;
+   
+}
+
+.sub_menu li{
+  width:30px;
+}
+
