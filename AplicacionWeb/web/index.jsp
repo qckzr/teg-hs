@@ -82,7 +82,7 @@
                       
                      </c:when>
                     <c:otherwise>
-                        <p>${sessionScope.nombre} ${sessionScope.apellido}</p>
+                        <strong><p>Bienvenido, ${sessionScope.nombre} ${sessionScope.apellido}</p></strong>
                         <a href="#" class="btn" id="logout">Salir</a>
                     </c:otherwise>
                          

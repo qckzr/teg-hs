@@ -15,30 +15,30 @@
     <body>
         <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/CrearNodoServlet">
             <h1 class="text-center pull-left page-header">Crear Nodo</h1>
-             <div class="row-fluid pull-left">
-            <div class="control-group">
-                <label class="control-label">Ip:</label>
+            <div class="row-fluid pull-left">
+                <div class="control-group">
+                    <label class="control-label">Ip:</label>
+                    <div class="controls">
+                        <input type="text" name="ip"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Usuario:</label>
+                    <div class="controls">
+                        <input type="text" name="usuario"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Contrasena:</label>
+                    <div class="controls">
+                        <input type="password" name="contrasena"/>
+                    </div>
+                </div>
                 <div class="controls">
-                    <input type="text" name="ip"/>
+                    <input type="submit" value="Enviar" class="btn"/>
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label">Usuario:</label>
-                <div class="controls">
-                    <input type="text" name="usuario"/>
-                </div>
-            </div>
-                 <div class="control-group">
-                     <label class="control-label">Contrasena:</label>
-                     <div class="controls">
-                         <input type="password" name="contrasena"/>
-                     </div>
-                 </div>
-                 <div class="controls">
-                     <input type="submit" value="Enviar" class="btn"/>
-                 </div>
-             </div>
         </form>
-            <div id="results"></div>
+        <div id="results"></div>
     </body>
 </html>

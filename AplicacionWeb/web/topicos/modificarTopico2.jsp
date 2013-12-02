@@ -18,17 +18,17 @@
     </head>
     <body>
         <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarTopicoServlet2">
-             <h1 class="text-center pull-left page-header">Modificar Topico</h1>           
-             <div class="row-fluid pull-left">
-                
-            <div class="control-group">
-                <label class="control-label" for="nombre">Nombre:</label>
-                <div class="controls">
-                    <input type="text" value="${nombre}" name="nombre"/>
+            <h1 class="text-center pull-left page-header">Modificar Topico</h1>           
+            <div class="row-fluid pull-left">
+
+                <div class="control-group">
+                    <label class="control-label" for="nombre">Nombre:</label>
+                    <div class="controls">
+                        <input type="text" value="${nombre}" name="nombre"/>
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="Categoria">Categoria:</label>
+                <div class="control-group">
+                    <label class="control-label" for="Categoria">Categoria:</label>
                     <div class="controls">
                         <select name="categoriaFinal" class="span6">
                             <c:set var="categoriaTopico" value="${categoria}"/>
@@ -42,45 +42,45 @@
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
-                    </select>
+                        </select>
                     </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="descripcion">Descripcion:</label>
-                <div class="controls">
-                    <textarea  name="descripcion" cols="60" rows="5">${descripcion}</textarea>
                 </div>
-            </div>
+                <div class="control-group">
+                    <label class="control-label" for="descripcion">Descripcion:</label>
+                    <div class="controls">
+                        <textarea  name="descripcion" cols="60" rows="5">${descripcion}</textarea>
+                    </div>
+                </div>
                 <div class="control-group">
                     <label class="control-label" for="imagen">Imagen: ${imagen}</label>
-                    
-                </div>
-                    <div class="control-group">
-                        <label class="control-label" for="usuarios">Usuario:</label>
-                        <div class="controls">
-                            <select name="usuarios">
-                                <c:set var="idUsuario" value="${idUsuario}"/>
-                                <c:forEach var="usuarios" items="${usuarios}">
 
-                                    <c:choose>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="usuarios">Usuario:</label>
+                    <div class="controls">
+                        <select name="usuarios">
+                            <c:set var="idUsuario" value="${idUsuario}"/>
+                            <c:forEach var="usuarios" items="${usuarios}">
+
+                                <c:choose>
                                     <c:when test="${usuarios[0] == idUsuario}"> 
                                         <option value="${usuarios[0]}" selected="selected">${usuarios[1]} ${usuarios[2]}</option>
                                     </c:when>
                                     <c:otherwise>
-                                            <option value="${usuarios[0]}" >${usuarios[1]} ${usuarios[2]}</option>
-                                            </c:otherwise>
-                                    </c:choose>
-                                </c:forEach>
-                            </select>
-                        </div>
+                                        <option value="${usuarios[0]}" >${usuarios[1]} ${usuarios[2]}</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </select>
                     </div>
-            <div class="controls">
+                </div>
+                <div class="controls">
                     <input type="hidden" value="${id}" name="id"/>
                     <input type="submit" value="Enviar" class="btn"/>            
-           
-            </div>
+
+                </div>
             </div>
         </form>
-            <div id="results"></div>
+        <div id="results"></div>
     </body>
 </html>

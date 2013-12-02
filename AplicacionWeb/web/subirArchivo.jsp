@@ -22,19 +22,19 @@
                 <c:when test="${tipoArchivo == opcion1}">
                     <input type="hidden" name="idTopico" value="${topico}"/>
                     <label>Imagen: <input type="file" name="archivo"/></label>
-                    
+
                 </c:when>
                 <c:when test="${tipoArchivo == opcion2}">
-                    
+
                     <input type="hidden" name="idEjecutable" value="${ejecutable}"/>
                     <c:forEach begin="1" end="${ejecutables}" varStatus="loop">
                         <label>Ejecutable: <input type="file" name="ejecutable${loop}"/></label>
-                      
+
                     </c:forEach>
-                    
+
                 </c:when>
                 <c:otherwise>
- 
+
                     <c:forEach var="escenario" items="${idEscenarios}">
                         <c:set var="ids" value="1"/>
                         <input type="hidden" name="idEscenarios${ids}" value="${escenario}"/>
@@ -43,11 +43,11 @@
                     <c:set var="cantidadEscenarios" value="1"/>
                     <c:forEach begin="1" end="${escenarios-1}" varStatus="loop">
                         <label>Escenario${cantidadEscenarios}: <input type="file" name="escenario${cantidadEscenarios}"/></label>
-                        <c:set var="cantidadEscenarios" value="${cantidadEscenarios + 1}" scope="page"/>
-                         
+                            <c:set var="cantidadEscenarios" value="${cantidadEscenarios + 1}" scope="page"/>
+
                     </c:forEach>
-                        
-                                      
+
+
                 </c:otherwise>
             </c:choose>
             <input type="submit" value="Enviar"/>

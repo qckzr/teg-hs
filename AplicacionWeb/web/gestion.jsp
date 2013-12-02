@@ -122,9 +122,9 @@
                     </div>
                     <div class="row-fluid">
                         <h4 class="lead span8 offset2 text-center">El módulo de gestión permite realizar operaciones de base de datos. Para empezar: Seleccionar una de las tablas que se encuentran en el menú y a continuación elegir la operación a realizar.</h4>
-                        <div id="operaciones" class="span12 " >
+                        <div id="operaciones" class="span10" >
 
-                            <div id="resultado">
+                            <div id="resultado" class="span10">
                             </div>
                         </div>
 

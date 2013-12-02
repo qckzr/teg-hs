@@ -14,22 +14,22 @@
     </head>
     <body>
         <form class="form-horizontal">
-        <h1 class="page-header text-center pull-left">Consultar Evento</h1>
-        <div class="row-fluid pull-left">
-            <div class="control-group">
-                 <div class="span12">
-             <dl class="dl-horizontal"> 
-                 <dt>Nombre:</dt> <dd><p class="text-justify">${nombre}</p></dd>
-                 <dt>Path:</dt> <dd><p class="text-justify">${path}</p></dd>
-                 
-            </dl>
-             </div>
-             </div>
-            <div class="controls">
-            <input type="button" id="regresar" class="btn" value="Regresar"/>
+            <h1 class="page-header text-center pull-left">Consultar Evento</h1>
+            <div class="row-fluid pull-left">
+                <div class="control-group">
+                    <div class="span12">
+                        <dl class="dl-horizontal"> 
+                            <dt>Nombre:</dt> <dd><p class="text-justify">${nombre}</p></dd>
+                            <dt>Path:</dt> <dd><p class="text-justify">${path}</p></dd>
+
+                        </dl>
+                    </div>
+                </div>
+                <div class="controls">
+                    <input type="button" id="regresar" class="btn" value="Regresar"/>
+                </div>
             </div>
-        </div>
         </form>
-            
+
     </body>
 </html>

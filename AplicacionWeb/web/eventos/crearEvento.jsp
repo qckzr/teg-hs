@@ -16,28 +16,28 @@
     </head>
     <body>
         <form  class="formularios form-horizontal"  action="${pageContext.request.contextPath}/CrearEventoServlet" method="POST">
-           
+
             <h1 class="text-center pull-left page-header">Crear Evento</h1>
-             <div class="row-fluid pull-left">
-            <div class="control-group">
-                <label class="control-label" for="nombre">Nombre:</label>
-                <div class="controls">
-                    <input name="nombre" id="nombre" type="text" placeholder="Nombre"/>
+            <div class="row-fluid pull-left">
+                <div class="control-group">
+                    <label class="control-label" for="nombre">Nombre:</label>
+                    <div class="controls">
+                        <input name="nombre" id="nombre" type="text" placeholder="Nombre"/>
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="path">Path Script:</label>
-                <div class="controls">
-                    <input name="path" id="path" type="text" placeholder="Script"/>
+                <div class="control-group">
+                    <label class="control-label" for="path">Path Script:</label>
+                    <div class="controls">
+                        <input name="path" id="path" type="text" placeholder="Script"/>
+                    </div>
                 </div>
-            </div>
-            
-         <div class="controls"> 
-       <input type="submit" value="Enviar" class="btn"/>
-  </div>
+
+                <div class="controls"> 
+                    <input type="submit" value="Enviar" class="btn"/>
+                </div>
             </div>
         </form>
-            <div id="results"></div>
-                 
+        <div id="results"></div>
+
     </body>
 </html>

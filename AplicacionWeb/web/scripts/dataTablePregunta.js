@@ -1,7 +1,7 @@
-$(document).ready(function(){
+$(document).ready(function() {
     $("#enviar").hide();
-    $('.idPregunta').click( function() {
-        
+    $('.idPregunta').click(function() {
+
         $("#preguntas").val(this.id);
         $("#enviar").click();
     });

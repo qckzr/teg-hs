@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
- <%@include file="../conexionBD.jsp" %>
+<%@include file="../conexionBD.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,37 +22,37 @@
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     </head>
     <body>
-       
+
         <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/EliminarUsuarioServlet1">
             <h1 class="page-header text-center pull-left">Eliminar Usuario</h1>
-             <div class="row-fluid pull-left">
-              <sql:query dataSource="${localSource}" 
-	           sql="SELECT id,nombre,apellido FROM usuarios" 
-	           var="result" />
-            <table id="tabla" class="display">
-                <thead>
-                    <tr>
-                        <th>Id </th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                    </tr>
-                </thead>
-                <tbody>
-        <c:forEach var="row" items="${result.rows}">
-            <tr>
-                <td><a href="#" class="idUsuario" id="${row.id}">${row.id}</a></td>
-                <td>${row.nombre}</td>
-                <td>${row.apellido}</td>
-            </tr>
+            <div class="row-fluid pull-left">
+                <sql:query dataSource="${localSource}" 
+                           sql="SELECT id,nombre,apellido FROM usuarios" 
+                           var="result" />
+                <table id="tabla" class="display">
+                    <thead>
+                        <tr>
+                            <th>Id </th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="row" items="${result.rows}">
+                            <tr>
+                                <td><a href="#" class="idUsuario" id="${row.id}">${row.id}</a></td>
+                                <td>${row.nombre}</td>
+                                <td>${row.apellido}</td>
+                            </tr>
 
-	</c:forEach>
-                </tbody>
+                        </c:forEach>
+                    </tbody>
                 </table>
-        <div class="controls">
-            <input type="submit"  value="Enviar" class="btn" id="enviar"/> 
-            <input type="hidden" value="0" id="usuarios" name="usuarios"/>
-        </div>
-             </div>
+                <div class="controls">
+                    <input type="submit"  value="Enviar" class="btn" id="enviar"/> 
+                    <input type="hidden" value="0" id="usuarios" name="usuarios"/>
+                </div>
+            </div>
         </form>
         <div id="results">
         </div>

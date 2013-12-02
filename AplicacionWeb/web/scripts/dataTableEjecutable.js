@@ -1,7 +1,7 @@
-$(document).ready(function(){
+$(document).ready(function() {
     $("#enviar").hide();
-    $('.idEjecutable').click( function() {
-        
+    $('.idEjecutable').click(function() {
+
         $("#ejecutables").val(this.id);
         $("#enviar").click();
     });

@@ -16,21 +16,21 @@
     <body>
         <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/EliminarNodoServlet2">
             <h1 class="text-center pull-left page-header">Eliminar Nodo</h1>
-             <div class="row-fluid pull-left">
-            <div class="control-group">
-                <div class="span4">
-             <dl class="dl-horizontal"> 
-                 <dt>IP:</dt> <dd><p class="text-justify">${ip}</p></dd>
-                 <dt>Nombre Usuario:</dt> <dd><p class="text-justify">${nombre}</p></dd>
-                 <dt>Contrasena:</dt> <dd><p class="text-justify">${contrasena}</p></dd>
-            </dl>
-             </div>
-             </div>
-            <div class="controls">
-             <input type="hidden" name="id" value="${id}"/>
-             <input type="submit" value="Enviar" class="btn"/>
-            </div>
+            <div class="row-fluid pull-left">
+                <div class="control-group">
+                    <div class="span4">
+                        <dl class="dl-horizontal"> 
+                            <dt>IP:</dt> <dd><p class="text-justify">${ip}</p></dd>
+                            <dt>Nombre Usuario:</dt> <dd><p class="text-justify">${nombre}</p></dd>
+                            <dt>Contrasena:</dt> <dd><p class="text-justify">${contrasena}</p></dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="controls">
+                    <input type="hidden" name="id" value="${id}"/>
+                    <input type="submit" value="Enviar" class="btn"/>
+                </div>
         </form>
-             <div id="results"></div>
+        <div id="results"></div>
     </body>
 </html>

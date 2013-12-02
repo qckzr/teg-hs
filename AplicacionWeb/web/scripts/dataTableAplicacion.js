@@ -1,7 +1,7 @@
-$(document).ready(function(){
+$(document).ready(function() {
     $("#enviar").hide();
-    $('.idAplicacion').click( function() {
-        
+    $('.idAplicacion').click(function() {
+
         $("#aplicaciones").val(this.id);
         $("#enviar").click();
     });

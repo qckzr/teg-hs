@@ -14,23 +14,23 @@
     </head>
     <body>
         <form class="form-horizontal">
-        <h1 class="page-header text-center pull-left">Consultar Usuario</h1>
-        <div class="row-fluid pull-left">
-            <div class="control-group">
-                 <div class="span12">
-             <dl class="dl-horizontal"> 
-                 <dt>Nombre:</dt> <dd><p class="text-justify">${nombre}</p></dd>
-                 <dt>Apellido:</dt> <dd><p class="text-justify">${apellido}</p></dd>
-                 <dt>Correo:</dt> <dd><p class="text-justify">${correo}</p></dd>
-                 <dt>Contrasena:</dt> <dd><p class="text-justify">${contrasena}</p></dd>
-            </dl>
-             </div>
-             </div>
-            <div class="controls">
-            <input type="button" id="regresar" class="btn" value="Regresar"/>
+            <h1 class="page-header text-center pull-left">Consultar Usuario</h1>
+            <div class="row-fluid pull-left">
+                <div class="control-group">
+                    <div class="span12">
+                        <dl class="dl-horizontal"> 
+                            <dt>Nombre:</dt> <dd><p class="text-justify">${nombre}</p></dd>
+                            <dt>Apellido:</dt> <dd><p class="text-justify">${apellido}</p></dd>
+                            <dt>Correo:</dt> <dd><p class="text-justify">${correo}</p></dd>
+                            <dt>Contrasena:</dt> <dd><p class="text-justify">${contrasena}</p></dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="controls">
+                    <input type="button" id="regresar" class="btn" value="Regresar"/>
+                </div>
             </div>
-        </div>
         </form>
-            
+
     </body>
 </html>

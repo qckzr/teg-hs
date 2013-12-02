@@ -1,6 +1,6 @@
- $(document).ready(function() {
-        $('#regresar').click(function() {
+$(document).ready(function() {
+    $('#regresar').click(function() {
         $("#resultado").empty();
-    
-});
+
     });
+});

@@ -16,25 +16,25 @@
     </head>
     <body>
         <form class="formularios form-horizontal" action="${pageContext.request.contextPath}/EliminarEventoServlet2" method="POST">
-             <h1 class="page-header text-center pull-left">Eliminar Evento</h1>
-              <div class="row-fluid pull-left">
-             <div class="control-group">
-                 <div class="span4">
-             <dl class="dl-horizontal"> 
-                 <dt>Nombre:</dt> <dd><p class="text-justify">${nombre}</p></dd>
-                 <dt>Path:</dt> <dd><p class="text-justify">${path}</p></dd>
-                 
-            </dl>
-             </div>
-             </div>
-            <div class="controls">
-            <input type="hidden" value="${id}" name="id"/>
-            <input type="submit" value="Enviar" class="btn"/>
-            </div>
+            <h1 class="page-header text-center pull-left">Eliminar Evento</h1>
+            <div class="row-fluid pull-left">
+                <div class="control-group">
+                    <div class="span4">
+                        <dl class="dl-horizontal"> 
+                            <dt>Nombre:</dt> <dd><p class="text-justify">${nombre}</p></dd>
+                            <dt>Path:</dt> <dd><p class="text-justify">${path}</p></dd>
+
+                        </dl>
+                    </div>
+                </div>
+                <div class="controls">
+                    <input type="hidden" value="${id}" name="id"/>
+                    <input type="submit" value="Enviar" class="btn"/>
+                </div>
             </div>
         </form>
-            <div id="results">
-            </div>
-                 
+        <div id="results">
+        </div>
+
     </body>
 </html>

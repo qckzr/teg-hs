@@ -16,22 +16,22 @@
     </head>
     <body>
         <form class="form-horizontal">
-             <h1 class="text-center pull-left page-header">Consultar Nodo</h1>
-             <div class="row-fluid pull-left">
-            <div class="control-group">
-                <div class="span4">
-             <dl class="dl-horizontal"> 
-                 <dt>IP:</dt> <dd><p class="text-justify">${ip}</p></dd>
-                 <dt>Nombre Usuario:</dt> <dd><p class="text-justify">${nombre}</p></dd>
-                 <dt>Contrasena:</dt> <dd><p class="text-justify">${contrasena}</p></dd>
-            </dl>
-             </div>
-             </div>
-            <div class="controls">
-                  <input type="button" id="regresar" class="btn" value="Regresar"/>
+            <h1 class="text-center pull-left page-header">Consultar Nodo</h1>
+            <div class="row-fluid pull-left">
+                <div class="control-group">
+                    <div class="span4">
+                        <dl class="dl-horizontal"> 
+                            <dt>IP:</dt> <dd><p class="text-justify">${ip}</p></dd>
+                            <dt>Nombre Usuario:</dt> <dd><p class="text-justify">${nombre}</p></dd>
+                            <dt>Contrasena:</dt> <dd><p class="text-justify">${contrasena}</p></dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="controls">
+                    <input type="button" id="regresar" class="btn" value="Regresar"/>
+                </div>
             </div>
-             </div>
-            
+
         </form>
     </body>
 </html>

@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
- <%@include file="../conexionBD.jsp" %>
+<%@include file="../conexionBD.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,41 +22,41 @@
     <body>
         <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ConsultarEjecutableServlet1">
             <h1 class="text-center pull-left page-header">Consultar Ejecutable</h1>
-             <div class="row-fluid pull-left">
-            <table id="tabla" class="display">
-                <thead>
-                    <tr>
-                        <th>Nombre ejecutable</th>
-                        
-                        <th>Tipo</th>
-                        <th> Nombre Aplicacion</th>
-                    </tr>
-                </thead>
-                <tbody>
-        
-            
-            <sql:query dataSource="${localSource}" 
-	           sql="SELECT e.id, e.nombre,e.tipo, concat(a.nombre,'') as nombreAplicacion 
-                   FROM ejecutables e, aplicaciones a where e.id_aplicacion = a.id" 
-	           var="result" />
-        
-        <c:forEach var="row" items="${result.rows}">
-           
-            <tr>
-                <td><a href="#" id="${row.id}" class="idEjecutable">${row.nombre}</a></td>
-                <td>${row.tipo}</td>
-                <td>${row.nombreAplicacion}</td>
-            </tr>
-	</c:forEach>
-                </tbody>
-            </table>
-        <div class="controls">
-            <input type="submit" value="Enviar" class="btn" id="enviar"/>
-            <input type="hidden" name="ejecutables" id="ejecutables" value="0"/>
-        </div>
-             </div>
-         </form>
+            <div class="row-fluid pull-left">
+                <table id="tabla" class="display">
+                    <thead>
+                        <tr>
+                            <th>Nombre ejecutable</th>
+
+                            <th>Tipo</th>
+                            <th> Nombre Aplicacion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        <sql:query dataSource="${localSource}" 
+                                   sql="SELECT e.id, e.nombre,e.tipo, concat(a.nombre,'') as nombreAplicacion 
+                                   FROM ejecutables e, aplicaciones a where e.id_aplicacion = a.id" 
+                                   var="result" />
+
+                        <c:forEach var="row" items="${result.rows}">
+
+                            <tr>
+                                <td><a href="#" id="${row.id}" class="idEjecutable">${row.nombre}</a></td>
+                                <td>${row.tipo}</td>
+                                <td>${row.nombreAplicacion}</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+                <div class="controls">
+                    <input type="submit" value="Enviar" class="btn" id="enviar"/>
+                    <input type="hidden" name="ejecutables" id="ejecutables" value="0"/>
+                </div>
+            </div>
+        </form>
         <div id="results"></div>
-        
+
     </body>
 </html>

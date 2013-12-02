@@ -15,10 +15,6 @@
         <title>Tópicos Sistemas Distribuidos</title>
         <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
         <script  type="text/javascript" src="scripts/jquery-ui-1.10.3.custom.js"></script>
-        <!--<link rel="stylesheet" type="text/css" href="styles/general.css">
-        <link rel="stylesheet" type="text/css" href="styles/estilos-extras.css">
-        
-        <link rel="stylesheet" type="text/css" href="css/teg-theme/jquery-ui-1.10.3.custom.css"> -->
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/footer.css">
         <script>
@@ -42,7 +38,7 @@
                 <div id="main" class="row-fluid">
                     <div id="headers" class="page-header">
                         <img src="images/banner_final.jpg"/>  
-                        
+
                         <h2 class="text-center"> Tópicos Disponibles</h2>
                     </div>
                     <div class="row-fluid">
@@ -54,7 +50,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="row-fluid span12 pull-left" >
+                        <div class="row-fluid span12 pull-left" style="height: 350px;" >
 
 
                             <div class="tabbable tabs-left" style="height: 300px;">
@@ -146,16 +142,15 @@
 
                         </div>
 
-
+                        <div id="opciones" class="span2 pull-left">
+                            <ul class="pager">
+                                <li class="previous">
+                                    <a href="index.jsp" class="volver">&larr; Regresar</a>
+                                </li>
+                            </ul>
+                        </div> 
                     </div>
-                                        <div id="opciones" class="span2">
-                        <ul class="pager">
-                            <li class="previous">
-                                <a href="index.jsp" class="volver">&larr; Regresar</a>
-                            </li>
-                        </ul>
 
-                    </div> 
                 </div>
 
 

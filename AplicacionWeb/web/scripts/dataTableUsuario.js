@@ -1,7 +1,7 @@
-$(document).ready(function(){
+$(document).ready(function() {
     $("#enviar").hide();
-    $('.idUsuario').click( function() {
-        
+    $('.idUsuario').click(function() {
+
         $("#usuarios").val(this.id);
         $("#enviar").click();
     });

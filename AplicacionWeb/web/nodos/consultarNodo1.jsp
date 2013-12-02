@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
- <%@include file="../conexionBD.jsp" %>
+<%@include file="../conexionBD.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,36 +21,36 @@
     </head>
     <body>
         <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ConsultarNodoServlet">
-         <h1 class="text-center pull-left page-header">Consultar Nodo</h1>
-             <div class="row-fluid pull-left">
-                    
+            <h1 class="text-center pull-left page-header">Consultar Nodo</h1>
+            <div class="row-fluid pull-left">
+
                 <table id="tabla" class="display">
-                        <thead>
-                    <tr>
-                        <th>Ip nodo</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-            
-            <sql:query dataSource="${localSource}" 
-	           sql="SELECT id, ip FROM nodos" 
-	           var="result" />
-        
-        <c:forEach var="row" items="${result.rows}">
-            <tr>
-                <td><a href="#" id="${row.id}" class="idNodo" >${row.ip}</a></td>
-            </tr>
-            
-	</c:forEach>
-                    
-                </tbody>
-            </table>
-        <div class="controls">
-            <input type="submit" value="Enviar" class="btn" id="enviar"/>
-            <input type="hidden" name="nodos" id="nodos" value="0"/>
-        </div>
-             </div>
+                    <thead>
+                        <tr>
+                            <th>Ip nodo</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <sql:query dataSource="${localSource}" 
+                                   sql="SELECT id, ip FROM nodos" 
+                                   var="result" />
+
+                        <c:forEach var="row" items="${result.rows}">
+                            <tr>
+                                <td><a href="#" id="${row.id}" class="idNodo" >${row.ip}</a></td>
+                            </tr>
+
+                        </c:forEach>
+
+                    </tbody>
+                </table>
+                <div class="controls">
+                    <input type="submit" value="Enviar" class="btn" id="enviar"/>
+                    <input type="hidden" name="nodos" id="nodos" value="0"/>
+                </div>
+            </div>
         </form>
         <div id="results"></div>
     </body>

@@ -16,41 +16,41 @@
     </head>
     <body>
         <form  class="formularios form-horizontal"  action="${pageContext.request.contextPath}/CrearUsuarioServlet" method="POST">
-           
+
             <h1 class="text-center pull-left page-header">Crear Usuario</h1>
-             <div class="row-fluid pull-left">
-            <div class="control-group">
-                <label class="control-label" for="nombre">Nombre:</label>
-                <div class="controls">
-                    <input name="nombre" id="nombre" type="text" placeholder="Nombre"/>
+            <div class="row-fluid pull-left">
+                <div class="control-group">
+                    <label class="control-label" for="nombre">Nombre:</label>
+                    <div class="controls">
+                        <input name="nombre" id="nombre" type="text" placeholder="Nombre"/>
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="apellido">Apellido:</label>
-                <div class="controls">
-                    <input name="apellido" id="apellido" type="text" placeholder="Apellido"/>
+                <div class="control-group">
+                    <label class="control-label" for="apellido">Apellido:</label>
+                    <div class="controls">
+                        <input name="apellido" id="apellido" type="text" placeholder="Apellido"/>
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="correo" >Correo:</label>
-                <div class="controls">
-                    <input name="correo" id="correo" type="text" placeholder="Correo"/>
+                <div class="control-group">
+                    <label class="control-label" for="correo" >Correo:</label>
+                    <div class="controls">
+                        <input name="correo" id="correo" type="text" placeholder="Correo"/>
+                    </div>
                 </div>
-            </div>
-            <div class="control-group" for="contrasena">
-                <label class="control-label" for="contrasena">Contrasena</label>
-                <div class="controls">
-                    <input name="contrasena" id="contrasena" type="text" placeholder="Contrasena"/><br/>
-                   
+                <div class="control-group" for="contrasena">
+                    <label class="control-label" for="contrasena">Contrasena</label>
+                    <div class="controls">
+                        <input name="contrasena" id="contrasena" type="text" placeholder="Contrasena"/><br/>
+
+                    </div>
+
                 </div>
-                
-            </div>
-         <div class="controls"> 
-       <input type="submit" value="Enviar" class="btn"/>
-  </div>
+                <div class="controls"> 
+                    <input type="submit" value="Enviar" class="btn"/>
+                </div>
             </div>
         </form>
-            <div id="results"></div>
-                 
+        <div id="results"></div>
+
     </body>
 </html>

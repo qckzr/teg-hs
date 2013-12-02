@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
- <%@include file="../conexionBD.jsp" %>
+<%@include file="../conexionBD.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,14 +18,14 @@
     </head>
     <body>
         <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarUsuarioServlet2">
-             <h1 class="text-center pull-left page-header">Modificar Usuario</h1>
+            <h1 class="text-center pull-left page-header">Modificar Usuario</h1>
             <div class="row-fluid pull-left">
-            <div class="control-group">
-                <label class="control-label" for="nombre">Nombre:</label>
-                <div class="controls">
-                    <input type="text" value="${nombre}" name="nombre" id="nombre"/>
+                <div class="control-group">
+                    <label class="control-label" for="nombre">Nombre:</label>
+                    <div class="controls">
+                        <input type="text" value="${nombre}" name="nombre" id="nombre"/>
+                    </div>
                 </div>
-            </div>
                 <div class="control-group">
                     <label class="control-label" for="apellido">Apellido: </label> 
                     <div class="controls">
@@ -38,18 +38,18 @@
                         <input type="text" value="${correo}" name="correo" id="correo"/>
                     </div>
                 </div>
-            <div class="control-group">
+                <div class="control-group">
                     <label class="control-label" for="contrasena">Contrasena:</label>
                     <div class="controls">
                         <input type="text" value="${contrasena}" name="contrasena" id="contrasena"/>
                     </div>
-            </div>
-            <div class="controls">        
-            <input type="hidden" value="${id}" name="id"/>
-            <input type="submit" value="Enviar" class="btn"/> 
-            </div>    
+                </div>
+                <div class="controls">        
+                    <input type="hidden" value="${id}" name="id"/>
+                    <input type="submit" value="Enviar" class="btn"/> 
+                </div>    
             </div>
         </form>
-            <div id="results"></div>
+        <div id="results"></div>
     </body>
 </html>

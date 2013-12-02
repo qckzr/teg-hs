@@ -16,33 +16,33 @@
     </head>
     <body>
         <form class="form-horizontal">
-           <h1 class="text-center pull-left page-header">Consultar Ejecutable</h1>
-             <div class="row-fluid pull-left">
-            <div class="control-group">
-                 <div class="span4">
-             <dl class="dl-horizontal"> 
-                 <dt>Nombre:</dt> <dd><p class="text-justify">${nombre}</p></dd>
-                 <dt>Tipo:</dt> <dd><p class="text-justify">${tipo}</p></dd>
-                 <dt>Ruta Ejecutable:</dt> <dd><p class="text-justify">${ruta_ejecutable}</p></dd>
-                 <dt>Aplicacion:</dt> <dd><p class="text-justify">${aplicacion}</p></dd>
-            </dl>
-            
-            <dl class="dl-horizontal">
-                <c:forEach var="row" items="${parametros}">
-                    <dt>Nombre:</dt><dd><p class="text-justify"> ${row[0]}</p></dd>
-                    <dt>Valor:</dt><dd><p class="text-justify">${row[1]}</p> </dd>
-                </c:forEach>
-            </dl>
-             </div>
-             </div>
-        
-             
-           
-                 
+            <h1 class="text-center pull-left page-header">Consultar Ejecutable</h1>
+            <div class="row-fluid pull-left">
+                <div class="control-group">
+                    <div class="span4">
+                        <dl class="dl-horizontal"> 
+                            <dt>Nombre:</dt> <dd><p class="text-justify">${nombre}</p></dd>
+                            <dt>Tipo:</dt> <dd><p class="text-justify">${tipo}</p></dd>
+                            <dt>Ruta Ejecutable:</dt> <dd><p class="text-justify">${ruta_ejecutable}</p></dd>
+                            <dt>Aplicacion:</dt> <dd><p class="text-justify">${aplicacion}</p></dd>
+                        </dl>
+
+                        <dl class="dl-horizontal">
+                            <c:forEach var="row" items="${parametros}">
+                                <dt>Nombre:</dt><dd><p class="text-justify"> ${row[0]}</p></dd>
+                                <dt>Valor:</dt><dd><p class="text-justify">${row[1]}</p> </dd>
+                            </c:forEach>
+                        </dl>
+                    </div>
+                </div>
+
+
+
+
                 <div class="controls">
                     <input type="button" id="regresar" value="Regresar" class="btn"/>
                 </div>
-             </div>
+            </div>
         </form>
 
     </body>

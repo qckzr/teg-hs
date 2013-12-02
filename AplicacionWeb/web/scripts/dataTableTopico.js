@@ -1,7 +1,7 @@
-$(document).ready(function(){
+$(document).ready(function() {
     $("#enviar").hide();
-    $('.idTopico').click( function() {
-        
+    $('.idTopico').click(function() {
+
         $("#topicos").val(this.id);
         $("#enviar").click();
     });
