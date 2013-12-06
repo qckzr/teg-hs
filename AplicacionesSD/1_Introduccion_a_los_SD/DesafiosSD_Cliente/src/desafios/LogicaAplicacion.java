@@ -85,6 +85,7 @@ public class LogicaAplicacion {
         this.datosAplicacion = datosAplicacion;
         this.puertoAgente = puertoAgente;
         this.ipServidor = ipServidor;
+        eliminarArchivos();
         
     }
     

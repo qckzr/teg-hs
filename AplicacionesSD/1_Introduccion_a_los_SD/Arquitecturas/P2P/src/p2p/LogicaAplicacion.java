@@ -169,7 +169,9 @@ public class LogicaAplicacion {
          
         if (mensaje.getIpOrigen().contentEquals(libreriaMensajes.
                 getIpDestino().get(0))){
-            libreriaMensajes.enviarMensaje("Enviando mensaje al nodo destino...");
+            libreriaMensajes.enviarMensaje("Enviando '"+mensaje.getMensaje().
+                    substring(mensaje.getMensaje().indexOf(":")+1)+"' al nodo "
+                    +mensaje.getMensaje().substring(0,mensaje.getMensaje().indexOf(":")));
             String texto = mensaje.getMensaje()+"~"+datosAplicacion.
                     getNumeroNodoAplicacion();
             enviarMensaje(texto,libreriaMensajes.getIpOrigen());
@@ -182,10 +184,10 @@ public class LogicaAplicacion {
                 return true;
             } else {
                     if (mensaje.getMensaje().contains("Respuesta_")){
-                        System.out.println("Se recibió una RESPUESTA del host: "
+                        System.out.println("Se recibió un mensaje de RESPUESTA del host: "
                                 +mensaje.getIpOrigen());
                         libreriaMensajes.enviarMensaje(
-                                "Se recibió una RESPUESTA del host: "+
+                                "Se recibió un mensaje de RESPUESTA del host: "+
                                 mensaje.getIpOrigen());
                         String texto = mensaje.getMensaje();
                         System.out.println(texto.substring(texto.indexOf("_")+1));
@@ -201,7 +203,8 @@ public class LogicaAplicacion {
                                 substring(mensaje.getMensaje().indexOf(":")+1,
                                 mensaje.getMensaje().indexOf("~"));
                          libreriaMensajes.enviarMensaje(
-                                 "Respondiendo al nodo que envio el mensaje: "+m);
+                                 "Respondiendo al nodo que envio el mensaje: "
+                                         + "'"+m+"'");
                         String mensajeRespuesta = nodoOrigen+
                                 ":Respuesta_Mensaje de respuesta al"
                                 + " mensaje recibido: \""+m+"\"";

@@ -172,7 +172,7 @@ public class Monitoreo extends Thread{
                                         (p.getInputStream()));
             int i=0;
             while ((line = input.readLine()) != null) {
-                if (i==2){
+                if (i==1){
                     memoria = line.substring(37,40);
                 }
                 i++;

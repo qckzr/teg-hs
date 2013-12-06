@@ -59,7 +59,9 @@ empleo de tecnicas conocidas como los semaforos, que se usan en la mayoria de lo
 5. Transparencia: De acceso, de ubicacion, de concurrencia, replicacion, frente a fallos, movilidad.<br/>
 ',1,NULL); /* 3 */
 INSERT INTO TOPICOS (ID,NOMBRE,CATEGORIA,DESCRIPCION,ID_USUARIO,RUTA_IMAGEN)
-VALUES (S_TOPICOS.NEXTVAL,'Arquitecturas: Cliente / Servidor','INTRODUCCION A LOS SISTEMAS DISTRIBUIDOS','Cliente: Proceso que solicita un servicio. <br/>
+VALUES (S_TOPICOS.NEXTVAL,'Arquitecturas: Cliente / Servidor','INTRODUCCION A LOS SISTEMAS DISTRIBUIDOS','
+Esta arquitectura consiste basicamente en un cliente que realiza peticiones a otro programa (el servidor) que le da respuesta. <br/>
+Cliente: Proceso que solicita un servicio. <br/>
 Servidor: Proceso que implementa un servicio <br/>',1,'images/topicos/arquitectura_cliente_servidor.png'); /* 4 */
 INSERT INTO TOPICOS (ID,NOMBRE,CATEGORIA,DESCRIPCION,ID_USUARIO,RUTA_IMAGEN)
 VALUES (S_TOPICOS.NEXTVAL,'Arquitecturas: Punto a Punto (P2P)','INTRODUCCION A LOS SISTEMAS DISTRIBUIDOS','<ul><li>Se caracteriza por una distribucion horizontal de los nodos.</li>
@@ -69,8 +71,7 @@ INSERT INTO TOPICOS (ID,NOMBRE,CATEGORIA,DESCRIPCION,ID_USUARIO,RUTA_IMAGEN)
 VALUES (S_TOPICOS.NEXTVAL,'RMI','COMUNICACION EN SISTEMAS DISTRIBUIDOS','Un objeto en un proceso puede invocar un objeto en otro
 proceso que puede estar ubicado en otra maquina. <br/>
 Los objetos que brindan sus metodos a otros objetos de otros procesos, reciben el nombre de Objetos Remotos. <br/>
-Los procesos que alojan objetos remotos pueden ser referidos como servidores y los procesos que alojan objetos que invocan metodos de objetos remotos
-pueden llamarse clientes. <br/>
+Los procesos que alojan objetos remotos pueden ser referidos como servidores y los procesos que alojan objetos que invocan metodos de objetos remotos pueden llamarse clientes. <br/>
 Requisitos basicos: <br/> <br/>
 1. Un objeto remoto debe ser primero instanciado. <br/>
 2. Un objeto remoto debe tener un identificador unico asociado. <br/>
@@ -296,34 +297,37 @@ REST afirma que la web ha disfrutado de escalabilidad como resultado de una seri
 VALUES (S_APLICACIONES.NEXTVAL,'Aplicacion1',TO_DATE('23/07/2013','DD/MM/YYYY'),'Instrucciones para la aplicacion1',1); */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Caracteristicas SD',TO_DATE('22/09/2013','DD/MM/YYYY'),' 
-Se obtienen dos aplicaciones servidor que poseen un archivo txt y un servidor web con una pagina de prueba. <br/>
+Se tienen dos aplicaciones servidor que poseen un archivo txt y un servidor web con una pagina de prueba. <br/>
+Una aplicacion cliente que puede consultar el archivo de lectura del servidor, iniciar o detener el servidor web de los servidores y consultar la pagina de prueba. <br/><br/>
 1. La aplicacion cliente accede al archivo de los servidores enviando el mensaje "leer:". <br/> 
-2  Para iniciar el servidor web se envia el mensaje: "iniciar_servidor:". <br/>
+2. Para iniciar el servidor web se envia el mensaje: "iniciar_servidor:". <br/>
 3. Para detener el servidor web se envia el mensaje: "detener_servidor:" <br/>
 4. Para consultar la pagina web de prueba enviar el mensaje: "pagina:".<br/>
 5. Si se cae uno de los servidores, se puede seguir enviando informacion al servidor restante. <br/>',2); /* 1 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Desafios_SD',TO_DATE('22/09/2013','DD/MM/YYYY'),'1.
 Se tiene una aplicacion servidor que contiene  tres (3) archivos txt que pueden ser descargado por el usuario.<br/>
+Se tiene una aplicacion cliente que se conecta al servidor mediante SSL para acceder a los archivos y comprar su hash <br/><br/>
 2. Para acceder a un archivo se envia el mensaje: "archivo:numero_de_archivo" siendo las opciones 1,2 o 3 para el archivo especifico. <br/> 
  ',3); /* 2 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Arquitectura_Cliente_Servidor',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-- Se tiene una aplicacion servidor que espera mensajes de la aplicacion cliente. <br/>
-- Para enviar mensajes al servidor se escribe cualquier mensaje en el campo enviar. <br/> ',4); /* 3 */
+Se tiene una aplicacion servidor que espera mensajes de la aplicacion cliente. <br/>
+Una aplicacion cliente puede enviar mensaje al servidor para comprobar su comunicacion.<br/><br/>
+1. Para comunicarse con el servidor se escribe cualquier mensaje desde los clientes. <br/> ',4); /* 3 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'P2P',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tienen cuatro (4) aplicaciones clientes que pueden enviar y recibir mensajes. <br/>
-1. Para enviarle un mensaje a un nodo desde otro escribir: "numeroNodo:mensaje". <br/>',5); /* 4 */
+Se tienen cuatro (4) aplicaciones clientes en una topologia de ANILLO que pueden enviar y recibir mensajes. <br/><br/>
+1. Para enviarle un mensaje a un nodo se debe escribir el numero del nodo y el mensaje de la siguiente forma: "numeroNodo:mensajeAenviar". <br/>',5); /* 4 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Sockets',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tienen cuatro (4) aplicaciones clientes que pueden enviar y recibir mensajes. <br/>
-1. Para enviarle un mensaje a un nodo desde otro escribir: "numeroNodo:mensaje" <br/> ',1); /* 5 */
+Se tienen cuatro (4) aplicaciones clientes que pueden enviar y recibir mensajes. <br/><br/>
+1. Para enviarle un mensaje a un nodo se debe escribir el numero del nodo y el mensaje de la siguiente forma: "numeroNodo:mensajeAenviar" <br/> ',1); /* 5 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'RMI',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tiene dos (2) aplicaciones cliente y servidor. <br/>
+Se tiene una aplicacion cliente y una servidor. <br/><br/>
 1. El servidor posee los metodos de hora,fecha y saludo <br/>
-2. Para enviar mensajes al servidor se escribe uno de los siguientes mensajes desde el cliente: hora, fecha o saludo. <br/> ',6); /* 6 */
+2. Para invocar los metodos remotamente se escribe uno de los siguientes mensajes desde el cliente: hora, fecha o saludo. <br/> ',6); /* 6 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Comunicacion en Grupo',TO_DATE('22/09/2013','DD/MM/YYYY'),'
 Se tiene una aplicacion cliente que se encarga de ser el grupo emisor y tres (3) aplicaciones servidor que pertenecen al mismo grupo (receptor). <br/>
@@ -1534,17 +1538,17 @@ VALUES (S_PARAMETROS.NEXTVAL,'','',);
 
 /* ESCENARIOS */
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Leer Archivo','Cuando se envie el mensaje <leer:> el servidor mostrara el contenido del archivo. Logrando comprobar la comparticion de recursos',1,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Leer Archivo','Cuando se envie el mensaje (leer:) el servidor mostrara el contenido del archivo. Logrando comprobar la comparticion de recursos',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Iniciar Servidor Web','Cuando se envie el mensaje <iniciar_servidor:> la aplicacion servidor iniciara el servidor web. Logrando comprobar la apertura (openness).',1,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Iniciar Servidor Web','Cuando se envie el mensaje (iniciar_servidor:) la aplicacion servidor iniciara el servidor web. Logrando comprobar la apertura (openness).',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Pagina de Prueba','Cuando se envie el mensaje <pagina:> el servidor mostrara la pagina de prueba. ',1,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Pagina de Prueba','Cuando se envie el mensaje (pagina:) el servidor mostrara la pagina de prueba. ',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Detener Servidor Web','Cuando se envie el mensaje <detener_servidor:> el servidor dentendra el servidor web del sistema.',1,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Detener Servidor Web','Cuando se envie el mensaje (detener_servidor:) el servidor dentendra el servidor web del sistema.',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
 VALUES (S_ESCENARIOS.NEXTVAL,'Escalabilidad','Al tener dos servidores corriendo, se comprueba la escalabilidad de los sistemas distribuidos',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Tolerancia a Fallos','Al detenerse una aplicacion servidor el sistema puede seguir funcionando con el servidor activo.',1,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Tolerancia a Fallos','Al detenerse una aplicacion servidor el sistema puede seguir funcionando con el servidor restante.',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
 VALUES (S_ESCENARIOS.NEXTVAL,'Transparencia','La aplicacion cliente no percibe cuantas aplicaciones servidores existen, solo envia el mensaje del usuario.',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)

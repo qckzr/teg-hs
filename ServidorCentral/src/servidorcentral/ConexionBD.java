@@ -176,6 +176,10 @@ public class ConexionBD {
         return null;
     }
     
+    public void iniciar(){
+        conexion = conectar();
+    }
+    
     
     
     

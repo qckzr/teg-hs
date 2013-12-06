@@ -406,6 +406,8 @@ public class GestionarInfraestructura extends Thread{
             
             if (evento.contentEquals("eliminarTodos")){
                 eliminarTodasAplicaciones();
+                bd.desconectar();
+                bd.iniciar();
             }
             
             else{

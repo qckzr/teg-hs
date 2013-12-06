@@ -282,27 +282,33 @@ public class LogicaAplicacion {
      * @return True si se logró imprimir. False en caso contrario.
      */
     public boolean imprimirPagina(){
-        URL pagina;
-        BufferedReader in = null;
-        String inputLine;
         if (servidorWeb == true){
-            try {
-                pagina = new URL("http://localhost/");
-                in = new BufferedReader(new InputStreamReader(pagina.openStream()));
-                while ((inputLine = in.readLine()) != null){  
-                    System.out.println(inputLine);
-                    libreriaMensajes.enviarMensaje(inputLine);
+            URL pagina;
+            BufferedReader in = null;
+            String inputLine;
+            if (servidorWeb == true){
+                try {
+                    pagina = new URL("http://localhost/");
+                    in = new BufferedReader(new InputStreamReader(pagina.openStream()));
+                    while ((inputLine = in.readLine()) != null){  
+                        System.out.println(inputLine);
+                        libreriaMensajes.enviarMensaje(inputLine);
+                    }
+                    in.close();
+                    return true;
+                } catch (IOException ex) {
+                    Logger.getLogger(LogicaAplicacion.class.getName()).
+                            log(Level.SEVERE, null, ex);
+                    return false;
                 }
-                in.close();
-                return true;
-            } catch (IOException ex) {
-                Logger.getLogger(LogicaAplicacion.class.getName()).
-                        log(Level.SEVERE, null, ex);
-                return false;
-            }
-        }   else{
-                return false;
-            }
+            }   else{
+                    return false;
+                }
+        }
+        else {
+            libreriaMensajes.enviarMensaje("El servidor no se encuentra iniciado");
+            return false;
+        }
        
     }
     

@@ -212,7 +212,8 @@ public class LogicaAplicacion {
                     return true;
         } else if (mensaje.getIpOrigen().contentEquals(
                 libreriaMensajes.getIpDestino().get(0))){
-            libreriaMensajes.enviarMensaje("Enviando mensaje...");
+            libreriaMensajes.enviarMensaje("Enviando mensaje '"+mensaje.
+                    getMensaje().substring(mensaje.getMensaje().indexOf(":")+1)+"'");
             if (mensaje.getMensaje().charAt(1) == ':'){
                 idNodo = mensaje.getMensaje().charAt(0);
                 if (enviarMensajeNodo(0,""+idNodo,mensaje.getMensaje().
@@ -226,6 +227,7 @@ public class LogicaAplicacion {
                     if (enviarMensajeNodo(1,mensaje.getIpOrigen(),
                             "Respuesta_Mensaje de respuesta al mensaje recibido"
                                     + " \""+mensaje.getMensaje()+"\"")){
+                        libreriaMensajes.enviarMensaje("Enviando mensaje de respuesta...");
                         return true;
                     }
         }

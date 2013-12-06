@@ -46,9 +46,6 @@ $(document).ready(function() {
             $("#mensaje" + id).val("");
             $.post('CicloDeVidaServlet', {idEjecutable: id, instruccion: "enviar",
                 mensaje: mensaje}, function(responseText) {
-                alert("Se envió el mensaje: " + mensaje + " \n\
-                        al nodo con el ejecutable: " + id);
-
                 return;
 
             });

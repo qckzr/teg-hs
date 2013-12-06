@@ -159,7 +159,9 @@ public class LogicaAplicacion {
     * @param mensaje El mensaje a enviar.
     */ 
    public boolean enviarMensaje(Mensaje mensaje){
-       libreriaMensajes.enviarMensaje("Enviando mensaje...");
+       libreriaMensajes.enviarMensaje("Enviando mensaje '"+
+               mensaje.getMensaje().substring(0,
+                       mensaje.getMensaje().indexOf(":"))+"'  al servidor");
        if (libreriaMensajes.enviarMensaje(mensaje.getMensaje(), ipServidor1)==false){
            if (libreriaMensajes.enviarMensaje(mensaje.getMensaje(), ipServidor2) == true){
                return true;

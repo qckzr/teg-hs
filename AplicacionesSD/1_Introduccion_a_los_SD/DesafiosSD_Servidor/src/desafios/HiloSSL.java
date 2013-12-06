@@ -98,6 +98,7 @@ public class HiloSSL extends Thread{
                 
                 logicaAplicacion.setArchivoOcupado(true);
                 if (mensaje instanceof MensajeDameFichero){
+                    logicaAplicacion.getLibreriaMensajes().enviarMensaje("Enviando archivo al cliente...");
                     enviar(cliente, (MensajeDameFichero) mensaje);
                 
                 } else{
@@ -129,6 +130,7 @@ public class HiloSSL extends Thread{
             logicaAplicacion.enviarHash(((MensajeDameFichero) mensajeDameFichero).
                     nombreFichero,objectOutputStream);
             logicaAplicacion.setArchivoOcupado(false);
+            logicaAplicacion.getLibreriaMensajes().enviarMensaje("Archivo enviado...");
         } catch (IOException ex) {
             Logger.getLogger(HiloSSL.class.getName()).log(Level.SEVERE, null, ex);
         }

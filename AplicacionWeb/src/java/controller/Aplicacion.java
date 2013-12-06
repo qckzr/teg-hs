@@ -40,9 +40,9 @@ public class Aplicacion extends HttpServlet {
     private ArrayList<String[]> ejecutables;
     private ArrayList<String> archivoMensajes;
     private ArrayList<String> archivoAgentes;
-    private String descripcion = "";
-    private String rutaImagen = "";
-    private String nombreTopico = "";
+    private String descripcion;
+    private String rutaImagen;
+    private String nombreTopico;
 
     public String getIdAplicacion() {
         return idAplicacion;
@@ -177,6 +177,9 @@ public class Aplicacion extends HttpServlet {
             ejecutables = new ArrayList<>();
             archivoMensajes = new ArrayList<>();
             archivoAgentes = new ArrayList<>();
+            descripcion = "";
+            rutaImagen = "";
+            nombreTopico = "";
             obtenerDatos(idAplicacion);
             root = getServletContext().getRealPath("/");  
             guardarDatos();

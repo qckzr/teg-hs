@@ -111,7 +111,7 @@ public class LogicaAplicacion {
                     enviarMensajeServidor(mensaje);
                 } else {
                     System.out.println("Fue una respuesta del servidor"); 
-                    libreriaMensajes.enviarMensaje("Fue una respuesta del servidor");
+                    libreriaMensajes.enviarMensaje("Se recibio una respuesta del servidor");
                 }
             }
         };
@@ -124,7 +124,8 @@ public class LogicaAplicacion {
      * @return True si el mensaje fue enviado. False en caso contrario.
      */
     public boolean enviarMensajeServidor(Mensaje mensajeRecibido){
-        libreriaMensajes.enviarMensaje("Enviando mensaje al servidor...");
+        libreriaMensajes.enviarMensaje("Enviando mensaje '"+
+                mensajeRecibido.getMensaje()+"' al servidor...");
         if (libreriaMensajes.enviarMensaje(mensajeRecibido.getMensaje(),
                 ipAppSocketServidor)){
             return true;

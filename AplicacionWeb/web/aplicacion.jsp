@@ -97,10 +97,9 @@
                                     <div id="collapseOne" class="accordion-body collapse">
                                         <div class="accordion-inner">
                                             ${descripcionTopico}
-                                            <c:set var="string1" value="${imagenTopico}" />
-                                            <c:if test="${fn:length(string1)>0}">
-                                                <center><img src="${imagenTopico}"/> </center>
-                                            </c:if>
+
+                                            <center><img src="${imagenTopico}"/> </center>
+
                                         </div>
                                     </div>
                                 </div>
@@ -115,13 +114,16 @@
                                             <p class="text-justify">Fecha Creación: ${fecha_actualizacion}</p><br/>
                                             ${instrucciones}
                                             <c:set var="ejec" value="1"/>
+                                            <c:if test="${(idTopico == 24)  || (idTopico == 26)}">
+                                                <c:set var="ejec" value="2"/>
+                                            </c:if>
                                             <div class="row-fluid">  
                                                 <div id="nodos" class="span12">
                                                     <c:forEach var="ejecutable" items="${ejecutables}">
                                                         <c:if test="${(ejec== 1)  || (ejec == 3)}">
                                                             <div class="row-fluid">
                                                             </c:if>
-                                                            <div class="span5" style="min-width: 500px">
+                                                            <div class="span5 pull-left" style="min-width: 500px">
 
                                                                 <div id="ejecutable${ejec}">
                                                                     <input type="hidden" id="${ejec}" value="${ejecutable[3]}"/>
@@ -192,13 +194,18 @@
                                                                         </c:forEach>
                                                                     </div>
                                                                 </div> 
-                                                                <c:set var="ejec" value="${ejec + 1}" scope="page"/>
+                                                             
 
 
                                                             </div>
-                                                            <c:if test="${(ejec== 1)  || (ejec == 3)}">
+                                                            <c:if test="${(ejec== 2  || ejec == 4) && (fn:length(ejecutables) >= 2)}">
+                                                              
                                                             </div>
-                                                        </c:if>
+                                                            </c:if>
+                                                            <c:if test="${(ejec== 3)  && (fn:length(ejecutables) == 3 )}">
+                                                                </div>
+                                                            </c:if>
+                                                                           <c:set var="ejec" value="${ejec + 1}" scope="page"/>
                                                     </c:forEach>
                                                 </div>   
 
@@ -208,14 +215,14 @@
                                 </div>            
                             </div>
                         </div>
-                    </div>
+                    
 
-                    <div id="escenarios" class="span2">
+                    <div id="escenarios" class="span2 pull-left">
                         <fieldset> 
                             <legend>Escenarios</legend>
                             <c:set var="escenario" value="1"/><ul>
                                 <c:forEach var="row" items="${escenarios}">
-                                    <li><a href="#" class="linkEscenario text-center " id="${escenario}">${row[0]}</a></li>
+                                    <li><a href="#a" class="linkEscenario text-center " id="${escenario}">${row[0]}</a></li>
                                     <form id="${escenario}">
                                         <input type="hidden" class="nombreEscenario"  id="${escenario}" value="${row[0]}"/>
                                         <input type="hidden" class="descripcionEscenario" id="${escenario}" value="${row[1]}"/>
@@ -234,6 +241,7 @@
                             <input type="button"  id="eliminarTodo" class="btn" value="Eliminar Todos"/>
                         </fieldset>
                     </div>
+                                </div>
                 </div>
 
                 <div class="container-fluid">
@@ -255,7 +263,7 @@
                 <p class="text-center">Realizado por: Héctor Félix Sam Colina. Universidad Cátolica Andrés Bello 2013.</p>
             </div>
         </div>
-        
+
         <script type="text/javascript" src="scripts/bootstrap-affix.js"></script>
         <script type="text/javascript" src="scripts/bootstrap-alert.js"></script>
         <script type="text/javascript" src="scripts/bootstrap-button.js"></script>
