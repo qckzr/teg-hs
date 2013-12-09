@@ -303,7 +303,7 @@ public class LogicaAplicacion {
     public boolean existeArchivo(){
         File f = new File(archivo);
  
-	  if(f.exists()){
+	  if(f.length()>0){
                     archivoRecibido = true;
                     libreriaMensajes.enviarMensaje("Archivo recibido");
 		  return true;

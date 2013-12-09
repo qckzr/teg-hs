@@ -24,7 +24,7 @@
                 <div class="control-group">
                     <label class="control-label" for="nombre">Nombre:</label>
                     <div class="controls">
-                        <input type="text" name="nombre"/>
+                        <input type="text" name="nombre" class="span12"/>
                     </div>
                 </div>
                 <div class="control-group">
@@ -46,7 +46,7 @@
                 <div class="control-group">
                     <label class="control-label" for="descripcion">Descripcion:</label> 
                     <div class="controls">
-                        <textarea name="descripcion"  cols="60" rows="5"></textarea>
+                        <textarea name="descripcion"  cols="60" rows="5" class="span12"></textarea>
                     </div>
                 </div>
                 <div class="control-group">

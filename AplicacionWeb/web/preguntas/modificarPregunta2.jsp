@@ -24,13 +24,13 @@
                 <div class="control-group">
                     <label class="control-label" for="Enunciado">Enunciado:</label>
                     <div class="controls">
-                        <textarea name="enunciado" cols="50" rows="3" class="span6">${enunciado}</textarea>
+                        <textarea name="enunciado" cols="50" rows="3" class="span12">${enunciado}</textarea>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="topicos">Topico:</label>
                     <div class="controls">
-                        <select name="topicos" class="span6">
+                        <select name="topicos" class="span12">
                             <sql:query dataSource="${localSource}" 
                                        sql="SELECT id, nombre, categoria FROM topicos" 
                                        var="result" />

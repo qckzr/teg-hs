@@ -163,7 +163,8 @@ public class LogicaAplicacion {
      */
     public boolean responderNodo(Mensaje mensaje){
         libreriaMensajes.enviarMensaje("Respondiendo al nodo que desea acceder "
-                + "a una region critica...");
+                + "a la region critica de '"+mensaje.getMensaje().substring(
+                        0,mensaje.getMensaje().indexOf(":"))+"'...");
         if (verificarRegion(mensaje.getMensaje())){
             ocuparRegion(mensaje.getMensaje());
             if (libreriaMensajes.enviarMensaje("_aprobado", mensaje.getIpOrigen())) {

@@ -113,12 +113,15 @@ public class LogicaAplicacion {
                          +mensaje.getIpOrigen());
                  
                  if (mensaje.getMensaje().contains(":")){
-                     libreriaMensajes.enviarMensaje("Agregando el sitio...");
+                     libreriaMensajes.enviarMensaje("Agregando el sitio '"
+                             +mensaje.getMensaje().substring(0,
+                                     mensaje.getMensaje().indexOf(":"))+"'...");
                      agregarSitio(mensaje.getMensaje());
                  }
                  else{
                      enviarMensaje(mensaje);
-                     libreriaMensajes.enviarMensaje("Ip enviado...");
+                     libreriaMensajes.enviarMensaje("Direccion "
+                             + "ip perteneciente a '"+mensaje.getMensaje()+"' enviada...");
                  }
                  
             }

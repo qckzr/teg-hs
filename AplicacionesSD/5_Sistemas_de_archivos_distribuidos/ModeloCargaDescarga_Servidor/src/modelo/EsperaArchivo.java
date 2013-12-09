@@ -63,6 +63,7 @@ public class EsperaArchivo extends Thread{
             mensaje = ois.readObject();
             if (mensaje instanceof MensajeDameFichero 
                     && !logicaAplicacion.isArchivoEnviado()){
+                logicaAplicacion.getLibreriaMensajes().enviarMensaje("Enviando archivo...");
                 enviaFichero(((MensajeDameFichero) mensaje).nombreFichero,
                         new ObjectOutputStream(cliente.getOutputStream()));
                 logicaAplicacion.setArchivoEnviado(true);

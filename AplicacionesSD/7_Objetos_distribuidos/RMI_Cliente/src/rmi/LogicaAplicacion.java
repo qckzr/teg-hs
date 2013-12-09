@@ -194,20 +194,20 @@ public class LogicaAplicacion {
                   Naming.lookup("//"+ipServidor+"/"+lookUp);  
             switch (instruccion){
                 case "listar":  mensajes = mensajesRemotos.listarMensajes();
-                                libreriaMensajes.enviarMensaje("Invocando el "
-                                        + "Método Listar Remotamente",ipServidor);
+                                libreriaMensajes.enviarMensaje("Se esta invocando el "
+                                        + "método listar remotamente",ipServidor);
                                 listarMensajes(mensajes);
                     
                     return  true;
                 case "agregar": mensajesRemotos.agregarMensaje(complemento);
                     libreriaMensajes.enviarMensaje("Se agrego el mensaje: "+complemento);
-                    libreriaMensajes.enviarMensaje("Invocando el Método Agregar "
-                            + "Mensaje Remotamente ",ipServidor);
+                    libreriaMensajes.enviarMensaje("Se esta invocando el método agregar "
+                            + "mensaje remotamente ",ipServidor);
                     return  true;
                 case "eliminar": System.out.println(mensajesRemotos.eliminarMensajes());
                     libreriaMensajes.enviarMensaje("Se elimino la lista de mensajes");
-                    libreriaMensajes.enviarMensaje("Invocando el Método Eliminar "
-                            + "Mensajes Remotamente ",ipServidor);
+                    libreriaMensajes.enviarMensaje("Se esta invocando el método eliminar "
+                            + "mensajes remotamente ",ipServidor);
                     return  true;
                 default:
                     System.out.println("Opcion no valida");

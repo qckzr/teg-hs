@@ -19,12 +19,12 @@
     <body>
         <form class="formularios form-horizontal" method="POST" action="${pageContext.request.contextPath}/ModificarTopicoServlet2">
             <h1 class="text-center pull-left page-header">Modificar Topico</h1>           
-            <div class="row-fluid pull-left">
+            <div class="row-fluid pull-left span12">
 
                 <div class="control-group">
                     <label class="control-label" for="nombre">Nombre:</label>
                     <div class="controls">
-                        <input type="text" value="${nombre}" name="nombre"/>
+                        <input type="text" value="${nombre}" name="nombre" class="span12"/>
                     </div>
                 </div>
                 <div class="control-group">
@@ -48,7 +48,7 @@
                 <div class="control-group">
                     <label class="control-label" for="descripcion">Descripcion:</label>
                     <div class="controls">
-                        <textarea  name="descripcion" cols="60" rows="5">${descripcion}</textarea>
+                        <textarea  name="descripcion" cols="60" rows="5" class="span12">${descripcion}</textarea>
                     </div>
                 </div>
                 <div class="control-group">

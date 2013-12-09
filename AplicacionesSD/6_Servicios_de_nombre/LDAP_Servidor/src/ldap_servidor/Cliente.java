@@ -97,9 +97,9 @@ public class Cliente {
     }
     
     public String imprimirDatos(){
-        return this.toString()+"\n Cn: "+cn+"\n Given Name: "
-                +givenName+"\n Sn: "+sn+"\n Telephone Number: "+telephoneNumber+"\n"
-                + "mail: "+mail+"\n manager: "+getManager();
+        return this.toString()+" || Cn: "+cn+" || Given Name: "
+                +givenName+" || Sn: "+sn+" || Telephone Number: "+telephoneNumber+" || "
+                + "mail: "+mail+" || manager: "+getManager();
     }
     
     

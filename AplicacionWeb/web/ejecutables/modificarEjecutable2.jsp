@@ -53,7 +53,7 @@
                 <div class="control-group">
                     <label class="control-label">Aplicacion: </label>
                     <div class="controls">
-                        <select name="aplicaciones">
+                        <select name="aplicaciones" class="span6">
                             <sql:query dataSource="${localSource}" 
                                        sql="SELECT id, nombre FROM aplicaciones" 
                                        var="result" />
@@ -80,13 +80,13 @@
                         <div class="control-group">
                             <label class="control-label">Nombre: </label>
                             <div class="controls">
-                                <input name="nombreParametro${cantidadParametros}" value="${row[0]}"/>
+                                <input name="nombreParametro${cantidadParametros}" value="${row[0]}" class="span6"/>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">Valor: </label>
                             <div class="controls">
-                                <input name="valorParametro${cantidadParametros}" value="${row[1]}" />
+                                <input name="valorParametro${cantidadParametros}" value="${row[1]}" class="span6" />
                             </div>
 
                             <input type="hidden" value="${row[2]}" name="idParametro${cantidadParametros}"/>

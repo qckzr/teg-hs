@@ -310,6 +310,8 @@ public class Archivo extends Thread{
             resultSet = conexionBD.consultarRegistro("select id from nodos "
                     + "where ip='"+ipOrigen+"'");
             idNodo = resultSet.getString(1);
+            conexionBD.desconectar();
+            conexionBD.iniciar();
         } catch (SQLException ex) {
             Logger.getLogger(Archivo.class.getName()).
                     log(Level.SEVERE, null, ex);

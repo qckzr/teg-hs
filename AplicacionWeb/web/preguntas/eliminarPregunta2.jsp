@@ -19,7 +19,7 @@
             <h1 class="text-center pull-left page-header">Eliminar Pregunta</h1>           
             <div class="row-fluid pull-left">
                 <div class="control-group">
-                    <div class="span4">
+                    <div class="span12">
                         <dl class="dl-horizontal"> 
                             <dt>Enunciado:</dt> <dd><p class="text-justify">${enunciado}</p></dd>
                             <dt>Topico:</dt> <dd><p class="text-justify">${topico}</p></dd>

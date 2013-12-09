@@ -26,13 +26,13 @@
                 <div class="control-group">
                     <label class="control-label" for="nombre">Nombre: </label>
                     <div class="controls">
-                        <input type="text" name="nombre"/>
+                        <input type="text" name="nombre" class="span12"/>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="instrucciones">Instrucciones: </label>
                     <div class="controls">
-                        <textarea name="instrucciones" class="span6"></textarea>
+                        <textarea name="instrucciones" class="span12"></textarea>
                     </div>
                 </div>
                 <div class="control-group">

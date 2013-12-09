@@ -19,7 +19,7 @@
             <h1 class="text-center pull-left page-header">Consultar Ejecutable</h1>
             <div class="row-fluid pull-left">
                 <div class="control-group">
-                    <div class="span4">
+                    <div class="span12">
                         <dl class="dl-horizontal"> 
                             <dt>Nombre:</dt> <dd><p class="text-justify">${nombre}</p></dd>
                             <dt>Tipo:</dt> <dd><p class="text-justify">${tipo}</p></dd>

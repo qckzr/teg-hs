@@ -122,11 +122,11 @@ public class LogicaAplicacion {
         
         boolean retorno = false;
         Mensaje mensaje;
-        if (libreriaMensajes.enviarMensaje("*respuesta del servidor",
+        if (libreriaMensajes.enviarMensaje(" *respuesta del servidor",
                 mensajeRecibido.getIpOrigen())) {
             retorno = true;
         }
-        libreriaMensajes.enviarMensaje("*respuesta del servidor");
+        libreriaMensajes.enviarMensaje(" *respuesta del servidor");
         mensaje = new Mensaje(null, null);
         System.out.println("Hora de Envío: "+mensaje.getHora());
         libreriaMensajes.enviarMensaje("Hora de Envío: "+mensaje.getHora());

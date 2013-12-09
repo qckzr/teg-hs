@@ -192,7 +192,8 @@ public class LogicaAplicacion {
          
         if (mensaje.getIpOrigen().contentEquals(libreriaMensajes.
                 getIpDestino().get(0))){
-            libreriaMensajes.enviarMensaje("Enviando mensaje a los nodos del grupo...") ;
+            libreriaMensajes.enviarMensaje("Enviando el mensaje '"
+                    +mensaje.getMensaje()+"' a los nodos del grupo...");
             eliminarNodosCaidos();
             enviarMensaje(mensaje.getMensaje());
             return true;

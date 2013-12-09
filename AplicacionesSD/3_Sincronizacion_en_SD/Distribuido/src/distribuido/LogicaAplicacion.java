@@ -260,6 +260,7 @@ public class LogicaAplicacion {
                mensaje.getMensaje().indexOf("_:"));
        if (!nodoRegionCritica.contentEquals(nodoRecibido)){
            libreriaMensajes.enviarMensaje("OK",mensaje.getIpOrigen());
+           libreriaMensajes.enviarMensaje("Enviando OK al nodo "+nodoRecibido);
        }
        else if (nodoRegionCritica.length() != 0){
             try {

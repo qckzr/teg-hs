@@ -24,7 +24,7 @@
 
                     <label class="control-label">Nombre:</label> 
                     <div class="controls">
-                        <input type="text" value="${nombre}" name="nombre"/>
+                        <input type="text" value="${nombre}" name="nombre" class="span12"/>
                     </div>
                 </div>
                 <div class="control-group">
@@ -36,13 +36,13 @@
                 <div class="control-group">    
                     <label class="control-label">Instrucciones:</label>
                     <div class="controls">
-                        <textarea  name="instrucciones" class="span6">${instrucciones}</textarea>
+                        <textarea  name="instrucciones" class="span12">${instrucciones}</textarea>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label">Topico:</label> 
                     <div class="controls">
-                        <select name="topicos" class="span6">
+                        <select name="topicos" class="span12">
                             <sql:query dataSource="${localSource}" 
                                        sql="SELECT id, nombre, categoria FROM topicos" 
                                        var="result" />
@@ -69,13 +69,13 @@
                         <div class="control-group">
                             <label class="control-label">Nombre:</label>
                             <div class="controls">
-                                <input type="text" name="escenario${cantidadEscenarios}" value="${escenario[0]}"/>
+                                <input type="text" name="escenario${cantidadEscenarios}" value="${escenario[0]}" class="span6"/>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">Descripción:</label>
                             <div class="controls">
-                                <textarea name="descripcion${cantidadEscenarios}" class="span6">${escenario[1]}</textarea>
+                                <textarea name="descripcion${cantidadEscenarios}" class="span12">${escenario[1]}</textarea>
                             </div>
                         </div>
                         <div class="control-group">

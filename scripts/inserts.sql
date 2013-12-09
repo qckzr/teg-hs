@@ -90,6 +90,10 @@ Transmision:
 <ul> <li>Multi-transmision. Cuando  un mensaje enviado a una direccion especial de red llega a ciertas maquinas.</li>
 <li>Transmision simple. Cuando los paquetes que tienen ciertas direccion (Ej. 0) se entregan a todas la maquinas.</li>
 <li>Uni-transmision. El envio de mensajes de un emisor a un receptor.</li></ul>
+Diseño:
+<ul><li>Los grupos de companeros, son simetricos y no tienen punto de falla. Si uno de los procesos falla, el grupo solo se vuelve mas pequeño, pero puede continuar. Una desventaja es que la toma de decisiones es mas dificil. Para tomar una decision, hay que pedir un voto, lo que produce cierto retraso y costo</li>
+<li>Los grupos jerarquicos, tienen un proceso coordinador y todos los demas son trabajadores. Si se genera una solicitud de trabajo, ya sea de un cliente externo o de uno de los trabajadores, esta se envia al coordinador. Este decide cual de los trabajadores es el mas adecuado y se envia</li></ul>
+
 
 ',1,NULL); /* 7 */
 INSERT INTO TOPICOS (ID,NOMBRE,CATEGORIA,DESCRIPCION,ID_USUARIO,RUTA_IMAGEN)
@@ -293,22 +297,21 @@ REST afirma que la web ha disfrutado de escalabilidad como resultado de una seri
 
 /* APLICACIONES */
 
-/*INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
-VALUES (S_APLICACIONES.NEXTVAL,'Aplicacion1',TO_DATE('23/07/2013','DD/MM/YYYY'),'Instrucciones para la aplicacion1',1); */
+
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Caracteristicas SD',TO_DATE('22/09/2013','DD/MM/YYYY'),' 
 Se tienen dos aplicaciones servidor que poseen un archivo txt y un servidor web con una pagina de prueba. <br/>
 Una aplicacion cliente que puede consultar el archivo de lectura del servidor, iniciar o detener el servidor web de los servidores y consultar la pagina de prueba. <br/><br/>
-1. La aplicacion cliente accede al archivo de los servidores enviando el mensaje "leer:". <br/> 
-2. Para iniciar el servidor web se envia el mensaje: "iniciar_servidor:". <br/>
-3. Para detener el servidor web se envia el mensaje: "detener_servidor:" <br/>
-4. Para consultar la pagina web de prueba enviar el mensaje: "pagina:".<br/>
+1. La aplicacion cliente accede al archivo de los servidores enviando el mensaje: <strong>leer:</strong> <br/> 
+2. Para iniciar el servidor web se envia el mensaje: <strong>iniciar_servidor:</strong> <br/>
+3. Para detener el servidor web se envia el mensaje: <strong>detener_servidor:</strong> <br/>
+4. Para consultar la pagina web de prueba enviar el mensaje: <strong>pagina:</strong> <br/>
 5. Si se cae uno de los servidores, se puede seguir enviando informacion al servidor restante. <br/>',2); /* 1 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Desafios_SD',TO_DATE('22/09/2013','DD/MM/YYYY'),'1.
 Se tiene una aplicacion servidor que contiene  tres (3) archivos txt que pueden ser descargado por el usuario.<br/>
 Se tiene una aplicacion cliente que se conecta al servidor mediante SSL para acceder a los archivos y comprar su hash <br/><br/>
-2. Para acceder a un archivo se envia el mensaje: "archivo:numero_de_archivo" siendo las opciones 1,2 o 3 para el archivo especifico. <br/> 
+2. Para acceder a un archivo se envia el mensaje: <strong>archivo:numero_de_archivo</strong> siendo las opciones <strong>1,2 o 3</strong> para el archivo especifico. <br/> 
  ',3); /* 2 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Arquitectura_Cliente_Servidor',TO_DATE('22/09/2013','DD/MM/YYYY'),'
@@ -318,121 +321,124 @@ Una aplicacion cliente puede enviar mensaje al servidor para comprobar su comuni
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'P2P',TO_DATE('22/09/2013','DD/MM/YYYY'),'
 Se tienen cuatro (4) aplicaciones clientes en una topologia de ANILLO que pueden enviar y recibir mensajes. <br/><br/>
-1. Para enviarle un mensaje a un nodo se debe escribir el numero del nodo y el mensaje de la siguiente forma: "numeroNodo:mensajeAenviar". <br/>',5); /* 4 */
+1. Para enviarle un mensaje a un nodo se debe escribir el numero del nodo y el mensaje de la siguiente forma: <strong>numeroNodo:mensajeAenviar</strong>. <br/>',5); /* 4 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Sockets',TO_DATE('22/09/2013','DD/MM/YYYY'),'
 Se tienen cuatro (4) aplicaciones clientes que pueden enviar y recibir mensajes. <br/><br/>
-1. Para enviarle un mensaje a un nodo se debe escribir el numero del nodo y el mensaje de la siguiente forma: "numeroNodo:mensajeAenviar" <br/> ',1); /* 5 */
+1. Para enviarle un mensaje a un nodo se debe escribir el numero del nodo y el mensaje de la siguiente forma: <strong>numeroNodo:mensajeAenviar</strong> <br/> ',1); /* 5 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'RMI',TO_DATE('22/09/2013','DD/MM/YYYY'),'
 Se tiene una aplicacion cliente y una servidor. <br/><br/>
 1. El servidor posee los metodos de hora,fecha y saludo <br/>
-2. Para invocar los metodos remotamente se escribe uno de los siguientes mensajes desde el cliente: hora, fecha o saludo. <br/> ',6); /* 6 */
+2. Para invocar los metodos remotamente se escribe uno de los siguientes mensajes desde el cliente: <strong><ul><li>hora</li> <li>fecha</li> <li>saludo</li></ul></strong> <br/> ',6); /* 6 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Comunicacion en Grupo',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tiene una aplicacion cliente que se encarga de ser el grupo emisor y tres (3) aplicaciones servidor que pertenecen al mismo grupo (receptor). <br/>
+Se tiene una aplicacion cliente que se encarga de ser el grupo emisor <br/>
+Se tienen tres (3) aplicaciones servidor que pertenecen al mismo grupo (receptor). <br/><br/>
 1. Para enviar un mensaje al grupo se escribe el mensaje desde el nodo emisor. <br/> ',7); /* 7 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Lamport',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tiene cuatro (4) ejecutables cliente que se encargan de enviar las marcas de reloj de un nodo a otro. <br/>
+Se tiene cuatro (4) ejecutables cliente que se encargan de enviar las marcas de reloj de un nodo a otro. <br/><br/>
 1. Cada ejecutable se inicia con una marca de reloj aleatoria <br/>
-2. Enviar al nodo numero uno (1) el mensaje "iniciar" para empezar a enviar las marcas de reloj <br/>
-3. Al transcurir cuatro (4) segundos se actualiza el reloj a la nueva marca. <br/>  ',8); /* 8 */
+2. Enviar al nodo numero uno (1) el mensaje <strong>iniciar</strong> para empezar a enviar las marcas de reloj <br/>
+3. Las marcas se van enviando en el siguiente orden nodo 1 -> nodo 2 -> nodo 3 -> nodo 4 y luego, nodo 4 -> nodo 3 -> nodo 2 -> nodo 1 <br/>
+4. Al transcurir cuatro (4) segundos se actualiza el reloj a la nueva marca. <br/>  ',8); /* 8 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Cristian',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tienen un ejecutable cliente y otro servidor  <br/>
-1. Al iniciarse el cliente envia el mensaje al servidor para conocer el tiempo entre el envio y el retorno del mensaje <br/>
-2. La sincronizacion ocurre cada 5 segundos. <br/> ',9); /* 9 */
+Se tienen un ejecutable cliente que solicita sincronizacion al nodo servidor  y un ejecutable servidor que responde a las solicitudes  <br/><br/>
+1. Al iniciarse el cliente envia un mensaje de sincronizacion al servidor para conocer el tiempo entre el envio y el retorno del mensaje. <br/>
+2. La sincronizacion ocurre cada 10 segundos. <br/> ',9); /* 9 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Berkeley',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tiene un ejecutable servidor y tres (3) clientes <br/>
-- No es necesario controlar las aplicaciones <br/>',10); /* 10 */
+Se tiene un ejecutable servidor que pregunta la hora actual de los clientes y tres (3) clientes que envian su hora al servidor <br/><br/>
+1. No es necesario controlar las aplicaciones <br/>',10); /* 10 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Promedio',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tiene cuatro (4) ejecutables cliente <br/>
-1. Para obtener el tiempo promedio de todos los nodos enviar el mensaje "iniciar" desde un nodo particular <br/>
+Se tiene cuatro (4) ejecutables cliente que envian su hora actual y reciben las horas de los demas nodos. <br/><br/>
+1. Para obtener el tiempo promedio de todos los nodos enviar el mensaje <strong>iniciar</strong> desde un nodo particular <br/>
    ',11); /* 11 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Centralizado',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tiene un ejecutable servidor y tres (3) ejecutables clientes <br/>
-1. Para acceder a una region critica enviar el mensaje "numeroNodo:acceder" <br/>
-2. Para salir de una region critica enviar el mensaje "numeroNodo:salir" <br/>',12); /* 12 */
+Se tiene un ejecutable servidor que actua como coordinador para las regiones criticas y tres (3) ejecutables clientes que solicitan entrar o salir de una region especifica. <br/><br/>
+1. Para acceder a una region critica de un nodo enviar un mensaje indicando el numero del nodo y la palabra <strong>acceder</strong>, ej: 2:acceder <br/>
+2. Para salir de una region critica de un nodo enviar un mensaje indicando el numero del nodo y la palabra <strong>salir</strong>, ej: 2:salir <br/>',12); /* 12 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Distribuido',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tienen cuatro (4) ejecutables clientes <br/>
-1. Para acceder a una region critica enviar el mensaje "numeroNodo:acceder" <br/>
-2. Para salir de una region critica enviar el mensaje "numeroNodo:salir" <br/>',13); /* 13 */
+Se tienen cuatro (4) ejecutables clientes que pueden acceder a las regiones criticas de los demas. <br/><br/>
+1. Para acceder a una region critica enviar un mensaje indicando el numero de nodo y la palabra <strong>acceder</strong>, ej: 2:acceder <br/>
+2. Para salir de una region critica enviar un mensaje indicando el numero de nodo y la palabra <strong>salir</strong>, ej: 2:salir <br/>',13); /* 13 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Grandulon',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tienen cuatro (4) ejecutables clientes <br/>
-- Cuando se desee escoger un coordinador desde cualquier nodo se envia el mensaje "iniciar" <br/> ',14); /* 14 */
+Se tienen cuatro (4) ejecutables clientes que pueden enviar mensajes de ELECCION. <br/><br/>
+1. Cuando se desee escoger un coordinador desde cualquier nodo se envia el mensaje <strong>iniciar</strong> <br/> ',14); /* 14 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Anillo',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tienen cuatro (4) ejecutables clientes <br/>
-- Cuando se desee escoger un coordinador se envia desde cualquier nodo el mensaje "iniciar" <br/> ',15); /* 15 */
+Se tienen cuatro (4) ejecutables clientes que pueden enviar mensajes a traves del anillo <br/><br/>
+1. Cuando se desee escoger un coordinador se envia desde cualquier nodo el mensaje <strong>iniciar</strong> <br/> ',15); /* 15 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Fallas',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tienen un ejecutable cliente y otro servidor. <br/>
-1. El servidor se inicia con un tipo de falla aleatorio (congelacion,omision,tiempo,respuesta) con los valores (1,2,3,4) respectivamente <br/>
-2. El cliente puede enviar cualquier mensaje al servidor de manera de comprobar el tipo de falla <br/>
+Se tienen un ejecutable cliente y otro servidor. <br/><br/>
+1. El servidor se inicia con un tipo de falla aleatoria (congelacion,omision,tiempo o respuesta) con los valores (1,2,3,4) respectivamente. <br/>
+2. El cliente puede enviar cualquier mensaje al servidor de manera de comprobar el tipo de falla. <br/>
 3. Si se quiere probar otra falla detener el nodo servidor y volver a iniciarlo. <br/> ',16); /* 16 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Fallas Bizantinas',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tienen cuatro (4) ejecutables cliente <br/>
-- Al iniciar cada aplicacion hay 1/5 de posibilidad de que el nodo se encuentre "corrupto" lo que permite que envie mensajes erroneos <br/> ',17); /* 17 */
+Se tienen cuatro (4) ejecutables cliente que envian su numero de proceso a los demas nodos. <br/><br/>
+- Al iniciar cada aplicacion hay 1/5 de posibilidad de que el nodo se encuentre <strong>corrupto</strong> lo que permite que envie mensajes erroneos <br/> ',17); /* 17 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Acceso Remoto',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tienen una ejecutable servidor con un archivo de texto almacenado y un ejecutable cliente. <br/>
-1. Para escribir en el archivo txt enviar el mensaje "escribir:mensajeAescribir". <br/>
-2. Para visualizar el contenido del archivo escribir "ver:". <br/> ',18); /* 18 */
+Se tienen una ejecutable servidor con un archivo almacenado y un ejecutable cliente que puede leer o escribir en el archivo. <br/><br/>
+1. Para escribir en el archivo txt enviar el mensaje <strong>escribir</strong> seguido del mensaje a enviar, ej: escribir:Esto es una prueba. <br/>
+2. Para visualizar el contenido del archivo enviar el mensaje <strong>ver:</strong>. <br/> ',18); /* 18 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Carga y Descarga',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tiene un ejecutable servidor con un archivo de texto almacenado y dos (2) ejecutables clientes <br/>
-1. Para acceder al archivo enviar el mensaje "archivo:" desde uno de los clientes <br/>
-2. Para leer el archivo recibido enviar el mensaje "ver:" desde el cliente que posea el archivo <br/>
-3. Para escribir en el archivo recibido enviar el mensaje "escribir:mensajeAescribir" desde el cliente que posea el archivo <br/>
-4. Para enviar el archivo recibido enviar el mensaje "enviar:" desde el cliente que posea el archivo. <br/>  ',19); /* 19 */
+Se tiene un ejecutable servidor con un archivo de texto almacenado y dos (2) ejecutables clientes que pueden descargar y cargar el archivo del servidor. <br/><br/>
+1. Para acceder al archivo enviar el mensaje <strong>archivo:</strong> desde uno de los clientes <br/>
+2. Para leer el archivo recibido enviar el mensaje  <strong>ver:</strong> desde el cliente que posea el archivo <br/>
+3. Para escribir en el archivo recibido enviar el mensaje <strong>escribir</strong> seguido del mensaje a enviar. ej: escribir:Esto es una prueba. desde el cliente que posea el archivo <br/>
+4. Para enviar el archivo recibido enviar el mensaje <strong>enviar:</strong> desde el cliente que posea el archivo. <br/>  ',19); /* 19 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Cluster',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tienen tres (3) ejecutables servidor con archivos de texto almacenados y un ejecutable cliente para acceder <br/>
-1. Para descargar el archivo completo ubicado en el servidor 1 enviar el mensaje "archivo_completo" desde el cliente <br/>
-2. Para descargar el archivo dividido entre los tres (3) servidores envir el mensaje "archivo_partes" desde el cliente <br/> ',20); /* 20 */
+Se tienen tres (3) ejecutables servidor con archivos de texto almacenados y un ejecutable cliente que puede solicitar los archivos <br/><br/>
+1. Para descargar el archivo completo ubicado en el servidor 1 enviar el mensaje: <strong>archivo_completo </strong> desde el cliente <br/>
+2. Para descargar el archivo dividido en tres (3) partes almacenado en cada servidor enviar el mensaje <strong> archivo_partes </strong> desde el cliente <br/> ',20); /* 20 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'DNS',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tiene un ejecutable servidor que posee dominios almacenados y un ejecutable cliente que puede consultar dichos dominios <br/>
-1. Para consultar el ip de un dominio enviar la direccion url ej: "www.ucab.edu.ve" <br/>
-2. Para agregar un sitio enviar la direccion url junto a su ip asociado, ej: "www.apple.com:200.100.50.0" <br/>
+Se tiene un ejecutable servidor que posee dominios almacenados y un ejecutable cliente que puede consultarlos o agregar nuevos dominios <br/><br/>
+1. Para consultar el ip de un dominio enviar la direccion url ej: <strong>www.ucab.edu.ve</strong> <br/>
+2. Para agregar un sitio enviar la direccion url seguida de su direccion ip, ej: <strong>www.apple.com:200.100.50.0</strong> <br/>
 3. Los sitios por defectos cargados en el servidor son: www.ucab.edu.ve, www.google.com, www.ibm.com <br/> ',21); /* 21 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'LDAP',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tiene un ejecutable servidor que posee dominios y usuarios asociados y un ejecutable cliente que puede agregar, eliminar o consultar dichos usuarios <br/>
-1. Para agregar un usuario a un dominio especifico enviar el mensaje: "add,nombreUsuario,apellidoUsuario,telefonoUsuario,emailUsuario,nombreGerenteUsuario apellidoGerenteUsuario,dominio1,dominio2" <br/>
-2. Para consultar un usuario enviar el mensaje: "search,nombreUsuario apellidoUsuario" <br/>
-3. Para eliminar un usuario enviar el mensaje: "delete,nombreUsuario apellidoUsuario" <br/>
-4. Los dominios por defectos son: ucab.edu con los usuarios: Hector Sam, Aileen Posadas, Daniel Sam <br/>
-ibm.com con los usuarios: Juan Rodriguez, Jessica Motta, Cristobal Gimon y Dany Esteves <br/>',22); /* 22 */
+Se tiene un ejecutable servidor que posee dominios y usuarios asociados. <br/> 
+Un ejecutable cliente que puede agregar, eliminar o consultar los usuarios en el servidor <br/><br/>
+1. Para agregar un usuario a un dominio especifico enviar el mensaje: <strong>add,nombreUsuario,apellidoUsuario,telefonoUsuario,emailUsuario,nombreGerenteUsuario apellidoGerenteUsuario,dominio1,dominio2 </strong> <br/>
+2. Para consultar un usuario enviar el mensaje: <strong>search,nombreUsuario apellidoUsuario</strong> <br/>
+3. Para eliminar un usuario enviar el mensaje: <strong>delete,nombreUsuario apellidoUsuario</strong> <br/>
+4. Los dominios por defectos son: <strong>ucab.edu</strong> con los usuarios:<ul> <li>Hector Sam</li> <li>Aileen Posadas</li> <li>Daniel Sam</li></ul> <br/>
+<strong>ibm.com</strong> con los usuarios: <ul><li>Juan Rodriguez</li> <li>Jessica Motta</li> <li>Cristobal Gimon</li><li>Dany Esteves</li></ul> <br/>',22); /* 22 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'RMI',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tiene dos (2) aplicaciones cliente y servidor. <br/>
-1. El servidor posee los metodos: listar mensajes,agregar mensaje y eliminar lista <br/>
-2. Para enviar mensajes al servidor se escribe uno de los siguientes mensajes desde el cliente: listar: , agregar:mensaje_a_agregar o eliminar: <br/>  ',23); /* 23 */
+Se tiene dos (2) aplicaciones, una cliente y un servidor. <br/><br/>
+1. El servidor posee los metodos: <strong>listar mensajes,agregar mensaje y eliminar lista</strong> <br/>
+2. Para enviar mensajes al servidor se escribe uno de los siguientes mensajes desde el cliente:<br/> <strong><ul><li>listar:</li> <li>agregar:mensaje_a_agregar</li> <li>eliminar:</li></ul> </strong> <br/>  ',23); /* 23 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'EJB',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tiene un ejecutable cliente que permite enviar mensajes a un servlet que contiene los beans de sesion con y sin estado <br/>
-1. Parar comprobar los enterprise java beans enviar el mensaje de la siguiente forma: mensaje1-mensaje2-mensaje3- <br/> ',24); /* 24 */
+Se tiene un ejecutable cliente que permite enviar mensajes a un servlet que contiene los beans de sesion con estado (apellido) y sin estado (nombre y cedula) <br/><br/>
+1. Parar comprobar ambos beans enviar el mensaje de la siguiente forma: <strong><ul><li>nombre-apellido-cedula-</li><li> - - -</li></ul></strong> <br/> ',24); /* 24 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'SOAP',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tiene un ejecutable servidor que posee el archivo WSDL con los metodos que pueden ser consumidos y un ejecutable cliente que puede consumir el servicio <br/>
+Se tiene un ejecutable servidor que posee el archivo WSDL con los metodos que pueden ser consumidos y un ejecutable cliente que puede consumir el servicio <br/><br/>
 1. Los servicios disponibles para consumir son: hora,fecha y mensaje <br/>
-2. Para consumir un servicio enviar el mensaje: "hora:", "fecha:" o "mensaje:mensajeAenviar" <br/>
+2. Para consumir un servicio enviar uno de los siguientes mensajes: <strong><ul><li>hora:</li><li>fecha:</li> <li>mensaje:mensajeAenviar</li></ul></strong> <br/>
 3. El archivo WSDL se encuentra en la direccion http://192.168.1.191:9999/ws/mensajes?wsdl <br/> ',25); /* 25 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'REST',TO_DATE('22/09/2013','DD/MM/YYYY'),'
-Se tiene un ejecutable servidor que posee los metodos de saludo, fecha y hora  alojado en el servidor glassfish y un ejecutable cliente que puede consumirlos <br/>
+Se tiene un ejecutable servidor que posee los metodos de saludo, fecha y hora  alojado en el servidor glassfish y un ejecutable cliente que puede consumirlos <br/><br/>
 1. Los servicios disponibles para consumir son: hora,fecha y mensaje. <br/>
-2. Para consumir un servicio enviar el mensaje: "hora:", "fecha:" o "mensaje:" <br/>
+2. Para consumir un servicio enviar uno de los siguientes mensajes: <strong><ul><li>hora:</li> <li>fecha:</li> <li>mensaje:</li></ul></strong> <br/>
 3. Los metodos a consumir se encuentran en la direccion: http://192.168.1.191:8080/REST_Servidor/resources/hora <br/>
-http://192.168.1.191:8080/REST_Servidor/resources/fecha y http://192.168.1.191:8080/REST_Servidor/resources/saludo <br/>  ',26); /* 26 */
+http://192.168.1.191:8080/REST_Servidor/resources/fecha <br/> http://192.168.1.191:8080/REST_Servidor/resources/saludo <br/>  ',26); /* 26 */
 
 
 
@@ -960,7 +966,7 @@ VALUES (S_PARAMETROS.NEXTVAL,'Puerto Agente','2000',29);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Ip Servidor','192.168.1.191',29);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
-VALUES (S_PARAMETROS.NEXTVAL,'Tiempo','5',29);
+VALUES (S_PARAMETROS.NEXTVAL,'Tiempo','10',29);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
 VALUES (S_PARAMETROS.NEXTVAL,'Nombre Aplicacion','Berkeley_Servidor',30);
 INSERT INTO PARAMETROS (ID,NOMBRE,VALOR,ID_EJECUTABLE)
@@ -1538,141 +1544,143 @@ VALUES (S_PARAMETROS.NEXTVAL,'','',);
 
 /* ESCENARIOS */
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Leer Archivo','Cuando se envie el mensaje (leer:) el servidor mostrara el contenido del archivo. Logrando comprobar la comparticion de recursos',1,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Leer Archivo','Cuando se envie el mensaje <strong>leer:</strong> el servidor mostrara el contenido del archivo. Logrando comprobar la comparticion de recursos.',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Iniciar Servidor Web','Cuando se envie el mensaje (iniciar_servidor:) la aplicacion servidor iniciara el servidor web. Logrando comprobar la apertura (openness).',1,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Iniciar Servidor Web','Cuando se envie el mensaje <strong>iniciar_servidor:</strong> la aplicacion servidor iniciara el servidor web. Logrando comprobar la apertura (openness).',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Pagina de Prueba','Cuando se envie el mensaje (pagina:) el servidor mostrara la pagina de prueba. ',1,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Pagina de Prueba','Cuando se envie el mensaje <strong>pagina:</strong> el servidor mostrara la pagina de prueba. ',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Detener Servidor Web','Cuando se envie el mensaje (detener_servidor:) el servidor dentendra el servidor web del sistema.',1,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Detener Servidor Web','Cuando se envie el mensaje <strong>detener_servidor:</strong> el servidor dentendra el servidor web del sistema.',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Escalabilidad','Al tener dos servidores corriendo, se comprueba la escalabilidad de los sistemas distribuidos',1,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Escalabilidad','Al tener dos servidores corriendo, se comprueba la escalabilidad de los sistemas distribuidos.',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
 VALUES (S_ESCENARIOS.NEXTVAL,'Tolerancia a Fallos','Al detenerse una aplicacion servidor el sistema puede seguir funcionando con el servidor restante.',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
 VALUES (S_ESCENARIOS.NEXTVAL,'Transparencia','La aplicacion cliente no percibe cuantas aplicaciones servidores existen, solo envia el mensaje del usuario.',1,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Seguridad','La aplicacion cliente se conecta al servidor a traves de sockets seguros por lo que la data enviada se encuentra encriptada',2,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Seguridad','La aplicacion cliente se conecta al servidor a traves de sockets seguros por lo que la data enviada se encuentra encriptada.',2,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Tolerancia a Fallos','Cuando el cliente accede a un archivo, el servidor le envia el archivo junto a su checksum de manera que se pueda comprobar que no hayan existido errores al momento de transferir el archivo',2,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Tolerancia a Fallos','Cuando el cliente accede a un archivo, el servidor le envia el archivo junto a su checksum de manera que se pueda comprobar que no hayan ocurrido errores al momento de transferir el archivo.',2,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Concurrencia','Cuando dos clientes quieren acceder a un archivo el servidor maneja semaforos de manera que pueda controlar las peticiones de los clientes de manera ordenada',2,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Concurrencia','Cuando dos clientes quieren acceder a un archivo el servidor maneja semaforos de manera que pueda controlar las peticiones de los clientes de manera ordenada.',2,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Comunicacion','Al enviarse un mensaje al servidor el servidor responde inmediatamente con un mensaje de respuesta',3,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Comunicacion','Al enviarse un mensaje al servidor el servidor responde inmediatamente con un mensaje de respuesta.',3,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Comunicacion en anillo','Al enviarse un mensaje a un nodo particular, este debe pasar por cada uno de los nodos del sistema en el orden indicado',4,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Comunicacion en anillo','Al enviarse un mensaje a un nodo particular, este debe pasar por cada uno de los nodos del sistema en el orden indicado.',4,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Comunicacion directa','Al enviarse un mensaje a un nodo particular, el nodo remitente recibe una respuesta del nodo destinatario',5,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Comunicacion directa','Al enviarse un mensaje a un nodo particular, el nodo remitente recibe una respuesta del nodo destinatario.',5,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Comunicacion RMI','Al enviarse un mensaje al servidor desde el cliente, se invoca el metodo remoto mediante la interfaz',6,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Comunicacion RMI','Al enviarse un mensaje al servidor desde el cliente, se invoca el metodo remoto mediante la interfaz.',6,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Comunicacion en Grupo','Al enviarse un mensaje desde el nodo emisor este es recibido por todos los nodos que pertenecen al grupo',7,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Comunicacion en Grupo','El mensaje enviado por el nodo emisor es recibido por todos los nodos que pertenecen al grupo.',7,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Reduccion del Grupo','Si un nodo del grupo emisor se cae, el grupo no desaparece sino que se reduce en cantidad',7,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Reduccion del Grupo','Si un nodo del grupo receptor se cae, el grupo no desaparece sino que se reduce en cantidad.',7,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Marca de Reloj','Si la marca de reloj recibida por el nodo es mayor que la marca de reloj actual entonces se aplica el algoritmo de LAMPORT',8,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Marca de Reloj','Si la marca de reloj recibida por el nodo es mayor que la marca de reloj actual entonces se aplica el algoritmo de <strong>LAMPORT.</strong>',8,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Tiempo Inicial','El nodo cliente al enviar el mensaje al servidor guarda la hora en la que envio el mensaje',9,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Tiempo Inicial','El nodo cliente al enviar el mensaje de sincronizacion al servidor almacena la hora de envio.',9,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Sincronizacion de Reloj','Al recibir la respuesta del servidor, el nodo calcula la hora actual mediante la formula: (horaRecepcion- horaEnvio) /2',9,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Sincronizacion de Reloj','Al recibir la respuesta del servidor, el nodo calcula la hora actual mediante la formula: <strong>(horaRecepcion- horaEnvio) /2</strong>',9,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Tiempo de Sincronizacion','El servidor pregunta cada ocho (8) segundos la hora actual de los nodos.',10,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Tiempo de Sincronizacion','El servidor pregunta cada <strong>ocho 8) segundos</strong> la hora actual de los nodos.',10,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Envio de hora','El servidor al recibir los tiempos de cada nodo, calcula el promedio de todos y se lo envia a cada nodo',10,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Envio de hora','El servidor al recibir los tiempos de cada nodo, calcula el promedio de todos y se lo envia a cada nodo.',10,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Ajuste de reloj','Cada nodo al recibir la hora promedio del servidor compara con su hora actual indicando si hay que adelantar o retrasar el reloj',10,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Ajuste de reloj','Cada nodo al recibir la hora promedio del servidor compara con su hora actual indicando si hay que adelantar o retrasar el reloj.',10,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Tiempo de recepcion','El nodo al enviar informacion a los demas nodos del sistema espera un tiempo de "10" segundos ',11,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Tiempo de recepcion','El nodo al enviar informacion a los demas nodos del sistema espera un tiempo de <strong>diez (10) segundos.</strong> ',11,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Horas recibidas','Al recibir la hora proveniente de otro nodo, el nodo actual almacena el valor para calcular el promedio',11,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Horas recibidas','Al recibir la hora proveniente de otro nodo, el nodo actual almacena el valor para calcular el promedio.',11,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Sincronizar Horas','Al transcurrir el tiempo de 10 segundos el nodo calcular en base a las horas recibidas el tiempo promedio y lo imprime por pantalla',11,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Sincronizar Horas','Al transcurrir el tiempo de <strong>diez (10) segundos</strong> el nodo calcula en base a las horas recibidas el tiempo promedio y lo imprime por pantalla.',11,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Acceso a region critica','Cuando un nodo quiere acceder a una region critica este le envia al coordinador la informacion',12,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Acceso a region critica','Cuando un nodo quiere acceder a una region critica se le envia al coordinador la solicitud.',12,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Chequeo de la region critica','El servidor al recibir el mensaje de acceso a una region critica compara en una lista de regiones ocupadas si el nodo al que se quiere acceder se encuentra ocupado',12,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Chequeo de la region critica','El servidor al recibir el mensaje de acceso a una region critica compara en una lista de regiones ocupadas si el nodo al que se quiere acceder se encuentra ocupado.',12,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Rechazo o Aprobacion de region critica','Si la region solicitada se encuentra ocupada se le notifica al nodo solicitante el rechazo de la misma, en caso contrario se le permite acceder y ningun otro nodo puede acceder a ella',12,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Rechazo o Aprobacion de region critica','Si la region solicitada se encuentra ocupada se le notifica al nodo solicitante el rechazo de la misma, en caso contrario se le permite acceder y ningun otro nodo puede acceder a ella.',12,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Terminar region critica','Al enviar el mensaje de salir desde el nodo que se encuentra en la region critica de otro se le permite que cualquier nodo pueda acceder a su region',12,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Terminar region critica','Al enviar el mensaje de <strong>salir</strong> desde el nodo que se encuentra en la region critica de otro se libera la region, lo que le permite a los otros nodos poder acceder a esta.',12,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Acceso region critica','Al enviar un mensaje de solicitud a una region critica, cada nodo chequea si se encuentra ocupando la region solicitada, si es positivo no responde y guarda dicha solicitud en una lista, caso contrario envia "OK"',13,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Acceso region critica','Al enviar un mensaje de solicitud a una region critica, cada nodo chequea si se encuentra ocupando la region solicitada, si es positivo no responde y guarda dicha solicitud en una lista, caso contrario envia OK.',13,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Comparacion de Hora','Si un nodo recibe una solicitud de acceso a otra region critica y este quiere tambien acceder entonces se comparan ambos tiempos. Si el tiempo recibido es menor entonces envia "OK", caso contrario almacena en una lista el mensaje',13,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Comparacion de Hora','Si un nodo recibe una solicitud de acceso a otra region critica y este tambien quiere acceder entonces, se comparan ambos tiempos. Si el tiempo recibido es menor entonces envia OK, caso contrario almacena en una lista el mensaje',13,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Espera de OK','Al enviar el mensaje de solicitud de region critica si se reciben tantos OK como nodos en el sistema, entonces se procede a entrar a la region critica',13,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Espera de OK','Al enviar el mensaje de solicitud de region critica si se reciben tantos OK como nodos en el sistema, entonces se procede a entrar a la region critica.',13,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Eleccion Coordinador','Al enviarse el mensaje iniciar desde un nodo, este buscara en los nodos mayores a el (denotado por el numero de nodo) para encontrar el nodo coordinador',14,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Eleccion Coordinador','Al enviarse el mensaje iniciar desde un nodo se enviara un mensaje de <strong>ELECCION</strong>  a sus nodos mayores a el (denotado por el numero de nodo) para encontrar el nodo coordinador.',14,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Coordinador','El nodo mayor escribira coordinador y enviara un mensaje a los demas nodos indicando que es el coodinador',14,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Coordinador','El nodo mayor escribira coordinador y enviara un mensaje a los demas nodos indicando que es el coodinador.',14,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Solicitud Coordinador','Al enviarse el mensaje de solicitud de coordinador a un nodo particular, se envia al siguiente nodo del anillo el mensaje de eleccion y este al siguiente nodo anillo con su id de proceso y numero de nodo',15,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Solicitud Coordinador','Al enviarse el mensaje iniciar, el nodo envia un mensaje de <strong>ELECCION</strong>, se anexa la direccion ip del nodo y el numero de proceso para enviarlo al siguiente nodo del anillo. ',15,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Eleccion Coordinador','Al llegar el mensaje nuevamente al nodo solicitante se comparan los id de procesos de todos los nodos, se elige el de mayor numero de proceso',15,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Mensaje de Eleccion','Al recibir un mensaje de eleccion, se anexa el numero del nodo y de proceso del nodo actual al mensaje y se envia al siguiente nodo del anillo.',15,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Aviso Coordinador','Al elegirse el coodinador se envia al anillo el mensaje del nodo coordinador con su id de proceso',15,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Eleccion Coordinador','Al llegar el mensaje nuevamente al nodo solicitante se comparan los id de procesos de todos los nodos, se elige el de <strong>MAYOR</strong> numero de proceso.',15,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Falla Congelacion','Al aparecer esta falla en el servidor el cliente no puede enviar mensajes hacia el servidor',16,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Aviso Coordinador','Al elegir el coodinador, se envia el mensaje del nodo ganador y su id de proceso a traves del anillo.',15,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Falla de Omision','El servidor recibe el mensaje pero no devuelve una respuesta al cliente',16,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Falla Congelacion','Al aparecer esta falla en el servidor, el cliente no le puede enviar mensajes. ',16,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Falla de Tiempo','El servidor responde al cliente luego de haber transcurrido un tiempo de 10 segundos',16,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Falla de Omision','El servidor recibe el mensaje pero no le devuelve una respuesta al cliente.',16,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Falla de Respuesta','El servidor responde al cliente con una respuesta incorrecta',16,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Falla de Tiempo','El servidor responde luego de haber transcurrido un tiempo de 10 segundos.',16,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Nodo Corrupto','Si el nodo al iniciarse envia el mensaje "corrupto" entonces enviara mensajes de numeros aleatorios a los demas nodos del sistema',17,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Falla de Respuesta','El servidor responde con una respuesta incorrecta.',16,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Envio de vectores','Al iniciarse la aplicacion envia automaticamente a sus vecinos su numero de nodo',17,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Nodo Corrupto','Si el nodo al iniciarse envia el mensaje <strong>corrupto</strong> entonces enviara mensajes de numeros aleatorios a los demas nodos del sistema.',17,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Espera por vectores de nodos','Luego de enviar el vector, cada nodo espera por los demas vectores para comparar cada casilla',17,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Envio de vectores','Al iniciarse la aplicacion envia automaticamente a sus vecinos su numero de nodo.',17,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Vector Final','Al obtener los vectores de cada nodo, la aplicacion compara cada casilla del vector y coloca el valor de mayor repeticion, caso contrario coloca UNKNOWN',17,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Espera por vectores de nodos','Luego de enviar el vector, cada nodo espera por los demas vectores para comparar cada casilla.',17,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Acceso al archivo','El archivo se encuentra ubicado en el servidor, el cliente solo puede acceder al archivo a traves de los mensajes leer y/o escribir',18,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Vector Final','Al obtener los vectores de cada nodo, la aplicacion compara cada casilla del vector y coloca el valor de mayor repeticion, caso contrario coloca UNKNOWN.',17,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Acceso al archivo','El archivo se encuentra ubicado en el servidor, el cliente debe descargarlo para poder acceder localmente y manipularlo',19,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Acceso al archivo','El archivo se encuentra ubicado en el servidor, el cliente solo puede acceder al archivo a traves de los mensajes leer y/o escribir.',18,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Escritura del archivo','El archivo solo puede ser escrito a traves del nodo que contenga el archivo',19,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Acceso al archivo','El archivo se encuentra ubicado en el servidor, el cliente debe descargarlo para poder acceder localmente y manipularlo.',19,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Lectura del archivo','El archivo solo puede ser visualizado a traves del nodo que contenga el archivo',19,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Escritura del archivo','El archivo solo puede ser escrito a traves del nodo que contenga el archivo.',19,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Restriccion del archivo','Si el archivo fue descargado por un cliente, entonces es eliminado del servidor por lo que otro nodo no puede acceder para su descarga hasta que sea cargado nuevamente en el servidor.',19,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Lectura del archivo','El contenido del archivo solo puede ser visualizado a traves del nodo que haya solicitado el archivo en el servidor.',19,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Archivos almacenados','Los servidores poseen un archivo dividido en tres partes, cada una almacenado en un servidor, adicionalmente el servidor #1 posee el archivo completo',20,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Restriccion del archivo','Si el archivo fue descargado por un cliente, entonces es eliminado del servidor por lo que otro nodo no puede acceder para su descarga hasta que sea cargado nuevamente en el.',19,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Archivo Completo','Al enviar el mensaje para acceder al archivo completo el cliente solicita el archivo al servidor #1 quien posee lo almacenado localmente, el tiempo de transferencia se inicia al enviarse la solicitud al servidor. ',20,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Archivos almacenados','Los servidores poseen un archivo dividido en tres partes, cada uno se encuentra almacenado en un servidor, adicionalmente el servidor <strong>#1</strong> posee elarchivo completo.',20,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Archivo por Partes','Al enviar el mensaje para acceder al archivo por partes, el cliente solicita simultaneamente el archivo en cada servidor y espera por su transferencia calculando el tiempo transcurrido entre la solicitud y la entrega del archivo',20,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Archivo Completo','Al enviar el mensaje para acceder al archivo completo, el cliente solicita el archivo al servidor <strong>#1</strong> quien contiene el archivo localmente, el tiempo de transferencia se inicia al enviarse la solicitud al servidor. ',20,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Comparacion Archivos','La transferencia del archivo en partes siempre sera mucho mas rapida que el archivo completo, debido a que simultaneamente se realiza la peticion y esto se puede comparar con maquinas de un procesador vs maquinas de varios procesadores',20,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Archivo por Partes','Al enviar el mensaje para acceder al archivo por partes, el cliente solicita simultaneamente el archivo en cada servidor y espera por su transferencia calculando el tiempo transcurrido entre la solicitud y la entrega del archivo.',20,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'IP Asociado','Al enviar la direccion URL de un sitio particular, el servidor envia el ip asociado a esa URL',21,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Comparacion Archivos','La transferencia del archivo en partes siempre sera mucho mas rapida que el archivo completo, debido a que simultaneamente se realiza la peticion y equivale a comparar maquinas de un procesador vs maquinas de varios procesadores.',20,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Agregar Sitio','Se pueden agregar nuevos sitios al servidor de manera que pueda ser consultado por el cliente',21,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'IP Asociado','Al enviar la direccion URL de un sitio particular, el servidor envia el ip asociado a esa URL.',21,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Agregar','Si se envia el mensaje add seguido de la informacion adecuada, entonces el servidor almacenara el usuario en el dominio correspondiente ',22,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Agregar Sitio','Se pueden agregar nuevos sitios al servidor de manera que pueda ser consultado por el cliente.',21,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Consultar','Al enviar el mensaje search y el nombre del usuario se podra visualizar la informacion perteneciente al usuario (datos personales)',22,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Agregar','Si se envia el mensaje <strong>add</strong> seguido de la informacion del usuario entonces, el servidor almacenara el usuario en el dominio indicado.',22,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Eliminar','Al enviar el mensaje delete y el nombre del usuario, entonces el servidor localiza al usuario y lo elimina del dominio',22,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Consultar','Al enviar el mensaje <strong>search</strong> y el nombre del usuario se podra visualizar la informacion perteneciente al usuario (datos personales).',22,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Listar Mensajes','Si se envia el mensaje "listar:" se muestra el contenido de la lista remota',23,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Eliminar','Al enviar el mensaje <strong>delete</strong> y el nombre del usuario entonces, el servidor localiza al usuario y lo elimina del dominio.',22,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Agregar Mensajes','Si se envia el mensaje "agregar:MensajeAagregar" agregar una cadena de caracteres a la lista remota. ',23,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Listar Mensajes','Si se envia el mensaje <strong>listar:</strong> se muestra el contenido de la lista remota.',23,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Eliminar','Si se envia el mensaje "eliminar:" se vacia la lista de mensajes remota ',23,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Agregar Mensajes','Si se envia el mensaje <strong>agregar:MensajeAagregar</strong> agregar una cadena de caracteres a la lista remota. ',23,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Bean con estado (stateful)','Al enviar el mensaje2 (apellido) vacio el servlet responde con la frase: Se borro lo que escribi, indicando que fue null el campo del apellido',24,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Eliminar','Si se envia el mensaje <strong>eliminar:</strong> se vacia la lista de mensajes remota. ',23,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Bean sin estado (stateless)','Al enviar el mensaje1 (nombre) o el mensaje3 (cedula) vacio, el servlet responde con el ultimo valor que fue agregado al bean en el campo indicado',24,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Bean con estado (stateful)','Al enviar el mensaje 2 (apellido) vacio, el servlet responde con la frase: <strong>Se borro lo que escribi </strong> debido a que el bean guarda el estado de la variable <strong>DURANTE</strong> la conexion con el cliente, cada llamada al metodo almacena la variable </strong>ENVIADA</strong>.',24,NULL);
+INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
+VALUES (S_ESCENARIOS.NEXTVAL,'Bean sin estado (stateless)','Al enviar el mensaje 1 (nombre) o el mensaje 3 (cedula) vacio, el servlet responde con el <strong>ULTIMO</strong> valor que fue agregado al bean en dicho campo, debido a que los beans sin estado no estan asociados a la conexion con el cliente actual, por lo que el estado de las variables se mantienen en las <strong>SIGUIENTES</strong> invocaciones de los metodos.',24,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
 VALUES (S_ESCENARIOS.NEXTVAL,'Consumir Servicio','El cliente realiza una llamada de tipo RPC para solicitar los servicios ubicados en el servidor.',25,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Interfaz comun','Tanto el cliente como el servidor poseen para conocer los metodos disponibles para el consumo.',25,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Interfaz comun','Tanto el cliente como el servidor poseen la interfaz para conocer los metodos disponibles para el consumo del servicio.',25,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Consumir Servicio','El cliente consume los servicios del servidor mediante la URL indicadas y una peticion GET',26,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Consumir Servicio','El cliente consume los servicios del servidor mediante la <strong>URL</strong> indicadas y una peticion <strong>GET</strong>.',26,NULL);
 INSERT INTO ESCENARIOS (ID,NOMBRE,DESCRIPCION,ID_APLICACION,IMAGEN)
-VALUES (S_ESCENARIOS.NEXTVAL,'Servidor','El servidor al ser una aplicacion web se encuentra alojado en un contenedor web, en este caso se encuentra alojado en el servidor glassfish',26,NULL);
+VALUES (S_ESCENARIOS.NEXTVAL,'Servidor','El servidor al ser una aplicacion web se encuentra alojado en un contenedor web, en este caso se encuentra alojado en el servidor glassfish.',26,NULL);
 
 
 /*

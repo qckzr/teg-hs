@@ -228,7 +228,7 @@ public class LogicaAplicacion {
                     indexOf(":")+1,date.toString().indexOf(":")+6);
             System.out.println("Reloj Sincronizado con:"+m.getHora().
                     substring(0,mensaje.getHora().indexOf(":")+1)+complemento);
-            libreriaMensajes.enviarMensaje("Reloj Sincronizado con:"+m.getHora().
+            libreriaMensajes.enviarMensaje("Reloj Sincronizado con: "+m.getHora().
                     substring(0,mensaje.getHora().indexOf(":")+1)+complemento);
             return true;
         } catch (ParseException ex) {

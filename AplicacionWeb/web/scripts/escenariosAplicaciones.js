@@ -22,7 +22,7 @@ function escenariosAplicaciones(sel) {
         var textArea = document.createElement("textarea");
         var descripcion = "descripcion";
         textArea.name = descripcion.concat("", i.toString());
-        textArea.className = "span6";
+        textArea.className = "span12";
         var foo = document.getElementById("Escenarios");
         var labelNombre = document.createElement("Label");
         labelNombre.className = "control-label";

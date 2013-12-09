@@ -111,7 +111,9 @@ public class LogicaAplicacion {
                     libreriaMensajes.enviarMensaje("Leyendo el archivo...");
                     enviarMensaje(mensaje);
                 } else if (mensaje.getMensaje().contains("escribir:")){
-                    libreriaMensajes.enviarMensaje("Escribiendo en el archivo...");
+                    libreriaMensajes.enviarMensaje("Escribiendo en el archivo"
+                            + " el mensaje '"+mensaje.getMensaje().substring(
+                                    mensaje.getMensaje().indexOf(":")+1)+"'...");
                     enviarMensaje(mensaje);
                 }
             }

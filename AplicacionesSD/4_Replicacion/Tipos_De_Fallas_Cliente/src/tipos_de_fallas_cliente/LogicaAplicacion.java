@@ -133,7 +133,8 @@ public class LogicaAplicacion {
      * @return True si el mensaje fue enviado. False en caso contrario.
      */
     public boolean enviarMensaje(Mensaje mensaje){
-        libreriaMensajes.enviarMensaje("Enviando mensaje al servidor...");
+        libreriaMensajes.enviarMensaje("Enviando el mensaje '"
+                +mensaje.getMensaje()+"' al servidor...");
         Mensaje mensaje1 = new Mensaje(libreriaMensajes.getIpOrigen(),mensaje.getMensaje());
          if (libreriaMensajes.enviarMensaje(mensaje1, ipServidor)) {
              return true;

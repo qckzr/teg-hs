@@ -80,7 +80,7 @@ public class EscuchaArchivo extends Thread{
             socket.close();
             logicaAplicacion.setArchivoRecibido(logicaAplicacion.getArchivoRecibido()+1);
             if (logicaAplicacion.getArchivoRecibido() == 3){
-                System.out.println("Segundos que tardó el archivo: "
+                System.out.println("Segundos que tardó el archivo por partes: "
                         +logicaAplicacion.getTiempo().getSegundos());
                 logicaAplicacion.getLibreriaMensajes().enviarMensaje(
                         "Segundos que tardó el archivo: "

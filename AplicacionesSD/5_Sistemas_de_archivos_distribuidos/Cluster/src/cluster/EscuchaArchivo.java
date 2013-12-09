@@ -71,7 +71,7 @@ public class EscuchaArchivo extends Thread{
             mensaje = ois.readObject();
             
             if (mensaje instanceof MensajeDameFichero) {
-                
+                logicaAplicacion.getLibreriaMensajes().enviarMensaje("Enviando archivo...");
                 enviaFichero(((MensajeDameFichero) mensaje).nombreFichero,
                         new ObjectOutputStream(cliente.getOutputStream()));
             } else {

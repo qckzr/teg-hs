@@ -111,12 +111,13 @@ public class LogicaAplicacion {
                          +mensaje.getIpOrigen());
                  if (mensaje.getIpOrigen().contentEquals(libreriaMensajes.
                          getIpDestino().get(0))){
-                     libreriaMensajes.enviarMensaje("Enviando direccion...");
+                     libreriaMensajes.enviarMensaje("Enviando url '"
+                             +mensaje.getMensaje()+"'...");
                      enviarMensaje(mensaje.getMensaje());
                  }  
                  else{
                      System.out.println("Ip recibido: "+mensaje.getMensaje());
-                     libreriaMensajes.enviarMensaje("Ip recibido: "
+                     libreriaMensajes.enviarMensaje("Direccion ip recibida: "
                              +mensaje.getMensaje());
                  }
                  
