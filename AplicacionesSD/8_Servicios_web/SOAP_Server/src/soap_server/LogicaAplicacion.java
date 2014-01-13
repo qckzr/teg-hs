@@ -25,8 +25,8 @@ public class LogicaAplicacion {
         this.libreriaMensajes = libreriaMensajes;
         this.datosAplicacion = datosAplicacion;
         this.puertoAgente = puertoAgente;
-        Endpoint.publish("http://"+libreriaMensajes.getIpOrigen()
-                +":9999/ws/mensajes", new MensajesServicioImpl());
+        publicarServicio();
+        
     }
 
     public LibreriaMensajes getLibreriaMensajes() {
@@ -114,6 +114,14 @@ public class LogicaAplicacion {
         libreriaMensajes.enviarMensaje("id<"
                 +datosAplicacion.getIdProceso(),ipServidor);
         libreriaMensajes.enviarMensaje("Ejecutable inicializado");
+    }
+    
+    /**
+     * Método que permite publicar en servicio web
+     */
+    public void publicarServicio(){
+        Endpoint.publish("http://"+libreriaMensajes.getIpOrigen()
+                +":9999/ws/mensajes", new MensajesServicioImpl());
     }
     
     

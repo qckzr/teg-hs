@@ -29,6 +29,8 @@ public class LogicaAplicacion {
         this.libreriaMensajes = libreriaMensajes;
         this.datosAplicacion = datosAplicacion;
         this.puertoAgente = puertoAgente;
+        File file = new File(archivo);
+        file.delete();
         
     }
     

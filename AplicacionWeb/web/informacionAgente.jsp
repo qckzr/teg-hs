@@ -26,7 +26,7 @@
         <dl class="dl-horizontal"> 
             <dt>Aplicacion Activa:</dt> <dd>${aplicacionActiva}</dd>
             <dt>Direccion ip:</dt> <dd>${direccionIp}</dd>
-            <dt>Id Proceso:</dt> <dd>${idProceso}</dd>
+            <!--<dt>Id Proceso:</dt> <dd>${idProceso}</dd> -->
             <dt> Memoria Disponible:</dt> <dd>${memoriaDisponible}</dd>
             <dt>Numero de Nodo:</dt> <dd>${numeroNodo}</dd>
             <dt>Procesos Activos:</dt> <dd>${procesosActivos}</dd>

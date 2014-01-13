@@ -1,6 +1,0 @@
-•	Los tópicos a desarrollar estarán basados únicamente en los temas del programa de sistemas distribuidos para estudiantes de ingeniería informática de la UCAB.
-•	Los scripts a realizar sólo podrán ser ejecutados bajo sistemas operativos Unix / Linux.
-•	Existirán un máximo de cuatro Raspberries Pi que funcionen como nodos.
-•	Las aplicaciones a desarrollar sobre sistemas distribuidos no poseen interfaz gráfica, por lo que todas las acciones que ocurran dentro de ellas solo podrán ser visualizadas por salidas enviadas por la librería desarrollada. En caso que se requiera enviar una información a un nodo particular el usuario lo podrá indicar desde el módulo de ciclo de vida.
-•	Las aplicaciones a desarrollar sobre sistemas distribuidos se enfocarán en resolver el objetivo del tópico, no poseen un alto grado de complejidad en términos de programación (líneas de código, cantidad de clases utilizadas, entre otros) más que el necesario para mantener las buenas prácticas del desarrollo de software.
-•	Existirá una base de diez preguntas relacionadas con cada tópico de la cátedra sistema distribuido en función a las aplicaciones a desarrollar, dejando a criterio del profesor la creación de nuevas preguntas.

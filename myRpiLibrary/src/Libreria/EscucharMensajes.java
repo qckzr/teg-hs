@@ -85,7 +85,7 @@ public class  EscucharMensajes extends Thread {
             try {
                 
                 socket = serverSocket.accept(); 
-                 objectInputStream = new ObjectInputStream(socket.getInputStream()) ;
+                objectInputStream = new ObjectInputStream(socket.getInputStream()) ;
                 Object object = objectInputStream.readObject();
                 if (object instanceof Mensaje){
                     lib.agregarMensajeRecibido((Mensaje) object);
@@ -94,13 +94,15 @@ public class  EscucharMensajes extends Thread {
                     lib.agregarMensajeRecibido((InformacionAgente)object);
                 }
                 socket.close();
+                
 
             } catch (ClassNotFoundException ex) {
+                System.out.println("ERROR ACA?");
             } catch (SocketException ex){
                 System.out.println("Se está reseteando...!");
         
             } catch (IOException ex) {
-        
+            //    System.out.println("Se cerró el socket");
             }
         }
     }

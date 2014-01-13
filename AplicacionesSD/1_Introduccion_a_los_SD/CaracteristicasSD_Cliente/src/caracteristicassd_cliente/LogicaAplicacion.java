@@ -19,14 +19,9 @@ public class LogicaAplicacion {
     private int puertoAgente;
     private DatosAplicacion datosAplicacion;
     private String archivo = "/home/pi/Desktop/archivoCaracteristicasSD.txt";
-    private static final int PUERTO = 5555;
     private String ipServidor1;
     private String ipServidor2;
     
-
-    public int getPuerto(){
-        return PUERTO;
-    }
 
     public LibreriaMensajes getLibreriaMensajes() {
         return libreriaMensajes;

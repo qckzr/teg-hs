@@ -388,15 +388,15 @@ Se tienen cuatro (4) ejecutables cliente que envian su numero de proceso a los d
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Acceso Remoto',TO_DATE('22/09/2013','DD/MM/YYYY'),'
 Se tienen una ejecutable servidor con un archivo almacenado y un ejecutable cliente que puede leer o escribir en el archivo. <br/><br/>
-1. Para escribir en el archivo txt enviar el mensaje <strong>escribir</strong> seguido del mensaje a enviar, ej: escribir:Esto es una prueba. <br/>
-2. Para visualizar el contenido del archivo enviar el mensaje <strong>ver:</strong>. <br/> ',18); /* 18 */
+1. Para escribir en el archivo txt enviar el mensaje: <strong>escribir:</strong> seguido del mensaje a enviar, ej: <strong>escribir:Esto es una prueba </strong> <br/>
+2. Para visualizar el contenido del archivo enviar el mensaje: <strong>ver:</strong> <br/> ',18); /* 18 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Carga y Descarga',TO_DATE('22/09/2013','DD/MM/YYYY'),'
 Se tiene un ejecutable servidor con un archivo de texto almacenado y dos (2) ejecutables clientes que pueden descargar y cargar el archivo del servidor. <br/><br/>
-1. Para acceder al archivo enviar el mensaje <strong>archivo:</strong> desde uno de los clientes <br/>
-2. Para leer el archivo recibido enviar el mensaje  <strong>ver:</strong> desde el cliente que posea el archivo <br/>
-3. Para escribir en el archivo recibido enviar el mensaje <strong>escribir</strong> seguido del mensaje a enviar. ej: escribir:Esto es una prueba. desde el cliente que posea el archivo <br/>
-4. Para enviar el archivo recibido enviar el mensaje <strong>enviar:</strong> desde el cliente que posea el archivo. <br/>  ',19); /* 19 */
+1. Para acceder al archivo enviar el siguiente mensaje desde uno de los clientes: <strong>archivo:</strong> <br/>
+2. Para leer el archivo recibido enviar el siguiente mensaje desde el cliente que posea el archivo:  <strong>ver:</strong> <br/>
+3. Para escribir en el archivo recibido enviar el siguiente mensaje seguido del mensaje a agregar desde el cliente que posea el arrchivo:  <strong>escribir:</strong> ej: <strong>escribir:Esto es una prueba </strong> <br/>
+4. Para enviar el archivo recibido enviar el siguiente mensaje desde el cliente que posea el archivo: <strong>enviar:</strong> <br/>  ',19); /* 19 */
 INSERT INTO APLICACIONES (ID,NOMBRE,FECHA_ACTUALIZACION,INSTRUCCIONES,ID_TOPICO)
 VALUES (S_APLICACIONES.NEXTVAL,'Cluster',TO_DATE('22/09/2013','DD/MM/YYYY'),'
 Se tienen tres (3) ejecutables servidor con archivos de texto almacenados y un ejecutable cliente que puede solicitar los archivos <br/><br/>
@@ -437,8 +437,7 @@ VALUES (S_APLICACIONES.NEXTVAL,'REST',TO_DATE('22/09/2013','DD/MM/YYYY'),'
 Se tiene un ejecutable servidor que posee los metodos de saludo, fecha y hora  alojado en el servidor glassfish y un ejecutable cliente que puede consumirlos <br/><br/>
 1. Los servicios disponibles para consumir son: hora,fecha y mensaje. <br/>
 2. Para consumir un servicio enviar uno de los siguientes mensajes: <strong><ul><li>hora:</li> <li>fecha:</li> <li>mensaje:</li></ul></strong> <br/>
-3. Los metodos a consumir se encuentran en la direccion: http://192.168.1.191:8080/REST_Servidor/resources/hora <br/>
-http://192.168.1.191:8080/REST_Servidor/resources/fecha <br/> http://192.168.1.191:8080/REST_Servidor/resources/saludo <br/>  ',26); /* 26 */
+3. Los metodos a consumir se encuentran en la direccion: <ul><li>http://192.168.1.191:8080/REST_Servidor/resources/hora</li> <li>http://192.168.1.191:8080/REST_Servidor/resources/fecha </li><li>http://192.168.1.191:8080/REST_Servidor/resources/saludo </li>  ',26); /* 26 */
 
 
 
